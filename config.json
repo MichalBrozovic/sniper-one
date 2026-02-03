@@ -1,0 +1,7 @@
+{
+	"defaultUrl": "https://sniperdesign.myshoptet.com/",
+	"sourceFolder": "./src",
+	"outputFolder": "./dist",
+	"blankModeScript": true,
+	"blankModeStyle": false
+}

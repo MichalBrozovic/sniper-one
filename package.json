@@ -1,0 +1,9 @@
+{
+  "name": "sniper-one",
+  "version": "1.0.0",
+  "description": "Sniper One - komplexní šablona pro Shoptet",
+  "type": "module",
+  "dependencies": {
+    "miranda-bender": "^1.2.23"
+  }
+}

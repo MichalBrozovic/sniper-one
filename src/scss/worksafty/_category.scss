@@ -1,0 +1,131 @@
+// CATEGORY
+// .products-inline:not(.dkLabVisitedProducts) {
+// 	.p {
+// 		display: flex;
+// 		align-items: center;
+// 		.image {
+// 			flex-shrink: 0;
+// 		}
+// 	}
+// 	.product.inactive {
+// 		display: none;
+// 	}
+// 	.price-standard-wrapper-placeholder {
+// 		display: none;
+// 	}
+// }
+// #category-header {
+// 	form {
+// 		overflow-x: auto;
+// 		overflow-y: hidden;
+// 	}
+// 	fieldset {
+// 		overflow: hidden;
+// 	}
+// }
+.category-content-wrapper {
+    .all-products {
+        display: flex;
+        margin-bottom: 40px;
+        gap: 10px;
+    }
+
+    @media screen and (max-width: 767px) {
+
+        .all-products {
+            display: none;
+        }
+
+
+    }
+}
+
+.slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    h4 {
+        order: 1;
+    }
+
+    .slider-content {
+        order: 2;
+        padding: 0 8px;
+        height: 4px;
+        margin-top: 5px;
+
+    }
+
+    .slider-header {
+        order: 3;
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .ui-slider {
+        height: 8px;
+        position: relative;
+        background-color: $color-font-second;
+        border-radius: 2px;
+    }
+
+    .ui-slider-range {
+        position: absolute;
+        top: 0;
+        border-radius: 2px;
+        height: 100%;
+        background-color: $color-primary;
+    }
+
+    .ui-slider-handle {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        margin-left: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: $color-font;
+        border-radius: 2px;
+
+        cursor: pointer;
+
+        &::before {
+            content: "";
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            position: absolute;
+            width: 8px;
+            height: 7px;
+            background-image: url(../img/icon/range-dot.svg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+    }
+}
+
+.advanced-filters-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    &:not(:empty) {
+        // margin-bottom: 20px;
+    }
+
+    .advanced-parameter {
+        margin-right: 0;
+
+        .advanced-parameter-inner {
+            margin-bottom: 0;
+        }
+    }
+}

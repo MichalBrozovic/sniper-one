@@ -1,0 +1,283 @@
+@mixin box-sizing($value) {
+    -webkit-box-sizing: $value;
+    -moz-box-sizing: $value;
+    box-sizing: $value;
+}
+
+@mixin clearfix() {
+
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+@mixin container($max-width: $container-width) {
+    max-width: calc($max-width + ($container-padding * 2));
+    margin: 0 auto !important;
+    width: 100%;
+    padding-left: $container-padding;
+    padding-right: $container-padding;
+    zoom: 1;
+    @include box-sizing(border-box);
+    @include clearfix;
+
+    @media (max-width: $max-sm) {
+        padding-left: $container-padding-mobile;
+        padding-right: $container-padding-mobile;
+    }
+}
+
+@mixin trans($t) {
+    -webkit-transition: all $t ease-in-out;
+    -moz-transition: all $t ease-in-out;
+    -o-transition: all $t ease-in-out;
+    transition: all $t ease-in-out;
+}
+
+@function emMM($size, $context: $core-default) {
+    @return calc(($size / $context) * 1em);
+}
+
+@function remMM($size, $context: $core-default) {
+    @return calc(($size / $context) * 1rem);
+}
+
+@mixin dividerBottom() {
+    position: relative;
+    margin-bottom: 104px;
+    padding-bottom: 114px;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 1px;
+        max-width: 1440px;
+        width: 100%;
+        background-color: $border-primary;
+    }
+
+    &::after {
+        content: "";
+        // background-color: $color-page-bg;
+        // padding: 11px;
+        // width: 37px;
+        // height: 35px;
+        padding: 2px;
+        // background: url(/assets/img/icon/logo-small.svg) no-repeat center center;
+        background-size: 36px 36px;
+        background-color: $color-page-bg;
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+
+        position: absolute;
+        left: 50%;
+    }
+
+
+
+    &::before {
+        bottom: 20px;
+    }
+
+    &::after {
+        bottom: 0px;
+        transform: translateX(-50%);
+    }
+}
+
+@mixin inherit() {
+    font-size: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+    line-height: inherit;
+    font-family: inherit;
+    color: inherit;
+    text-transform: inherit;
+    transition: inherit;
+}
+
+
+@mixin underline-mid($bg-color: $color-font, $height: 1px, $bottom: 0) {
+    position: relative;
+    @include trans(0.3s);
+
+    &:hover {
+        &::before {
+            transform: scale(1, 1);
+        }
+    }
+
+    &::before {
+        @include trans(0.3s);
+        content: "";
+        left: 0;
+        top: unset;
+        bottom: $bottom;
+        width: 100%;
+        height: $height;
+        display: block;
+        background-color: $bg-color;
+        position: absolute;
+        transform: scale(0, 1);
+    }
+}
+
+@mixin underline-mid-reverse($bg-color: $color-font, $height: 1px, $bottom: 0) {
+    position: relative;
+    @include trans(0.3s);
+
+    &:hover {
+        &::before {
+            transform: scale(0, 1);
+        }
+    }
+
+    &::before {
+        @include trans(0.3s);
+        content: "";
+        left: 0;
+        top: unset;
+        left: unset;
+        bottom: $bottom;
+        width: 100%;
+        height: $height;
+        display: block;
+        background-color: $bg-color;
+        position: absolute;
+        transform: scale(1, 1);
+    }
+}
+
+//Breakpoints
+
+// MIN-MAX
+@mixin range($from, $to) {
+    @media (min-width: $from) and (max-width: $to) {
+        @content;
+    }
+}
+
+//Custom max
+@mixin max-custom($custom) {
+    @media (max-width: $custom) {
+        @content;
+    }
+}
+
+//Custom min
+@mixin min-custom($custom) {
+    @media (min-width: $custom) {
+        @content;
+    }
+}
+
+// Max-width mixins
+// Platí pro šířku maximálně 370px
+@mixin max-xs() {
+    @media (max-width: $max-xs) {
+        @content;
+    }
+}
+
+// Platí pro šířku maximálně 767px
+@mixin max-sm() {
+    @media (max-width: $max-sm) {
+        @content;
+    }
+}
+
+// Platí pro šířku maximálně 991px
+@mixin max-md() {
+    @media (max-width: $max-md) {
+        @content;
+    }
+}
+
+// Platí pro šířku maximálně 1023px
+@mixin max-lg() {
+    @media (max-width: $max-lg) {
+        @content;
+    }
+}
+
+// Platí pro šířku maximálně 1199px
+@mixin max-xl() {
+    @media (max-width: $max-xl) {
+        @content;
+    }
+}
+
+// Platí pro šířku maximálně 1439px
+@mixin max-2xl() {
+    @media (max-width: $max-2xl) {
+        @content;
+    }
+}
+
+// Platí pro šířku maximálně 1919px
+@mixin max-3xl() {
+    @media (max-width: $max-3xl) {
+        @content;
+    }
+}
+
+// Min-width mixins
+// Platí pro šířku minimálně 371px
+@mixin min-xs() {
+    @media (min-width: $min-xs) {
+        @content;
+    }
+}
+
+// Platí pro šířku minimálně 768px
+@mixin min-sm() {
+    @media (min-width: $min-sm) {
+        @content;
+    }
+}
+
+// Platí pro šířku minimálně 992px
+@mixin min-md() {
+    @media (min-width: $min-md) {
+        @content;
+    }
+}
+
+// Platí pro šířku minimálně 1024px
+@mixin min-lg() {
+    @media (min-width: $min-lg) {
+        @content;
+    }
+}
+
+// Platí pro šířku minimálně 1200px
+@mixin min-xl() {
+    @media (min-width: $min-xl) {
+        @content;
+    }
+}
+
+// Platí pro šířku minimálně 1440px
+@mixin min-2xl() {
+    @media (min-width: $min-2xl) {
+        @content;
+    }
+}
+
+// Platí pro šířku minimálně 1920px
+@mixin min-3xl() {
+    @media (min-width: $min-3xl) {
+        @content;
+    }
+}

@@ -1,0 +1,112 @@
+//Container width
+$container-width: 1440px;
+$container-width-second: 1440px;
+
+//Container padding
+$container-padding: 2.4rem;
+$container-padding-mobile: 1.6rem;
+
+$sidebar-width: 340px;
+
+//gap
+$gap-xs: 8px;
+$gap-sm: 12px;
+$gap-default: 16px;
+$gap-md: 20px;
+$gap-lg: 24px;
+$gap-xl: 32px;
+$gap-2xl: 40px;
+$gap-3xl: 48px;
+
+//border-radius
+$border-radius-xs: 4px;
+$border-radius-sm: 8px;
+$border-radius-default: 12px;
+$border-radius-md: 16px;
+$border-radius-lg: 20px;
+$border-radius-xl: 24px;
+$border-radius-2xl: 28px;
+$border-radius-3xl: 36px;
+
+// Breakpoint variables
+$max-xs: 370px;
+$max-sm: 767px;
+$max-md: 900px;
+$max-lg: 1023px;
+$max-xl: 1199px;
+$max-2xl: 1439px;
+$max-3xl: 1919px;
+
+$min-xs: $max-xs + 1;
+$min-sm: $max-sm + 1;
+$min-md: $max-md + 1;
+$min-lg: $max-lg + 1;
+$min-xl: $max-xl + 1;
+$min-2xl: $max-2xl + 1;
+$min-3xl: $max-3xl + 1;
+
+// FONTS
+$text-xs: 12; // 0.75rem
+$text-sm: 14; // 0.875rem
+$text-default: 16; // 1rem
+$text-md: 18; // 1.125rem
+$text-lg: 20; // 1.25rem
+$text-xl: 24; // 1.5rem
+$text-2xl: 28; // 1.75rem
+$text-3xl: 32; // 2rem
+
+$core-default: 10;
+
+//H1
+$h1: 48;
+$h1-mobile: 36;
+
+//H2
+$h2: 40;
+$h2-mobile: 32;
+
+$h2-big: 48;
+$h2-big-mobile: 36;
+
+$h2-small: 24;
+$h2-small-mobile: 22;
+
+//H3
+$h3: 32;
+$h3-mobile: 24;
+
+$h3-big: 36;
+$h3-big-mobile: 28;
+
+$h3-mid: 24;
+$h3-mid-mobile: 24;
+
+$h3-small: 20;
+$h3-small-mobile: 20;
+
+//H4
+$h4: 24;
+$h4-mobile: 20;
+
+$h4-mid: 20;
+$h4-mid-mobile: 20;
+
+$h4-small: 18;
+$h4-small-mobile: 18;
+
+$h4-tiny: 20;
+$h4-tiny-mobile: 18;
+
+//H5
+$h5: 20;
+$h5-mobile: 18;
+
+$h5-small: 16;
+$h5-small-mobile: 16;
+
+//H6
+$h6: 18;
+$h6-mobile: 18;
+
+$default-font-family: sans-serif;
+$heading-font-family: sans-serif;
