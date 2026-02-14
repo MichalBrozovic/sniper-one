@@ -38,7 +38,7 @@
 }
 
 #cboxContent #cboxClose {
-   transition: all 0.3s ease-in-out;
+    @include trans(0.3s);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,7 +53,7 @@
     // background-color: @white;
 
     div {
-       transition: all 0.3s ease-in-out;
+        @include trans(0.3s);
         height: 2px;
         width: 100%;
         position: absolute;
@@ -71,7 +71,7 @@
     }
 
     &:hover {
-       transition: all 0.3s ease-in-out;
+        @include trans(0.3s);
 
         div {
             background-color: $flag-action;
@@ -105,6 +105,16 @@
             &::before {
                 display: none;
             }
+
+            @media screen and (max-width: 767px) {
+                font-size: remMM(16);
+                padding: emMM(10);
+
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+            margin-top: 10px !important;
         }
     }
 
@@ -211,8 +221,8 @@
             gap: 24px;
             width: 100%;
             padding: 8px 0;
-            border-top: 1px solid $border-primary;
-            border-bottom: 1px solid $border-primary;
+            border-top: 1px solid $color-border;
+            border-bottom: 1px solid $color-border;
 
             @media (max-width: 767px) {
                 gap: 10px;
@@ -351,7 +361,7 @@
         position: absolute;
 
         .close {
-           transition: all 0.3s ease-in-out;
+            @include trans(0.3s);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -366,7 +376,7 @@
             // background-color: @white;
 
             div {
-               transition: all 0.3s ease-in-out;
+                @include trans(0.3s);
                 height: 2px;
                 width: 100%;
                 position: absolute;
@@ -384,7 +394,7 @@
             }
 
             &:hover {
-               transition: all 0.3s ease-in-out;
+                @include trans(0.3s);
 
                 div {
                     background-color: $flag-action;
@@ -508,7 +518,7 @@
 // 	font-size: 2rem;
 // 	text-align: right;
 // }
-//  @include max-sm(){
+// @media (max-width: $breakpoint-mobile) {
 // 	.ao-price {
 // 		font-size: 1.4rem;
 // 	}

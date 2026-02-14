@@ -1,112 +1,75 @@
-//Container width
-$container-width: 1440px;
-$container-width-second: 1440px;
+// LAYOUT VARIABLES
+$container-width: 1248px;
+$container-padding: 2rem;
+$container-padding-mobile: 20px;
+$breakpoint-mobile: 767px;
+$breakpoint-tablet: 991px;
+$columns-gap: 20px;
+$columns-gap-mobile: 20px;
+$sidebar-width: 264px;
+$layout-gap: 25px;
 
-//Container padding
-$container-padding: 2.4rem;
-$container-padding-mobile: 1.6rem;
+// COLORS
+$color-font: #2A2A28;
+$color-accent: #F4B395;
 
-$sidebar-width: 340px;
+$color-primary:#F9CAB5;
+$color-primary-hov:#F4B395;
+$color-primary-dis:#C4C6C7;
 
-//gap
-$gap-xs: 8px;
-$gap-sm: 12px;
-$gap-default: 16px;
-$gap-md: 20px;
-$gap-lg: 24px;
-$gap-xl: 32px;
-$gap-2xl: 40px;
-$gap-3xl: 48px;
+$color-secondary:#2A2A28;
+$color-secondary-hov:#454542;
+$color-secondary-dis:#D8D8D8;
 
-//border-radius
-$border-radius-xs: 4px;
-$border-radius-sm: 8px;
-$border-radius-default: 12px;
-$border-radius-md: 16px;
-$border-radius-lg: 20px;
-$border-radius-xl: 24px;
-$border-radius-2xl: 28px;
-$border-radius-3xl: 36px;
 
-// Breakpoint variables
-$max-xs: 370px;
-$max-sm: 767px;
-$max-md: 900px;
-$max-lg: 1023px;
-$max-xl: 1199px;
-$max-2xl: 1439px;
-$max-3xl: 1919px;
+$color-page-background: #fff;
+$color-page-background-2: #F2F1EE;
+$color-secondary: #001024;
+$color-font-second: #fff;
 
-$min-xs: $max-xs + 1;
-$min-sm: $max-sm + 1;
-$min-md: $max-md + 1;
-$min-lg: $max-lg + 1;
-$min-xl: $max-xl + 1;
-$min-2xl: $max-2xl + 1;
-$min-3xl: $max-3xl + 1;
+$black: #000;
+$white: #fff;
+$black-07: rgba(0, 0, 0, 0.07);
+$black-15: rgba(0, 0, 0, 0.15);
+$black-30: rgba(0, 0, 0, 0.30);
+
+
+$flag-action: #FF502B;
+$flag-new: #B489FA;
+$flag-bestseller: #3FDEA3;
+$flag-discount: #eb2a00;
+$flag-sale: #FF502B;
+$flag-gift: #4486B6;
+$red-1:#F55F68;
+
+
+$alert:#F55F68;
+$notification:#F48F53;
+$positive:#87CB6F;
+$info:#5A95EE;
 
 // FONTS
-$text-xs: 12; // 0.75rem
-$text-sm: 14; // 0.875rem
-$text-default: 16; // 1rem
-$text-md: 18; // 1.125rem
-$text-lg: 20; // 1.25rem
-$text-xl: 24; // 1.5rem
-$text-2xl: 28; // 1.75rem
-$text-3xl: 32; // 2rem
+$default-font-size: 16;
 
-$core-default: 10;
+$font-size-h1: 46;
+$font-size-h1-mobile: 36;
 
-//H1
-$h1: 48;
-$h1-mobile: 36;
+$font-size-h2: 36;
+$font-size-h2-mobile: 28;
 
-//H2
-$h2: 40;
-$h2-mobile: 32;
+$font-size-h3: 30;
+$font-size-h3-mobile: 24;
 
-$h2-big: 48;
-$h2-big-mobile: 36;
+$font-size-h4: 24;
+$font-size-h4-mobile: 22;
 
-$h2-small: 24;
-$h2-small-mobile: 22;
+$font-size-h5: 18;
+$font-size-h5-mobile: 18;
 
-//H3
-$h3: 32;
-$h3-mobile: 24;
+$font-size-h6: 18;
+$font-size-h6-mobile: 18;
 
-$h3-big: 36;
-$h3-big-mobile: 28;
-
-$h3-mid: 24;
-$h3-mid-mobile: 24;
-
-$h3-small: 20;
-$h3-small-mobile: 20;
-
-//H4
-$h4: 24;
-$h4-mobile: 20;
-
-$h4-mid: 20;
-$h4-mid-mobile: 20;
-
-$h4-small: 18;
-$h4-small-mobile: 18;
-
-$h4-tiny: 20;
-$h4-tiny-mobile: 18;
-
-//H5
-$h5: 20;
-$h5-mobile: 18;
-
-$h5-small: 16;
-$h5-small-mobile: 16;
-
-//H6
-$h6: 18;
-$h6-mobile: 18;
-
-$default-font-family: sans-serif;
-$heading-font-family: sans-serif;
+$default-font-family: 'New Order',
+sans-serif;
+$heading-font-family: 'New Order',
+sans-serif;

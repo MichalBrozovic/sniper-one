@@ -27,7 +27,7 @@
     @include box-sizing(border-box);
     @include clearfix;
 
-    @media (max-width: $max-sm) {
+    @media (max-width: 767px) {
         padding-left: $container-padding-mobile;
         padding-right: $container-padding-mobile;
     }
@@ -40,11 +40,11 @@
     transition: all $t ease-in-out;
 }
 
-@function emMM($size, $context: $core-default) {
+@function emMM($size, $context: $default-font-size) {
     @return calc(($size / $context) * 1em);
 }
 
-@function remMM($size, $context: $core-default) {
+@function remMM($size, $context: $default-font-size) {
     @return calc(($size / $context) * 1rem);
 }
 
@@ -156,128 +156,5 @@
         background-color: $bg-color;
         position: absolute;
         transform: scale(1, 1);
-    }
-}
-
-//Breakpoints
-
-// MIN-MAX
-@mixin range($from, $to) {
-    @media (min-width: $from) and (max-width: $to) {
-        @content;
-    }
-}
-
-//Custom max
-@mixin max-custom($custom) {
-    @media (max-width: $custom) {
-        @content;
-    }
-}
-
-//Custom min
-@mixin min-custom($custom) {
-    @media (min-width: $custom) {
-        @content;
-    }
-}
-
-// Max-width mixins
-// Platí pro šířku maximálně 370px
-@mixin max-xs() {
-    @media (max-width: $max-xs) {
-        @content;
-    }
-}
-
-// Platí pro šířku maximálně 767px
-@mixin max-sm() {
-    @media (max-width: $max-sm) {
-        @content;
-    }
-}
-
-// Platí pro šířku maximálně 991px
-@mixin max-md() {
-    @media (max-width: $max-md) {
-        @content;
-    }
-}
-
-// Platí pro šířku maximálně 1023px
-@mixin max-lg() {
-    @media (max-width: $max-lg) {
-        @content;
-    }
-}
-
-// Platí pro šířku maximálně 1199px
-@mixin max-xl() {
-    @media (max-width: $max-xl) {
-        @content;
-    }
-}
-
-// Platí pro šířku maximálně 1439px
-@mixin max-2xl() {
-    @media (max-width: $max-2xl) {
-        @content;
-    }
-}
-
-// Platí pro šířku maximálně 1919px
-@mixin max-3xl() {
-    @media (max-width: $max-3xl) {
-        @content;
-    }
-}
-
-// Min-width mixins
-// Platí pro šířku minimálně 371px
-@mixin min-xs() {
-    @media (min-width: $min-xs) {
-        @content;
-    }
-}
-
-// Platí pro šířku minimálně 768px
-@mixin min-sm() {
-    @media (min-width: $min-sm) {
-        @content;
-    }
-}
-
-// Platí pro šířku minimálně 992px
-@mixin min-md() {
-    @media (min-width: $min-md) {
-        @content;
-    }
-}
-
-// Platí pro šířku minimálně 1024px
-@mixin min-lg() {
-    @media (min-width: $min-lg) {
-        @content;
-    }
-}
-
-// Platí pro šířku minimálně 1200px
-@mixin min-xl() {
-    @media (min-width: $min-xl) {
-        @content;
-    }
-}
-
-// Platí pro šířku minimálně 1440px
-@mixin min-2xl() {
-    @media (min-width: $min-2xl) {
-        @content;
-    }
-}
-
-// Platí pro šířku minimálně 1920px
-@mixin min-3xl() {
-    @media (min-width: $min-3xl) {
-        @content;
     }
 }

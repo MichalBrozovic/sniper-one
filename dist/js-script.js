@@ -3,22 +3,42 @@
 /*!**************************!*\
   !*** ./src/js/script.js ***!
   \**************************/
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 // -- Split menu -- //
 function moveElement(elementSelector, targetSelectors) {
-  const element = document.querySelector(elementSelector);
-  const footer = document.querySelector("footer");
+  var element = document.querySelector(elementSelector);
+  var footer = document.querySelector("footer");
   if (!element) {
-    console.error(`Prvek ${elementSelector} nebyl nalezen`);
+    console.error("Prvek ".concat(elementSelector, " nebyl nalezen"));
     return;
   }
-  let moved = false;
-  for (const targetSelector of targetSelectors) {
-    const target = document.querySelector(targetSelector);
-    if (target) {
-      target.insertAdjacentElement("afterend", element);
-      moved = true;
-      break;
+  var moved = false;
+  var _iterator = _createForOfIteratorHelper(targetSelectors),
+    _step;
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var targetSelector = _step.value;
+      var _target = document.querySelector(targetSelector);
+      if (_target) {
+        _target.insertAdjacentElement("afterend", element);
+        moved = true;
+        break;
+      }
     }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
   }
   if (!moved && footer) {
     footer.insertAdjacentElement("beforebegin", element);
@@ -28,7 +48,7 @@ function moveElement(elementSelector, targetSelectors) {
 //On funkce, na kliknutí a zavolání funkce
 function on(eventType, selector, callback) {
   document.addEventListener(eventType, function (e) {
-    let targetElement = e.target;
+    var targetElement = e.target;
     while (targetElement && targetElement !== document) {
       if (targetElement.matches(selector)) {
         e.preventDefault();
@@ -39,16 +59,16 @@ function on(eventType, selector, callback) {
     }
   });
 }
-const splitMenu = () => {
-  const menuWrapper = document.querySelector("#navigation .navigation-in");
+var splitMenu = function splitMenu() {
+  var menuWrapper = document.querySelector("#navigation .navigation-in");
   if (menuWrapper) {
-    setTimeout(() => {
-      let menuItems = menuWrapper.querySelectorAll(".menu-level-1>li:not(.appended-category)");
-      let menuHelper = document.querySelector(".menu-helper");
-      let menuWrapperStyle = window.getComputedStyle(menuWrapper);
-      menuItems.forEach(item => {
-        let offsetRight = item.offsetLeft + item.offsetWidth;
-        const itemInHelper = item.id === "nav-manufacturers" ? menuHelper.querySelector("#nav-manufacturers") : menuHelper.querySelector("." + item.classList[0]);
+    setTimeout(function () {
+      var menuItems = menuWrapper.querySelectorAll(".menu-level-1>li:not(.appended-category)");
+      var menuHelper = document.querySelector(".menu-helper");
+      var menuWrapperStyle = window.getComputedStyle(menuWrapper);
+      menuItems.forEach(function (item) {
+        var offsetRight = item.offsetLeft + item.offsetWidth;
+        var itemInHelper = item.id === "nav-manufacturers" ? menuHelper.querySelector("#nav-manufacturers") : menuHelper.querySelector("." + item.classList[0]);
         if (offsetRight > menuWrapper.clientWidth - parseFloat(menuWrapperStyle.paddingRight)) {
           if (itemInHelper) {
             itemInHelper.classList.remove("splitted");
@@ -74,42 +94,42 @@ const splitMenu = () => {
 shoptet.menu.splitMenu = splitMenu;
 
 // CAROUSEL
-const handleCarousel = () => {
-  const carousel = document.querySelector("#carousel .carousel-inner");
+var handleCarousel = function handleCarousel() {
+  var carousel = document.querySelector("#carousel .carousel-inner");
   if (carousel) {
-    let observer = new MutationObserver(mutationList => {
-      let currentItem;
-      mutationList.forEach(mutation => {
+    var _observer = new MutationObserver(function (mutationList) {
+      var currentItem;
+      mutationList.forEach(function (mutation) {
         if (mutation.target.className === "item active") {
           currentItem = mutation.target;
         }
       });
       if (typeof currentItem == "undefined") return;
-      let actualIndex = [...document.querySelectorAll(".carousel-inner .item")].indexOf(currentItem),
+      var actualIndex = _toConsumableArray(document.querySelectorAll(".carousel-inner .item")).indexOf(currentItem),
         dotsList = document.querySelectorAll(".carousel-dots li");
-      dotsList.forEach(dot => {
+      dotsList.forEach(function (dot) {
         dot.classList.remove("dot-active");
       });
       dotsList[actualIndex].classList.add("dot-active");
     });
-    let dotsCounter = 0,
+    var dotsCounter = 0,
       dotsList = document.createElement("ul");
     dotsList.classList.add("carousel-dots");
-    carousel.querySelectorAll(".item").forEach((item, index) => {
+    carousel.querySelectorAll(".item").forEach(function (item, index) {
       dotsCounter += 1;
-      let dotEl = document.createElement("li");
+      var dotEl = document.createElement("li");
       dotsList.appendChild(dotEl);
       if (index === 0) dotEl.classList.add("dot-active");
-      dotEl.addEventListener("click", e => {
+      dotEl.addEventListener("click", function (e) {
         e.preventDefault();
         document.querySelector(".carousel-inner .item.active").classList.remove("active");
-        let targetItem = document.querySelectorAll(".carousel-inner .item")[index];
-        const targetItemMedia = targetItem.querySelector("img, video");
+        var targetItem = document.querySelectorAll(".carousel-inner .item")[index];
+        var targetItemMedia = targetItem.querySelector("img, video");
         if (targetItemMedia) {
           if (targetItemMedia.tagName.toLowerCase() === "img" && !targetItemMedia.src) {
             targetItemMedia.src = targetItemMedia.getAttribute("data-src");
           } else if (targetItemMedia.tagName.toLowerCase() === "video") {
-            const sourceElement = targetItemMedia.querySelector("source");
+            var sourceElement = targetItemMedia.querySelector("source");
             if (sourceElement && !sourceElement.src) {
               sourceElement.src = sourceElement.getAttribute("data-src");
               targetItemMedia.load(); // Reload the video to apply the new source
@@ -118,7 +138,7 @@ const handleCarousel = () => {
         }
         targetItem.classList.add("active");
       });
-      observer.observe(item, {
+      _observer.observe(item, {
         attributes: true,
         attributeFilter: ["class"]
       });
@@ -152,48 +172,48 @@ if (shoptetPage == "homepage") {
 }
 
 // FLAGS and card
-const handleFlags = product => {
-  const flagsDefault = product.querySelector(".flags-default");
-  const flagsExtra = product.querySelector(".flags-extra");
+var handleFlags = function handleFlags(product) {
+  var flagsDefault = product.querySelector(".flags-default");
+  var flagsExtra = product.querySelector(".flags-extra");
   if (flagsDefault && flagsExtra) {
     flagsDefault.appendChild(flagsExtra);
     flagsDefault.classList.add("contains-extra");
   }
 };
-const handleTextLayout = product => {
-  const priceStandard = product.querySelector(".price-standard");
-  const prices = product.querySelector(".prices");
-  const pDesc = product.querySelector(".p-desc");
-  const pInIn = product.querySelector(".p-in-in");
-  const availability = product.querySelector(".availability");
-  const availabilitySpan = availability?.querySelector("span");
-  const pricesFinal = product.querySelector(".prices .price-final");
-  const priceAditional = product.querySelector(".price-additional");
-  const addToCartButton = product.querySelector(".add-to-cart-button");
-  const pCode = product.querySelector(".p-code");
+var handleTextLayout = function handleTextLayout(product) {
+  var priceStandard = product.querySelector(".price-standard");
+  var prices = product.querySelector(".prices");
+  var pDesc = product.querySelector(".p-desc");
+  var pInIn = product.querySelector(".p-in-in");
+  var availability = product.querySelector(".availability");
+  var availabilitySpan = availability === null || availability === void 0 ? void 0 : availability.querySelector("span");
+  var pricesFinal = product.querySelector(".prices .price-final");
+  var priceAditional = product.querySelector(".price-additional");
+  var addToCartButton = product.querySelector(".add-to-cart-button");
+  var pCode = product.querySelector(".p-code");
   if (pCode && pInIn) {
     pInIn.insertAdjacentElement("afterbegin", pCode);
   }
   if (priceStandard && prices) {
     prices.appendChild(priceStandard);
   }
-  const button = product.querySelector("button");
+  var button = product.querySelector("button");
   if (!button) {
     if (prices) prices.style.visibility = "hidden";
     if (availability) availability.style.visibility = "hidden";
   }
-  const image = product.querySelector(".image");
-  const starsRating = product.querySelector(".stars-wrapper");
+  var image = product.querySelector(".image");
+  var starsRating = product.querySelector(".stars-wrapper");
   if (starsRating) {
     image.appendChild(starsRating);
-    const ratingValue = starsRating.getAttribute("data-micro-rating-value");
+    var ratingValue = starsRating.getAttribute("data-micro-rating-value");
     if (ratingValue) {
       if (parseFloat(ratingValue) === 0) {
         starsRating.remove();
       } else {
-        const allStars = starsRating.querySelectorAll(".star");
+        var allStars = starsRating.querySelectorAll(".star");
         // Skryj všechny hvězdy kromě první
-        allStars.forEach((star, idx) => {
+        allStars.forEach(function (star, idx) {
           if (idx > 0) {
             star.style.display = "none";
           } else {
@@ -202,7 +222,7 @@ const handleTextLayout = product => {
         });
 
         // Ověř, zda už existuje span s ratingem
-        let ratingSpan = starsRating.querySelector(".rating-value");
+        var ratingSpan = starsRating.querySelector(".rating-value");
         if (!ratingSpan) {
           ratingSpan = document.createElement("span");
           ratingSpan.className = "rating-value";
@@ -214,20 +234,20 @@ const handleTextLayout = product => {
   }
   // ...existing code...
 };
-const products = document.querySelectorAll(".products-block .product:not(.banner-category)");
-const mmAllProducts = document.querySelectorAll(".products-block .product");
+var products = document.querySelectorAll(".products-block .product:not(.banner-category)");
+var mmAllProducts = document.querySelectorAll(".products-block .product");
 if (mmAllProducts.length) {
-  mmAllProducts.forEach(product => {
+  mmAllProducts.forEach(function (product) {
     if (!product.classList.contains("banner-category")) {
       handleFlags(product);
       handleTextLayout(product);
     }
   });
 }
-document.addEventListener("ShoptetDOMContentLoaded", () => {
-  const mmAllProducts = document.querySelectorAll(".products-block .product");
+document.addEventListener("ShoptetDOMContentLoaded", function () {
+  var mmAllProducts = document.querySelectorAll(".products-block .product");
   if (mmAllProducts.length) {
-    mmAllProducts.forEach(product => {
+    mmAllProducts.forEach(function (product) {
       if (!product.classList.contains("banner-category")) {
         handleFlags(product);
         handleTextLayout(product);
@@ -238,17 +258,17 @@ document.addEventListener("ShoptetDOMContentLoaded", () => {
 
 // FOOTER-BOTTOM
 function footerBilling() {
-  const footerBottom = document.querySelector(".footer-bottom");
-  const footerGlobal = document.querySelector("#footer");
+  var footerBottom = document.querySelector(".footer-bottom");
+  var footerGlobal = document.querySelector("#footer");
   if (footerBottom && footerGlobal) {
-    const footerBottomWrapper = document.createElement("div");
+    var footerBottomWrapper = document.createElement("div");
     footerBottomWrapper.classList.add("footer-bottom-wrapper");
     footerBottomWrapper.appendChild(footerBottom);
     footerGlobal.parentElement.insertBefore(footerBottomWrapper, footerGlobal.nextElementSibling);
-    const signature = footerBottom.querySelector("#signature");
+    var signature = footerBottom.querySelector("#signature");
     if (signature) {
       signature.style.display = "flex";
-      const platebniMetodyEl = document.createElement("img");
+      var platebniMetodyEl = document.createElement("img");
       platebniMetodyEl.classList.add("platebni-metody");
       platebniMetodyEl.src = "/user/documents/upload/Obrazky/platebni-metody.png";
       platebniMetodyEl.alt = "Platební metody";
@@ -259,9 +279,9 @@ function footerBilling() {
 footerBilling();
 
 // PRODUCT DETAIL
-const createShpTabLink = (text, anchor, id) => {
-  const shpTabLi = document.createElement("li");
-  const shpTabLink = document.createElement("a");
+var createShpTabLink = function createShpTabLink(text, anchor, id) {
+  var shpTabLi = document.createElement("li");
+  var shpTabLink = document.createElement("a");
   shpTabLi.classList.add("shp-tab");
   shpTabLi.appendChild(shpTabLink);
   shpTabLink.classList.add("shp-tab-link");
@@ -273,10 +293,10 @@ const createShpTabLink = (text, anchor, id) => {
   return shpTabLi;
 };
 if (document.body.classList.contains("type-detail")) {
-  const pDetailTabs = document.querySelector("#p-detail-tabs");
-  const tabContent = document.querySelector("#tab-content");
-  const customMobileSlider = document.querySelector(".custom-slider-wrapper");
-  setTimeout(() => {
+  var pDetailTabs = document.querySelector("#p-detail-tabs");
+  var tabContent = document.querySelector("#tab-content");
+  var customMobileSlider = document.querySelector(".custom-slider-wrapper");
+  setTimeout(function () {
     // console.log(customMobileSlider)
   }, 3000);
 
@@ -309,52 +329,60 @@ if (document.body.classList.contains("type-detail")) {
   });
   // DLOUHY POPIS + OSTATNI TABY
 
-  const ratingTab = document.querySelector("#ratingTab");
+  var ratingTab = document.querySelector("#ratingTab");
   if (ratingTab) {
-    const ratingTabHeading = document.createElement("h3");
-    const ratingTitleObj = window.ratingTitle.find(item => item.language === shoptetLang) || window.ratingTitle[0];
+    var ratingTabHeading = document.createElement("h3");
+    var ratingTitleObj = window.ratingTitle.find(function (item) {
+      return item.language === shoptetLang;
+    }) || window.ratingTitle[0];
     ratingTabHeading.innerHTML = ratingTitleObj.text;
     ratingTab.prepend(ratingTabHeading);
-    const ratingButton = ratingTab.querySelector(".add-comment ");
+    var ratingButton = ratingTab.querySelector(".add-comment ");
     if (ratingButton) {
       ratingTab.appendChild(ratingButton);
     }
   }
-  const discusionWrapper = document.querySelector("#productDiscussion");
+  var discusionWrapper = document.querySelector("#productDiscussion");
   if (discusionWrapper) {
-    const discussionTabHeading = document.createElement("h3");
-    const discussionTitleObj = window.discussionTitle.find(item => item.language === shoptetLang) || window.discussionTitle[0];
+    var discussionTabHeading = document.createElement("h3");
+    var discussionTitleObj = window.discussionTitle.find(function (item) {
+      return item.language === shoptetLang;
+    }) || window.discussionTitle[0];
     discussionTabHeading.innerHTML = discussionTitleObj.text;
     discusionWrapper.prepend(discussionTabHeading);
   }
-  const relatedFiles = document.querySelector("#relatedFiles");
+  var relatedFiles = document.querySelector("#relatedFiles");
   if (relatedFiles) {
-    const relatedFilesHeading = document.createElement("h3");
-    const relatedFilesTitleObj = window.relatedFilesTitle.find(item => item.language === shoptetLang) || window.relatedFilesTitle[0];
+    var relatedFilesHeading = document.createElement("h3");
+    var relatedFilesTitleObj = window.relatedFilesTitle.find(function (item) {
+      return item.language === shoptetLang;
+    }) || window.relatedFilesTitle[0];
     relatedFilesHeading.innerHTML = relatedFilesTitleObj.text;
     relatedFiles.prepend(relatedFilesHeading);
   }
-  const relatedProducts = document.querySelector(".products-related");
-  const relatedProductsHeading = document.querySelector(".products-related-header");
-  const voteWrappers = document.querySelectorAll(".votes-wrap .vote-wrap");
-  voteWrappers.forEach(voteWrapper => {
-    const voteWrapperWrapper = voteWrapper.querySelector(".votes-wrap.discussion");
+  var relatedProducts = document.querySelector(".products-related");
+  var relatedProductsHeading = document.querySelector(".products-related-header");
+  var voteWrappers = document.querySelectorAll(".votes-wrap .vote-wrap");
+  voteWrappers.forEach(function (voteWrapper) {
+    var voteWrapperWrapper = voteWrapper.querySelector(".votes-wrap.discussion");
     if (voteWrapperWrapper) {
       voteWrapper.insertAdjacentElement("afterend", voteWrapperWrapper);
     }
   });
-  const addComentButtons = document.querySelectorAll(".add-comment.btn-primary");
+  var addComentButtons = document.querySelectorAll(".add-comment.btn-primary");
   if (addComentButtons.length) {
-    addComentButtons.forEach(button => {
+    addComentButtons.forEach(function (button) {
       button.classList.remove("btn-primary", "btn-sm");
       button.classList.add("link-like");
     });
   }
-  const descInner = document.querySelector("#description .description-inner");
-  const descH3 = document.querySelector("#description .basic-description >h3");
+  var descInner = document.querySelector("#description .description-inner");
+  var descH3 = document.querySelector("#description .basic-description >h3");
   console.log(descH3);
   if (descH3) {
-    const titleObj = window.detailTitle.find(item => item.language === shoptetLang) || window.detailTitle[0];
+    var titleObj = window.detailTitle.find(function (item) {
+      return item.language === shoptetLang;
+    }) || window.detailTitle[0];
     descH3.innerHTML = titleObj.text;
     descH3.classList.add("detail-title");
     if (descInner) {
@@ -363,22 +391,24 @@ if (document.body.classList.contains("type-detail")) {
   }
   if (relatedProducts && relatedProductsHeading) {
     if (relatedProductsHeading) {
-      const relatedProductsTitleObj = window.relatedProductsTitle.find(item => item.language === shoptetLang) || window.relatedProductsTitle[0];
+      var relatedProductsTitleObj = window.relatedProductsTitle.find(function (item) {
+        return item.language === shoptetLang;
+      }) || window.relatedProductsTitle[0];
       relatedProductsHeading.innerText = relatedProductsTitleObj.text;
     }
-    const titleText = relatedProductsHeading.innerText;
-    const relatedProductsCount = relatedProducts.querySelectorAll(".product").length;
-    const tabContent = document.querySelector("#tab-content");
+    var titleText = relatedProductsHeading.innerText;
+    var relatedProductsCount = relatedProducts.querySelectorAll(".product").length;
+    var _tabContent = document.querySelector("#tab-content");
 
     // if (pDetailTabs.children[2]) {
     // 	pDetailTabs.insertBefore(relatedProductsLink, pDetailTabs.children[2]);
     // } else {
     // pDetailTabs.appendChild(relatedProductsLink);
     // }
-    const productContent = document.querySelector("#content");
+    var productContent = document.querySelector("#content");
     relatedProductsHeading.classList.add("homepage-group-title");
     // relatedProductsHeading.innerHTML = `Další produkty z kolekce`
-    const relatedProductsTab = document.createElement("div");
+    var relatedProductsTab = document.createElement("div");
     // relatedProductsTab.classList.add('tab-pane')
     relatedProductsTab.id = "relatedProducts";
     relatedProductsTab.appendChild(relatedProductsHeading);
@@ -387,11 +417,11 @@ if (document.body.classList.contains("type-detail")) {
 
     // desc.parentNode.insertBefore(relatedProductsTab, desc.nextSibling)
 
-    const shpTabsWrapper = document.querySelector(".shp-tabs-wrapper");
-    const wholeProd = document.querySelector("#relatedProducts");
-    const descriptionInner = document.querySelector(".basic-description");
+    var shpTabsWrapper = document.querySelector(".shp-tabs-wrapper");
+    var wholeProd = document.querySelector("#relatedProducts");
+    var descriptionInner = document.querySelector(".basic-description");
     if (shpTabsWrapper && wholeProd) {
-      let wrapper = document.querySelector("#relatedProductsWrapper");
+      var wrapper = document.querySelector("#relatedProductsWrapper");
       if (!wrapper) {
         wrapper = document.createElement("div");
         wrapper.id = "relatedProductsWrapper";
@@ -448,28 +478,30 @@ if (document.body.classList.contains("type-detail")) {
       }
     });
   }
-  const alternativeProductsTabLink = document.querySelector('.shp-tab-link[href="#productsAlternative"]');
+  var alternativeProductsTabLink = document.querySelector('.shp-tab-link[href="#productsAlternative"]');
   if (alternativeProductsTabLink) alternativeProductsTabLink.parentElement.remove();
-  const alternativeProducts = document.querySelector("#productsAlternative");
+  var alternativeProducts = document.querySelector("#productsAlternative");
   if (alternativeProducts) {
     alternativeProducts.classList.remove("tab-pane", "fade");
-    const alternativeProductsHeading = document.createElement("h2");
+    var alternativeProductsHeading = document.createElement("h2");
     alternativeProductsHeading.classList.add("homepage-group-title");
-    const alternativeNadpisy = alternativeNadpis.find(item => item.language === shoptetLang);
+    var alternativeNadpisy = alternativeNadpis.find(function (item) {
+      return item.language === shoptetLang;
+    });
     if (alternativeNadpisy) {
       alternativeProductsHeading.innerHTML = alternativeNadpisy.text;
     }
-    const productContent = document.querySelector("#content");
+    var _productContent = document.querySelector("#content");
     // const helpUSP = document.querySelector('#content > .benefitBanner')
     // if (helpUSP) {
     // 	helpUSP.parentElement.insertBefore(alternativeProductsHeading, helpUSP)
     // 	helpUSP.parentElement.insertBefore(alternativeProducts, helpUSP)
     // } else {
 
-    const holder = document.createElement("div");
+    var holder = document.createElement("div");
     holder.classList.add("holder");
     alternativeProducts.insertBefore(alternativeProductsHeading, alternativeProducts.firstChild);
-    productContent.appendChild(alternativeProducts);
+    _productContent.appendChild(alternativeProducts);
     // }
     // $(alternativeProducts.querySelector('.products-block')).slick(productsSlickSettings)
 
@@ -515,21 +547,27 @@ if (document.body.classList.contains("type-detail")) {
       }
     });
   }
-  const parametersTabContentH3 = document.querySelector("#description .extended-description >h3");
+  var parametersTabContentH3 = document.querySelector("#description .extended-description >h3");
   if (parametersTabContentH3) {
-    const parametersTitleObj = window.parametersTitle.find(item => item.language === shoptetLang) || window.parametersTitle[0];
+    var parametersTitleObj = window.parametersTitle.find(function (item) {
+      return item.language === shoptetLang;
+    }) || window.parametersTitle[0];
     parametersTabContentH3.innerHTML = parametersTitleObj.text;
   }
-  const firstRow = document.querySelector(".extended-description .detail-parameters tr:first-of-type");
+  var firstRow = document.querySelector(".extended-description .detail-parameters tr:first-of-type");
   if (firstRow) {
-    const firstTh = firstRow.querySelector("th span");
-    const firstTd = firstRow.querySelector("td span");
+    var firstTh = firstRow.querySelector("th span");
+    var firstTd = firstRow.querySelector("td span");
     if (firstTh) {
-      const paramTitleObj = window.parametersParametr.find(item => item.language === shoptetLang) || window.parametersParametr[0];
+      var paramTitleObj = window.parametersParametr.find(function (item) {
+        return item.language === shoptetLang;
+      }) || window.parametersParametr[0];
       firstTh.innerHTML = paramTitleObj.text;
     }
     if (firstTd) {
-      const paramTextObj = window.parametersParametrText.find(item => item.language === shoptetLang) || window.parametersParametrText[0];
+      var paramTextObj = window.parametersParametrText.find(function (item) {
+        return item.language === shoptetLang;
+      }) || window.parametersParametrText[0];
       firstTd.innerHTML = paramTextObj.text;
     }
   }
@@ -545,9 +583,9 @@ if (document.body.classList.contains("type-detail")) {
   //   parametersTabContent.id = "parameters";
   // }
 
-  const shpTabLinks = document.querySelectorAll(".shp-tab-link");
+  var shpTabLinks = document.querySelectorAll(".shp-tab-link");
   if (shpTabLinks.length) {
-    shpTabLinks.forEach(link => {
+    shpTabLinks.forEach(function (link) {
       link.removeAttribute("role");
       link.removeAttribute("data-toggle");
 
@@ -555,43 +593,63 @@ if (document.body.classList.contains("type-detail")) {
       link.textContent = link.textContent.replace(/\(\d+\)/g, "").trim();
     });
   }
-  const targetNode = document.querySelector(".shp-tabs-row");
+  var targetNode = document.querySelector(".shp-tabs-row");
   if (targetNode) {
-    const config = {
+    var config = {
       childList: true,
       subtree: true
     };
-    const callback = function (mutationsList, observer) {
-      for (let mutation of mutationsList) {
-        if (mutation.type === "childList") {
-          const hiddenLinks = document.querySelector(".shp-tabs-row .hidden-links");
-          const shpTabsRow = document.querySelector(".shp-tabs-row .shp-tabs");
-          if (hiddenLinks && shpTabsRow) {
-            // Přesunout všechny .shp-tab do .shp-tabs-row .shp-tabs
-            const shpTabs = hiddenLinks.querySelectorAll(".shp-tab");
-            shpTabs.forEach(tab => {
-              shpTabsRow.appendChild(tab);
-            });
+    var callback = function callback(mutationsList, observer) {
+      var _iterator2 = _createForOfIteratorHelper(mutationsList),
+        _step2;
+      try {
+        var _loop = function _loop() {
+          var mutation = _step2.value;
+          if (mutation.type === "childList") {
+            var hiddenLinks = document.querySelector(".shp-tabs-row .hidden-links");
+            var shpTabsRow = document.querySelector(".shp-tabs-row .shp-tabs");
+            if (hiddenLinks && shpTabsRow) {
+              // Přesunout všechny .shp-tab do .shp-tabs-row .shp-tabs
+              var shpTabs = hiddenLinks.querySelectorAll(".shp-tab");
+              shpTabs.forEach(function (tab) {
+                shpTabsRow.appendChild(tab);
+              });
 
-            // Odstranit .hidden-links
-            hiddenLinks.remove();
+              // Odstranit .hidden-links
+              hiddenLinks.remove();
+            }
           }
+        };
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          _loop();
         }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
       }
     };
-    const observer = new MutationObserver(callback);
-    observer.observe(targetNode, config);
+    var _observer2 = new MutationObserver(callback);
+    _observer2.observe(targetNode, config);
 
     // Přidat posluchače událostí pro resize a orientationchange
-    window.addEventListener("resize", () => observer.observe(targetNode, config));
-    window.addEventListener("orientationchange", () => observer.observe(targetNode, config));
+    window.addEventListener("resize", function () {
+      return _observer2.observe(targetNode, config);
+    });
+    window.addEventListener("orientationchange", function () {
+      return _observer2.observe(targetNode, config);
+    });
   }
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      const mmAllProducts = document.querySelectorAll(".products-block .product");
+  window.addEventListener("load", function () {
+    setTimeout(function () {
+      var mmAllProducts = document.querySelectorAll(".products-block .product");
       if (mmAllProducts.length) {
-        mmAllProducts.forEach(product => handleFlags(product));
-        mmAllProducts.forEach(product => handleTextLayout(product));
+        mmAllProducts.forEach(function (product) {
+          return handleFlags(product);
+        });
+        mmAllProducts.forEach(function (product) {
+          return handleTextLayout(product);
+        });
         // mmAllProducts.forEach((product) => handleRatings(product))
         // mmAllProducts.forEach((product) => handleProductAvailability(product))
       }
@@ -600,27 +658,30 @@ if (document.body.classList.contains("type-detail")) {
 }
 
 // CART
-const handleCart = () => {
-  const pageHeader = document.querySelector("#header");
-  const cartHeader = document.querySelector(".cart-content .cart-header");
-  const cartHeaderHelper = document.querySelector(".cart-header-wrapper");
-  const search = document.querySelector(".search");
-  const headerTop = document.querySelector(".header-top");
+var handleCart = function handleCart() {
+  var pageHeader = document.querySelector("#header");
+  var cartHeader = document.querySelector(".cart-content .cart-header");
+  var cartHeaderHelper = document.querySelector(".cart-header-wrapper");
+  var search = document.querySelector(".search");
+  var headerTop = document.querySelector(".header-top");
   // console.log(search)
   // console.log(headerTop)
   // if (search && headerTop) {
   // 	headerTop.appendChild(search)
   // }
 
-  const continueInCart = document.querySelector(".next-step-forward");
+  var continueInCart = document.querySelector(".next-step-forward");
   if (continueInCart) {
-    const buttonText = window.cartContinueBtn.find(item => item.language === shoptetLang)?.text;
+    var _window$cartContinueB;
+    var buttonText = (_window$cartContinueB = window.cartContinueBtn.find(function (item) {
+      return item.language === shoptetLang;
+    })) === null || _window$cartContinueB === void 0 ? void 0 : _window$cartContinueB.text;
     if (buttonText) {
       continueInCart.innerText = buttonText;
     }
   }
   if (cartHeader && !cartHeaderHelper) {
-    const cartHeaderWrapper = document.createElement("div");
+    var cartHeaderWrapper = document.createElement("div");
     cartHeaderWrapper.classList.add("cart-header-wrapper");
     cartHeaderWrapper.appendChild(cartHeader);
     cartHeader.classList.add("container");
@@ -628,40 +689,40 @@ const handleCart = () => {
   } else if (cartHeader) {
     cartHeader.remove();
   }
-  const sidebarCart = document.querySelector(".sidebar-in-cart");
-  const backLink = document.querySelector(".back-shopping-link");
+  var sidebarCart = document.querySelector(".sidebar-in-cart");
+  var backLink = document.querySelector(".back-shopping-link");
   // const sidebarCart = document.querySelector('.sidebar-in-cart .box[data-testid="tableCart"]')
-  const extraDelivery = document.querySelector(".extra.delivery");
+  var extraDelivery = document.querySelector(".extra.delivery");
   if (extraDelivery) {
     if (dataLayer[0].shoptet.cartInfo.leftToFreeShipping.priceLeft <= 0) extraDelivery.classList.add("free-shipping");
     // sidebarCart.prepend(extraDelivery)
   }
-  const overallWrapper = document.querySelector(".overall-wrapper");
-  const cartFooter = document.createElement("div");
+  var overallWrapper = document.querySelector(".overall-wrapper");
+  var cartFooter = document.createElement("div");
   cartFooter.classList.add("cart-footer");
   if (overallWrapper) overallWrapper.appendChild(cartFooter);
-  const cartMail = document.querySelector(".contact-box .mail");
-  const cartPhone = document.querySelector(".contact-box .tel");
-  const sidebarNextStep = document.querySelector("#checkoutSidebar .next-step");
-  const orderSummary = document.querySelector("#summary-box");
+  var cartMail = document.querySelector(".contact-box .mail");
+  var cartPhone = document.querySelector(".contact-box .tel");
+  var sidebarNextStep = document.querySelector("#checkoutSidebar .next-step");
+  var orderSummary = document.querySelector("#summary-box");
   if (sidebarNextStep && orderSummary) orderSummary.appendChild(sidebarNextStep);
-  const nextStep = document.querySelector(".next-step-back");
+  var nextStep = document.querySelector(".next-step-back");
   if (nextStep) {
-    const cartRow = document.querySelector(".cart-inner");
+    var cartRow = document.querySelector(".cart-inner");
     if (cartRow) {
       cartRow.appendChild(nextStep);
     }
   }
-  const sidebarConsents = document.querySelectorAll("#checkoutSidebar .consents");
-  const summaryItemPrice = document.querySelector("#checkoutSidebar .order-summary-item.price");
+  var sidebarConsents = document.querySelectorAll("#checkoutSidebar .consents");
+  var summaryItemPrice = document.querySelector("#checkoutSidebar .order-summary-item.price");
   if (sidebarConsents.length && summaryItemPrice) {
-    sidebarConsents.forEach(consent => {
+    sidebarConsents.forEach(function (consent) {
       summaryItemPrice.parentElement.insertBefore(consent, summaryItemPrice.nextElementSibling);
     });
   }
   if (window.innerWidth <= 1300) {
-    const backHolder = document.querySelector(".cart-inner");
-    const backHold = document.querySelector(".back-shopping-link");
+    var backHolder = document.querySelector(".cart-inner");
+    var backHold = document.querySelector(".back-shopping-link");
     if (backHolder && backHold) {
       backHolder.appendChild(backHold);
     }
@@ -682,17 +743,17 @@ const handleCart = () => {
   // 		backToShopLinks.appendChild(backToShop);
   // 	}
   // }
-  const paymentInfoTooltips = document.querySelectorAll(".payment-info .show-tooltip");
+  var paymentInfoTooltips = document.querySelectorAll(".payment-info .show-tooltip");
   if (paymentInfoTooltips.length) {
-    paymentInfoTooltips.forEach(tooltip => {
+    paymentInfoTooltips.forEach(function (tooltip) {
       tooltip.innerText = "i";
     });
   }
-  const handleFreeRecapitulation = () => {
-    setTimeout(() => {
-      const recapItemPrices = document.querySelectorAll(".recapitulation-shipping-billing-info > span");
+  var handleFreeRecapitulation = function handleFreeRecapitulation() {
+    setTimeout(function () {
+      var recapItemPrices = document.querySelectorAll(".recapitulation-shipping-billing-info > span");
       if (recapItemPrices.length) {
-        recapItemPrices.forEach(price => {
+        recapItemPrices.forEach(function (price) {
           if (price.innerText.toUpperCase().includes("ZDARMA")) {
             price.classList.add("for-free");
           } else {
@@ -704,9 +765,9 @@ const handleCart = () => {
   };
   document.addEventListener("ShoptetShippingMethodUpdated", handleFreeRecapitulation);
   document.addEventListener("ShoptetBillingMethodUpdated", handleFreeRecapitulation);
-  const recapItemPrices = document.querySelectorAll('span[data-testid="recapItemPrice"]');
+  var recapItemPrices = document.querySelectorAll('span[data-testid="recapItemPrice"]');
   if (recapItemPrices.length) {
-    recapItemPrices.forEach(price => {
+    recapItemPrices.forEach(function (price) {
       if (price.innerText.toUpperCase().includes("ZDARMA")) {
         price.classList.add("for-free");
       } else {
@@ -727,14 +788,14 @@ const handleCart = () => {
   // 	})
   // }
 
-  const footerCheck = document.querySelector(".ordering-process-footer");
+  var footerCheck = document.querySelector(".ordering-process-footer");
   if (!footerCheck) {
-    const cartProjectMail = document.querySelector(".contact-box .mail");
-    const cartProjectPhone = document.querySelector(".contact-box .tel");
-    const orderingProcessFooter = document.createElement("footer");
+    var cartProjectMail = document.querySelector(".contact-box .mail");
+    var cartProjectPhone = document.querySelector(".contact-box .tel");
+    var orderingProcessFooter = document.createElement("footer");
     orderingProcessFooter.classList.add("ordering-process-footer");
-    let securePaymentText = "Bezpečná platba";
-    let respondTimeText = "Reagujeme do 24 hodin";
+    var securePaymentText = "Bezpečná platba";
+    var respondTimeText = "Reagujeme do 24 hodin";
     if (shoptetLang === "en") {
       securePaymentText = "Secure Payment";
       respondTimeText = "We respond within 24 hours";
@@ -742,44 +803,26 @@ const handleCart = () => {
       securePaymentText = "Sichere Zahlung";
       respondTimeText = "Wir antworten innerhalb von 24 Stunden";
     }
-    const phoneTimeObj = window.projectPhoneTime.find(item => item.language === shoptetLang) || window.projectPhoneTime[0];
-    orderingProcessFooter.innerHTML = `
-      <div class="container">
-        <div class="contact-holder">
-          <div class="phone-wrapper">
-            <div class="holder-phone-time">
-              ${phoneTimeObj.text}
-            </div>
-          </div>
-          <div class="mail-wrapper">
-          </div>
-        </div>
-        <div class="payment-types">
-          <img
-            src="/user/documents/upload/Obrazky/platebni-metody-2.png"
-            width="200"
-            height="20"
-            alt="Visa, MasterCard, Maestro, PayPal"
-          />
-        </div>
-      </div>
-    `;
+    var phoneTimeObj = window.projectPhoneTime.find(function (item) {
+      return item.language === shoptetLang;
+    }) || window.projectPhoneTime[0];
+    orderingProcessFooter.innerHTML = "\n      <div class=\"container\">\n        <div class=\"contact-holder\">\n          <div class=\"phone-wrapper\">\n            <div class=\"holder-phone-time\">\n              ".concat(phoneTimeObj.text, "\n            </div>\n          </div>\n          <div class=\"mail-wrapper\">\n          </div>\n        </div>\n        <div class=\"payment-types\">\n          <img\n            src=\"/user/documents/upload/Obrazky/platebni-metody-2.png\"\n            width=\"200\"\n            height=\"20\"\n            alt=\"Visa, MasterCard, Maestro, PayPal\"\n          />\n        </div>\n      </div>\n    ");
     overallWrapper.appendChild(orderingProcessFooter);
-    const orderingProcessFooterPhoneWrapper = orderingProcessFooter.querySelector(".phone-wrapper");
-    const orderingProcessFooterMailWrapper = orderingProcessFooter.querySelector(".mail-wrapper");
+    var orderingProcessFooterPhoneWrapper = orderingProcessFooter.querySelector(".phone-wrapper");
+    var orderingProcessFooterMailWrapper = orderingProcessFooter.querySelector(".mail-wrapper");
     if (cartProjectPhone) {
-      const clonedPhone = cartProjectPhone.cloneNode(true);
+      var clonedPhone = cartProjectPhone.cloneNode(true);
       orderingProcessFooterPhoneWrapper.prepend(clonedPhone);
-      const phoneElement = orderingProcessFooter.querySelector(".phone-wrapper .tel");
+      var phoneElement = orderingProcessFooter.querySelector(".phone-wrapper .tel");
       if (phoneElement) {
         phoneElement.classList.add("project-phone");
         phoneElement.classList.remove("tel"); // Odstranění třídy 'tel'
       }
     }
     if (cartProjectMail) {
-      const clonedMail = cartProjectMail.cloneNode(true);
+      var clonedMail = cartProjectMail.cloneNode(true);
       orderingProcessFooterMailWrapper.prepend(clonedMail);
-      const mailElement = orderingProcessFooter.querySelector(".mail-wrapper .mail a");
+      var mailElement = orderingProcessFooter.querySelector(".mail-wrapper .mail a");
       if (mailElement) {
         // mailElement.classList.add("project-email");
         mailElement.classList.remove("mail"); // Odstranění třídy 'mail'
@@ -787,50 +830,53 @@ const handleCart = () => {
     }
   }
   if (shoptetPage === "cart") {
-    const productsInCart = document.querySelectorAll('.cart-table tr.removeable[data-micro="cartItem"]');
-    productsInCart.forEach(product => {
-      const productSKU = product.getAttribute("data-micro-sku");
-      const productName = product.querySelector(".p-name");
+    var productsInCart = document.querySelectorAll('.cart-table tr.removeable[data-micro="cartItem"]');
+    productsInCart.forEach(function (product) {
+      var productSKU = product.getAttribute("data-micro-sku");
+      var productName = product.querySelector(".p-name");
       if (productSKU && productName) {
-        const productSKUEl = document.createElement("div");
+        var productSKUEl = document.createElement("div");
         productSKUEl.classList.add("product-sku");
-        productSKUEl.innerHTML = `Kód: ${productSKU}`;
+        productSKUEl.innerHTML = "K\xF3d: ".concat(productSKU);
         productName.appendChild(productSKUEl);
       }
     });
   }
-  const products = document.querySelectorAll('tbody [data-micro="cartItem"]');
+  var products = document.querySelectorAll('tbody [data-micro="cartItem"]');
   if (products.length) {
-    products.forEach(product => {
-      const pQuantity = product.querySelector(".p-availability ");
-      const pName = product.querySelector(".p-name");
-      const mainLink = pName.querySelector(".main-link");
+    products.forEach(function (product) {
+      var pQuantity = product.querySelector(".p-availability ");
+      var pName = product.querySelector(".p-name");
+      var mainLink = pName.querySelector(".main-link");
       if (pQuantity && pName && mainLink) {
-        const quantityHtml = pQuantity.innerHTML;
-        mainLink.insertAdjacentHTML("afterend", `<div class="availability">${quantityHtml}</div>`);
+        var quantityHtml = pQuantity.innerHTML;
+        mainLink.insertAdjacentHTML("afterend", "<div class=\"availability\">".concat(quantityHtml, "</div>"));
       }
     });
   }
-  const cartSummary = document.querySelector(".summary-wrapper");
+  var cartSummary = document.querySelector(".summary-wrapper");
   if (cartSummary) {
-    const box = cartSummary.querySelector(".box");
-    const upperSummaryReayl = document.querySelector(".upper-summary");
+    var box = cartSummary.querySelector(".box");
+    var upperSummaryReayl = document.querySelector(".upper-summary");
     if (box) {
-      const upperSummary = document.createElement("div");
+      var upperSummary = document.createElement("div");
       upperSummary.classList.add("upper-summary");
       box.prepend(upperSummary);
-      const cartContentSummary = document.querySelector(".cart-content .cart-summary");
+      var cartContentSummary = document.querySelector(".cart-content .cart-summary");
       if (cartContentSummary) {
-        const cartInner = document.querySelector(".cart-inner");
+        var cartInner = document.querySelector(".cart-inner");
         cartSummary.appendChild(cartContentSummary);
-        const h4 = cartContentSummary.querySelector("h4");
+        var h4 = cartContentSummary.querySelector("h4");
 
         // const discountInput = discountForm.querySelector('input')
         // discountInput.placeholder = 'Vložte kód'
-        const discountForm = document.querySelector(".discount-coupon");
+        var discountForm = document.querySelector(".discount-coupon");
         if (h4) {
+          var _extraGiftTitles$find;
           upperSummary.prepend(h4);
-          h4.innerHTML = extraGiftTitles.find(item => item.language === shoptetLang)?.text;
+          h4.innerHTML = (_extraGiftTitles$find = extraGiftTitles.find(function (item) {
+            return item.language === shoptetLang;
+          })) === null || _extraGiftTitles$find === void 0 ? void 0 : _extraGiftTitles$find.text;
           if (!cartContentSummary.querySelector(".discount-coupon")) {
             h4.style.display = "none";
           }
@@ -841,23 +887,23 @@ const handleCart = () => {
           }
         }
         if (cartContentSummary.querySelector(".discount-coupon .applied-coupon")) {
-          const discountCoupon = cartContentSummary.querySelector(".discount-coupon");
+          var discountCoupon = cartContentSummary.querySelector(".discount-coupon");
           h4.classList.add("active");
           discountCoupon.classList.add("active");
         }
-        const button = document.querySelector(".discount-coupon button");
+        var button = document.querySelector(".discount-coupon button");
         if (button) {
           button.innerHTML = "Uplatnit"; //jazyk
         }
-        const freeGift = cartContentSummary.querySelector(".free-gift");
+        var freeGift = cartContentSummary.querySelector(".free-gift");
         if (freeGift) {
-          const h4Gift = document.createElement("h4");
+          var h4Gift = document.createElement("h4");
           h4Gift.innerHTML = "Dárek";
           box.insertBefore(freeGift, upperSummary);
           freeGift.prepend(h4Gift);
         }
       }
-      const priceHolder = document.createElement("div");
+      var priceHolder = document.createElement("div");
       priceHolder.classList.add("price-holder");
       upperSummary.appendChild(priceHolder);
 
@@ -869,11 +915,11 @@ const handleCart = () => {
       // 	priceHolder.appendChild(saveHolder);
       // }
 
-      const priceWrapper = cartSummary.querySelector(".price-wrapper");
+      var priceWrapper = cartSummary.querySelector(".price-wrapper");
       if (priceWrapper) {
         priceHolder.appendChild(priceWrapper);
       }
-      const shipping = document.querySelector(".extra.delivery");
+      var shipping = document.querySelector(".extra.delivery");
       if (shipping) {
         // upperSummary.insertAdjacentElement('afterend', shipping)
         // cartSummary.prepend(shipping)
@@ -887,95 +933,110 @@ const handleCart = () => {
   // 	// const discountInput = discountForm.querySelector('input')
   // 	// discountInput.placeholder = 'Vložte kód'
   // }
-  const nextStepH = document.querySelector(".next-step");
+  var nextStepH = document.querySelector(".next-step");
   if (nextStepH) {
-    const upperSummary = document.querySelector(".upper-summary");
-    if (upperSummary) {
-      upperSummary.appendChild(nextStepH);
+    var _upperSummary = document.querySelector(".upper-summary");
+    if (_upperSummary) {
+      _upperSummary.appendChild(nextStepH);
     }
   }
   if (document.querySelector("body").classList.contains("id--9")) {
-    const cartH2 = document.createElement("h2");
-    const h2 = document.querySelector(".cart-row .col-md-8 h2");
+    var cartH2 = document.createElement("h2");
+    var h2 = document.querySelector(".cart-row .col-md-8 h2");
     if (cartH2 && !h2) {
-      cartH2.innerHTML = itemsCartTitle.find(item => item.language === shoptetLang)?.text;
-      const row = document.querySelector(".cart-row .col-md-8 .cart-content");
+      var _itemsCartTitle$find;
+      cartH2.innerHTML = (_itemsCartTitle$find = itemsCartTitle.find(function (item) {
+        return item.language === shoptetLang;
+      })) === null || _itemsCartTitle$find === void 0 ? void 0 : _itemsCartTitle$find.text;
+      var row = document.querySelector(".cart-row .col-md-8 .cart-content");
       if (row) {
         row.insertBefore(cartH2, row.firstChild);
       }
     }
   }
   if (document.querySelector("body").classList.contains("id--16")) {
-    const stepBack = document.querySelector(".next-step-back");
-    const basicInformations = document.querySelector("#select-country-payment");
+    var stepBack = document.querySelector(".next-step-back");
+    var basicInformations = document.querySelector("#select-country-payment");
     if (stepBack) {
-      const stepBackTextObj = window.stepBackText.find(item => item.language === shoptetLang) || window.stepBackText[0];
+      var stepBackTextObj = window.stepBackText.find(function (item) {
+        return item.language === shoptetLang;
+      }) || window.stepBackText[0];
       stepBack.innerText = stepBackTextObj.text;
       stepBack.classList.add("back-to-cart");
       if (basicInformations) {
         basicInformations.insertAdjacentElement("afterend", stepBack);
       }
     }
-    const checkoutContent = document.querySelector("#checkoutContent");
+    var checkoutContent = document.querySelector("#checkoutContent");
     if (checkoutContent && !document.querySelector(".back-homepage")) {
-      const backHomepageObj = window.backHomepageBtn.find(item => item.language === shoptetLang) || window.backHomepageBtn[0];
-      const backHomepageLink = document.createElement("a");
+      var backHomepageObj = window.backHomepageBtn.find(function (item) {
+        return item.language === shoptetLang;
+      }) || window.backHomepageBtn[0];
+      var backHomepageLink = document.createElement("a");
       backHomepageLink.className = "btn next-step-back back-homepage";
       backHomepageLink.href = backHomepageObj.url;
       backHomepageLink.innerText = backHomepageObj.text;
       if (window.innerWidth >= 768) {
         checkoutContent.appendChild(backHomepageLink);
       } else {
-        const cartRow = document.querySelector(".cart-inner .cart-row");
-        if (cartRow) {
-          cartRow.appendChild(backHomepageLink);
+        var _cartRow = document.querySelector(".cart-inner .cart-row");
+        if (_cartRow) {
+          _cartRow.appendChild(backHomepageLink);
         }
       }
     }
-    const shippingTitle = document.querySelector(".co-delivery-method > h4");
+    var shippingTitle = document.querySelector(".co-delivery-method > h4");
     if (shippingTitle) {
-      const shippingTitleObj = window.shippingTitle.find(item => item.language === shoptetLang) || window.shippingTitle[0];
+      var shippingTitleObj = window.shippingTitle.find(function (item) {
+        return item.language === shoptetLang;
+      }) || window.shippingTitle[0];
       shippingTitle.innerHTML = shippingTitleObj.text;
     }
-    const deliveryTitle = document.querySelector(".co-payment-method > h4");
+    var deliveryTitle = document.querySelector(".co-payment-method > h4");
     if (deliveryTitle) {
-      const paymentTitleObj = window.paymentTitle.find(item => item.language === shoptetLang) || window.paymentTitle[0];
+      var paymentTitleObj = window.paymentTitle.find(function (item) {
+        return item.language === shoptetLang;
+      }) || window.paymentTitle[0];
       deliveryTitle.innerHTML = paymentTitleObj.text;
     }
   }
   if (document.querySelector("body").classList.contains("id--17")) {
-    const coInformation = document.querySelector(".co-contact-information");
-    const loginWrapper = document.querySelector(".co-contact-information > .form-group");
+    var coInformation = document.querySelector(".co-contact-information");
+    var loginWrapper = document.querySelector(".co-contact-information > .form-group");
     if (loginWrapper && coInformation) {
       loginWrapper.classList.add("login-helper");
-      const loginButton = document.querySelector("a.btn.btn-secondary");
+      var loginButton = document.querySelector("a.btn.btn-secondary");
       if (loginButton) {
         loginButton.classList.add("btn-primary", "login-button");
         loginButton.classList.remove("btn-secondary");
       } else {
         loginWrapper.classList.add("no-btn");
       }
-      const stepBack = document.querySelector(".next-step-back");
-      if (stepBack) {
-        const stepBackTextObj = window.stepBackToShippingPayment.find(item => item.language === shoptetLang) || window.stepBackToShippingPayment[0];
-        stepBack.innerText = stepBackTextObj.text;
-        loginWrapper.prepend(stepBack);
+      var _stepBack = document.querySelector(".next-step-back");
+      if (_stepBack) {
+        var _stepBackTextObj = window.stepBackToShippingPayment.find(function (item) {
+          return item.language === shoptetLang;
+        }) || window.stepBackToShippingPayment[0];
+        _stepBack.innerText = _stepBackTextObj.text;
+        loginWrapper.prepend(_stepBack);
       }
       coInformation.prepend(loginWrapper);
     }
-    const checkoutContent = document.querySelector("#checkoutContent");
-    if (checkoutContent && !document.querySelector(".back-homepage")) {
-      const backHomepageObj = window.backHomepageBtn.find(item => item.language === shoptetLang) || window.backHomepageBtn[0];
-      const backHomepageLink = document.createElement("a");
-      backHomepageLink.className = "btn next-step-back back-homepage";
-      backHomepageLink.href = backHomepageObj.url;
-      backHomepageLink.innerText = backHomepageObj.text;
+    var _checkoutContent = document.querySelector("#checkoutContent");
+    if (_checkoutContent && !document.querySelector(".back-homepage")) {
+      var _backHomepageObj = window.backHomepageBtn.find(function (item) {
+        return item.language === shoptetLang;
+      }) || window.backHomepageBtn[0];
+      var _backHomepageLink = document.createElement("a");
+      _backHomepageLink.className = "btn next-step-back back-homepage";
+      _backHomepageLink.href = _backHomepageObj.url;
+      _backHomepageLink.innerText = _backHomepageObj.text;
       if (window.innerWidth >= 768) {
-        checkoutContent.appendChild(backHomepageLink);
+        _checkoutContent.appendChild(_backHomepageLink);
       } else {
-        const cartRow = document.querySelector(".cart-inner .cart-row");
-        if (cartRow) {
-          cartRow.appendChild(backHomepageLink);
+        var _cartRow2 = document.querySelector(".cart-inner .cart-row");
+        if (_cartRow2) {
+          _cartRow2.appendChild(_backHomepageLink);
         }
       }
     }
@@ -1029,10 +1090,10 @@ const handleCart = () => {
   //     .replace(/\s*\(.*?\)\s*/g, "")
   //     .trim();
   // }
-  const relatedProducts = document.querySelectorAll(".cart-related-product");
-  relatedProducts.forEach(product => {
-    const availability = product.querySelector(".cart-related-availability span");
-    const priceFinal = product.querySelector(".cart-related-button .price.price-final");
+  var relatedProducts = document.querySelectorAll(".cart-related-product");
+  relatedProducts.forEach(function (product) {
+    var availability = product.querySelector(".cart-related-availability span");
+    var priceFinal = product.querySelector(".cart-related-button .price.price-final");
     if (availability && availability.textContent.trim() === "Momentálně nedostupné") {
       // Schování .cart-related-availability
       availability.parentElement.remove();
@@ -1050,74 +1111,67 @@ if (document.body.classList.contains("ordering-process")) {
 }
 
 // POPUP CART
-document.addEventListener("ShoptetDOMCartContentLoaded", () => {
-  const currencyLabel = dataLayer[0].shoptet.currencyInfo.symbol;
-  const cartWidgetProducts = document.querySelectorAll(".cart-widget-product");
+document.addEventListener("ShoptetDOMCartContentLoaded", function () {
+  var currencyLabel = dataLayer[0].shoptet.currencyInfo.symbol;
+  var cartWidgetProducts = document.querySelectorAll(".cart-widget-product");
   if (cartWidgetProducts.length) {
-    cartWidgetProducts.forEach(product => {
-      const productPrice = product.querySelector('span[data-testid="cartWidgetProductPrice"]');
+    cartWidgetProducts.forEach(function (product) {
+      var productPrice = product.querySelector('span[data-testid="cartWidgetProductPrice"]');
       if (productPrice) {
-        const priceEl = document.createElement("div");
+        var priceEl = document.createElement("div");
         priceEl.classList.add("cart-widget-product-price");
         priceEl.appendChild(productPrice);
         product.appendChild(priceEl);
-        const productSKU = product.getAttribute("data-micro-sku");
+        var productSKU = product.getAttribute("data-micro-sku");
         if (productSKU) {
-          const productSinglePrice = dataLayer[0].shoptet.cart.filter(item => item.code === productSKU)[0].priceWithVat;
-          const productSinglePriceEl = document.createElement("div");
+          var productSinglePrice = dataLayer[0].shoptet.cart.filter(function (item) {
+            return item.code === productSKU;
+          })[0].priceWithVat;
+          var productSinglePriceEl = document.createElement("div");
           productSinglePriceEl.classList.add("cart-widget-product-single-price");
-          productSinglePriceEl.innerHTML = `${productSinglePrice} ${currencyLabel} / ks`; //jazyk
+          productSinglePriceEl.innerHTML = "".concat(productSinglePrice, " ").concat(currencyLabel, " / ks"); //jazyk
           priceEl.appendChild(productSinglePriceEl);
         }
       }
     });
   }
-  let popupCartSummary = document.querySelector(".popup-cart-summary");
+  var popupCartSummary = document.querySelector(".popup-cart-summary");
   if (!popupCartSummary) {
     popupCartSummary = document.createElement("div");
     popupCartSummary.classList.add("popup-cart-summary");
   }
-  let popupCartSummaryPriveVAT = String(dataLayer[0].shoptet.cartInfo.getNoBillingShippingPrice.withVat);
+  var popupCartSummaryPriveVAT = String(dataLayer[0].shoptet.cartInfo.getNoBillingShippingPrice.withVat);
   if (popupCartSummaryPriveVAT.includes(".")) {
     popupCartSummaryPriveVAT = popupCartSummaryPriveVAT.replace(".", ",");
   }
-  let popupCartSummaryPriceNoVAT = String(dataLayer[0].shoptet.cartInfo.getNoBillingShippingPrice.withoutVat);
+  var popupCartSummaryPriceNoVAT = String(dataLayer[0].shoptet.cartInfo.getNoBillingShippingPrice.withoutVat);
   if (popupCartSummaryPriceNoVAT.includes(".")) {
     popupCartSummaryPriceNoVAT = popupCartSummaryPriceNoVAT.replace(".", ",");
   }
   // console.log(popupCartSummaryPriceNoVAT)
 
   // Převod řetězce na číslo
-  let popupCartSummaryPriceNoVATNumber = parseFloat(popupCartSummaryPriceNoVAT.replace(",", "."));
-  popupCartSummary.innerHTML = `
-	  <div class="popup-cart-summary-item">
-		  <strong class="popup-cart-summary-item-label">Celkem za zboží</strong>
-		  <strong class="popup-cart-summary-item-value">${popupCartSummaryPriveVAT} ${currencyLabel}</strong>
-	  </div>
-	  <div class="popup-cart-summary-item">
-		  <span class="popup-cart-summary-item-label">Celkem bez DPH</span>
-		  <span class="popup-cart-summary-item-value">${Math.round(popupCartSummaryPriceNoVATNumber)} ${currencyLabel}</span>
-	  </div>
-  `; //jazyk
-  const cartWidgetProductsWrapper = document.querySelector(".cart-widget-products");
+  var popupCartSummaryPriceNoVATNumber = parseFloat(popupCartSummaryPriceNoVAT.replace(",", "."));
+  popupCartSummary.innerHTML = "\n\t  <div class=\"popup-cart-summary-item\">\n\t\t  <strong class=\"popup-cart-summary-item-label\">Celkem za zbo\u017E\xED</strong>\n\t\t  <strong class=\"popup-cart-summary-item-value\">".concat(popupCartSummaryPriveVAT, " ").concat(currencyLabel, "</strong>\n\t  </div>\n\t  <div class=\"popup-cart-summary-item\">\n\t\t  <span class=\"popup-cart-summary-item-label\">Celkem bez DPH</span>\n\t\t  <span class=\"popup-cart-summary-item-value\">").concat(Math.round(popupCartSummaryPriceNoVATNumber), " ").concat(currencyLabel, "</span>\n\t  </div>\n  "); //jazyk
+  var cartWidgetProductsWrapper = document.querySelector(".cart-widget-products");
   if (cartWidgetProductsWrapper) cartWidgetProductsWrapper.parentElement.insertBefore(popupCartSummary, cartWidgetProductsWrapper.nextElementSibling);
-  const cartWidgetButton = document.querySelector(".cart-widget-button");
-  const cartWidgetInner = document.querySelector(".cart-widget-inner");
+  var cartWidgetButton = document.querySelector(".cart-widget-button");
+  var cartWidgetInner = document.querySelector(".cart-widget-inner");
   if (cartWidgetButton && cartWidgetInner) cartWidgetInner.appendChild(cartWidgetButton.cloneNode(true));
-  const cartWidgetShipping = document.querySelector(".cart-free-shipping");
+  var cartWidgetShipping = document.querySelector(".cart-free-shipping");
   if (cartWidgetShipping) {
-    const priceLeftToFreeShipping = dataLayer[0].shoptet.cartInfo.leftToFreeShipping.priceLeft;
+    var priceLeftToFreeShipping = dataLayer[0].shoptet.cartInfo.leftToFreeShipping.priceLeft;
     if (priceLeftToFreeShipping > 0) {
-      const freeShippingBar = document.createElement("div");
-      const freeShippingValue = document.createElement("div");
+      var freeShippingBar = document.createElement("div");
+      var freeShippingValue = document.createElement("div");
       freeShippingBar.classList.add("price-range");
       freeShippingBar.appendChild(freeShippingValue);
       popupCartSummaryPriveVAT = Number(popupCartSummaryPriveVAT);
-      freeShippingValue.style.width = `${100 - 100 * priceLeftToFreeShipping / (priceLeftToFreeShipping + popupCartSummaryPriveVAT)}%`;
+      freeShippingValue.style.width = "".concat(100 - 100 * priceLeftToFreeShipping / (priceLeftToFreeShipping + popupCartSummaryPriveVAT), "%");
       cartWidgetShipping.appendChild(freeShippingBar);
-      const shippingWidgetStrongs = cartWidgetShipping.querySelectorAll("strong");
+      var shippingWidgetStrongs = cartWidgetShipping.querySelectorAll("strong");
       if (shippingWidgetStrongs.length) {
-        shippingWidgetStrongs.forEach(strong => {
+        shippingWidgetStrongs.forEach(function (strong) {
           if (strong.innerText.includes("ZDARMA")) strong.classList.add("free-shipping-strong"); //jazyk
         });
       }
@@ -1136,45 +1190,45 @@ document.addEventListener("ShoptetDOMCartContentLoaded", () => {
 // })
 
 // ADVANCED ORDER
-document.addEventListener("ShoptetDOMAdvancedOrderLoaded", () => {
-  const advancedOrder = document.querySelector(".advanced-order");
-  const aoTop = document.createElement("div");
+document.addEventListener("ShoptetDOMAdvancedOrderLoaded", function () {
+  var advancedOrder = document.querySelector(".advanced-order");
+  var aoTop = document.createElement("div");
   aoTop.classList.add("ao-top");
   advancedOrder.prepend(aoTop);
-  const aoTitle = advancedOrder.querySelector(".h1");
+  var aoTitle = advancedOrder.querySelector(".h1");
   if (aoTitle) aoTop.appendChild(aoTitle);
-  const aoProduct = advancedOrder.querySelector(".ao-product") || advancedOrder.querySelector(".h2");
+  var aoProduct = advancedOrder.querySelector(".ao-product") || advancedOrder.querySelector(".h2");
   if (aoProduct) aoTop.appendChild(aoProduct);
-  const cboxClose = document.querySelector("#cboxClose");
+  var cboxClose = document.querySelector("#cboxClose");
   if (cboxClose) {
     cboxClose.innerText = "Zavřít"; //jazyk
     cboxClose.id = "cboxClose";
     cboxClose.classList.add("close");
     // aoTop.appendChild(cboxClose)
   }
-  const continueShoppingBtn = document.createElement("button");
+  var continueShoppingBtn = document.createElement("button");
   continueShoppingBtn.classList.add("btn", "black-border");
   continueShoppingBtn.innerText = "Zavřít"; //jazyk
-  continueShoppingBtn.addEventListener("click", () => {
+  continueShoppingBtn.addEventListener("click", function () {
     shoptet.modal.close();
   });
-  const extraStep = advancedOrder.querySelector(".extra.step");
+  var extraStep = advancedOrder.querySelector(".extra.step");
   if (extraStep) extraStep.prepend(continueShoppingBtn);
-  const deliveryStrongs = advancedOrder.querySelectorAll(".extra.delivery strong");
+  var deliveryStrongs = advancedOrder.querySelectorAll(".extra.delivery strong");
   if (deliveryStrongs.length) {
-    deliveryStrongs.forEach(strong => {
+    deliveryStrongs.forEach(function (strong) {
       if (strong.innerText === "ZDARMA") strong.classList.add("for-free"); //jazyk
     });
   }
-  const suggestion = advancedOrder.querySelector(".advanced-order-suggestion");
+  var suggestion = advancedOrder.querySelector(".advanced-order-suggestion");
   if (suggestion) {
     suggestion.innerHTML = "Můžete ještě přidat ...";
   }
-  const img = advancedOrder.querySelector(".ao-product .ao-image img");
+  var img = advancedOrder.querySelector(".ao-product .ao-image img");
   if (img) {
     img.src = img.getAttribute("data-src");
   }
-  const advancedOrderProducts = $(".colorbox-html-content #products");
+  var advancedOrderProducts = $(".colorbox-html-content #products");
   if (advancedOrderProducts.length) {
     advancedOrderProducts.slick(productsSlickSettings);
   }
@@ -1182,31 +1236,37 @@ document.addEventListener("ShoptetDOMAdvancedOrderLoaded", () => {
 
 // EMPTY CART
 
-const handleEmptyCart = () => {
-  const emptyCart = document.querySelector(".cart-inner.cart-empty");
+var handleEmptyCart = function handleEmptyCart() {
+  var emptyCart = document.querySelector(".cart-inner.cart-empty");
   if (!emptyCart) return;
   document.body.classList.add("custom-empty-cart");
-  const cartHeading = emptyCart.querySelector(".cart-heading");
-  const cartText = document.createElement("p");
+  var cartHeading = emptyCart.querySelector(".cart-heading");
+  var cartText = document.createElement("p");
   cartText.classList.add("narrow-custom", "text-center");
-  const prazdnyKosikPerexText = window.prazdnyKosikPerex.find(item => item.language === shoptetLang).text;
+  var prazdnyKosikPerexText = window.prazdnyKosikPerex.find(function (item) {
+    return item.language === shoptetLang;
+  }).text;
   cartText.innerText = prazdnyKosikPerexText;
   if (cartHeading) {
-    const prazdnyKosikNadpisText = window.prazdnyKosikNadpis.find(item => item.language === shoptetLang).text;
+    var prazdnyKosikNadpisText = window.prazdnyKosikNadpis.find(function (item) {
+      return item.language === shoptetLang;
+    }).text;
     cartHeading.innerText = prazdnyKosikNadpisText;
     cartHeading.classList.add("homepage-group-title");
     cartHeading.parentElement.insertBefore(cartText, cartHeading.nextElementSibling);
   }
-  const cartEmail = emptyCart.querySelector(".mail");
-  const cartPhone = emptyCart.querySelector(".tel");
-  const cartContact = document.createElement("ul");
+  var cartEmail = emptyCart.querySelector(".mail");
+  var cartPhone = emptyCart.querySelector(".tel");
+  var cartContact = document.createElement("ul");
   cartContact.classList.add("cart-contact", "contact-box");
   if (cartPhone) {
     cartContact.appendChild(cartPhone.parentElement);
   }
   if (cartEmail) {
-    const emailPerexText = window.emailPerexText.find(item => item.language === shoptetLang).text;
-    const emailPerex = document.createElement("span");
+    var emailPerexText = window.emailPerexText.find(function (item) {
+      return item.language === shoptetLang;
+    }).text;
+    var emailPerex = document.createElement("span");
     emailPerex.innerText = emailPerexText;
     cartEmail.parentElement.insertBefore(emailPerex, cartEmail.nextElementSibling);
     cartContact.appendChild(cartEmail.parentElement);
@@ -1214,21 +1274,22 @@ const handleEmptyCart = () => {
   emptyCart.appendChild(cartContact);
 
   // Přidání btn holder s dvěma odkazy
-  const btnHolder = document.createElement("div");
+  var btnHolder = document.createElement("div");
   btnHolder.classList.add("btn-holder", "text-center");
-  const primaryButton = window.primaryButtonText.find(item => item.language === shoptetLang);
-  const secondaryButton = window.secondaryButtonText.find(item => item.language === shoptetLang);
-  btnHolder.innerHTML = `
-		  <a href="${primaryButton.url}" class="btn btn-primary">${primaryButton.text}</a>
-		  <a href="${secondaryButton.url}" class="btn secondary">${secondaryButton.text}</a>
-	  `;
+  var primaryButton = window.primaryButtonText.find(function (item) {
+    return item.language === shoptetLang;
+  });
+  var secondaryButton = window.secondaryButtonText.find(function (item) {
+    return item.language === shoptetLang;
+  });
+  btnHolder.innerHTML = "\n\t\t  <a href=\"".concat(primaryButton.url, "\" class=\"btn btn-primary\">").concat(primaryButton.text, "</a>\n\t\t  <a href=\"").concat(secondaryButton.url, "\" class=\"btn secondary\">").concat(secondaryButton.text, "</a>\n\t  ");
   emptyCart.appendChild(btnHolder);
-  const emptyCartHeader = document.querySelector(".cart-header-wrapper");
+  var emptyCartHeader = document.querySelector(".cart-header-wrapper");
   if (emptyCartHeader) emptyCartHeader.remove();
 };
-const emptyCart = document.querySelector(".cart-inner.cart-empty");
+var emptyCart = document.querySelector(".cart-inner.cart-empty");
 if (emptyCart) handleEmptyCart();
-document.addEventListener("ShoptetDOMCartContentLoaded", () => {
+document.addEventListener("ShoptetDOMCartContentLoaded", function () {
   if (!dataLayer[0].shoptet.cart.length) handleEmptyCart();
 });
 window.addEventListener("beforeunload", function (event) {
@@ -1243,82 +1304,90 @@ window.addEventListener("beforeunload", function (event) {
 // 	})
 // }
 
-const handleFooter = async () => {
-  // const socialIcons = document.querySelector('.footer-links-icons')
-  // const contactBanner = document.querySelector('.custom-footer__contact')
-  // if (socialIcons && contactBanner) contactBanner.appendChild(socialIcons)
-  const cookies = document.querySelector(".js-cookies-settings");
-  if (cookies) {}
-  const signature = document.querySelector("#signature");
-  if (signature) {
-    const mirandaMediaLink = `
-	  <span>Created by </span>
-			  <a class="company" href="https://www.mirandamedia.cz/shoptetnamiru" target="_blank">
-				  <img class="company__logo" src="/user/documents/upload/Obrazky/miranda.svg">
-				  MirandaMedia Group s.r.o.
-			  </a>
-		<span> on the platform </span>
-		  `;
-    signature.insertAdjacentHTML("beforeend", mirandaMediaLink);
-    const title = signature.querySelector(".title");
-    if (title) {
-      title.innerHTML = '<img class="company__logo" src="/user/documents/upload/Obrazky/shoptet.png">';
-    }
-  }
-  const footerHeadings = document.querySelectorAll(".banner-wrapper > span > .block > h4");
-  footerHeadings.forEach(heading => {
-    heading.classList.add("clickable");
-    heading.addEventListener("click", () => {
-      heading.closest(".banner-wrapper").classList.toggle("active");
-    });
-  });
-  const footerCategories = document.querySelector(".custom-footer__categories > h4");
-  if (footerCategories) {
-    footerCategories.classList.add("clickable");
-    footerCategories.addEventListener("click", () => {
-      footerCategories.closest(".custom-footer__categories").classList.toggle("active");
-    });
-  }
-  const siteName = document.querySelector("#footer .site-name");
-  const customFooter = document.querySelector("#footer .custom-footer");
-  if (customFooter) {
-    customFooter.insertBefore(siteName, customFooter.firstChild);
-  }
-  const customFooterContact = document.querySelector("#footer .custom-footer__contact");
-  const customFooterContactPlaceholder = document.querySelector("#footer .contacts-placeholder");
-  if (customFooterContact && customFooterContactPlaceholder) {
-    customFooterContactPlaceholder.append(customFooterContact);
-  }
+var handleFooter = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+    var cookies, signature, mirandaMediaLink, title, footerHeadings, footerCategories, siteName, customFooter, customFooterContact, customFooterContactPlaceholder, footer, instagram, benefitsWrapper, _instagramTitle$find, h4, text, zastupce;
+    return _regenerator().w(function (_context) {
+      while (1) switch (_context.n) {
+        case 0:
+          // const socialIcons = document.querySelector('.footer-links-icons')
+          // const contactBanner = document.querySelector('.custom-footer__contact')
+          // if (socialIcons && contactBanner) contactBanner.appendChild(socialIcons)
+          cookies = document.querySelector(".js-cookies-settings");
+          if (cookies) {}
+          signature = document.querySelector("#signature");
+          if (signature) {
+            mirandaMediaLink = "\n\t  <span>Created by </span>\n\t\t\t  <a class=\"company\" href=\"https://www.mirandamedia.cz/shoptetnamiru\" target=\"_blank\">\n\t\t\t\t  <img class=\"company__logo\" src=\"/user/documents/upload/Obrazky/miranda.svg\">\n\t\t\t\t  MirandaMedia Group s.r.o.\n\t\t\t  </a>\n\t\t<span> on the platform </span>\n\t\t  ";
+            signature.insertAdjacentHTML("beforeend", mirandaMediaLink);
+            title = signature.querySelector(".title");
+            if (title) {
+              title.innerHTML = '<img class="company__logo" src="/user/documents/upload/Obrazky/shoptet.png">';
+            }
+          }
+          footerHeadings = document.querySelectorAll(".banner-wrapper > span > .block > h4");
+          footerHeadings.forEach(function (heading) {
+            heading.classList.add("clickable");
+            heading.addEventListener("click", function () {
+              heading.closest(".banner-wrapper").classList.toggle("active");
+            });
+          });
+          footerCategories = document.querySelector(".custom-footer__categories > h4");
+          if (footerCategories) {
+            footerCategories.classList.add("clickable");
+            footerCategories.addEventListener("click", function () {
+              footerCategories.closest(".custom-footer__categories").classList.toggle("active");
+            });
+          }
+          siteName = document.querySelector("#footer .site-name");
+          customFooter = document.querySelector("#footer .custom-footer");
+          if (customFooter) {
+            customFooter.insertBefore(siteName, customFooter.firstChild);
+          }
+          customFooterContact = document.querySelector("#footer .custom-footer__contact");
+          customFooterContactPlaceholder = document.querySelector("#footer .contacts-placeholder");
+          if (customFooterContact && customFooterContactPlaceholder) {
+            customFooterContactPlaceholder.append(customFooterContact);
+          }
 
-  // const footeSiteNameImg = document.querySelector("#footer .site-name img");
-  // if (footeSiteNameImg) {
-  //   console.log(footeSiteNameImg.src);
-  //   setInterval(() => {
-  //     footeSiteNameImg.src =
-  //       "/user/documents/upload/newDesign/icons/logo-white.png";
-  //   }, 1000);
-  // }
-  // const socialBanner = document.querySelector('.social-wrapper')
-  // if (socialBanner) {
-  // 	siteName.appendChild(socialBanner)
-  // }
-  const footer = document.querySelector("#footer");
-  const instagram = document.querySelector(".custom-footer__instagram ");
-  const benefitsWrapper = document.querySelector(".benefitBanner");
-  if (benefitsWrapper) {
-    footer.insertAdjacentElement("beforebegin", benefitsWrapper);
-  }
-  if (instagram) {
-    const h4 = instagram.querySelector("h4");
-    const text = instagramTitle.find(item => item.language === shoptetLang)?.text;
-    if (h4 && text) h4.innerHTML = text;
-    footer.insertAdjacentElement("beforebegin", instagram);
-  }
-  const zastupce = document.querySelector(".zastupce");
-  if (zastupce && footer) {
-    footer.parentNode.insertBefore(zastupce, footer);
-  }
-};
+          // const footeSiteNameImg = document.querySelector("#footer .site-name img");
+          // if (footeSiteNameImg) {
+          //   console.log(footeSiteNameImg.src);
+          //   setInterval(() => {
+          //     footeSiteNameImg.src =
+          //       "/user/documents/upload/newDesign/icons/logo-white.png";
+          //   }, 1000);
+          // }
+          // const socialBanner = document.querySelector('.social-wrapper')
+          // if (socialBanner) {
+          // 	siteName.appendChild(socialBanner)
+          // }
+          footer = document.querySelector("#footer");
+          instagram = document.querySelector(".custom-footer__instagram ");
+          benefitsWrapper = document.querySelector(".benefitBanner");
+          if (benefitsWrapper) {
+            footer.insertAdjacentElement("beforebegin", benefitsWrapper);
+          }
+          if (instagram) {
+            h4 = instagram.querySelector("h4");
+            text = (_instagramTitle$find = instagramTitle.find(function (item) {
+              return item.language === shoptetLang;
+            })) === null || _instagramTitle$find === void 0 ? void 0 : _instagramTitle$find.text;
+            if (h4 && text) h4.innerHTML = text;
+            footer.insertAdjacentElement("beforebegin", instagram);
+          }
+          zastupce = document.querySelector(".zastupce");
+          if (zastupce && footer) {
+            footer.parentNode.insertBefore(zastupce, footer);
+          }
+        case 1:
+          return _context.a(2);
+      }
+    }, _callee);
+  }));
+  return function handleFooter() {
+    return _ref.apply(this, arguments);
+  };
+}();
 handleFooter();
 
 // const shoptetPage = dataLayer[0].shoptet.pageType
@@ -1332,20 +1401,107 @@ handleFooter();
 
 // }
 if (shoptetPage === "homepage") {
-  const productsSelectors = () => {
-    const allProducts = document.querySelectorAll(".products");
-    if (!allProducts) return;
-    const productsIDs = [];
-    for (const products of allProducts) {
-      // if (index === 0) continue;
-
-      productsIDs.push(`#${products.id}`);
+  var homePageSections = function homePageSections() {
+    var body = document.querySelector("body");
+    var insertAfterElement = document.querySelector(".before-carousel");
+    var bannersRow = document.querySelector(".banners-row");
+    var colBanner = bannersRow === null || bannersRow === void 0 ? void 0 : bannersRow.querySelector(".next-to-carousel-banners");
+    var newBanners;
+    if (colBanner) {
+      newBanners = document.createElement("div");
+      newBanners.classList.add("new-banners", "container");
+      colBanner.classList.remove("col-sm-4");
+      newBanners.appendChild(colBanner);
+      if (insertAfterElement) {
+        insertAfterElement.insertAdjacentElement("afterend", newBanners);
+      } else if (bannersRow) {
+        bannersRow.insertAdjacentElement("afterend", newBanners);
+      }
     }
-    // console.log(productsIDs)
+    var headingElements = document.querySelectorAll(".homepage-group-title");
+
+    // Najdeme prvek pro 3. sekci (middle body bannery)
+    var thirdInsertPoint = document.querySelector(".middle-banners-wrapper") || document.querySelector(".body-banners");
+    var sections = [];
+    headingElements.forEach(function (heading, index) {
+      var splitClass = heading.className.split("homepage-products-heading-");
+      if (splitClass.length > 1) {
+        var headingNumber = splitClass[1].split(" ")[0];
+        var productElement = document.querySelector(".homepage-products-".concat(headingNumber));
+        if (productElement) {
+          var section = document.createElement("section");
+          section.classList.add("product-section", "product-section-".concat(headingNumber));
+          if (index === 0) {
+            section.classList.add("product-section-bg");
+          }
+          var container = document.createElement("div");
+          container.classList.add("container");
+          section.appendChild(container);
+          container.appendChild(heading);
+          container.appendChild(productElement);
+          sections.push(section);
+        }
+      }
+    });
+
+    // Vkládání jednotlivých sekcí podle pravidel
+    if (sections.length > 0) {
+      var firstInsertPoint = insertAfterElement || bannersRow;
+
+      // 1. sekce
+      firstInsertPoint === null || firstInsertPoint === void 0 || firstInsertPoint.insertAdjacentElement("afterend", sections[0]);
+
+      // 2. sekce
+      if (sections[1] && newBanners) {
+        newBanners.insertAdjacentElement("afterend", sections[1]);
+      }
+
+      // 3. sekce
+      if (sections[2] && thirdInsertPoint) {
+        thirdInsertPoint.insertAdjacentElement("afterend", sections[2]);
+      }
+
+      // Další sekce za předchozí
+      for (var i = 3; i < sections.length; i++) {
+        sections[i - 1].insertAdjacentElement("afterend", sections[i]);
+      }
+    }
+
+    // Přesun benefit banneru
+    var benefitBanner = document.querySelector(".benefitBanner");
+    if (benefitBanner) {
+      var _window$dataLayer;
+      if (((_window$dataLayer = window.dataLayer) === null || _window$dataLayer === void 0 || (_window$dataLayer = _window$dataLayer[0]) === null || _window$dataLayer === void 0 || (_window$dataLayer = _window$dataLayer.shoptet) === null || _window$dataLayer === void 0 ? void 0 : _window$dataLayer.pageType) === "homepage") {
+        var firstProductsBlock = document.querySelector(".banners-row");
+        if (firstProductsBlock) {
+          firstProductsBlock.appendChild(benefitBanner);
+        }
+      }
+    }
+  };
+  var productsSelectors = function productsSelectors() {
+    var allProducts = document.querySelectorAll(".products");
+    if (!allProducts) return;
+    var productsIDs = [];
+    var _iterator3 = _createForOfIteratorHelper(allProducts),
+      _step3;
+    try {
+      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+        var _products = _step3.value;
+        // if (index === 0) continue;
+
+        productsIDs.push("#".concat(_products.id));
+      }
+      // console.log(productsIDs)
+    } catch (err) {
+      _iterator3.e(err);
+    } finally {
+      _iterator3.f();
+    }
     return productsIDs;
   };
   swiperize({
-    containers: [...productsSelectors()],
+    containers: _toConsumableArray(productsSelectors()),
     slide: [swiperize.spreadClass(productsSelectors(), ".product")],
     customOptions: {
       fullscreen: false,
@@ -1385,109 +1541,36 @@ if (shoptetPage === "homepage") {
       }
     }
   });
-  function homePageSections() {
-    const body = document.querySelector("body");
-    let insertAfterElement = document.querySelector(".before-carousel");
-    const bannersRow = document.querySelector(".banners-row");
-    const colBanner = bannersRow?.querySelector(".next-to-carousel-banners");
-    let newBanners;
-    if (colBanner) {
-      newBanners = document.createElement("div");
-      newBanners.classList.add("new-banners", "container");
-      colBanner.classList.remove("col-sm-4");
-      newBanners.appendChild(colBanner);
-      if (insertAfterElement) {
-        insertAfterElement.insertAdjacentElement("afterend", newBanners);
-      } else if (bannersRow) {
-        bannersRow.insertAdjacentElement("afterend", newBanners);
-      }
-    }
-    const headingElements = document.querySelectorAll(".homepage-group-title");
-
-    // Najdeme prvek pro 3. sekci (middle body bannery)
-    const thirdInsertPoint = document.querySelector(".middle-banners-wrapper") || document.querySelector(".body-banners");
-    const sections = [];
-    headingElements.forEach((heading, index) => {
-      const splitClass = heading.className.split("homepage-products-heading-");
-      if (splitClass.length > 1) {
-        const headingNumber = splitClass[1].split(" ")[0];
-        const productElement = document.querySelector(`.homepage-products-${headingNumber}`);
-        if (productElement) {
-          const section = document.createElement("section");
-          section.classList.add("product-section", `product-section-${headingNumber}`);
-          if (index === 0) {
-            section.classList.add("product-section-bg");
-          }
-          const container = document.createElement("div");
-          container.classList.add("container");
-          section.appendChild(container);
-          container.appendChild(heading);
-          container.appendChild(productElement);
-          sections.push(section);
-        }
-      }
-    });
-
-    // Vkládání jednotlivých sekcí podle pravidel
-    if (sections.length > 0) {
-      const firstInsertPoint = insertAfterElement || bannersRow;
-
-      // 1. sekce
-      firstInsertPoint?.insertAdjacentElement("afterend", sections[0]);
-
-      // 2. sekce
-      if (sections[1] && newBanners) {
-        newBanners.insertAdjacentElement("afterend", sections[1]);
-      }
-
-      // 3. sekce
-      if (sections[2] && thirdInsertPoint) {
-        thirdInsertPoint.insertAdjacentElement("afterend", sections[2]);
-      }
-
-      // Další sekce za předchozí
-      for (let i = 3; i < sections.length; i++) {
-        sections[i - 1].insertAdjacentElement("afterend", sections[i]);
-      }
-    }
-
-    // Přesun benefit banneru
-    const benefitBanner = document.querySelector(".benefitBanner");
-    if (benefitBanner) {
-      if (window.dataLayer?.[0]?.shoptet?.pageType === "homepage") {
-        const firstProductsBlock = document.querySelector(".banners-row");
-        if (firstProductsBlock) {
-          firstProductsBlock.appendChild(benefitBanner);
-        }
-      }
-    }
-  }
   homePageSections();
   if (window.innerWidth >= 768) {
-    const handleSectionLinks = () => {
-      const productSections = document.querySelectorAll(".product-section");
-      productSections.forEach((section, index) => {
-        const container = section.querySelector(".container");
-        const heading = container.querySelector(".homepage-group-title");
-        const languageGroup = links.find(group => group.language === shoptetLang);
+    var handleSectionLinks = function handleSectionLinks() {
+      var productSections = document.querySelectorAll(".product-section");
+      productSections.forEach(function (section, index) {
+        var container = section.querySelector(".container");
+        var heading = container.querySelector(".homepage-group-title");
+        var languageGroup = links.find(function (group) {
+          return group.language === shoptetLang;
+        });
         if (languageGroup) {
-          const link = languageGroup.links.find(link => link.index === index);
+          var link = languageGroup.links.find(function (link) {
+            return link.index === index;
+          });
           if (link) {
-            const button = document.createElement("a");
+            var button = document.createElement("a");
             button.classList.add("btn", "btn-primary");
             button.href = link.url;
-            button.textContent = `${link.name}`;
+            button.textContent = "".concat(link.name);
             if (heading) {
               // Vytvoření obalovacího divu
-              const wrapper = document.createElement("div");
-              wrapper.classList.add("upper");
+              var _wrapper = document.createElement("div");
+              _wrapper.classList.add("upper");
 
               // Přesun nadpisu do wrapperu
-              wrapper.appendChild(heading);
-              wrapper.appendChild(button);
+              _wrapper.appendChild(heading);
+              _wrapper.appendChild(button);
 
               // Vložení wrapperu na začátek kontejneru
-              container.insertAdjacentElement("afterbegin", wrapper);
+              container.insertAdjacentElement("afterbegin", _wrapper);
             } else {
               // Pokud heading neexistuje, vlož tlačítko rovnou
               container.appendChild(button);
@@ -1501,9 +1584,9 @@ if (shoptetPage === "homepage") {
     handleSectionLinks();
   }
   document.addEventListener("click", function (e) {
-    const h4 = e.target.closest(".single-faq > h4");
+    var h4 = e.target.closest(".single-faq > h4");
     if (h4) {
-      const singleFaq = h4.closest(".single-faq");
+      var singleFaq = h4.closest(".single-faq");
       if (singleFaq) {
         singleFaq.classList.toggle("active");
       }
@@ -1511,13 +1594,17 @@ if (shoptetPage === "homepage") {
   });
 }
 function addEmptySlides(selector, rules) {
-  const swiperWrapper = document.querySelector(`${selector} .swiper-wrapper`);
+  var swiperWrapper = document.querySelector("".concat(selector, " .swiper-wrapper"));
   if (swiperWrapper) {
-    rules.sort((a, b) => b.width - a.width);
-    const applicableRule = rules.find(rule => window.innerWidth > rule.width);
+    rules.sort(function (a, b) {
+      return b.width - a.width;
+    });
+    var applicableRule = rules.find(function (rule) {
+      return window.innerWidth > rule.width;
+    });
     if (applicableRule) {
-      for (let i = 0; i < applicableRule.emptySlidesCount; i++) {
-        const emptySlide = document.createElement("div");
+      for (var i = 0; i < applicableRule.emptySlidesCount; i++) {
+        var emptySlide = document.createElement("div");
         emptySlide.classList.add("swiper-slide");
         swiperWrapper.appendChild(emptySlide);
       }
@@ -1526,35 +1613,35 @@ function addEmptySlides(selector, rules) {
 }
 
 // ANIMACE
-let target = document.querySelectorAll(".products-block");
-const target2 = document.querySelector(".top-categories-grid");
+var target = document.querySelectorAll(".products-block");
+var target2 = document.querySelector(".top-categories-grid");
 function handleIntersection(entries) {
-  entries.map((entry, index) => {
+  entries.map(function (entry, index) {
     entry.target.style.removeProperty("--animation-delay");
-    entry.target.setAttribute("style", entry.target.getAttribute("style") ? entry.target.getAttribute("style") + `--animation-delay: ${index}` : `--animation-delay: ${index}`);
+    entry.target.setAttribute("style", entry.target.getAttribute("style") ? entry.target.getAttribute("style") + "--animation-delay: ".concat(index) : "--animation-delay: ".concat(index));
     // entry.target.setAttribute('animation-delay', `${index}`)
     if (entry.isIntersecting) {
       entry.target.classList.add("visible");
     }
   });
 }
-const observer = new IntersectionObserver(handleIntersection);
-const observer2 = new IntersectionObserver(handleIntersection);
+var observer = new IntersectionObserver(handleIntersection);
+var observer2 = new IntersectionObserver(handleIntersection);
 if (target.length) {
-  target.forEach(item => {
+  target.forEach(function (item) {
     item.classList.add("animation");
-    const subtargets = item.querySelectorAll(".product");
-    subtargets.forEach(subtarget => {
+    var subtargets = item.querySelectorAll(".product");
+    subtargets.forEach(function (subtarget) {
       observer.observe(subtarget);
     });
   });
 }
-document.addEventListener("ShoptetDOMPageMoreProductsLoaded", () => {
+document.addEventListener("ShoptetDOMPageMoreProductsLoaded", function () {
   if (target.length) {
-    target.forEach(item => {
+    target.forEach(function (item) {
       item.classList.add("animation");
-      const subtargets = item.querySelectorAll(".product");
-      subtargets.forEach(subtarget => {
+      var subtargets = item.querySelectorAll(".product");
+      subtargets.forEach(function (subtarget) {
         observer.observe(subtarget);
       });
     });
@@ -1562,8 +1649,8 @@ document.addEventListener("ShoptetDOMPageMoreProductsLoaded", () => {
 });
 if (target2) {
   target2.classList.add("animation");
-  const subtargets = target2.querySelectorAll(".category");
-  subtargets.forEach(subtarget => {
+  var subtargets = target2.querySelectorAll(".category");
+  subtargets.forEach(function (subtarget) {
     observer2.observe(subtarget);
   });
 }
@@ -1659,16 +1746,18 @@ if (target2) {
 // if (shoptetPage === 'productDetail') handleCustomDetail()
 
 if (window.innerWidth < 768) {
-  const topNavigationBarMenu = document.querySelector(".top-navigation-bar-menu");
-  const navigationIn = document.querySelector("#navigation .navigation-in");
+  var topNavigationBarMenu = document.querySelector(".top-navigation-bar-menu");
+  var navigationIn = document.querySelector("#navigation .navigation-in");
   if (topNavigationBarMenu && navigationIn) {
     navigationIn.appendChild(topNavigationBarMenu);
   }
 }
-function smoothScrollTo(target, offset = -150, duration = 700) {
-  const targetElement = document.querySelector(target);
+function smoothScrollTo(target) {
+  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -150;
+  var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 700;
+  var targetElement = document.querySelector(target);
   if (targetElement) {
-    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+    var targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
     window.scrollTo({
       top: targetPosition,
       behavior: "smooth"
@@ -1678,14 +1767,14 @@ function smoothScrollTo(target, offset = -150, duration = 700) {
 
 // Přidání event listeneru pomocí vaší funkce `on`
 on("click", ".shp-tab-link", function (e) {
-  const target = this.getAttribute("href");
+  var target = this.getAttribute("href");
   if (document.querySelector(target)) {
     smoothScrollTo(target, 200);
   }
 });
 if (shoptetPage === "homepage") {
   document.addEventListener("DOMContentLoaded", function () {
-    const swiper1 = new Swiper(".swiper-partners", {
+    var swiper1 = new Swiper(".swiper-partners", {
       slidesPerView: 1.8,
       spaceBetween: 0,
       speed: 800,
@@ -1726,7 +1815,7 @@ if (shoptetPage === "homepage") {
         clickable: true
       },
       on: {
-        init: function () {
+        init: function init() {
           this.el.style.opacity = "1";
         }
       }
@@ -1746,27 +1835,33 @@ if (shoptetPage === "homepage") {
 
 // setTimeout(() => {
 document.addEventListener("DOMContentLoaded", function () {
-  const productsSmallNew = document.querySelectorAll(".product");
+  var productsSmallNew = document.querySelectorAll(".product");
   if (productsSmallNew.length > 0) {
-    productsSmallNew.forEach(product => {
-      const addToCartButton = product.querySelector(".add-to-cart-button");
+    productsSmallNew.forEach(function (product) {
+      var addToCartButton = product.querySelector(".add-to-cart-button");
       if (addToCartButton) {
-        const form = product.querySelector("form.pr-action");
-        const alreadyExists = form?.querySelector(".quantity");
+        var form = product.querySelector("form.pr-action");
+        var alreadyExists = form === null || form === void 0 ? void 0 : form.querySelector(".quantity");
         if (form && !alreadyExists) {
-          const valueWrapper = document.createElement("div");
+          var updateHiddenInputValue = function updateHiddenInputValue(value) {
+            var hiddenInput = form.querySelector('input[type="hidden"][name="amount"]');
+            if (hiddenInput) {
+              hiddenInput.value = value;
+            }
+          };
+          var valueWrapper = document.createElement("div");
           valueWrapper.classList.add("quantity");
           form.insertBefore(valueWrapper, form.firstChild);
-          const decrease = document.createElement("div");
+          var decrease = document.createElement("div");
           decrease.classList.add("decrease-2");
-          const input = document.createElement("input");
+          var input = document.createElement("input");
           input.setAttribute("type", "number");
           input.setAttribute("value", "1");
           input.classList.add("amount");
           input.setAttribute("min", "1");
           input.setAttribute("autocomplete", "off");
           input.classList.add("amount-input");
-          const increase = document.createElement("div");
+          var increase = document.createElement("div");
           increase.classList.add("increase-2");
           valueWrapper.appendChild(decrease);
           valueWrapper.appendChild(input);
@@ -1775,13 +1870,13 @@ document.addEventListener("DOMContentLoaded", function () {
           // Vložit na úplně první místo ve formu
 
           // Přidání posluchačů pro konkrétní tlačítka tohoto produktu
-          increase.addEventListener("click", e => {
+          increase.addEventListener("click", function (e) {
             console.log("Increase clicked");
             e.preventDefault();
             input.value = parseInt(input.value) + 1;
             updateHiddenInputValue(input.value);
           });
-          decrease.addEventListener("click", e => {
+          decrease.addEventListener("click", function (e) {
             e.preventDefault();
             input.value = parseInt(input.value) - 1;
             if (parseInt(input.value) < 1) {
@@ -1789,12 +1884,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             updateHiddenInputValue(input.value);
           });
-          function updateHiddenInputValue(value) {
-            const hiddenInput = form.querySelector('input[type="hidden"][name="amount"]');
-            if (hiddenInput) {
-              hiddenInput.value = value;
-            }
-          }
         }
       }
     });
@@ -1803,62 +1892,88 @@ document.addEventListener("DOMContentLoaded", function () {
 // }, 1000);
 
 if (shoptetPage === "productDetail") {
-  const endpoint = (baseURL, params) => {
-    const url = new URL(baseURL);
-    for (let i = 0; i < params.length; i += 2) {
+  var endpoint = function endpoint(baseURL, params) {
+    var url = new URL(baseURL);
+    for (var i = 0; i < params.length; i += 2) {
       url.searchParams.append(params[i], params[i + 1]);
     }
     return url.toString();
   };
-  const createVariant = data => {
-    const variant = document.createElement("a");
+  var createVariant = function createVariant(data) {
+    var variant = document.createElement("a");
     variant.classList.add("variant");
     variant.href = data.url;
 
     // Nastav barvu dostupnosti pokud je "Skladem"
-    let availabilityStyle = "";
+    var availabilityStyle = "";
     if (data.availability && data.availability.trim().toLowerCase() === "skladem") {
       availabilityStyle = 'style="color: #39c09f"';
     }
-    variant.innerHTML = `
-          <div class="variant-image">
-              <img src="${data.image}">
-          </div>
-          <span class="variant-name">${data.name}</span>
-          <span class="variant-availability" ${availabilityStyle}>${data.availability}</span>
-          <span class="variant-price">${data.price}</span>
-      `;
+    variant.innerHTML = "\n          <div class=\"variant-image\">\n              <img src=\"".concat(data.image, "\">\n          </div>\n          <span class=\"variant-name\">").concat(data.name, "</span>\n          <span class=\"variant-availability\" ").concat(availabilityStyle, ">").concat(data.availability, "</span>\n          <span class=\"variant-price\">").concat(data.price, "</span>\n      ");
     return variant;
   };
-  const fetchVariants = async () => {
-    try {
-      const variantsEndpoint = endpoint("https://renomag-stage.axfone.eu/variants", ["guid", getShoptetDataLayer("product").guid]);
-      const response = await fetch(variantsEndpoint);
-      if (!response.ok) {
-        throw new Error("Failed to fetch variants");
-      }
-      const data = await response.json();
-      const variantsWrapper = document.createElement("div");
-      variantsWrapper.classList.add("variants-wrapper");
-      const variantsBlockFragment = document.createDocumentFragment();
-      for (const variantData of data.data) {
-        const variant = createVariant({
-          url: variantData.url,
-          image: variantData.image,
-          name: variantData.name,
-          // ← přidej tento řádek
-          availability: variantData.availability,
-          price: variantData.price_with_vat
-        });
-        variantsBlockFragment.appendChild(variant);
-      }
-      variantsWrapper.appendChild(variantsBlockFragment);
-      const infoWrapper = document.querySelector(".p-info-wrapper");
-      infoWrapper.appendChild(variantsWrapper);
-    } catch (error) {
-      console.error("Error fetching product variants:", error);
-    }
-  };
+  var fetchVariants = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var variantsEndpoint, response, data, variantsWrapper, variantsBlockFragment, _iterator4, _step4, variantData, variant, infoWrapper, _t;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            _context2.p = 0;
+            variantsEndpoint = endpoint("https://renomag-stage.axfone.eu/variants", ["guid", getShoptetDataLayer("product").guid]);
+            _context2.n = 1;
+            return fetch(variantsEndpoint);
+          case 1:
+            response = _context2.v;
+            if (response.ok) {
+              _context2.n = 2;
+              break;
+            }
+            throw new Error("Failed to fetch variants");
+          case 2:
+            _context2.n = 3;
+            return response.json();
+          case 3:
+            data = _context2.v;
+            variantsWrapper = document.createElement("div");
+            variantsWrapper.classList.add("variants-wrapper");
+            variantsBlockFragment = document.createDocumentFragment();
+            _iterator4 = _createForOfIteratorHelper(data.data);
+            try {
+              for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+                variantData = _step4.value;
+                variant = createVariant({
+                  url: variantData.url,
+                  image: variantData.image,
+                  name: variantData.name,
+                  // ← přidej tento řádek
+                  availability: variantData.availability,
+                  price: variantData.price_with_vat
+                });
+                variantsBlockFragment.appendChild(variant);
+              }
+            } catch (err) {
+              _iterator4.e(err);
+            } finally {
+              _iterator4.f();
+            }
+            variantsWrapper.appendChild(variantsBlockFragment);
+            infoWrapper = document.querySelector(".p-info-wrapper");
+            infoWrapper.appendChild(variantsWrapper);
+            _context2.n = 5;
+            break;
+          case 4:
+            _context2.p = 4;
+            _t = _context2.v;
+            console.error("Error fetching product variants:", _t);
+          case 5:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[0, 4]]);
+    }));
+    return function fetchVariants() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
   fetchVariants();
 }
 /******/ })()

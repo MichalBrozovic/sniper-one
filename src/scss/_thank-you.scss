@@ -8,7 +8,7 @@
     padding-top: 110px;
 
     &:after {
-        // content: url(../img/icon/hearth-small.svg);
+        //content: url(../img/icon/hearth-small.svg);
         display: inline-block;
 
     }
@@ -21,7 +21,7 @@
         top: 0px;
         width: 96px;
         height: 96px;
-        // background: url(../img/icon/bene-mark.svg) no-repeat center center;
+       // background: url(../img/icon/bene-mark.svg) no-repeat center center;
         background-size: cover;
     }
 
@@ -41,11 +41,11 @@
 
 .reca-number {
     text-align: center;
-    font-size: remMM($h2);
+    font-size: remMM($font-size-h2);
     display: none;
 
     @media (max-width: 767px) {
-        font-size: remMM($h2-mobile);
+        font-size: remMM($font-size-h2-mobile);
     }
 }
 
@@ -95,8 +95,10 @@
                         justify-content: flex-start;
 
                         tr {
-                            // display: flex;
-                            // align-items: center;
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+
                             gap: 20px;
                             margin: 0 0 1px 0;
                             padding: 11px 7px;
@@ -138,7 +140,7 @@
         margin-right: auto;
         margin-bottom: 50px;
         // padding: 50px 100px;
-        // background-color: $color-page-bg;
+        // background-color: $color-page-background;
         border-radius: 5px;
         // border: 1px solid $color-font-10;
 
@@ -192,6 +194,18 @@
                     align-items: center;
                     justify-content: center;
                     flex-wrap: nowrap;
+                    white-space: nowrap;
+                    font-size: remMM(12);
+                    font-weight: 400 !important;
+
+                    strong {
+                        font-weight: 400 !important;
+                    }
+                }
+
+                .p-price {
+                    font-weight: 700;
+                    color: $color-font;
                 }
 
                 .p-name {
@@ -281,7 +295,6 @@
                     }
 
                     .p-quantity {
-                        font-size: 0.75rem;
                         color: $color-font-70;
 
                         strong {
@@ -290,9 +303,9 @@
                     }
 
                     .p-price {
-                        font-size: 1rem;
-                        font-weight: 700;
-                        text-align: right;
+                        // font-size: 1rem;
+                        // font-weight: 700;
+                        // text-align: right;
                     }
                 }
             }
