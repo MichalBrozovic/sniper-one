@@ -1,19 +1,21 @@
 @import 'variables';
-@import 'specific-variables';
+@import 'colors';
 @import 'mixins';
-@import 'general';
-@import 'popups';
-@import 'footer';
-@import 'forms';
-@import 'advanced-order';
-@import 'colorbox';
-@import 'category';
-@import 'product-detail';
-@import 'cart';
-@import 'thank-you';
-@import 'custom-banners';
-@import 'custom-pages';
-@import 'modal';
+@import 'styles/fonts';
+
+@import 'styles/general';
+@import 'styles/popups';
+@import 'styles/footer';
+@import 'styles/forms';
+@import 'styles/advanced-order';
+@import 'styles/colorbox';
+@import 'styles/category';
+@import 'styles/product-detail';
+@import 'styles/cart';
+@import 'styles/thank-you';
+@import 'styles/custom-banners';
+@import 'styles/custom-pages';
+@import 'styles/modal';
 
 // HIDES
 .latest-contribution-box {
@@ -27,7 +29,7 @@
 
 // USP
 .benefitBanner__data {
-    color: $color-font-70;
+    color: $color-font-700;
 }
 
 // TOP KATEGORIE
@@ -168,7 +170,7 @@
     border-radius: 5px;
     overflow: hidden;
     position: relative;
-    color: $color-page-background;
+    color: $color-page-bg;
     height: 487px;
 
     img {
@@ -185,7 +187,7 @@
 
         em {
             display: block;
-            font-size: emMM(16, $font-size-h2);
+            font-size: emMM(16, $h2);
             line-height: emMM(20, 16);
             font-style: normal;
         }
@@ -269,7 +271,7 @@
         }
 
         &-label {
-            color: $color-font-70;
+            color: $color-font-700;
         }
 
         &-value {
@@ -420,7 +422,7 @@
                 gap: 0.4em;
                 align-items: center;
                 padding: 20px 0;
-                border-bottom: 1px solid $color-font-30;
+                border-bottom: 1px solid $color-font-300;
 
                 &.highlight {
                     color: $color-accent;
@@ -432,11 +434,11 @@
     }
 
     h2 {
-        margin: 0 0 emMM(20, $font-size-h2);
+        margin: 0 0 emMM(20, $h2);
     }
 
     p {
-        color: $color-font-70;
+        color: $color-font-700;
     }
 
     @media (max-width: 1200px) {
@@ -470,7 +472,7 @@
 // BLOG HP
 .blog-wrapper {
     .narrow-custom {
-        color: $color-font-70;
+        color: $color-font-700;
     }
 }
 
@@ -524,7 +526,7 @@
 
     .description {
         order: 3;
-        color: $color-font-70;
+        color: $color-font-700;
         font-size: remMM(13);
         color: $color-font;
         line-height: 1.5em;
@@ -586,16 +588,16 @@
         max-width: 820px;
         padding: 50px 100px;
         margin: 0 auto;
-        //background: url(../img/welcome-watermark.png) no-repeat center center, $color-page-background;
+        //background: url(../img/welcome-watermark.png) no-repeat center center, $color-page-bg;
         text-align: center;
 
         p {
-            color: $color-font-70;
+            color: $color-font-700;
         }
 
         h1 {
-            font-size: remMM($font-size-h2);
-            margin: 0 0 emMM(20, $font-size-h2);
+            font-size: remMM($h2);
+            margin: 0 0 emMM(20, $h2);
         }
     }
 
@@ -1141,8 +1143,8 @@
     &__inner {
         padding: 30px;
         border-radius: 5px;
-        border: 1px solid $color-font-80;
-        background-color: $color-font-90;
+        border: 1px solid $color-font-800;
+        background-color: $color-font-900;
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -1214,7 +1216,7 @@
 
             .extended-banner-title {
                 font-size: remMM(24);
-                color: $yellow-2;
+                color: $color-primary;
                 margin-bottom: 15px;
                 text-align: left;
             }
@@ -1418,7 +1420,7 @@
         margin: 0;
         text-decoration: unset;
         display: flex;
-        background-color: $red-1;
+        background-color: $color-danger;
         font-size: remMM(12);
         cursor: pointer;
 
@@ -1456,7 +1458,7 @@
         font-size: remMM(12);
         color: $color-font;
         padding: remMM(9) remMM(30) remMM(12) remMM(10);
-        background-color: $black-07;
+        background-color: $black-10;
 
         &:before,
         &:after {
@@ -1635,7 +1637,7 @@
                 color: $color-font;
 
                 // &::before {
-                //     border-color: $color-page-background;
+                //     border-color: $color-page-bg;
                 // }
             }
 
@@ -1665,7 +1667,7 @@
         color: $color-font;
         // border: 3px solid $color-font;
         // padding: emMM(8) emMM(18) emMM(10) emMM(18);
-        // background-color: $bg-color;
+        // background-color: $color-page-bg;
         font-weight: 600;
         font-size: remMM(16);
         text-decoration: underline;
@@ -1688,7 +1690,7 @@
             background-color: unset !important;
             text-decoration: none;
             // &::before {
-            //     border-color: $color-page-background;
+            //     border-color: $color-page-bg;
             // }
         }
     }
@@ -1786,7 +1788,7 @@
 
 // PRODUCT DETAIL
 .link-icon {
-    color: $color-font-60;
+    color: $color-font-600;
     text-decoration: none;
 
     &.chat {
@@ -1807,14 +1809,14 @@
 
     // h2 {
     //     margin-top: 0;
-    //     margin-bottom: emMM(30, $font-size-h2);
+    //     margin-bottom: emMM(30, $h2);
     // }
 
     // h3 {
     //     margin: 0;
     //     font-family: $default-font-family;
     //     font-size: 1rem;
-    //     color: $color-font-70;
+    //     color: $color-font-700;
     //     text-transform: initial;
     // }
 
@@ -1888,7 +1890,7 @@
     left: 50%;
     transform: translateX(-50%);
     padding: 100px 0;
-    background-color: $color-font-05;
+    background-color: $color-font-050;
 
     .benefitBanner {
         margin-bottom: 0;

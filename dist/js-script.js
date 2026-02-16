@@ -3,6 +3,7 @@
 /*!**************************!*\
   !*** ./src/js/script.js ***!
   \**************************/
+var _window$shoptet;
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -61,38 +62,54 @@ function on(eventType, selector, callback) {
 }
 var splitMenu = function splitMenu() {
   var menuWrapper = document.querySelector("#navigation .navigation-in");
-  if (menuWrapper) {
-    setTimeout(function () {
-      var menuItems = menuWrapper.querySelectorAll(".menu-level-1>li:not(.appended-category)");
-      var menuHelper = document.querySelector(".menu-helper");
-      var menuWrapperStyle = window.getComputedStyle(menuWrapper);
-      menuItems.forEach(function (item) {
-        var offsetRight = item.offsetLeft + item.offsetWidth;
-        var itemInHelper = item.id === "nav-manufacturers" ? menuHelper.querySelector("#nav-manufacturers") : menuHelper.querySelector("." + item.classList[0]);
-        if (offsetRight > menuWrapper.clientWidth - parseFloat(menuWrapperStyle.paddingRight)) {
-          if (itemInHelper) {
-            itemInHelper.classList.remove("splitted");
-          }
-          item.classList.add("splitted");
-        } else {
-          if (itemInHelper) {
-            itemInHelper.classList.add("splitted");
-          }
-          item.classList.remove("splitted");
-        }
-      });
-      if (menuHelper.querySelector(".menu-level-1 > li:not(.splitted):not(.appended-category)")) {
-        menuHelper.classList.remove("empty");
-        menuWrapper.classList.remove("fitted");
-      } else {
-        menuHelper.classList.add("empty");
-        menuWrapper.classList.add("fitted");
-      }
-    }, 200);
-  }
-};
-shoptet.menu.splitMenu = splitMenu;
+  var menuHelper = document.querySelector(".menu-helper");
+  if (!menuWrapper || !menuHelper) return;
 
+  // requestAnimationFrame je pro výpočty layoutu lepší než setTimeout
+  window.requestAnimationFrame(function () {
+    var menuItems = menuWrapper.querySelectorAll(".menu-level-1 > li:not(.appended-category)");
+    var menuWrapperStyle = window.getComputedStyle(menuWrapper);
+    var availableWidth = menuWrapper.clientWidth - parseFloat(menuWrapperStyle.paddingRight);
+    var hasVisibleInHelper = false;
+    menuItems.forEach(function (item) {
+      var offsetRight = item.offsetLeft + item.offsetWidth;
+
+      // Najdeme odpovídající položku v helperu (priorita ID, pak třída)
+      var itemInHelper = item.id === "nav-manufacturers" ? menuHelper.querySelector("#nav-manufacturers") : menuHelper.querySelector(".".concat(item.classList[0]));
+      if (offsetRight > availableWidth) {
+        // Položka se nevejde -> schovat v hlavním menu, ukázat v helperu
+        item.classList.add("splitted");
+        if (itemInHelper) {
+          itemInHelper.classList.remove("splitted");
+          hasVisibleInHelper = true; // Máme co zobrazit v "Více..."
+        }
+      } else {
+        // Položka se vejde -> ukázat v hlavním menu, schovat v helperu
+        item.classList.remove("splitted");
+        if (itemInHelper) itemInHelper.classList.add("splitted");
+      }
+    });
+
+    // Finální přepnutí stavu "Více..." (menuHelper)
+    // Kontrolujeme, jestli v helperu zbyla aspoň jedna položka, co není .splitted
+    var itemsToDisplayInHelper = menuHelper.querySelector(".menu-level-1 > li:not(.splitted):not(.appended-category)");
+    if (itemsToDisplayInHelper) {
+      menuHelper.classList.remove("empty");
+      menuWrapper.classList.remove("fitted");
+    } else {
+      menuHelper.classList.add("empty");
+      menuWrapper.classList.add("fitted");
+    }
+  });
+};
+
+// Přepsání Shoptet funkce
+if ((_window$shoptet = window.shoptet) !== null && _window$shoptet !== void 0 && _window$shoptet.menu) {
+  shoptet.menu.splitMenu = splitMenu;
+}
+
+// Zajištění, že se menu přepočítá při změně velikosti okna
+window.addEventListener('resize', debounce(splitMenu, 150));
 // CAROUSEL
 var handleCarousel = function handleCarousel() {
   var carousel = document.querySelector("#carousel .carousel-inner");
@@ -1654,97 +1671,6 @@ if (target2) {
     observer2.observe(subtarget);
   });
 }
-
-// const handleCustomDetail = () => {
-// 	// Najít .basic-description a obalit obsah divem .content-wrapper
-// 	const basicDescription = document.querySelector('.basic-description')
-// 	if (basicDescription) {
-// 		const contentWrapper = document.createElement('div')
-// 		contentWrapper.classList.add('content-wrapper')
-
-// 		while (basicDescription.firstChild) {
-// 			contentWrapper.appendChild(basicDescription.firstChild)
-// 		}
-
-// 		// Najít předposlední .p-thumbnail img a vytvořit img element
-// 		const thumbnails = document.querySelectorAll('.p-thumbnail img')
-// 		if (thumbnails.length) {
-// 			const img = document.createElement('img')
-// 			const imgSrc = thumbnails[thumbnails.length - 2].getAttribute('data-src')
-// 			const origSrc = imgSrc.replace('/related/', '/orig/')
-// 			img.src = origSrc
-// 			img.classList.add('side-detail-img')
-// 			basicDescription.appendChild(img)
-// 		}
-
-// 		basicDescription.appendChild(contentWrapper)
-// 	}
-
-// 	// Najít .extended-description .detail-parameters a přidat třídu .content-wrapper
-
-// 	const detailParameters = document.querySelector('.extended-description')
-// 	if (detailParameters) {
-// 		const contentWrapper = document.createElement('div')
-// 		contentWrapper.classList.add('content-wrapper')
-
-// 		while (detailParameters.firstChild) {
-// 			contentWrapper.appendChild(detailParameters.firstChild)
-// 		}
-
-// 		// Najít první h3 a přepsat jeho innerHTML
-// 		const firstH3 = detailParameters.querySelector('h3')
-// 		if (firstH3) {
-// 			const specificationText = window.specificationTabText.find(
-// 				item => item.language === shoptetLang
-// 			).text
-// 			firstH3.innerHTML = specificationText
-// 		}
-
-// 		// Najít poslední .p-thumbnail img a vytvořit img element
-// 		const thumbnails = document.querySelectorAll('.p-thumbnail img')
-// 		if (thumbnails.length) {
-// 			const img = document.createElement('img')
-// 			const imgSrc = thumbnails[thumbnails.length - 1].getAttribute('data-src')
-// 			const origSrc = imgSrc.replace('/related/', '/orig/')
-// 			img.src = origSrc
-// 			img.classList.add('side-detail-img')
-// 			detailParameters.appendChild(img)
-// 		}
-
-// 		detailParameters.appendChild(contentWrapper)
-// 	}
-// 	const firstH3 = document.querySelector('.extended-description h3')
-// 	if (firstH3) {
-// 		const specificationText = window.specificationTabText.find(
-// 			item => item.language === shoptetLang
-// 		).text
-// 		firstH3.innerHTML = specificationText
-// 	}
-// 	const productVideos = document.querySelector('#productVideos')
-// 	if (productVideos) {
-// 		const videoText = basicDescription.querySelector('.video-popis')
-// 		const heading = productVideos.querySelector('h3') // Předpokládám, že nadpis je h3, upravte podle potřeby
-// 		const iframe = productVideos.querySelector('iframe')
-// 		if (iframe) {
-// 			iframe.classList.add('side-detail-img')
-// 		}
-// 		if (heading) {
-// 			const contentWrapper = document.createElement('div')
-// 			contentWrapper.classList.add('content-wrapper')
-
-// 			contentWrapper.appendChild(heading)
-
-// 			if (videoText) {
-// 				contentWrapper.appendChild(videoText)
-// 			}
-
-// 			productVideos.insertBefore(contentWrapper, productVideos.firstChild)
-// 		}
-// 	}
-// }
-
-// if (shoptetPage === 'productDetail') handleCustomDetail()
-
 if (window.innerWidth < 768) {
   var topNavigationBarMenu = document.querySelector(".top-navigation-bar-menu");
   var navigationIn = document.querySelector("#navigation .navigation-in");
@@ -1772,56 +1698,6 @@ on("click", ".shp-tab-link", function (e) {
     smoothScrollTo(target, 200);
   }
 });
-if (shoptetPage === "homepage") {
-  document.addEventListener("DOMContentLoaded", function () {
-    var swiper1 = new Swiper(".swiper-partners", {
-      slidesPerView: 1.8,
-      spaceBetween: 0,
-      speed: 800,
-      loop: true,
-      watchSlidesProgress: true,
-      autoplay: {
-        delay: 7000,
-        disableOnInteraction: false
-      },
-      breakpoints: {
-        480: {
-          slidesPerView: 2,
-          spaceBetween: 24
-        },
-        768: {
-          slidesPerView: 3,
-          spaceBetween: 24
-        },
-        992: {
-          slidesPerView: 4,
-          spaceBetween: 24
-        },
-        1124: {
-          slidesPerView: 5,
-          spaceBetween: 24
-        },
-        1200: {
-          slidesPerView: 6,
-          spaceBetween: 24
-        }
-      },
-      navigation: {
-        nextEl: ".partners-next",
-        prevEl: ".partners-prev"
-      },
-      pagination: {
-        el: ".partners-pagination",
-        clickable: true
-      },
-      on: {
-        init: function init() {
-          this.el.style.opacity = "1";
-        }
-      }
-    });
-  });
-}
 
 // document.addEventListener('DOMContentLoaded', function () {
 //   const amountInput = document.querySelector('input[name="amount"]');
@@ -1832,150 +1708,6 @@ if (shoptetPage === "homepage") {
 //   }
 //   shoptet.config.documentPriceDecimalPlaces = "2";
 // });
-
-// setTimeout(() => {
-document.addEventListener("DOMContentLoaded", function () {
-  var productsSmallNew = document.querySelectorAll(".product");
-  if (productsSmallNew.length > 0) {
-    productsSmallNew.forEach(function (product) {
-      var addToCartButton = product.querySelector(".add-to-cart-button");
-      if (addToCartButton) {
-        var form = product.querySelector("form.pr-action");
-        var alreadyExists = form === null || form === void 0 ? void 0 : form.querySelector(".quantity");
-        if (form && !alreadyExists) {
-          var updateHiddenInputValue = function updateHiddenInputValue(value) {
-            var hiddenInput = form.querySelector('input[type="hidden"][name="amount"]');
-            if (hiddenInput) {
-              hiddenInput.value = value;
-            }
-          };
-          var valueWrapper = document.createElement("div");
-          valueWrapper.classList.add("quantity");
-          form.insertBefore(valueWrapper, form.firstChild);
-          var decrease = document.createElement("div");
-          decrease.classList.add("decrease-2");
-          var input = document.createElement("input");
-          input.setAttribute("type", "number");
-          input.setAttribute("value", "1");
-          input.classList.add("amount");
-          input.setAttribute("min", "1");
-          input.setAttribute("autocomplete", "off");
-          input.classList.add("amount-input");
-          var increase = document.createElement("div");
-          increase.classList.add("increase-2");
-          valueWrapper.appendChild(decrease);
-          valueWrapper.appendChild(input);
-          valueWrapper.appendChild(increase);
-
-          // Vložit na úplně první místo ve formu
-
-          // Přidání posluchačů pro konkrétní tlačítka tohoto produktu
-          increase.addEventListener("click", function (e) {
-            console.log("Increase clicked");
-            e.preventDefault();
-            input.value = parseInt(input.value) + 1;
-            updateHiddenInputValue(input.value);
-          });
-          decrease.addEventListener("click", function (e) {
-            e.preventDefault();
-            input.value = parseInt(input.value) - 1;
-            if (parseInt(input.value) < 1) {
-              input.value = 1;
-            }
-            updateHiddenInputValue(input.value);
-          });
-        }
-      }
-    });
-  }
-});
-// }, 1000);
-
-if (shoptetPage === "productDetail") {
-  var endpoint = function endpoint(baseURL, params) {
-    var url = new URL(baseURL);
-    for (var i = 0; i < params.length; i += 2) {
-      url.searchParams.append(params[i], params[i + 1]);
-    }
-    return url.toString();
-  };
-  var createVariant = function createVariant(data) {
-    var variant = document.createElement("a");
-    variant.classList.add("variant");
-    variant.href = data.url;
-
-    // Nastav barvu dostupnosti pokud je "Skladem"
-    var availabilityStyle = "";
-    if (data.availability && data.availability.trim().toLowerCase() === "skladem") {
-      availabilityStyle = 'style="color: #39c09f"';
-    }
-    variant.innerHTML = "\n          <div class=\"variant-image\">\n              <img src=\"".concat(data.image, "\">\n          </div>\n          <span class=\"variant-name\">").concat(data.name, "</span>\n          <span class=\"variant-availability\" ").concat(availabilityStyle, ">").concat(data.availability, "</span>\n          <span class=\"variant-price\">").concat(data.price, "</span>\n      ");
-    return variant;
-  };
-  var fetchVariants = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-      var variantsEndpoint, response, data, variantsWrapper, variantsBlockFragment, _iterator4, _step4, variantData, variant, infoWrapper, _t;
-      return _regenerator().w(function (_context2) {
-        while (1) switch (_context2.p = _context2.n) {
-          case 0:
-            _context2.p = 0;
-            variantsEndpoint = endpoint("https://renomag-stage.axfone.eu/variants", ["guid", getShoptetDataLayer("product").guid]);
-            _context2.n = 1;
-            return fetch(variantsEndpoint);
-          case 1:
-            response = _context2.v;
-            if (response.ok) {
-              _context2.n = 2;
-              break;
-            }
-            throw new Error("Failed to fetch variants");
-          case 2:
-            _context2.n = 3;
-            return response.json();
-          case 3:
-            data = _context2.v;
-            variantsWrapper = document.createElement("div");
-            variantsWrapper.classList.add("variants-wrapper");
-            variantsBlockFragment = document.createDocumentFragment();
-            _iterator4 = _createForOfIteratorHelper(data.data);
-            try {
-              for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-                variantData = _step4.value;
-                variant = createVariant({
-                  url: variantData.url,
-                  image: variantData.image,
-                  name: variantData.name,
-                  // ← přidej tento řádek
-                  availability: variantData.availability,
-                  price: variantData.price_with_vat
-                });
-                variantsBlockFragment.appendChild(variant);
-              }
-            } catch (err) {
-              _iterator4.e(err);
-            } finally {
-              _iterator4.f();
-            }
-            variantsWrapper.appendChild(variantsBlockFragment);
-            infoWrapper = document.querySelector(".p-info-wrapper");
-            infoWrapper.appendChild(variantsWrapper);
-            _context2.n = 5;
-            break;
-          case 4:
-            _context2.p = 4;
-            _t = _context2.v;
-            console.error("Error fetching product variants:", _t);
-          case 5:
-            return _context2.a(2);
-        }
-      }, _callee2, null, [[0, 4]]);
-    }));
-    return function fetchVariants() {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-  fetchVariants();
-}
 /******/ })()
 ;
 //# sourceMappingURL=js-script.js.map

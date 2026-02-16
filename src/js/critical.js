@@ -6,14 +6,6 @@ window.shoptetPage = dataLayer[0].shoptet.pageType;
 window.shoptetLang = dataLayer[0].shoptet.language;
 window.body = document.querySelector("body");
 
-const fetchData = () => {
-  return fetch("/user/documents/upload/shoptet-stock-all.json")
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error fetching the JSON file:", error);
-    });
-};
-
 // přesunování elementů
 function moveElement(elementSelector, targetSelectors) {
   const element = document.querySelector(elementSelector);
@@ -189,55 +181,6 @@ const moveRegistrationBannerLogin = async () => {
         registrationBannerLogin.outerHTML
       );
     }
-
-    // const userActionLogin = document.querySelector('.user-action-login')
-    // const h2 = userActionLogin.querySelector('.popup-widget-inner h2')
-    // const popUpLoginText = popUpLogin.find((item) => item.language === shoptetLang)
-    // if (popUpLoginText) {
-    // 	h2.innerHTML = popUpLoginText.text
-    // }
-    // const socialLogin = userActionLogin.querySelector('.popup-widget-inner .social-login-buttons-divider span');
-    // const otherLogin = otherLogins.find(item => item.language === shoptetLang);
-    // if (otherLogin) {
-    // 	socialLogin.innerHTML = otherLogin.text;
-    // }
-    // const perex = userActionLogin.querySelector('.popup-widget-inner p')
-    // if (!perex) {
-    // 	const loginPerex = document.createElement('p')
-    // 	const loginPerexText = loginBeneText.find((item) => item.language === shoptetLang)
-    // 	if (loginPerexText) {
-    // 		loginPerex.innerHTML = loginPerexText.text
-    // 	}
-    // 	h2.insertAdjacentElement('afterend', loginPerex)
-    // 	if (registrationBannerLogin && userActionLogin) {
-    // 		userActionLogin.appendChild(registrationBannerLogin)
-    // 	}
-    // }
-
-    // const bgClose = userActionLogin.querySelector('.bg-close')
-    // if (!bgClose) {
-    // 	const bgClose2 = document.createElement('div')
-    // 	bgClose2.classList.add('bg-close')
-    // 	userActionLogin.appendChild(bgClose2)
-    // 	bgClose2.addEventListener('click', () => {
-    // 		document.body.classList.remove('login-window-visible')
-    // 		document.body.classList.remove('user-action-visible')
-    // 	})
-    // }
-
-    // const close = userActionLogin.querySelector('.close')
-    // if (!close) {
-    // 	const close2 = document.createElement('div')
-    // 	close2.classList.add('close')
-    // 	close2.innerHTML = '<div></div><div></div>'
-    // 	userActionLogin.appendChild(close2)
-    // 	close2.addEventListener('click', (event) => {
-    // 		if (event.target.closest('.close')) {
-    // 			document.body.classList.remove('login-window-visible')
-    // 			document.body.classList.remove('user-action-visible')
-    // 		}
-    // 	})
-    // }
   }
 };
 
@@ -399,8 +342,7 @@ const handleHeader = async () => {
 
   // loginButton.textContent = '';
   const topNavigationBarMenu = document.querySelector(".top-navigation-menu");
-  // const helper = document.createElement('div');
-  // helper.classList.add('wrapper');
+
   const headerCont = document.querySelector("#header .container");
   if (window.innerWidth < 993) {
     if (search) {
@@ -408,47 +350,11 @@ const handleHeader = async () => {
     }
   }
 
-  // if (!document.querySelector("body").classList.contains("ordering-process")) {
-  // 	if (window.innerWidth >= 1100) {
 
-  // 		console.log(window.innerWidth);
-
-  // 		console.log('a');
-  // 		navigation.appendChild(navigationButtons);
-  // 	}
-  // }
-  // function logOverflowElementAndParents(el) {
-  // 	console.log('Overflow element: ', el);
-  // 	let parent = el.parentElement;
-  // 	while (parent) {
-  // 		console.log('Parent element: ', parent);
-  // 		parent = parent.parentElement;
-  // 	}
-  // }
-
-  // document.querySelectorAll('*').forEach((el) => {
-  // 	if (el.offsetWidth > document.documentElement.offsetWidth) {
-  // 		logOverflowElementAndParents(el);
-  // 	}
-  // });
-  // helper.appendChild(navigationButtons);
 
   const siteHeader = document.querySelector("#header");
   const navigationIn = document.querySelector(".navigation-in");
-  // if (window.innerWidth <= 900) {
-  // 	const lang = document.querySelector('.languagesMenu');
-  // 	if (lang && navigationIn) {
-  // 		navigationIn.prepend(lang);
-  // 	}
-  // }
-  if (window.innerWidth >= 1100) {
-    // if (topNavigationBarMenu && navigation) {
-    // 	headerTopW.appendChild(topNavigationBarMenu)
-    // }
-  }
-  // else if (window.innerWidth <= 900) {
-  //   navigationIn.appendChild(topNavigationBarMenu);
-  // }
+
 
   const cartCount = document.querySelector(".cart-count");
   if (cartCount) {
@@ -469,25 +375,6 @@ const handleHeader = async () => {
   );
   const upperMenu = document.querySelector(".top-navigation-bar-menu");
 
-  // if (upperMenu && searchButton) {
-  //   // Zkontroluje, zda již searchButton není v upperMenu
-  //   const existingSearchItem = upperMenu.querySelector(
-  //     "li .toggle-window[data-target='search']"
-  //   );
-  //   if (!existingSearchItem) {
-  //     const searchListItem = document.createElement("li");
-  //     searchListItem.appendChild(searchButton);
-  //     upperMenu.appendChild(searchListItem);
-
-  //     const searchBtnText = searchText.find(
-  //       (item) => item.language === shoptetLang
-  //     );
-  //     if (searchBtnText) {
-  //       searchButton.classList.add("search-button");
-  //       searchButton.textContent = searchBtnText.text;
-  //     }
-  //   }
-  // }
   const navButtons = document.querySelector(".navigation-buttons");
   const menuTrigger = document.querySelector(
     '.toggle-window[data-target="navigation"]'
@@ -506,22 +393,7 @@ const handleHeader = async () => {
       }
     });
   }
-  // const menuLvL2Li = document.querySelectorAll('.menu-level-2 > li')
-  // menuLvL2Li.forEach((li) => {
-  // 	const innerImg = li.querySelector('.menu-image > img')
-  // 	const toRemove = li.querySelector('.menu-image')
-  // 	const targetA = li.querySelector('div > a')
-  // 	if (innerImg && toRemove) {
-  // 		if (innerImg.getAttribute('data-src'))
-  // 			innerImg.setAttribute('data-src', innerImg.getAttribute('data-src').replace('/thumb/', '/orig/'))
-  // 		if (innerImg.getAttribute('src')) innerImg.setAttribute('src', innerImg.getAttribute('src').replace('/thumb/', '/orig/'))
-  // 		const imgWrap = document.createElement('div')
-  // 		imgWrap.classList.add('menu-image')
-  // 		imgWrap.appendChild(innerImg)
-  // 		targetA.prepend(imgWrap)
-  // 		toRemove.remove()
-  // 	}
-  // })
+
 
   const topBanner = document.querySelector(".top-panel-text-wrapper");
   const topNavigation = document.querySelector(
@@ -530,15 +402,7 @@ const handleHeader = async () => {
   if (topBanner && topNavigation) {
     topNavigation.appendChild(topBanner);
   }
-  // const profeseLi =
-  // 	window.innerWidth > 767
-  // 		? document.querySelectorAll('.navigation-in a[href="/podle-profese/"] + .menu-level-2-helper .menu-level-3 > li')
-  // 		: document.querySelectorAll('.navigation-in .menu-level-3 > li')
-  // profeseLi.forEach((li) => {
-  // 	const help = li.querySelector('a')
-  // 	li.innerHTML = ''
-  // 	li.appendChild(help)
-  // })
+
 
   let initialYScroll = 0;
   const debouncedScroll = debounce(function () {
@@ -591,23 +455,7 @@ const handleHeader = async () => {
     });
   });
 
-  // const headerBanner = document.querySelector('.custom-footer__banner1')
-  // if (headerBanner) {
-  // 	const allMenuLevel2Helpers = document.querySelectorAll('.menu-level-1 li.ext .menu-level-2-helper')
-  // 	allMenuLevel2Helpers.forEach((helper) => {
-  // 		const clone = headerBanner.cloneNode(true) // true means it will clone the node and its child nodes
-  // 		helper.appendChild(clone)
-  // 	})
-  // }
 
-  if (window.innerWidth < 768) {
-    const siteLogo = document.querySelector(
-      ".header-top .site-name-wrapper a img"
-    );
-    if (siteLogo) {
-      siteLogo.src = "/user/documents/upload/Obrazky/mobile-logo.svg";
-    }
-  }
 };
 handleHeader();
 document.addEventListener("ShoptetDOMPageContentLoaded", handleHeader);

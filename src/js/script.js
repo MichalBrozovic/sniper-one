@@ -40,52 +40,62 @@ function on(eventType, selector, callback) {
 }
 
 const splitMenu = () => {
-  const menuWrapper = document.querySelector("#navigation .navigation-in");
-  if (menuWrapper) {
-    setTimeout(() => {
-      let menuItems = menuWrapper.querySelectorAll(
-        ".menu-level-1>li:not(.appended-category)"
-      );
-      let menuHelper = document.querySelector(".menu-helper");
-      let menuWrapperStyle = window.getComputedStyle(menuWrapper);
-      menuItems.forEach((item) => {
-        let offsetRight = item.offsetLeft + item.offsetWidth;
-        const itemInHelper =
-          item.id === "nav-manufacturers"
-            ? menuHelper.querySelector("#nav-manufacturers")
-            : menuHelper.querySelector("." + item.classList[0]);
-        if (
-          offsetRight >
-          menuWrapper.clientWidth - parseFloat(menuWrapperStyle.paddingRight)
-        ) {
-          if (itemInHelper) {
-            itemInHelper.classList.remove("splitted");
-          }
-          item.classList.add("splitted");
+    const menuWrapper = document.querySelector("#navigation .navigation-in");
+    const menuHelper = document.querySelector(".menu-helper");
+    
+    if (!menuWrapper || !menuHelper) return;
+
+    // requestAnimationFrame je pro výpočty layoutu lepší než setTimeout
+    window.requestAnimationFrame(() => {
+        const menuItems = menuWrapper.querySelectorAll(".menu-level-1 > li:not(.appended-category)");
+        const menuWrapperStyle = window.getComputedStyle(menuWrapper);
+        const availableWidth = menuWrapper.clientWidth - parseFloat(menuWrapperStyle.paddingRight);
+        
+        let hasVisibleInHelper = false;
+
+        menuItems.forEach((item) => {
+            const offsetRight = item.offsetLeft + item.offsetWidth;
+            
+            // Najdeme odpovídající položku v helperu (priorita ID, pak třída)
+            const itemInHelper = item.id === "nav-manufacturers"
+                ? menuHelper.querySelector("#nav-manufacturers")
+                : menuHelper.querySelector(`.${item.classList[0]}`);
+
+            if (offsetRight > availableWidth) {
+                // Položka se nevejde -> schovat v hlavním menu, ukázat v helperu
+                item.classList.add("splitted");
+                if (itemInHelper) {
+                    itemInHelper.classList.remove("splitted");
+                    hasVisibleInHelper = true; // Máme co zobrazit v "Více..."
+                }
+            } else {
+                // Položka se vejde -> ukázat v hlavním menu, schovat v helperu
+                item.classList.remove("splitted");
+                if (itemInHelper) itemInHelper.classList.add("splitted");
+            }
+        });
+
+        // Finální přepnutí stavu "Více..." (menuHelper)
+        // Kontrolujeme, jestli v helperu zbyla aspoň jedna položka, co není .splitted
+        const itemsToDisplayInHelper = menuHelper.querySelector(".menu-level-1 > li:not(.splitted):not(.appended-category)");
+        
+        if (itemsToDisplayInHelper) {
+            menuHelper.classList.remove("empty");
+            menuWrapper.classList.remove("fitted");
         } else {
-          if (itemInHelper) {
-            itemInHelper.classList.add("splitted");
-          }
-          item.classList.remove("splitted");
+            menuHelper.classList.add("empty");
+            menuWrapper.classList.add("fitted");
         }
-      });
-      if (
-        menuHelper.querySelector(
-          ".menu-level-1 > li:not(.splitted):not(.appended-category)"
-        )
-      ) {
-        menuHelper.classList.remove("empty");
-        menuWrapper.classList.remove("fitted");
-      } else {
-        menuHelper.classList.add("empty");
-        menuWrapper.classList.add("fitted");
-      }
-    }, 200);
-  }
+    });
 };
 
-shoptet.menu.splitMenu = splitMenu;
+// Přepsání Shoptet funkce
+if (window.shoptet?.menu) {
+    shoptet.menu.splitMenu = splitMenu;
+}
 
+// Zajištění, že se menu přepočítá při změně velikosti okna
+window.addEventListener('resize', debounce(splitMenu, 150));
 // CAROUSEL
 const handleCarousel = () => {
   const carousel = document.querySelector("#carousel .carousel-inner");
@@ -1889,95 +1899,7 @@ if (target2) {
   });
 }
 
-// const handleCustomDetail = () => {
-// 	// Najít .basic-description a obalit obsah divem .content-wrapper
-// 	const basicDescription = document.querySelector('.basic-description')
-// 	if (basicDescription) {
-// 		const contentWrapper = document.createElement('div')
-// 		contentWrapper.classList.add('content-wrapper')
 
-// 		while (basicDescription.firstChild) {
-// 			contentWrapper.appendChild(basicDescription.firstChild)
-// 		}
-
-// 		// Najít předposlední .p-thumbnail img a vytvořit img element
-// 		const thumbnails = document.querySelectorAll('.p-thumbnail img')
-// 		if (thumbnails.length) {
-// 			const img = document.createElement('img')
-// 			const imgSrc = thumbnails[thumbnails.length - 2].getAttribute('data-src')
-// 			const origSrc = imgSrc.replace('/related/', '/orig/')
-// 			img.src = origSrc
-// 			img.classList.add('side-detail-img')
-// 			basicDescription.appendChild(img)
-// 		}
-
-// 		basicDescription.appendChild(contentWrapper)
-// 	}
-
-// 	// Najít .extended-description .detail-parameters a přidat třídu .content-wrapper
-
-// 	const detailParameters = document.querySelector('.extended-description')
-// 	if (detailParameters) {
-// 		const contentWrapper = document.createElement('div')
-// 		contentWrapper.classList.add('content-wrapper')
-
-// 		while (detailParameters.firstChild) {
-// 			contentWrapper.appendChild(detailParameters.firstChild)
-// 		}
-
-// 		// Najít první h3 a přepsat jeho innerHTML
-// 		const firstH3 = detailParameters.querySelector('h3')
-// 		if (firstH3) {
-// 			const specificationText = window.specificationTabText.find(
-// 				item => item.language === shoptetLang
-// 			).text
-// 			firstH3.innerHTML = specificationText
-// 		}
-
-// 		// Najít poslední .p-thumbnail img a vytvořit img element
-// 		const thumbnails = document.querySelectorAll('.p-thumbnail img')
-// 		if (thumbnails.length) {
-// 			const img = document.createElement('img')
-// 			const imgSrc = thumbnails[thumbnails.length - 1].getAttribute('data-src')
-// 			const origSrc = imgSrc.replace('/related/', '/orig/')
-// 			img.src = origSrc
-// 			img.classList.add('side-detail-img')
-// 			detailParameters.appendChild(img)
-// 		}
-
-// 		detailParameters.appendChild(contentWrapper)
-// 	}
-// 	const firstH3 = document.querySelector('.extended-description h3')
-// 	if (firstH3) {
-// 		const specificationText = window.specificationTabText.find(
-// 			item => item.language === shoptetLang
-// 		).text
-// 		firstH3.innerHTML = specificationText
-// 	}
-// 	const productVideos = document.querySelector('#productVideos')
-// 	if (productVideos) {
-// 		const videoText = basicDescription.querySelector('.video-popis')
-// 		const heading = productVideos.querySelector('h3') // Předpokládám, že nadpis je h3, upravte podle potřeby
-// 		const iframe = productVideos.querySelector('iframe')
-// 		if (iframe) {
-// 			iframe.classList.add('side-detail-img')
-// 		}
-// 		if (heading) {
-// 			const contentWrapper = document.createElement('div')
-// 			contentWrapper.classList.add('content-wrapper')
-
-// 			contentWrapper.appendChild(heading)
-
-// 			if (videoText) {
-// 				contentWrapper.appendChild(videoText)
-// 			}
-
-// 			productVideos.insertBefore(contentWrapper, productVideos.firstChild)
-// 		}
-// 	}
-// }
-
-// if (shoptetPage === 'productDetail') handleCustomDetail()
 
 if (window.innerWidth < 768) {
   const topNavigationBarMenu = document.querySelector(
@@ -2009,56 +1931,7 @@ on("click", ".shp-tab-link", function (e) {
     smoothScrollTo(target, 200);
   }
 });
-if (shoptetPage === "homepage") {
-  document.addEventListener("DOMContentLoaded", function () {
-    const swiper1 = new Swiper(".swiper-partners", {
-      slidesPerView: 1.8,
-      spaceBetween: 0,
-      speed: 800,
-      loop: true,
-      watchSlidesProgress: true,
-      autoplay: {
-        delay: 7000,
-        disableOnInteraction: false,
-      },
-      breakpoints: {
-        480: {
-          slidesPerView: 2,
-          spaceBetween: 24,
-        },
-        768: {
-          slidesPerView: 3,
-          spaceBetween: 24,
-        },
-        992: {
-          slidesPerView: 4,
-          spaceBetween: 24,
-        },
-        1124: {
-          slidesPerView: 5,
-          spaceBetween: 24,
-        },
-        1200: {
-          slidesPerView: 6,
-          spaceBetween: 24,
-        },
-      },
-      navigation: {
-        nextEl: ".partners-next",
-        prevEl: ".partners-prev",
-      },
-      pagination: {
-        el: ".partners-pagination",
-        clickable: true,
-      },
-      on: {
-        init: function () {
-          this.el.style.opacity = "1";
-        },
-      },
-    });
-  });
-}
+
 
 // document.addEventListener('DOMContentLoaded', function () {
 //   const amountInput = document.querySelector('input[name="amount"]');
@@ -2070,146 +1943,3 @@ if (shoptetPage === "homepage") {
 //   shoptet.config.documentPriceDecimalPlaces = "2";
 // });
 
-// setTimeout(() => {
-document.addEventListener("DOMContentLoaded", function () {
-  const productsSmallNew = document.querySelectorAll(".product");
-  if (productsSmallNew.length > 0) {
-    productsSmallNew.forEach((product) => {
-      const addToCartButton = product.querySelector(".add-to-cart-button");
-      if (addToCartButton) {
-        const form = product.querySelector("form.pr-action");
-        const alreadyExists = form?.querySelector(".quantity");
-
-        if (form && !alreadyExists) {
-          const valueWrapper = document.createElement("div");
-          valueWrapper.classList.add("quantity");
-          form.insertBefore(valueWrapper, form.firstChild);
-          const decrease = document.createElement("div");
-          decrease.classList.add("decrease-2");
-
-          const input = document.createElement("input");
-          input.setAttribute("type", "number");
-          input.setAttribute("value", "1");
-          input.classList.add("amount");
-          input.setAttribute("min", "1");
-          input.setAttribute("autocomplete", "off");
-          input.classList.add("amount-input");
-
-          const increase = document.createElement("div");
-          increase.classList.add("increase-2");
-
-          valueWrapper.appendChild(decrease);
-          valueWrapper.appendChild(input);
-          valueWrapper.appendChild(increase);
-
-          // Vložit na úplně první místo ve formu
-
-          // Přidání posluchačů pro konkrétní tlačítka tohoto produktu
-          increase.addEventListener("click", (e) => {
-            console.log("Increase clicked");
-            e.preventDefault();
-            input.value = parseInt(input.value) + 1;
-            updateHiddenInputValue(input.value);
-          });
-
-          decrease.addEventListener("click", (e) => {
-            e.preventDefault();
-            input.value = parseInt(input.value) - 1;
-            if (parseInt(input.value) < 1) {
-              input.value = 1;
-            }
-            updateHiddenInputValue(input.value);
-          });
-
-          function updateHiddenInputValue(value) {
-            const hiddenInput = form.querySelector(
-              'input[type="hidden"][name="amount"]'
-            );
-            if (hiddenInput) {
-              hiddenInput.value = value;
-            }
-          }
-        }
-      }
-    });
-  }
-});
-// }, 1000);
-
-if (shoptetPage === "productDetail") {
-  const endpoint = (baseURL, params) => {
-    const url = new URL(baseURL);
-
-    for (let i = 0; i < params.length; i += 2) {
-      url.searchParams.append(params[i], params[i + 1]);
-    }
-
-    return url.toString();
-  };
-
-   const createVariant = (data) => {
-      const variant = document.createElement("a");
-      variant.classList.add("variant");
-      variant.href = data.url;
-  
-      // Nastav barvu dostupnosti pokud je "Skladem"
-      let availabilityStyle = "";
-      if (data.availability && data.availability.trim().toLowerCase() === "skladem") {
-          availabilityStyle = 'style="color: #39c09f"';
-      }
-  
-      variant.innerHTML = `
-          <div class="variant-image">
-              <img src="${data.image}">
-          </div>
-          <span class="variant-name">${data.name}</span>
-          <span class="variant-availability" ${availabilityStyle}>${data.availability}</span>
-          <span class="variant-price">${data.price}</span>
-      `;
-  
-      return variant;
-  };
-
-  const fetchVariants = async () => {
-    try {
-      const variantsEndpoint = endpoint(
-        "https://renomag-stage.axfone.eu/variants",
-        ["guid", getShoptetDataLayer("product").guid]
-      );
-
-      const response = await fetch(variantsEndpoint);
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch variants");
-      }
-
-      const data = await response.json();
-
-      const variantsWrapper = document.createElement("div");
-      variantsWrapper.classList.add("variants-wrapper");
-
-      const variantsBlockFragment = document.createDocumentFragment();
-
-      for (const variantData of data.data) {
-        const variant = createVariant({
-          url: variantData.url,
-          image: variantData.image,
-          name: variantData.name, // ← přidej tento řádek
-          availability: variantData.availability,
-          price: variantData.price_with_vat,
-        });
-
-        variantsBlockFragment.appendChild(variant);
-      }
-
-      variantsWrapper.appendChild(variantsBlockFragment);
-
-      const infoWrapper = document.querySelector(".p-info-wrapper");
-      infoWrapper.appendChild(variantsWrapper);
-    } catch (error) {
-      console.error("Error fetching product variants:", error);
-    }
-  };
-
-  fetchVariants();
-}

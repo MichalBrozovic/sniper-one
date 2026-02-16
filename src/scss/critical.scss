@@ -1,6 +1,6 @@
-@import 'fonts';
+@import 'styles/fonts';
 @import 'variables';
-@import 'specific-variables';
+@import 'colors';
 @import 'mixins';
 
 
@@ -42,12 +42,12 @@ html {
 
 			&:hover {
 				&:before {
-					background-color: $red-1;
+					background-color: $color-danger;
 					transform: translate(-50%, -50%) rotate(-45deg);
 				}
 
 				&::after {
-					background-color: $red-1;
+					background-color: $color-danger;
 					transform: translate(-50%, -50%) rotate(45deg);
 				}
 			}
@@ -58,7 +58,7 @@ html {
 				content: '';
 				width: 80%;
 				height: 2px;
-				background-color: $color-page-background;
+				background-color: $color-page-bg;
 				display: block;
 				position: absolute;
 				left: 50%;
@@ -123,7 +123,7 @@ body {
 	color: $color-font;
 	font-family: $default-font-family;
 	line-height: 1.5;
-	background-color: $color-page-background-2;
+	background-color: $color-page-bg-secondary;
 }
 
 .type-category {
@@ -147,76 +147,149 @@ a {
 	transition: all 0.15s ease-in-out;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6,
-.extended-banner-title {
-	font-weight: 800;
-	font-style: normal;
-	margin: 1em 0 1.5em;
-	font-family: $heading-font-family;
-	line-height: emMM(44, 36);
+/** @format */
+
+// 1. GLOBÁLNÍ NASTAVENÍ PRO VŠECHNY NADPISY (Včetně starých tříd)
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+.extended-banner-title,
+.homepage-group-title {
+    @include trans(0.3s);
+    font-family: $heading-font-family;
+    font-weight: 700;
+    position: relative;
+    margin-bottom: 10px;
 }
 
-h1,
-.h1,
-.homepage-group-title,
-.h4.homepage-group-title {
-	font-size: remMM($font-size-h1);
-	font-weight: 700;
+// 2. MAPOVÁNÍ STARÝCH TŘÍD NA NOVÉ HIERARCHIE
+.homepage-group-title, 
+.extended-banner-title { @extend h1; }
 
-	@media (max-width: $breakpoint-mobile) {
-		font-size: remMM($font-size-h1-mobile);
-	}
-}
-
-h2,
-.h2 {
-	font-size: remMM($font-size-h2);
-	font-weight: 700;
-
-	@media (max-width: $breakpoint-mobile) {
-		font-size: remMM($font-size-h2-mobile);
-	}
-}
-
-h3,
-.h3 {
-	font-size: remMM($font-size-h3);
-
-	@media (max-width: $breakpoint-mobile) {
-		font-size: remMM($font-size-h3-mobile);
-	}
-}
-
-h4,
-.h4,
 .custom-footer__instagram h4,
-.custom-footer__newsletter h4 {
-	font-size: remMM($font-size-h4);
+.custom-footer__newsletter h4 { @extend h4; }
 
-	@media (max-width: $breakpoint-mobile) {
-		font-size: remMM($font-size-h4-mobile);
-	}
+.cart-inner h4 { @extend h5; } // Dle tvého starého kódu h4 v košíku vypadá jako h5
+
+// 3. DEFINICE JEDNOTLIVÝCH STUPŇŮ
+// H1
+h1 {
+    font-size: remMM($h1);
+    line-height: emMM($h1-lineHeight, $h1);
+
+    @media screen and (max-width: 1023px) {
+        font-size: remMM($h1-tablet);
+        line-height: emMM($h1-tablet-lineHeight, $h1-tablet);
+    }
+    @media screen and (max-width: 767px) {
+        font-size: remMM($h1-mobile);
+        line-height: emMM($h1-mobile-lineHeight, $h1-mobile);
+    }
 }
 
-h5,
-.h5,
-.cart-inner h4 {
-	font-size: remMM($font-size-h5);
+// H2
+h2 {
+    font-size: remMM($h2);
+    line-height: emMM($h2-lineHeight, $h2);
 
-	@media (max-width: $breakpoint-mobile) {
-		font-size: remMM($font-size-h5-mobile);
-	}
+    &.big { font-size: remMM($h2-big); line-height: emMM($h2-big-lineHeight, $h2-big); }
+    &.mid { font-size: remMM($h2-mid); line-height: emMM($h2-mid-lineHeight, $h2-mid); }
+    &.small { font-size: remMM($h2-small); line-height: emMM($h2-small-lineHeight, $h2-small); }
+    &.tiny { font-size: remMM($h2-tiny); line-height: emMM($h2-tiny-lineHeight, $h2-tiny); }
+
+    span { color: $color-primary; }
+    
+    &.underline {
+        padding-bottom: 5px;
+        &::before {
+            content: "";
+            width: 100px;
+            height: 4px;
+            display: block;
+            position: absolute;
+            background-color: $color-primary;
+            left: 0;
+            bottom: 0;
+        }
+    }
+
+    @media screen and (max-width: 1023px) {
+        font-size: remMM($h2-tablet);
+        line-height: emMM($h2-tablet-lineHeight, $h2-tablet);
+        &.big { font-size: remMM($h2-big-tablet); line-height: emMM($h2-big-tablet-lineHeight, $h2-big-tablet); }
+        &.mid { font-size: remMM($h2-mid-tablet); line-height: emMM($h2-mid-tablet-lineHeight, $h2-mid-tablet); }
+        &.small { font-size: remMM($h2-small-tablet); line-height: emMM($h2-small-tablet-lineHeight, $h2-small-tablet); }
+        &.tiny { font-size: remMM($h2-tiny-tablet); line-height: emMM($h2-tiny-tablet-lineHeight, $h2-tiny-tablet); }
+    }
+    @media screen and (max-width: 767px) {
+        font-size: remMM($h2-mobile);
+        line-height: emMM($h2-mobile-lineHeight, $h2-mobile);
+        &.big { font-size: remMM($h2-big-mobile); line-height: emMM($h2-big-mobile-lineHeight, $h2-big-mobile); }
+        &.mid { font-size: remMM($h2-mid-mobile); line-height: emMM($h2-mid-mobile-lineHeight, $h2-mid-mobile); }
+        &.small { font-size: remMM($h2-small-mobile); line-height: emMM($h2-small-mobile-lineHeight, $h2-small-mobile); }
+        &.tiny { font-size: remMM($h2-tiny-mobile); line-height: emMM($h2-tiny-mobile-lineHeight, $h2-tiny-mobile); }
+    }
+}
+
+// H3
+h3 {
+    font-size: remMM($h3);
+    line-height: emMM($h3-lineHeight, $h3);
+
+    &.big { font-size: remMM($h3-big); line-height: emMM($h3-big-lineHeight, $h3-big); }
+    &.mid { font-size: remMM($h3-mid); line-height: emMM($h3-mid-lineHeight, $h3-mid); }
+    &.small { font-size: remMM($h3-small); line-height: emMM($h3-small-lineHeight, $h3-small); }
+    &.tiny { font-size: remMM($h3-tiny); line-height: emMM($h3-tiny-lineHeight, $h3-tiny); }
+
+    &.underline {
+        padding-bottom: 5px;
+        &::before {
+            content: "";
+            width: 60px;
+            height: 4px;
+            display: block;
+            position: absolute;
+            background-color: $color-primary;
+            left: 0;
+            bottom: 0;
+        }
+    }
+
+    @media screen and (max-width: 1023px) {
+        font-size: remMM($h3-tablet);
+        &.big { font-size: remMM($h3-big-tablet); }
+        &.mid { font-size: remMM($h3-mid-tablet); }
+    }
+    @media screen and (max-width: 767px) {
+        font-size: remMM($h3-mobile);
+        &.big { font-size: remMM($h3-big-mobile); }
+    }
+}
+
+// H4, H5, H6 (Zjednodušený zápis pro ukázku)
+h4 {
+    font-size: remMM($h4);
+    line-height: emMM($h4-lineHeight, $h4);
+    &.big { font-size: remMM($h4-big); }
+    @media screen and (max-width: 767px) { font-size: remMM($h4-mobile); }
+}
+
+h5 {
+    font-size: remMM($h5);
+    line-height: emMM($h5-lineHeight, $h5);
+    @media screen and (max-width: 767px) { font-size: remMM($h5-mobile); }
+}
+
+h6 {
+    font-size: remMM($h6);
+    line-height: emMM($h6-lineHeight, $h6);
+    @media screen and (max-width: 767px) { font-size: remMM($h6-mobile); }
+}
+
+// 4. AUTOMATICKÉ PROPOJENÍ TŘÍD .h1 až .h6 s nadpisy
+@for $i from 1 through 6 {
+    .h#{$i} {
+        @extend h#{$i};
+    }
 }
 
 img {
@@ -699,7 +772,7 @@ table {
 						@include trans(0.3s);
 						font-size: remMM(14);
 						line-height: 1.2em;
-						color: $color-font-30;
+						color: $color-font-300;
 						position: relative;
 						text-decoration: unset;
 
@@ -886,7 +959,7 @@ table {
 		font-size: remMM(14);
 
 		// background-color: red;
-		// background-color: $color-page-background;
+		// background-color: $color-page-bg;
 		&::placeholder {
 			font-style: italic;
 			color: $color-font;
@@ -897,7 +970,7 @@ table {
 		// border-radius: 0 5px 5px 0;
 		// border-color: $color-secondary;
 		// background-color: $color-secondary;
-		// color: $color-page-background;
+		// color: $color-page-bg;
 
 		// &:hover {
 		//     background-color: $color-accent;
@@ -1026,7 +1099,7 @@ section {
 			// top: 80%;
 			// left: 50%;
 			// transform: translateX(-50%);
-			// color: $color-font-60;
+			// color: $color-font-600;
 			// font-size: remMM(13);
 			// letter-spacing: 0.5px;
 		}
@@ -1125,7 +1198,7 @@ section {
 	// position: relative;
 	position: sticky;
 	top: 0;
-	background-color: $color-page-background-2;
+	background-color: $color-page-bg-secondary;
 
 	// &>.container {
 	//     max-width: unset;
@@ -1215,7 +1288,7 @@ section {
 		width: 1648px;
 		max-width: calc(100vw - 40px);
 		height: 1px;
-		background-color: $color-border;
+		background-color: $border-primary;
 		display: block;
 		transform: translateX(-50%);
 		z-index: 10;
@@ -1238,7 +1311,7 @@ section {
 		overflow-x: hidden;
 		height: 100vh;
 		top: 0;
-		background-color: $color-page-background-2;
+		background-color: $color-page-bg-secondary;
 		z-index: 2000;
 
 		&:after {
@@ -1258,7 +1331,7 @@ section {
 				}
 
 				width: 100%;
-				border-bottom: 1px solid $color-border;
+				border-bottom: 1px solid $border-primary;
 				padding-left: 32px;
 			}
 		}
@@ -1279,7 +1352,7 @@ section {
 
 			li {
 				width: 100%;
-				border-bottom: 1px solid $color-border;
+				border-bottom: 1px solid $border-primary;
 				padding-left: 32px;
 
 				a {
@@ -1308,12 +1381,12 @@ section {
 
 			&:hover {
 				&:before {
-					background-color: $red-1;
+					background-color: $color-danger;
 					transform: translate(-50%, -50%) rotate(-45deg);
 				}
 
 				&::after {
-					background-color: $red-1;
+					background-color: $color-danger;
 					transform: translate(-50%, -50%) rotate(45deg);
 				}
 			}
@@ -1348,7 +1421,7 @@ section {
 
 			li {
 				width: 100%;
-				border-bottom: 1px solid $color-border;
+				border-bottom: 1px solid $border-primary;
 				padding-left: 32px;
 
 				&:last-of-type {
@@ -1392,7 +1465,7 @@ section {
 
 				& > li {
 					width: 100%;
-					border-bottom: 1px solid $color-border;
+					border-bottom: 1px solid $border-primary;
 					padding-left: 32px;
 
 					a {
@@ -1603,7 +1676,7 @@ section {
 		width: 1648px;
 		max-width: calc(100vw - 40px);
 		height: 1px;
-		background-color: $color-border;
+		background-color: $border-primary;
 		display: block;
 		transform: translateX(-50%);
 	}
@@ -1649,7 +1722,7 @@ section {
 			left: 0;
 			right: 0;
 			max-width: unset;
-			background-color: $color-font-10;
+			background-color: $color-font-100;
 			padding: 10px 20px;
 			z-index: 2;
 		}
@@ -1870,7 +1943,7 @@ section {
 	align-items: center;
 	justify-content: flex-start;
 	flex-wrap: nowrap;
-	background-color: $color-page-background;
+	background-color: $color-page-bg;
 	border-top: 4px solid $color-primary;
 	display: none;
 
@@ -1918,7 +1991,7 @@ section {
 					font-size: remMM(20);
 					padding-bottom: 11px;
 					margin-bottom: 17px;
-					border-bottom: 1px solid $color-border;
+					border-bottom: 1px solid $border-primary;
 
 					&:hover {
 						color: $color-accent;
@@ -1928,7 +2001,7 @@ section {
 						width: 42px;
 						height: 42px;
 						border-radius: 5px;
-						border: 1px solid $color-font-20;
+						border: 1px solid $color-font-200;
 						overflow: hidden;
 						display: none;
 
@@ -2055,7 +2128,7 @@ section {
 
 			& > li > div > a {
 				padding: emMM(12) emMM(10);
-				background-color: $color-font-05;
+				background-color: $color-font-050;
 				border-radius: 5px;
 				margin-bottom: 0;
 
@@ -2215,7 +2288,7 @@ section {
 
 		a {
 			position: relative;
-			color: $color-font-70;
+			color: $color-font-700;
 		}
 	}
 
@@ -2357,11 +2430,11 @@ section {
 	//         padding: 20px;
 	//         max-width: unset;
 	//         text-align: left;
-	//         background-color: $color-font-05;
+	//         background-color: $color-font-050;
 	//     }
 
 	//     .extended-banner-title {
-	//         font-size: remMM($font-size-h1-mobile);
+	//         font-size: remMM($h1-mobile);
 	//     }
 
 	//     .extended-banner-link {
@@ -2448,7 +2521,7 @@ section {
 		bottom: 15px;
 		right: 15px;
 		font-weight: 700;
-		color: $color-page-background;
+		color: $color-page-bg;
 		font-size: remMM(20);
 		z-index: 2;
 	}
@@ -2480,7 +2553,7 @@ section {
 				width: 12px;
 				height: 12px;
 				border-radius: 50%;
-				background-color: $color-font-05;
+				background-color: $color-font-050;
 			}
 
 			&.active {
@@ -2577,7 +2650,7 @@ section {
 				list-style: none;
 
 				a {
-					color: $color-font-80;
+					color: $color-font-800;
 					font-size: remMM(12);
 					line-height: 1.2em;
 
@@ -2590,7 +2663,7 @@ section {
 
 		.widget-parameter-more {
 			display: flex;
-			color: $color-font-80;
+			color: $color-font-800;
 			font-size: remMM(12);
 			line-height: 1.2em;
 		}
@@ -2612,7 +2685,7 @@ section {
 		flex-wrap: nowrap;
 		aspect-ratio: 1;
 		position: relative;
-		// border: 1px solid $color-font-10;
+		// border: 1px solid $color-font-100;
 		// border-radius: 10px;
 		overflow: hidden;
 		flex-shrink: 0;
@@ -2786,7 +2859,7 @@ section {
 	.price-standard {
 		order: 1;
 		font-size: remMM(14);
-		color: $grey-1;
+		color: $color-font-second;
 		font-weight: 500;
 	}
 
@@ -2799,7 +2872,7 @@ section {
 	.price-additional {
 		order: 3;
 		font-size: remMM(12);
-		color: $color-font-40;
+		color: $color-font-400;
 	}
 
 	.pr-list-unit {
@@ -2938,7 +3011,7 @@ section {
 .flag {
 	font-size: remMM(11);
 	padding: 6px 11px 5px 8px;
-	color: $color-page-background-2;
+	color: $color-page-bg-secondary;
 	line-height: 1em;
 	text-transform: uppercase;
 	font-weight: 700;
@@ -3074,7 +3147,7 @@ section {
 	left: 50%;
 	transform: translateX(-50%);
 	// padding: 100px 0;
-	background-color: $color-font-05;
+	background-color: $color-font-050;
 	margin-bottom: 65px;
 
 	// overflow: hidden;
@@ -3362,7 +3435,7 @@ section {
 	}
 
 	.category-top-wrapper {
-		background-color: $color-page-background;
+		background-color: $color-page-bg;
 		color: $color-font-second;
 	}
 }
@@ -3387,7 +3460,7 @@ section {
 	h4 {
 		letter-spacing: 0.5px;
 		margin: 0;
-		color: $grey-2;
+		color: $color-page-bg-secondary;
 		font-size: remMM(14);
 		text-transform: uppercase;
 		line-height: 1.2em;
@@ -3507,9 +3580,9 @@ section {
 
 	li {
 		max-width: 342px;
-		// background-color: $color-page-background;
+		// background-color: $color-page-bg;
 		// border-radius: 5px;
-		// border: 1px solid $color-font-05;
+		// border: 1px solid $color-font-050;
 		// overflow: hidden;
 		// padding: 8px;
 		color: $color-font;
@@ -3520,7 +3593,7 @@ section {
 		flex-wrap: nowrap;
 
 		// &:hover{
-		//     background-color: $color-font-40;
+		//     background-color: $color-font-400;
 		// }
 		a {
 			width: 100%;
@@ -3582,8 +3655,8 @@ section {
 		align-items: center;
 		padding: emMM(10);
 		border-radius: 5px;
-		border: 1px solid $color-font-10;
-		background-color: $color-page-background;
+		border: 1px solid $color-font-100;
+		background-color: $color-page-bg;
 
 		&::before {
 			//content: url(../img/icon/categories.svg);
@@ -3703,10 +3776,10 @@ body.mobile {
 
 	h4 {
 		text-transform: initial;
-		font-size: remMM($font-size-h6);
+		font-size: remMM($h6);
 		margin: 0 0 20px 0;
-		// padding: emMM(10, $font-size-h6) 0;
-		// border-bottom: 1px solid $color-font-10;
+		// padding: emMM(10, $h6) 0;
+		// border-bottom: 1px solid $color-font-100;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -3728,7 +3801,7 @@ body.mobile {
 	//     font-size: remMM(24);
 	//     font-weight: 700;
 	//     padding: emMM(10, 24) emMM(10, 24) emMM(10, 24) calc(emMM(20, 24) + 24px);
-	//     background: url(../img/icon/filters.svg) emMM(10, 24) center no-repeat, $color-font-05;
+	//     background: url(../img/icon/filters.svg) emMM(10, 24) center no-repeat, $color-font-050;
 	//     margin-bottom: 20px;
 	//     border-radius: 5px;
 	// }
@@ -4015,7 +4088,7 @@ body.mobile {
 
 	.p-image {
 		position: relative;
-		// border: 1px solid $color-font-10;
+		// border: 1px solid $color-font-100;
 		// border-radius: 5px;
 		overflow: hidden;
 		margin-bottom: 1px;
@@ -4217,7 +4290,7 @@ body.mobile {
 		}
 
 		.slick-slide {
-			border: 1px solid $color-font-10;
+			border: 1px solid $color-font-100;
 			border-radius: 5px;
 			overflow: hidden;
 		}
@@ -4244,7 +4317,7 @@ body.mobile {
 }
 
 .p-thumbnail {
-	// border: 1px solid $color-font-10;
+	// border: 1px solid $color-font-100;
 	// border-radius: 5px;
 	overflow: hidden;
 }
@@ -4267,7 +4340,7 @@ body.mobile {
 		& > li {
 			width: 12px;
 			height: 12px;
-			background-color: $color-font-10;
+			background-color: $color-font-100;
 			opacity: 1;
 
 			button {
@@ -4300,7 +4373,7 @@ body.mobile {
 		position: absolute;
 		width: 100%;
 		max-width: 100%;
-		background-color: $color-border;
+		background-color: $border-primary;
 		height: 1px;
 		display: block;
 	}
@@ -4381,7 +4454,7 @@ body.mobile {
 	}
 
 	select {
-		background-color: $color-page-background;
+		background-color: $color-page-bg;
 		padding: emMM(20) emMM(35) emMM(20) emMM(16);
 		-webkit-appearance: none;
 		-moz-appearance: none;
@@ -4416,7 +4489,7 @@ body.mobile {
 	.p-short-description {
 		order: 7;
 		// margin-bottom: 30px;
-		// color: $color-font-80;
+		// color: $color-font-800;
 	}
 
 	p[data-testid='productCardDescr'] {
@@ -4449,7 +4522,7 @@ body.mobile {
 
 		// &:hover,
 		// &:focus {
-		//     color: $color-page-background;
+		//     color: $color-page-bg;
 		// }
 	}
 
@@ -4470,13 +4543,13 @@ body.mobile {
 			.p-code {
 				.p-code-label {
 					font-size: remMM(12);
-					color: $color-font-50;
+					color: $color-font-500;
 					font-weight: 700;
 				}
 
 				.parameter-dependent {
 					font-size: remMM(12);
-					color: $color-font-50;
+					color: $color-font-500;
 					font-weight: 400;
 				}
 			}
@@ -4484,13 +4557,13 @@ body.mobile {
 			.zaruka {
 				.zaruka1 {
 					font-size: remMM(12);
-					color: $color-font-50;
+					color: $color-font-500;
 					font-weight: 700;
 				}
 
 				.zaruka2 {
 					font-size: remMM(12);
-					color: $color-font-50;
+					color: $color-font-500;
 					font-weight: 400;
 				}
 			}
@@ -4638,7 +4711,7 @@ body.mobile {
 		font-size: remMM(36);
 
 		@media (max-width: 767px) {
-			font-size: remMM($font-size-h1-mobile);
+			font-size: remMM($h1-mobile);
 		}
 	}
 
@@ -4880,8 +4953,8 @@ body.mobile {
 		width: 60px;
 		font-size: remMM(18);
 		border-radius: 0 !important;
-		// border: 1px solid $color-font-10;
-		background-color: $color-page-background;
+		// border: 1px solid $color-font-100;
+		background-color: $color-page-bg;
 		text-align: center;
 		border: unset !important;
 		position: relative;
@@ -4904,7 +4977,7 @@ body.mobile {
 		align-items: center;
 		justify-content: center;
 		flex-wrap: nowrap;
-		background-color: $color-page-background;
+		background-color: $color-page-bg;
 
 		&::before {
 			display: block;
@@ -4952,8 +5025,8 @@ body.mobile {
 	gap: 30px;
 	margin-bottom: 25px;
 	width: 100%;
-	// background-color: $color-font-05;
-	// border: 1px solid $color-font-10;
+	// background-color: $color-font-050;
+	// border: 1px solid $color-font-100;
 
 	.p-final-price-wrapper {
 		order: 1;
@@ -5051,14 +5124,14 @@ body.mobile {
 	.price-standard {
 		// grid-row: 1/2;
 		// grid-column: 2/3;
-		color: $color-font-80;
+		color: $color-font-800;
 		font-size: remMM(12);
 	}
 
 	.price-additional {
 		// grid-row: 2/3;
 		// grid-column: 1/3;
-		color: $color-font-70;
+		color: $color-font-700;
 	}
 
 	.price-measure,
@@ -5273,10 +5346,10 @@ body.mobile {
 		padding: 0 calc(100px + 2rem);
 	}
 
-	color: $color-page-background;
+	color: $color-page-bg;
 
 	h1 {
-		margin: 0 0 emMM(20, $font-size-h1);
+		margin: 0 0 emMM(20, $h1);
 	}
 
 	& > br {
@@ -5329,7 +5402,7 @@ body.mobile {
 		grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
 		gap: 24px;
 
-		@media (max-width: $breakpoint-mobile) {
+		@media (max-width: 767px) {
 			grid-template-columns: repeat(2, minmax(1px, 1fr));
 			gap: 15px;
 		}
@@ -5339,7 +5412,7 @@ body.mobile {
 // .type-page,
 // .type-post {
 //     #content article p {
-//         color: $color-font-80;
+//         color: $color-font-800;
 //     }
 // }
 
@@ -5369,7 +5442,7 @@ body.mobile {
 				border-color: $color-accent;
 
 				a {
-					color: $color-page-background;
+					color: $color-page-bg;
 				}
 			}
 		}
@@ -5606,7 +5679,7 @@ body.mobile {
 
 		.news-item-detail {
 			// padding: 45px 0px;
-			// background-color: $color-page-background;
+			// background-color: $color-page-bg;
 			max-width: 824px;
 			width: 100%;
 			margin: 0 auto;
@@ -5876,7 +5949,7 @@ body.mobile {
 	}
 
 	h1 {
-		margin: 0 0 emMM(30, $font-size-h1);
+		margin: 0 0 emMM(30, $h1);
 	}
 
 	.post-header-image {
@@ -5936,7 +6009,7 @@ body.mobile {
 
 	.post-description {
 		font-size: remMM(20);
-		color: $color-font-70;
+		color: $color-font-700;
 	}
 
 	@media (max-width: 1440px) {
@@ -6102,7 +6175,7 @@ body.mobile {
 	background-blend-mode: multiply;
 
 	#header {
-		// background-color: $color-page-background;
+		// background-color: $color-page-bg;
 	}
 
 	.top-navigation-bar {
@@ -6271,11 +6344,11 @@ body.mobile {
 					width: 39px;
 					height: 39px;
 					border-radius: 50%;
-					border: 1px solid $color-border;
-					background-color: $color-page-background-2;
+					border: 1px solid $border-primary;
+					background-color: $color-page-bg-secondary;
 
 					&:hover {
-						background-color: $color-page-background;
+						background-color: $color-page-bg;
 					}
 
 					svg {
@@ -6312,7 +6385,7 @@ body.mobile {
 	}
 
 	@media screen and (max-width: 900px) and (min-width: 0px) {
-		border-top: 1px solid $color-border;
+		border-top: 1px solid $border-primary;
 	}
 }
 
@@ -6402,7 +6475,7 @@ body.mobile {
 			//     left: 50%;
 			//     top: 50%;
 			//     transform: translate(-50%, -50%);
-			//     color: $color-page-background;
+			//     color: $color-page-bg;
 			//     font-size: remMM(16);
 			//     z-index: 10;
 			//     position: absolute;
@@ -6559,7 +6632,7 @@ body.mobile {
 }
 
 aside {
-	background-color: $color-page-background-2;
+	background-color: $color-page-bg-secondary;
 	// display: none;
 	z-index: 20;
 	position: relative;
@@ -6692,7 +6765,7 @@ aside {
 	//                         font-size: remMM(15);
 	//                         padding: 5px;
 	//                         color: $color-font;
-	//                         // background-color: $color-page-background;
+	//                         // background-color: $color-page-bg;
 	//                     }
 
 	//                     .slider-content {
@@ -6800,7 +6873,7 @@ aside {
 	//                                 // padding: emMM(13) emMM(40) emMM(14) emMM(10);
 	//                                 padding: 13px 40px 14px 10px;
 	//                                 cursor: pointer;
-	//                                 background-color: $black-07;
+	//                                 background-color: $black-10;
 	//                                 border-radius: 0px;
 	//                                 margin-bottom: 0;
 
@@ -6842,7 +6915,7 @@ aside {
 	//                                 transform: translateX(-50%);
 	//                                 margin: 0;
 	//                                 padding: emMM(8);
-	//                                 background-color: $color-page-background;
+	//                                 background-color: $color-page-bg;
 	//                                 -webkit-box-shadow: 0px 10px 16px 8px rgba(0, 0, 0, 0.12);
 	//                                 box-shadow: 0px 10px 16px 8px rgba(0, 0, 0, 0.12);
 
@@ -6879,7 +6952,7 @@ aside {
 	//             height: 100vh;
 	//             z-index: 2000;
 	//             @include trans(0.5s);
-	//             background-color: $color-page-background;
+	//             background-color: $color-page-bg;
 
 	//             &.active {
 	//                 @include trans(0.5s);
@@ -6901,7 +6974,7 @@ aside {
 	//                         .to {
 	//                             font-size: remMM(12);
 	//                             padding: 5px;
-	//                             background-color: $color-font-20;
+	//                             background-color: $color-font-200;
 	//                         }
 
 	//                         .filter-sections {
@@ -7515,7 +7588,7 @@ aside {
 	//     left: 50%;
 	//     transform: translateX(-50%);
 	//     z-index: 1000;
-	//     background-color: $color-page-background;
+	//     background-color: $color-page-bg;
 	//     padding: 3px !important;
 
 	//     a {
@@ -7535,7 +7608,7 @@ aside {
 	}
 }
 
-@import 'loader';
-@import 'header';
-@import 'carousel';
-@import 'cookies';
+@import 'styles/loader';
+@import 'styles/header';
+@import 'styles/carousel';
+@import 'styles/cookies';

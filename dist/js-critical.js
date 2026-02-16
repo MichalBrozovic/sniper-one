@@ -715,13 +715,6 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 window.shoptetPage = dataLayer[0].shoptet.pageType;
 window.shoptetLang = dataLayer[0].shoptet.language;
 window.body = document.querySelector("body");
-var fetchData = function fetchData() {
-  return fetch("/user/documents/upload/shoptet-stock-all.json").then(function (response) {
-    return response.json();
-  })["catch"](function (error) {
-    console.error("Error fetching the JSON file:", error);
-  });
-};
 
 // přesunování elementů
 function moveElement(elementSelector, targetSelectors) {
@@ -919,7 +912,7 @@ document.addEventListener("ShoptetDOMPageContentLoaded", moveRegistrationBannerL
 document.addEventListener("ShoptetDOMContentLoaded", moveRegistrationBannerLogin);
 var handleHeader = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-    var infoMsgText, topNavContainer, infoWrapper, projectPhone, holder, timeData, addCatalogButtonToNavigation, mainLogo, headerTopW, search, navigation, header, menuHelper, navigationButtons, currencyLanguage, navBtns, loginButton, topNavigationBarMenu, headerCont, siteHeader, navigationIn, cartCount, icon, cartPrice, k, searchButton, upperMenu, navButtons, menuTrigger, menuLvl2s, topBanner, topNavigation, initialYScroll, debouncedScroll, liElements, siteLogo;
+    var infoMsgText, topNavContainer, infoWrapper, projectPhone, holder, timeData, addCatalogButtonToNavigation, mainLogo, headerTopW, search, navigation, header, menuHelper, navigationButtons, currencyLanguage, navBtns, loginButton, topNavigationBarMenu, headerCont, siteHeader, navigationIn, cartCount, icon, cartPrice, k, searchButton, upperMenu, navButtons, menuTrigger, menuLvl2s, topBanner, topNavigation, initialYScroll, debouncedScroll, liElements;
     return _regenerator().w(function (_context2) {
       while (1) switch (_context2.n) {
         case 0:
@@ -1038,54 +1031,15 @@ var handleHeader = /*#__PURE__*/function () {
           if (navigationButtons && loginButton) navigationButtons.prepend(loginButton);
 
           // loginButton.textContent = '';
-          topNavigationBarMenu = document.querySelector(".top-navigation-menu"); // const helper = document.createElement('div');
-          // helper.classList.add('wrapper');
+          topNavigationBarMenu = document.querySelector(".top-navigation-menu");
           headerCont = document.querySelector("#header .container");
           if (window.innerWidth < 993) {
             if (search) {
               headerCont.appendChild(search);
             }
           }
-
-          // if (!document.querySelector("body").classList.contains("ordering-process")) {
-          // 	if (window.innerWidth >= 1100) {
-
-          // 		console.log(window.innerWidth);
-
-          // 		console.log('a');
-          // 		navigation.appendChild(navigationButtons);
-          // 	}
-          // }
-          // function logOverflowElementAndParents(el) {
-          // 	console.log('Overflow element: ', el);
-          // 	let parent = el.parentElement;
-          // 	while (parent) {
-          // 		console.log('Parent element: ', parent);
-          // 		parent = parent.parentElement;
-          // 	}
-          // }
-
-          // document.querySelectorAll('*').forEach((el) => {
-          // 	if (el.offsetWidth > document.documentElement.offsetWidth) {
-          // 		logOverflowElementAndParents(el);
-          // 	}
-          // });
-          // helper.appendChild(navigationButtons);
           siteHeader = document.querySelector("#header");
-          navigationIn = document.querySelector(".navigation-in"); // if (window.innerWidth <= 900) {
-          // 	const lang = document.querySelector('.languagesMenu');
-          // 	if (lang && navigationIn) {
-          // 		navigationIn.prepend(lang);
-          // 	}
-          // }
-          if (window.innerWidth >= 1100) {
-            // if (topNavigationBarMenu && navigation) {
-            // 	headerTopW.appendChild(topNavigationBarMenu)
-            // }
-          }
-          // else if (window.innerWidth <= 900) {
-          //   navigationIn.appendChild(topNavigationBarMenu);
-          // }
+          navigationIn = document.querySelector(".navigation-in");
           cartCount = document.querySelector(".cart-count");
           if (cartCount) {
             icon = cartCount.querySelector("i");
@@ -1102,24 +1056,7 @@ var handleHeader = /*#__PURE__*/function () {
             }
           }
           searchButton = document.querySelector('.toggle-window[data-target="search"]');
-          upperMenu = document.querySelector(".top-navigation-bar-menu"); // if (upperMenu && searchButton) {
-          //   // Zkontroluje, zda již searchButton není v upperMenu
-          //   const existingSearchItem = upperMenu.querySelector(
-          //     "li .toggle-window[data-target='search']"
-          //   );
-          //   if (!existingSearchItem) {
-          //     const searchListItem = document.createElement("li");
-          //     searchListItem.appendChild(searchButton);
-          //     upperMenu.appendChild(searchListItem);
-          //     const searchBtnText = searchText.find(
-          //       (item) => item.language === shoptetLang
-          //     );
-          //     if (searchBtnText) {
-          //       searchButton.classList.add("search-button");
-          //       searchButton.textContent = searchBtnText.text;
-          //     }
-          //   }
-          // }
+          upperMenu = document.querySelector(".top-navigation-bar-menu");
           navButtons = document.querySelector(".navigation-buttons");
           menuTrigger = document.querySelector('.toggle-window[data-target="navigation"]');
           if (menuTrigger && navButtons) navButtons.appendChild(menuTrigger);
@@ -1135,36 +1072,11 @@ var handleHeader = /*#__PURE__*/function () {
               }
             });
           }
-          // const menuLvL2Li = document.querySelectorAll('.menu-level-2 > li')
-          // menuLvL2Li.forEach((li) => {
-          // 	const innerImg = li.querySelector('.menu-image > img')
-          // 	const toRemove = li.querySelector('.menu-image')
-          // 	const targetA = li.querySelector('div > a')
-          // 	if (innerImg && toRemove) {
-          // 		if (innerImg.getAttribute('data-src'))
-          // 			innerImg.setAttribute('data-src', innerImg.getAttribute('data-src').replace('/thumb/', '/orig/'))
-          // 		if (innerImg.getAttribute('src')) innerImg.setAttribute('src', innerImg.getAttribute('src').replace('/thumb/', '/orig/'))
-          // 		const imgWrap = document.createElement('div')
-          // 		imgWrap.classList.add('menu-image')
-          // 		imgWrap.appendChild(innerImg)
-          // 		targetA.prepend(imgWrap)
-          // 		toRemove.remove()
-          // 	}
-          // })
           topBanner = document.querySelector(".top-panel-text-wrapper");
           topNavigation = document.querySelector(".top-navigation-bar .container");
           if (topBanner && topNavigation) {
             topNavigation.appendChild(topBanner);
           }
-          // const profeseLi =
-          // 	window.innerWidth > 767
-          // 		? document.querySelectorAll('.navigation-in a[href="/podle-profese/"] + .menu-level-2-helper .menu-level-3 > li')
-          // 		: document.querySelectorAll('.navigation-in .menu-level-3 > li')
-          // profeseLi.forEach((li) => {
-          // 	const help = li.querySelector('a')
-          // 	li.innerHTML = ''
-          // 	li.appendChild(help)
-          // })
           initialYScroll = 0;
           debouncedScroll = debounce(function () {
             var header = document.querySelector("#header");
@@ -1207,22 +1119,6 @@ var handleHeader = /*#__PURE__*/function () {
               }
             });
           });
-
-          // const headerBanner = document.querySelector('.custom-footer__banner1')
-          // if (headerBanner) {
-          // 	const allMenuLevel2Helpers = document.querySelectorAll('.menu-level-1 li.ext .menu-level-2-helper')
-          // 	allMenuLevel2Helpers.forEach((helper) => {
-          // 		const clone = headerBanner.cloneNode(true) // true means it will clone the node and its child nodes
-          // 		helper.appendChild(clone)
-          // 	})
-          // }
-
-          if (window.innerWidth < 768) {
-            siteLogo = document.querySelector(".header-top .site-name-wrapper a img");
-            if (siteLogo) {
-              siteLogo.src = "/user/documents/upload/Obrazky/mobile-logo.svg";
-            }
-          }
         case 1:
           return _context2.a(2);
       }

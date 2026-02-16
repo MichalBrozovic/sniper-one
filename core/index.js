@@ -81,19 +81,36 @@ const headerIncludes = {
     match: /<\/head>/i,
     fn: function (req, res, match) {
         const isProduction = options.mode === 'production'
-        const criticalScriptExists = fs.existsSync(outputFolder + `/js-critical${isProduction ? '.min' : ''}.js`)
-        const criticalStyleExists = fs.existsSync(outputFolder + `/scss-critical${isProduction ? '.min' : ''}.css`)
-        const styleExists = fs.existsSync(outputFolder + `/scss-style${isProduction ? '.min' : ''}.css`)
+        const suffix = isProduction ? '.min' : ''
+        
+        // Cesty k souborům
+        const translateExists = fs.existsSync(outputFolder + `/js-translate${suffix}.js`)
+        const criticalScriptExists = fs.existsSync(outputFolder + `/js-critical${suffix}.js`)
+        const criticalStyleExists = fs.existsSync(outputFolder + `/scss-critical${suffix}.css`)
+        const styleExists = fs.existsSync(outputFolder + `/scss-style${suffix}.css`)
+        
         let headerMarkup = ''
-        if (criticalScriptExists) {
-            headerMarkup += `<link rel="preload" href="/js-critical${isProduction ? '.min' : ''}.js" as="script">`
-        }
-        if (criticalStyleExists) {
-            headerMarkup += `<link rel="preload" href="/scss-critical${isProduction ? '.min' : ''}.css" as="style">`
-            headerMarkup += `<link rel="stylesheet" href="/scss-critical${isProduction ? '.min' : ''}.css">`
+
+        // 1. Překlady musí jít jako první, aby byly window proměnné dostupné
+        if (translateExists) {
+            headerMarkup += `<script src="/js-translate${suffix}.js"></script>`
         }
 
-        if (styleExists) headerMarkup += `<link rel="stylesheet" href="/scss-style${isProduction ? '.min' : ''}.css">`
+        // 2. Kritický JS
+        if (criticalScriptExists) {
+            headerMarkup += `<link rel="preload" href="/js-critical${suffix}.js" as="script">`
+        }
+
+        // 3. Kritické CSS a styl
+        if (criticalStyleExists) {
+            headerMarkup += `<link rel="preload" href="/scss-critical${suffix}.css" as="style">`
+            headerMarkup += `<link rel="stylesheet" href="/scss-critical${suffix}.css">`
+        }
+
+        if (styleExists) {
+            headerMarkup += `<link rel="stylesheet" href="/scss-style${suffix}.css">`
+        }
+
         return headerMarkup + match
     },
 }
@@ -147,7 +164,7 @@ const webpackConfig = {
     plugins: [...plugins, ...baseWebpackConfig.plugins],
 }
 
-console.log(chalk.red.bold('\n🎯 [SNIPER-BENDER] Initializing target...'));
+console.log(chalk.red.bold('\n [SNIPER-BENDER] Initializing target...'));
 
 webpack(webpackConfig, (err, stats) => {
     if (err) {
@@ -158,12 +175,12 @@ webpack(webpackConfig, (err, stats) => {
     const info = stats.toJson();
 
     if (stats.hasErrors()) {
-        console.log(chalk.red.bold('\n❌ TARGET MISSED (Build Errors):'));
+        console.log(chalk.red.bold('\n TARGET MISSED (Build Errors):'));
         info.errors.forEach(error => console.log(chalk.red('  -> ' + error.message)));
     }
 
     if (stats.hasWarnings()) {
-        console.log(chalk.yellow.bold('\n⚠️ RECONNAISSANCE WARNINGS:'));
+        console.log(chalk.yellow.bold('\n RECONNAISSANCE WARNINGS:'));
         info.warnings.forEach(warn => console.log(chalk.yellow('  -> ' + warn.message)));
     }
 
@@ -177,11 +194,11 @@ webpack(webpackConfig, (err, stats) => {
     }));
 
     if (useWatcher) {
-        console.log(chalk.green.bold('\n🔫 SNIPER IS READY. Watching for changes...'));
-        console.log(chalk.cyan(`🔗 Proxy: ${chalk.underline(options.remote ?? config.defaultUrl)}`));
-        console.log(chalk.cyan(`🏠 Local: ${chalk.underline('http://localhost:3010')}\n`));
+        console.log(chalk.green.bold('\n SNIPER IS READY. Watching for changes...'));
+        console.log(chalk.cyan(`Proxy: ${chalk.underline(options.remote ?? config.defaultUrl)}`));
+        console.log(chalk.cyan(`Local: ${chalk.underline('http://localhost:3010')}\n`));
     } else {
-        console.log(chalk.bgGreen.black.bold('\n ✅ MISSION ACCOMPLISHED ') + chalk.green(' Build is finished.\n'));
+        console.log(chalk.bgGreen.black.bold('\n MISSION ACCOMPLISHED ') + chalk.green(' Build is finished.\n'));
         process.exit(stats.hasErrors() ? 1 : 0);
     }
 });

@@ -1,0 +1,106 @@
+@use "sass:color";
+
+$white: #ffffff;
+$black: #000000;
+
+$color-primary: #1563ED;
+$color-secondary: #142D59;
+$color-accent: #4b4b4b;
+$color-danger: #8A1616;
+
+$color-font: #1C1C1D;
+$color-font-second: #757575;
+$color-font-invert: #FFF;
+
+$color-page-bg: $white;
+$color-page-bg-invert: #1d1d1b;
+$color-page-bg-secondary: #f7f7f7;
+
+$header-bg: transparent;
+$footer-bg: #1d1d1b;
+
+$border-primary: #D0D5DE;
+$border-secondary: $border-primary;;
+$border-input: $border-primary;;
+$border-color: $border-primary;;
+
+$flag-action: #FF502B;
+$flag-new: #B489FA;
+$flag-bestseller: #3FDEA3;
+$flag-discount: #eb2a00;
+$flag-sale: #FF502B;
+$flag-gift: #4486B6;
+
+$alert:#F5DEDE;
+$notification:#F48F53;
+$positive:#059905;
+$info:#5A95EE;
+
+
+
+@function shade($color, $weight) {
+  @return color.mix(#000, $color, $weight);
+}
+@function tint($color, $weight) {
+  @return color.mix(#fff, $color, $weight);
+}
+
+// Primary Paleta
+$color-primary-900: shade($color-primary, 80%);
+$color-primary-800: shade($color-primary, 60%);
+$color-primary-700: shade($color-primary, 40%);
+$color-primary-600: shade($color-primary, 20%);
+$color-primary-500: $color-primary;
+$color-primary-400: tint($color-primary, 20%);
+$color-primary-300: tint($color-primary, 40%);
+$color-primary-200: tint($color-primary, 60%);
+$color-primary-100: tint($color-primary, 75%);
+$color-primary-050: tint($color-primary, 90%);
+
+// Font/Grey Paleta
+$color-font-900: shade($color-font, 80%);
+$color-font-800: shade($color-font, 65%);
+$color-font-700: shade($color-font, 50%);
+$color-font-600: shade($color-font, 35%);
+$color-font-500: $color-font;
+$color-font-400: tint($color-font, 20%);
+$color-font-300: tint($color-font, 40%);
+$color-font-200: tint($color-font, 60%);
+$color-font-100: tint($color-font, 75%);
+$color-font-050: tint($color-font, 90%);
+
+
+// SASS paleta (shade/tint)
+$color-danger-900: shade($color-danger, 80%);
+$color-danger-800: shade($color-danger, 60%);
+$color-danger-700: shade($color-danger, 40%);
+$color-danger-600: shade($color-danger, 20%);
+$color-danger-500: $color-danger;
+$color-danger-400: tint($color-danger, 20%);
+$color-danger-300: tint($color-danger, 40%);
+$color-danger-200: tint($color-danger, 60%);
+$color-danger-100: tint($color-danger, 75%);
+$color-danger-050: tint($color-danger, 90%);
+
+// ==========================================================================
+// 3. RGBA ŠKÁLA
+// ==========================================================================
+$white-10: rgba($white, 0.1);
+$white-20: rgba($white, 0.2);
+$white-30: rgba($white, 0.3);
+$white-40: rgba($white, 0.4);
+$white-50: rgba($white, 0.5);
+$white-60: rgba($white, 0.6);
+$white-70: rgba($white, 0.7);
+$white-80: rgba($white, 0.8);
+$white-90: rgba($white, 0.9);
+
+$black-10: rgba($black, 0.1);
+$black-20: rgba($black, 0.2);
+$black-30: rgba($black, 0.3);
+$black-40: rgba($black, 0.4);
+$black-50: rgba($black, 0.5);
+$black-60: rgba($black, 0.6);
+$black-70: rgba($black, 0.7);
+$black-80: rgba($black, 0.8);
+$black-90: rgba($black, 0.9);
