@@ -196,7 +196,7 @@ webpack(webpackConfig, (err, stats) => {
     if (useWatcher) {
         console.log(chalk.green.bold('\n SNIPER IS READY. Watching for changes...'));
         console.log(chalk.cyan(`Proxy: ${chalk.underline(options.remote ?? config.defaultUrl)}`));
-        console.log(chalk.cyan(`Local: ${chalk.underline('http://localhost:3010')}\n`));
+        console.log(chalk.cyan(`Local: ${chalk.underline('https://localhost:3010')}\n`));
     } else {
         console.log(chalk.bgGreen.black.bold('\n MISSION ACCOMPLISHED ') + chalk.green(' Build is finished.\n'));
         process.exit(stats.hasErrors() ? 1 : 0);
