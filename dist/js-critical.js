@@ -93,13 +93,13 @@ function setScrollbarWidth() {
   var scrollbarWidth = getScrollbarWidth();
   document.documentElement.style.setProperty("--scrollbar-width", "".concat(scrollbarWidth, "px"));
 }
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', setScrollbarWidth);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", setScrollbarWidth);
 } else {
   setScrollbarWidth();
 }
-window.addEventListener('resize', setScrollbarWidth);
-document.addEventListener('shoptet.content.updated', setScrollbarWidth);
+window.addEventListener("resize", setScrollbarWidth);
+document.addEventListener("shoptet.content.updated", setScrollbarWidth);
 
 // Funkce pro nastavení výšky headeru jako CSS proměnné
 function setHeaderTopHeight() {
@@ -108,6 +108,15 @@ function setHeaderTopHeight() {
     document.documentElement.style.setProperty("--header-top-height", "".concat(headerTop.clientHeight, "px"));
   }
 }
+var syncShoptetBodyColor = function syncShoptetBodyColor() {
+  if (typeof shoptet !== "undefined" && shoptet.design && shoptet.design.background && shoptet.design.background.color) {
+    var bodyColor = shoptet.design.background.color.color;
+    document.documentElement.style.setProperty("--color-body-background", bodyColor);
+  }
+};
+
+// Spustit hned
+syncShoptetBodyColor();
 
 // Zavolejte funkci při načtení stránky
 document.addEventListener("DOMContentLoaded", setHeaderTopHeight);
@@ -188,6 +197,54 @@ var handleHeader = /*#__PURE__*/function () {
 handleHeader();
 document.addEventListener("ShoptetDOMPageContentLoaded", handleHeader);
 document.addEventListener("ShoptetDOMContentLoaded", handleHeader);
+var initHomepageSwiper = function initHomepageSwiper() {
+  var $carousel = document.querySelector("#carousel");
+  var $inner = document.querySelector(".carousel-inner");
+  var $items = document.querySelectorAll(".carousel-inner .item");
+  if (!$carousel || !$inner || $items.length === 0) return;
+
+  // Transformace DOMu (stejná jako minule)
+  $carousel.classList.add("swiper");
+  $inner.classList.replace("carousel-inner", "swiper-wrapper");
+  $items.forEach(function (el) {
+    return el.classList.remove("item", "active") || el.classList.add("swiper-slide");
+  });
+
+  // Vyčistíme navigaci
+  $carousel.querySelectorAll(".carousel-control").forEach(function (el) {
+    return el.remove();
+  });
+  $carousel.insertAdjacentHTML("beforeend", '<div class="swiper-pagination"></div>');
+
+  // Inicializace
+  new window.Swiper("#carousel", {
+    grabCursor: true,
+    watchSlidesProgress: true,
+    speed: 800,
+    breakpointsBase: "container",
+    slidesPerView: 1.1,
+    spaceBetween: 10,
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 20
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 30
+      },
+      1360: {
+        slidesPerView: 4,
+        spaceBetween: 30
+      }
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true
+    }
+  });
+};
+document.addEventListener("DOMContentLoaded", initHomepageSwiper);
 var handleCategory = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
     var reload,

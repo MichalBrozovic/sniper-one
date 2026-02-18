@@ -68,24 +68,24 @@ const debounce = (func, delay) => {
 // Funkce pro získání šířky scrollbaru
 
 function getScrollbarWidth() {
-    return window.innerWidth - document.documentElement.clientWidth;
+  return window.innerWidth - document.documentElement.clientWidth;
 }
 
 function setScrollbarWidth() {
-    const scrollbarWidth = getScrollbarWidth();
-    document.documentElement.style.setProperty(
-        "--scrollbar-width",
-        `${scrollbarWidth}px`
-    );
+  const scrollbarWidth = getScrollbarWidth();
+  document.documentElement.style.setProperty(
+    "--scrollbar-width",
+    `${scrollbarWidth}px`,
+  );
 }
 
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setScrollbarWidth);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", setScrollbarWidth);
 } else {
-    setScrollbarWidth();
+  setScrollbarWidth();
 }
-window.addEventListener('resize', setScrollbarWidth);
-document.addEventListener('shoptet.content.updated', setScrollbarWidth);
+window.addEventListener("resize", setScrollbarWidth);
+document.addEventListener("shoptet.content.updated", setScrollbarWidth);
 
 // Funkce pro nastavení výšky headeru jako CSS proměnné
 function setHeaderTopHeight() {
@@ -93,15 +93,32 @@ function setHeaderTopHeight() {
   if (headerTop) {
     document.documentElement.style.setProperty(
       "--header-top-height",
-      `${headerTop.clientHeight}px`
+      `${headerTop.clientHeight}px`,
     );
   }
 }
 
+const syncShoptetBodyColor = () => {
+  if (
+    typeof shoptet !== "undefined" &&
+    shoptet.design &&
+    shoptet.design.background &&
+    shoptet.design.background.color
+  ) {
+    const bodyColor = shoptet.design.background.color.color;
+    document.documentElement.style.setProperty(
+      "--color-body-background",
+      bodyColor,
+    );
+  }
+};
+
+// Spustit hned
+syncShoptetBodyColor();
+
 // Zavolejte funkci při načtení stránky
 document.addEventListener("DOMContentLoaded", setHeaderTopHeight);
 window.addEventListener("resize", setHeaderTopHeight);
-
 
 const currentPath = window.location.pathname;
 const links = document.querySelectorAll(".menu-level-1 li a");
@@ -119,7 +136,6 @@ links2.forEach((link) => {
     link.classList.add("active");
   }
 });
-
 
 function fixedHeader() {
   let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -159,11 +175,7 @@ function fixedHeader() {
 document.addEventListener("DOMContentLoaded", fixedHeader);
 window.addEventListener("scroll", fixedHeader);
 
-
-
 const handleHeader = async () => {
-  
-
   let liElements = document.querySelectorAll(".menu-level-3 li");
 
   liElements.forEach((li) => {
@@ -175,37 +187,73 @@ const handleHeader = async () => {
       }
     });
   });
-
-
 };
 handleHeader();
 document.addEventListener("ShoptetDOMPageContentLoaded", handleHeader);
 document.addEventListener("ShoptetDOMContentLoaded", handleHeader);
 
+const initHomepageSwiper = () => {
+  const $carousel = document.querySelector("#carousel");
+  const $inner = document.querySelector(".carousel-inner");
+  const $items = document.querySelectorAll(".carousel-inner .item");
 
+  if (!$carousel || !$inner || $items.length === 0) return;
 
+  // Transformace DOMu (stejná jako minule)
+  $carousel.classList.add("swiper");
+  $inner.classList.replace("carousel-inner", "swiper-wrapper");
+  $items.forEach(
+    (el) =>
+      el.classList.remove("item", "active") || el.classList.add("swiper-slide"),
+  );
 
+  // Vyčistíme navigaci
+  $carousel.querySelectorAll(".carousel-control").forEach((el) => el.remove());
+  $carousel.insertAdjacentHTML(
+    "beforeend",
+    '<div class="swiper-pagination"></div>',
+  );
 
-const handleCategory = async (reload = false) => {
-  
+  // Inicializace
+  new window.Swiper("#carousel", {
+    grabCursor: true,
+    watchSlidesProgress: true,
+    speed: 800,
+    breakpointsBase: "container",
+    slidesPerView: 1.1,
+    spaceBetween: 10,
+
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+      1360: {
+        slidesPerView: 4,
+        spaceBetween: 30,
+      },
+    },
+
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+  });
 };
-const handleCheckedFilters = () => {
- 
-};
 
+document.addEventListener("DOMContentLoaded", initHomepageSwiper);
 
+const handleCategory = async (reload = false) => {};
+const handleCheckedFilters = () => {};
 
-  
-const handleProductDetail = async () => {
-  
-};
+const handleProductDetail = async () => {};
 if (shoptetPage === "productDetail") {
   handleProductDetail();
 }
 
-const handlePost = async () => {
- 
-};
+const handlePost = async () => {};
 if (document.body.classList.contains("type-post")) handlePost();
-
-

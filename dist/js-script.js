@@ -128,6 +128,185 @@ var splitMenu = function splitMenu() {
 if ((_window$shoptet = window.shoptet) !== null && _window$shoptet !== void 0 && _window$shoptet.menu) {
   shoptet.menu.splitMenu = splitMenu;
 }
+var parseBenderContent = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(selector) {
+    var devMode,
+      dev,
+      wrappers,
+      slugCache,
+      slugify,
+      i,
+      wrapper,
+      dataSpan,
+      fullText,
+      resultContainer,
+      classMatch,
+      customClass,
+      topParent,
+      textWithoutClass,
+      blocksRaw,
+      j,
+      titleText,
+      contentText,
+      currentBlock,
+      h2,
+      items,
+      currentUl,
+      k,
+      cleanItem,
+      parts,
+      img,
+      label,
+      url,
+      li,
+      a,
+      bannerContainer,
+      _args = arguments;
+    return _regenerator().w(function (_context) {
+      while (1) switch (_context.n) {
+        case 0:
+          devMode = _args.length > 1 && _args[1] !== undefined ? _args[1] : false;
+          dev = devMode;
+          wrappers = document.querySelectorAll(selector);
+          if (!(wrappers.length === 0)) {
+            _context.n = 1;
+            break;
+          }
+          if (dev) console.warn("%c[BENDER DEV]%c \u017D\xE1dn\xE9 elementy pro \"".concat(selector, "\" nebyly nalezeny."), 'color: #ff0000; font-weight: bold;', '');
+          return _context.a(2);
+        case 1:
+          if (dev) console.time('Bender Performance Test');
+
+          // Cache pro slugify (šetří výkon u duplicitních odkazů)
+          slugCache = {};
+          slugify = function slugify(text) {
+            if (slugCache[text]) return slugCache[text];
+            var slug = text.toString().toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-').replace(/[^\w-]+/g, '').replace(/--+/g, '-');
+            slugCache[text] = slug;
+            return slug;
+          }; // Rychlá smyčka
+          i = 0;
+        case 2:
+          if (!(i < wrappers.length)) {
+            _context.n = 9;
+            break;
+          }
+          wrapper = wrappers[i];
+          dataSpan = wrapper.querySelector('span[data-ec-promo-id]');
+          if (dataSpan) {
+            _context.n = 3;
+            break;
+          }
+          return _context.a(3, 8);
+        case 3:
+          fullText = (dataSpan.innerText || dataSpan.textContent).replace(/\u00a0/g, ' ').trim();
+          if (dev) console.log("%c[BENDER DEV]%c Banner ".concat(i + 1, " vstup:"), 'color: #00ff00; font-weight: bold;', fullText);
+          resultContainer = document.createElement('div');
+          resultContainer.className = 'bender-parsed-content';
+
+          // 1. TŘÍDA (###)
+          classMatch = fullText.match(/###([^#]+)###/);
+          if (classMatch) {
+            customClass = classMatch[1].trim();
+            topParent = wrapper.closest('[class*="custom-footer__banner"]');
+            if (topParent) {
+              topParent.classList.add(customClass);
+              if (dev) console.log("   -> Probubl\xE1no: .".concat(customClass));
+            } else {
+              resultContainer.classList.add(customClass);
+              if (dev) console.log("   -> Fail-safe t\u0159\xEDda: .".concat(customClass));
+            }
+          }
+          textWithoutClass = fullText.replace(/###[^#]+###/g, '').trim();
+          blocksRaw = textWithoutClass.split(/##([^#]+)##/g);
+          j = 1;
+        case 4:
+          if (!(j < blocksRaw.length)) {
+            _context.n = 7;
+            break;
+          }
+          titleText = blocksRaw[j].trim();
+          contentText = blocksRaw[j + 1] ? blocksRaw[j + 1].trim() : '';
+          if (titleText) {
+            _context.n = 5;
+            break;
+          }
+          return _context.a(3, 6);
+        case 5:
+          currentBlock = document.createElement('div');
+          currentBlock.className = 'block';
+          h2 = document.createElement('h2');
+          h2.textContent = titleText;
+          currentBlock.appendChild(h2);
+          items = contentText.match(/#([^#]+)#/g);
+          if (items) {
+            currentUl = null;
+            for (k = 0; k < items.length; k++) {
+              cleanItem = items[k].replace(/#/g, '').trim();
+              parts = cleanItem.split(';');
+              if (parts.includes('img')) {
+                img = document.createElement('img');
+                img.src = parts[0].trim();
+                img.loading = 'lazy';
+                img.className = 'footer-img';
+                currentBlock.appendChild(img);
+                if (dev) console.log("      - Obr\xE1zek: ".concat(img.src));
+              } else {
+                if (!currentUl) {
+                  currentUl = document.createElement('ul');
+                  currentBlock.appendChild(currentUl);
+                }
+                label = parts[0].trim();
+                url = parts[1] ? parts[1].trim() : "/".concat(slugify(label), "/");
+                if (url && !url.startsWith('/') && !url.startsWith('http')) url = '/' + url;
+                li = document.createElement('li');
+                a = document.createElement('a');
+                a.href = url;
+                a.textContent = label;
+                li.appendChild(a);
+                currentUl.appendChild(li);
+                if (dev) console.log("      - Odkaz: ".concat(label, " (").concat(url, ")"));
+              }
+            }
+          }
+          resultContainer.appendChild(currentBlock);
+        case 6:
+          j += 2;
+          _context.n = 4;
+          break;
+        case 7:
+          // Zápis do DOMu
+          bannerContainer = wrapper.querySelector('.banner') || wrapper;
+          bannerContainer.innerHTML = '';
+          bannerContainer.appendChild(resultContainer);
+        case 8:
+          i++;
+          _context.n = 2;
+          break;
+        case 9:
+          if (dev) console.timeEnd('Bender Performance Test');
+        case 10:
+          return _context.a(2);
+      }
+    }, _callee);
+  }));
+  return function parseBenderContent(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+// Spuštění na bannery v patičce
+_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+  return _regenerator().w(function (_context2) {
+    while (1) switch (_context2.n) {
+      case 0:
+        _context2.n = 1;
+        return parseBenderContent('.custom-footer > div', true);
+      case 1:
+        return _context2.a(2);
+    }
+  }, _callee2);
+}))();
 
 // FLAGS and card
 var handleFlags = function handleFlags(product) {};
@@ -163,16 +342,16 @@ if (document.body.classList.contains("ordering-process")) {
   document.addEventListener("ShoptetDOMCartContentLoaded", handleCart);
 }
 var handleFooter = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-    return _regenerator().w(function (_context) {
-      while (1) switch (_context.n) {
+  var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+    return _regenerator().w(function (_context3) {
+      while (1) switch (_context3.n) {
         case 0:
-          return _context.a(2);
+          return _context3.a(2);
       }
-    }, _callee);
+    }, _callee3);
   }));
   return function handleFooter() {
-    return _ref.apply(this, arguments);
+    return _ref3.apply(this, arguments);
   };
 }();
 handleFooter();

@@ -48,6 +48,16 @@
     @return calc(($size / $context) * 1rem);
 }
 
+@mixin hover {
+  &:hover,
+  &:focus,
+  &:active,
+  &:focus-visible,
+  &:focus-within {
+    @content;
+  }
+}
+
 @mixin dividerBottom() {
     position: relative;
     margin-bottom: 104px;

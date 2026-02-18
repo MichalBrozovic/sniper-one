@@ -4,11 +4,10 @@ import path from 'path'
 import { glob } from 'glob'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
-import WebpackObfuscatorPlugin from 'webpack-obfuscator'
 import RemoveEmptyScriptsPlugin from 'webpack-remove-empty-scripts'
-import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin' // 1. Optimalizace obrázků
+import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
 import fs from 'fs'
-import autoprefixer from 'autoprefixer' // 2. Autoprefixer
+import autoprefixer from 'autoprefixer'
 
 const outputDir = path.resolve(process.cwd(), 'dist')
 const sourceDir = path.resolve(process.cwd(), 'src')
@@ -70,8 +69,6 @@ export default (env) => {
             minimize: isProduction,
             minimizer: [
                 new CssMinimizerPlugin(), 
-                ...(isProduction ? [new WebpackObfuscatorPlugin({ rotateStringArray: true }, ['scss-*.js', 'css-*.js'])] : []),
-                // PRODUKČNÍ OPTIMALIZACE OBRÁZKŮ
                 new ImageMinimizerPlugin({
                     minimizer: {
                         implementation: ImageMinimizerPlugin.imageminMinify,
@@ -84,7 +81,6 @@ export default (env) => {
                             ],
                         },
                     },
-                    // Automatické generování WebP verzí
                     generator: [
                         {
                             type: "asset",
@@ -107,11 +103,18 @@ export default (env) => {
                         options: { presets: ['@babel/preset-env'] }
                     },
                 },
+                // OPRAVENÉ PRAVIDLO PRO STYLY (SCSS + CSS z node_modules)
                 {
-                    test: /\.scss$/i,
+                    test: /\.(sa|sc|c)ss$/i,
                     use: [
                         MiniCssExtractPlugin.loader,
-                        { loader: 'css-loader', options: { sourceMap: !isProduction } },
+                        { 
+                            loader: 'css-loader', 
+                            options: { 
+                                sourceMap: !isProduction,
+                                url: false // DŮLEŽITÉ: Vypíná řešení url() cest, které Shoptet/Webpack nevidí
+                            } 
+                        },
                         {
                             loader: 'postcss-loader',
                             options: {

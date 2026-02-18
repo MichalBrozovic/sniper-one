@@ -3,17 +3,8 @@
 @import 'colors';
 @import 'mixins';
 
+@import 'basics/reset';
 
-
-html {
-	&.remove {
-		overflow: hidden;
-
-		body {
-			overflow: hidden;
-		}
-	}
-}
 
 .site-msg {
 	background-color: $black;
@@ -123,7 +114,7 @@ body {
 	color: $color-font;
 	font-family: $default-font-family;
 	line-height: 1.5;
-	background-color: $color-page-bg-secondary;
+	background-color: $color-page-bg;
 }
 
 .type-category {
@@ -6364,25 +6355,7 @@ body.mobile {
 		}
 	}
 
-	.custom-footer__newsletter,
-	.custom-footer__banner5,
-	.custom-footer__banner6,
-	.custom-footer__banner7,
-	.custom-footer__banner8,
-	.custom-footer__banner9,
-	.custom-footer__banner10,
-	.custom-footer__banner11,
-	.custom-footer__banner23,
-	.custom-footer__banner12,
-	.custom-footer__banner19,
-	.custom-footer__banner20,
-	.custom-footer__banner21 {
-		display: none;
-
-		img {
-			display: none;
-		}
-	}
+	
 
 	@media screen and (max-width: 900px) and (min-width: 0px) {
 		border-top: 1px solid $border-primary;

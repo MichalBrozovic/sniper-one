@@ -83,27 +83,20 @@ const headerIncludes = {
         const isProduction = options.mode === 'production'
         const suffix = isProduction ? '.min' : ''
         
-        // Cesty k souborům
         const translateExists = fs.existsSync(outputFolder + `/js-translate${suffix}.js`)
-        const criticalScriptExists = fs.existsSync(outputFolder + `/js-critical${suffix}.js`)
         const criticalStyleExists = fs.existsSync(outputFolder + `/scss-critical${suffix}.css`)
         const styleExists = fs.existsSync(outputFolder + `/scss-style${suffix}.css`)
         
         let headerMarkup = ''
 
-        // 1. Překlady musí jít jako první, aby byly window proměnné dostupné
+        // 1. Swiper CSS z CDN (vždy nejnovější stabilní v11)
+        headerMarkup += `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">`
+
         if (translateExists) {
             headerMarkup += `<script src="/js-translate${suffix}.js"></script>`
         }
 
-        // 2. Kritický JS
-        if (criticalScriptExists) {
-            headerMarkup += `<link rel="preload" href="/js-critical${suffix}.js" as="script">`
-        }
-
-        // 3. Kritické CSS a styl
         if (criticalStyleExists) {
-            headerMarkup += `<link rel="preload" href="/scss-critical${suffix}.css" as="style">`
             headerMarkup += `<link rel="stylesheet" href="/scss-critical${suffix}.css">`
         }
 
@@ -118,11 +111,18 @@ const footerIncludes = {
     match: /<\/body>(?![\s\S]*<\/body>[\s\S]*$)/i,
     fn: function (req, res, match) {
         const isProduction = options.mode === 'production'
+        const suffix = isProduction ? '.min' : ''
         let footerMarkup = ''
-        const criticalScriptExists = fs.existsSync(outputFolder + `/js-critical${isProduction ? '.min' : ''}.js`)
-        if (criticalScriptExists) footerMarkup += `<script src="/js-critical${isProduction ? '.min' : ''}.js"></script>`
-        const scriptExists = fs.existsSync(outputFolder + `/js-script${isProduction ? '.min' : ''}.js`)
-        if (scriptExists) footerMarkup += `<script src="/js-script${isProduction ? '.min' : ''}.js"></script>`
+
+        // 1. Swiper JS z CDN (musí být PŘED tvým scriptem)
+        footerMarkup += `<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>`
+
+        const criticalScriptExists = fs.existsSync(outputFolder + `/js-critical${suffix}.js`)
+        if (criticalScriptExists) footerMarkup += `<script src="/js-critical${suffix}.js"></script>`
+
+        const scriptExists = fs.existsSync(outputFolder + `/js-script${suffix}.js`)
+        if (scriptExists) footerMarkup += `<script src="/js-script${suffix}.js"></script>`
+
         return footerMarkup + match
     },
 }

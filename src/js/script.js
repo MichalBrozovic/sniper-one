@@ -1,3 +1,5 @@
+
+
 // window.addEventListener('load', () => document.body.classList.add('hideSpinner'))
 const debounce = (func, delay) => {
   let debounceTimer;
@@ -117,6 +119,123 @@ if (window.shoptet?.menu) {
 }
 
 
+
+const parseBenderContent = async (selector, devMode = false) => {
+    const dev = devMode;
+    const wrappers = document.querySelectorAll(selector);
+
+    if (wrappers.length === 0) {
+        if (dev) console.warn(`%c[BENDER DEV]%c Žádné elementy pro "${selector}" nebyly nalezeny.`, 'color: #ff0000; font-weight: bold;', '');
+        return;
+    }
+
+    if (dev) console.time('Bender Performance Test');
+
+    // Cache pro slugify (šetří výkon u duplicitních odkazů)
+    const slugCache = {};
+    const slugify = (text) => {
+        if (slugCache[text]) return slugCache[text];
+        const slug = text.toString().toLowerCase().trim()
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/[^\w-]+/g, '')
+            .replace(/--+/g, '-');
+        slugCache[text] = slug;
+        return slug;
+    };
+
+    // Rychlá smyčka
+    for (let i = 0; i < wrappers.length; i++) {
+        const wrapper = wrappers[i];
+        const dataSpan = wrapper.querySelector('span[data-ec-promo-id]');
+        if (!dataSpan) continue;
+
+        const fullText = (dataSpan.innerText || dataSpan.textContent).replace(/\u00a0/g, ' ').trim();
+        
+        if (dev) console.log(`%c[BENDER DEV]%c Banner ${i + 1} vstup:`, 'color: #00ff00; font-weight: bold;', fullText);
+
+        const resultContainer = document.createElement('div');
+        resultContainer.className = 'bender-parsed-content';
+
+        // 1. TŘÍDA (###)
+        const classMatch = fullText.match(/###([^#]+)###/);
+        if (classMatch) {
+            const customClass = classMatch[1].trim();
+            const topParent = wrapper.closest('[class*="custom-footer__banner"]');
+            if (topParent) {
+                topParent.classList.add(customClass);
+                if (dev) console.log(`   -> Probubláno: .${customClass}`);
+            } else {
+                resultContainer.classList.add(customClass);
+                if (dev) console.log(`   -> Fail-safe třída: .${customClass}`);
+            }
+        }
+
+        const textWithoutClass = fullText.replace(/###[^#]+###/g, '').trim();
+        const blocksRaw = textWithoutClass.split(/##([^#]+)##/g);
+
+        for (let j = 1; j < blocksRaw.length; j += 2) {
+            const titleText = blocksRaw[j].trim();
+            const contentText = blocksRaw[j + 1] ? blocksRaw[j + 1].trim() : '';
+
+            if (!titleText) continue;
+
+            const currentBlock = document.createElement('div');
+            currentBlock.className = 'block';
+
+            const h2 = document.createElement('h2');
+            h2.textContent = titleText;
+            currentBlock.appendChild(h2);
+
+            const items = contentText.match(/#([^#]+)#/g);
+            if (items) {
+                let currentUl = null;
+                for (let k = 0; k < items.length; k++) {
+                    const cleanItem = items[k].replace(/#/g, '').trim();
+                    const parts = cleanItem.split(';');
+
+                    if (parts.includes('img')) {
+                        const img = document.createElement('img');
+                        img.src = parts[0].trim();
+                        img.loading = 'lazy';
+                        img.className = 'footer-img';
+                        currentBlock.appendChild(img);
+                        if (dev) console.log(`      - Obrázek: ${img.src}`);
+                    } else {
+                        if (!currentUl) {
+                            currentUl = document.createElement('ul');
+                            currentBlock.appendChild(currentUl);
+                        }
+                        const label = parts[0].trim();
+                        let url = parts[1] ? parts[1].trim() : `/${slugify(label)}/`;
+                        if (url && !url.startsWith('/') && !url.startsWith('http')) url = '/' + url;
+
+                        const li = document.createElement('li');
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.textContent = label;
+                        li.appendChild(a);
+                        currentUl.appendChild(li);
+                        if (dev) console.log(`      - Odkaz: ${label} (${url})`);
+                    }
+                }
+            }
+            resultContainer.appendChild(currentBlock);
+        }
+
+        // Zápis do DOMu
+        const bannerContainer = wrapper.querySelector('.banner') || wrapper;
+        bannerContainer.innerHTML = '';
+        bannerContainer.appendChild(resultContainer);
+    }
+
+    if (dev) console.timeEnd('Bender Performance Test');
+};
+
+// Spuštění na bannery v patičce
+(async () => {
+    await parseBenderContent('.custom-footer > div', true);
+})();
 
 
 

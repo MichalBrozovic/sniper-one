@@ -1,49 +1,56 @@
 @use "sass:color";
 
+// 1. ZÁKLADNÍ KONSTANTY
 $white: #ffffff;
 $black: #000000;
 
-$color-primary: #1563ED;
-$color-secondary: #142D59;
+// 2. DYNAMICKÉ MAPOVÁNÍ NA SHOPTET (Most)
+// Používáme tvé defaultní barvy jako fallback
+$color-primary: var(--color-secondary, #1563ed); // Konverzní barva
+$color-secondary: var(--color-secondary-hover, #142d59); // Konverzní hover
+$color-font: var(--color-primary, #1c1c1d); // Barva šablony 1
+$color-font-invert: var(--color-primary-hover, #fff); // Barva šablony 2
+$color-font-second: var(--color-tertiary, #757575); // Barva šablony 3
+$border-primary: var(--color-tertiary-hover, #d0d5de); // Barva šablony 4
+
 $color-accent: #4b4b4b;
-$color-danger: #8A1616;
+$color-danger: #8a1616;
 
-$color-font: #1C1C1D;
-$color-font-second: #757575;
-$color-font-invert: #FFF;
-
-$color-page-bg: $white;
+// POZADÍ (napojení na body styl Shoptetu)
+$color-page-bg: var(--color-body-background, #fff);
 $color-page-bg-invert: #1d1d1b;
-$color-page-bg-secondary: #f7f7f7;
+// U page-bg-secondary musíme použít color-mix, aby reagovalo na změnu barvy pozadí
+$color-page-bg-secondary: color-mix(in srgb, #{$color-page-bg}, #fff 5%);
 
 $header-bg: transparent;
-$footer-bg: #1d1d1b;
+$footer-bg: $color-primary; // Patička podle tvého zadání přebírá primary
 
-$border-primary: #D0D5DE;
-$border-secondary: $border-primary;;
-$border-input: $border-primary;;
-$border-color: $border-primary;;
+$border-secondary: $border-primary;
+$border-input: $border-primary;
+$border-color: $border-primary;
 
-$flag-action: #FF502B;
-$flag-new: #B489FA;
-$flag-bestseller: #3FDEA3;
+// FLAGY (Zůstávají statické, pokud je nechceš mapovat)
+$flag-action: #ff502b;
+$flag-new: #b489fa;
+$flag-bestseller: #3fdea3;
 $flag-discount: #eb2a00;
-$flag-sale: #FF502B;
-$flag-gift: #4486B6;
+$flag-sale: #ff502b;
+$flag-gift: #4486b6;
 
-$alert:#F5DEDE;
-$notification:#F48F53;
-$positive:#059905;
-$info:#5A95EE;
+$alert: #f5dede;
+$notification: #f48f53;
+$positive: #059905;
+$info: #5a95ee;
 
-
-
+// 3. DYNAMICKÉ FUNKCE (Nahrazují SASS mix za CSS color-mix)
 @function shade($color, $weight) {
-  @return color.mix(#000, $color, $weight);
+  @return color-mix(in srgb, #{$color}, #000 #{$weight});
 }
 @function tint($color, $weight) {
-  @return color.mix(#fff, $color, $weight);
+  @return color-mix(in srgb, #{$color}, #fff #{$weight});
 }
+
+// 4. PALETY (Názvy zachovány, výpočet je nyní dynamický v prohlížeči)
 
 // Primary Paleta
 $color-primary-900: shade($color-primary, 80%);
@@ -69,8 +76,7 @@ $color-font-200: tint($color-font, 60%);
 $color-font-100: tint($color-font, 75%);
 $color-font-050: tint($color-font, 90%);
 
-
-// SASS paleta (shade/tint)
+// Danger Paleta
 $color-danger-900: shade($color-danger, 80%);
 $color-danger-800: shade($color-danger, 60%);
 $color-danger-700: shade($color-danger, 40%);
@@ -82,25 +88,23 @@ $color-danger-200: tint($color-danger, 60%);
 $color-danger-100: tint($color-danger, 75%);
 $color-danger-050: tint($color-danger, 90%);
 
-// ==========================================================================
-// 3. RGBA ŠKÁLA
-// ==========================================================================
-$white-10: rgba($white, 0.1);
-$white-20: rgba($white, 0.2);
-$white-30: rgba($white, 0.3);
-$white-40: rgba($white, 0.4);
-$white-50: rgba($white, 0.5);
-$white-60: rgba($white, 0.6);
-$white-70: rgba($white, 0.7);
-$white-80: rgba($white, 0.8);
-$white-90: rgba($white, 0.9);
+// 5. RGBA ŠKÁLA (Důležité: SASS rgba() neumí var(), takže opět color-mix)
+$white-10: color-mix(in srgb, #{$white}, transparent 90%);
+$white-20: color-mix(in srgb, #{$white}, transparent 80%);
+$white-30: color-mix(in srgb, #{$white}, transparent 70%);
+$white-40: color-mix(in srgb, #{$white}, transparent 60%);
+$white-50: color-mix(in srgb, #{$white}, transparent 50%);
+$white-60: color-mix(in srgb, #{$white}, transparent 40%);
+$white-70: color-mix(in srgb, #{$white}, transparent 30%);
+$white-80: color-mix(in srgb, #{$white}, transparent 20%);
+$white-90: color-mix(in srgb, #{$white}, transparent 10%);
 
-$black-10: rgba($black, 0.1);
-$black-20: rgba($black, 0.2);
-$black-30: rgba($black, 0.3);
-$black-40: rgba($black, 0.4);
-$black-50: rgba($black, 0.5);
-$black-60: rgba($black, 0.6);
-$black-70: rgba($black, 0.7);
-$black-80: rgba($black, 0.8);
-$black-90: rgba($black, 0.9);
+$black-10: color-mix(in srgb, #{$black}, transparent 90%);
+$black-20: color-mix(in srgb, #{$black}, transparent 80%);
+$black-30: color-mix(in srgb, #{$black}, transparent 70%);
+$black-40: color-mix(in srgb, #{$black}, transparent 60%);
+$black-50: color-mix(in srgb, #{$black}, transparent 50%);
+$black-60: color-mix(in srgb, #{$black}, transparent 40%);
+$black-70: color-mix(in srgb, #{$black}, transparent 30%);
+$black-80: color-mix(in srgb, #{$black}, transparent 20%);
+$black-90: color-mix(in srgb, #{$black}, transparent 10%);
