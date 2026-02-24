@@ -1,0 +1,91 @@
+#carousel {
+  margin-bottom: 32px;
+  &:has(+ .swiper-pagination:not(.swiper-pagination-lock)){
+    margin-bottom: 0;
+  }
+  & + .swiper-pagination{
+    padding-bottom: 32px;
+  }
+  .swiper-slide {
+    aspect-ratio: 358 / 500;
+    display: flex;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    a {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .extended-banner-texts {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 16px;
+      background-color: $color-secondary;
+      color: $color-font-invert;
+      width: 100%;
+      max-width: 100%;
+    }
+    .extended-banner-title {
+      margin-bottom: 2px;
+      position: unset !important;
+      span {
+        position: absolute;
+        left: 16px;
+        bottom: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: nowrap;
+        justify-content: center;
+        font-size: remMM(20);
+        line-height: emMM(25, 20);
+        color: $color-font-invert;
+        background-color: $color-danger;
+        border-radius: 50%;
+        aspect-ratio: 1;
+        padding: 13px;
+        transform: rotate(-15deg);
+        strong {
+          font-size: remMM(38);
+          line-height: emMM(38, 38);
+        }
+      }
+    }
+    .extended-banner-text {
+      margin-bottom: 8px;
+    }
+  }
+  
+}
+#carousel:not(.swiper-initialized) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+#carousel.swiper-initialized {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease; // Udělá hezký fade-in místo cuknutí
+}
+
+.before-carousel {
+  .banners-row {
+    display: flex;
+    flex-direction: column;
+    > div {
+      width: 100%;
+    }
+  }
+}
+

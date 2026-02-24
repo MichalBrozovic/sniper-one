@@ -1,0 +1,130 @@
+.close,
+.remove-item {
+  @include trans(0.3s);
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::before,
+  &::after {
+    @include trans(0.3s);
+    content: "";
+    position: absolute;
+    display: block;
+    height: 2px;
+    left: 50%;
+    top: 50%;
+    // Společný základ pro rotaci
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  &:hover {
+    &::before {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+    &::after {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+  }
+}
+
+// Specifické pro zavírací křížek (např. v modálu)
+.close {
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  &::before,
+  &::after {
+    width: 80%;
+    background-color: $color-font-invert;
+  }
+  &.black {
+    &::before,
+    &::after {
+      background-color: $color-font;
+    }
+  }
+  @include hover {
+    &::before,
+    &::after {
+      background-color: $color-danger;
+    }
+  }
+}
+
+// Specifické pro smazání z košíku
+.remove-item {
+  height: 16px;
+  width: 16px;
+  z-index: 120;
+
+  &::before,
+  &::after {
+    width: 100%;
+    background-color: $color-font;
+  }
+  @include hover {
+    &::before,
+    &::after {
+      background-color: $color-danger;
+    }
+  }
+
+  .sr-only {
+    display: none !important;
+  }
+}
+
+.project-email,
+.project-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: remMM(14);
+  line-height: emMM(20, 14);
+  font-weight: 600;
+  text-decoration: unset;
+  &::before {
+    content: "";
+  }
+  small {
+    font-weight: 400;
+    color: $color-font-second;
+  }
+  @media (max-width: 767px) {
+    font-size: remMM(14);
+  }
+}
+
+.project-email {
+  &::before {
+    @include icon-mask(
+      "../../assets/images/icons/mail-primary.svg",
+      // Relativní cesta místo absolutní
+      $color-secondary,
+      16px,
+      16px
+    );
+  }
+}
+
+.project-phone {
+  &::before {
+    @include icon-mask(
+      "/assets/images/icons/phone-primary.svg",
+      $color-secondary,
+      16px,
+      16px
+    );
+  }
+}

@@ -15,11 +15,12 @@ window.shoptetLang = dataLayer[0].shoptet.language;
 window.body = document.querySelector("body");
 
 // přesunování elementů
-function moveElement(elementSelector, targetSelectors) {
-  var element = document.querySelector(elementSelector);
+function moveElement(elementOrSelector, targetSelectors) {
+  // Pokud je to string, najdeme ho, pokud je to objekt, použijeme ho přímo
+  var element = typeof elementOrSelector === "string" ? document.querySelector(elementOrSelector) : elementOrSelector;
   var footer = document.querySelector("footer");
   if (!element) {
-    console.error("Prvek ".concat(elementSelector, " nebyl nalezen"));
+    console.error("Prvek nebyl nalezen");
     return;
   }
   var moved = false;
@@ -29,6 +30,7 @@ function moveElement(elementSelector, targetSelectors) {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
       var targetSelector = _step.value;
       var target = document.querySelector(targetSelector);
+      // :has() selektor v JS funguje v moderních prohlížečích (Shoptet 2026 už to dá)
       if (target) {
         target.insertAdjacentElement("afterend", element);
         moved = true;
@@ -54,13 +56,15 @@ function on(eventType, selector, callback) {
     var targetElement = e.target;
     while (targetElement && targetElement !== document) {
       if (targetElement.matches(selector)) {
-        e.preventDefault();
+        // e.preventDefault(); // ODEBRÁNO - jinak by nefungovaly odkazy v menu
         callback.call(targetElement, e);
-        break;
+        return;
       }
       targetElement = targetElement.parentElement;
     }
-  });
+  }, {
+    passive: true
+  }); // Lepší pro výkon (scroll/touch)
 }
 
 //z hrefu na další sekci
@@ -169,29 +173,178 @@ function fixedHeader() {
 }
 document.addEventListener("DOMContentLoaded", fixedHeader);
 window.addEventListener("scroll", fixedHeader);
-var handleHeader = /*#__PURE__*/function () {
+
+// language menu + currency menu
+// přidá aktuální vlajku + upravuje přidání tříd po kliknutí kvůli lepšímu css
+var syncLanguageMenu = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-    var liElements;
+    var langMenu, langBoxSelector, sourceButton, targetHeader, activeFlag, alreadyHasFlag, textNodes;
     return _regenerator().w(function (_context) {
       while (1) switch (_context.n) {
         case 0:
-          liElements = document.querySelectorAll(".menu-level-3 li");
-          liElements.forEach(function (li) {
-            var childNodes = Array.from(li.childNodes);
-            childNodes.forEach(function (node) {
-              if (node.nodeType === 3 && node.textContent.includes(",")) {
-                // 3 is a Text node
-                node.textContent = node.textContent.replace(",", "");
-              }
-            });
-          });
+          langMenu = document.querySelector(".languagesMenu");
+          langBoxSelector = '.languagesMenu__box[data-target="language"]';
+          sourceButton = document.getElementById("topNavigationDropdown");
+          targetHeader = document.querySelector("".concat(langBoxSelector, " .languagesMenu__header--actual"));
+          if (sourceButton && targetHeader) {
+            activeFlag = sourceButton.querySelector("svg.shp-flag");
+            alreadyHasFlag = targetHeader.querySelector("svg.shp-flag");
+            if (activeFlag && !alreadyHasFlag) {
+              // Skrytí textu do sr-only pro přístupnost
+              textNodes = Array.from(targetHeader.childNodes).filter(function (node) {
+                return node.nodeType === 3 && node.textContent.trim().length > 0;
+              });
+              textNodes.forEach(function (node) {
+                var span = document.createElement("span");
+                span.className = "sr-only";
+                span.textContent = node.textContent.trim();
+                targetHeader.replaceChild(span, node);
+              });
+              targetHeader.prepend(activeFlag.cloneNode(true));
+              sourceButton.style.display = "none";
+            }
+          }
+          if (!window.languageMenuInitialized) {
+            _context.n = 1;
+            break;
+          }
+          return _context.a(2);
         case 1:
+          document.addEventListener("click", function (e) {
+            // Kliknutí na header nebo cokoliv v něm
+            var header = e.target.closest(".languagesMenu__header--actual");
+            if (header) {
+              e.stopPropagation();
+              var box = header.closest(".languagesMenu__box");
+              var list = box ? box.querySelector(".languagesMenu__list") : null;
+              if (list && box) {
+                header.classList.toggle("open");
+                list.classList.toggle("open");
+              }
+            } else {
+              document.querySelectorAll(".languagesMenu__header--actual.open, .languagesMenu__list.open").forEach(function (el) {
+                el.classList.remove("open");
+              });
+            }
+          });
+          langMenu.classList.add("js-loaded");
+          window.languageMenuInitialized = true;
+        case 2:
           return _context.a(2);
       }
     }, _callee);
   }));
-  return function handleHeader() {
+  return function syncLanguageMenu() {
     return _ref.apply(this, arguments);
+  };
+}();
+var injectOpeningHours = function injectOpeningHours() {
+  var openingHours = window.projectOpeningHours;
+  if (!openingHours) return;
+  var phoneLinks = document.querySelectorAll(".project-phone");
+  phoneLinks.forEach(function (link) {
+    // Pojistka proti dvojení prvků při AJAXu
+    if (!link.querySelector(".project-opening-hours")) {
+      var small = document.createElement("small");
+      small.className = "project-opening-hours";
+      small.textContent = openingHours;
+      link.appendChild(small);
+    }
+  });
+};
+var removeMenuCommas = function removeMenuCommas() {
+  var liElements = document.querySelectorAll(".menu-level-3 li");
+  liElements.forEach(function (li) {
+    li.childNodes.forEach(function (node) {
+      if (node.nodeType === 3 && node.textContent.includes(",")) {
+        node.textContent = node.textContent.replace(",", "");
+      }
+    });
+  });
+};
+var moveNavigation = function moveNavigation() {
+  var nav = document.getElementById("navigation");
+  var siteNameWrapper = document.querySelector(".header-top .site-name-wrapper");
+  var headerTop = document.querySelector(".header-top");
+  if (nav && siteNameWrapper && headerTop) {
+    // Kontrola, zda už navigace není na správném místě (hned za site-name-wrapper)
+    if (siteNameWrapper.nextElementSibling !== nav) {
+      // Metoda after() vloží element přesně za vybraný prvek
+      siteNameWrapper.after(nav);
+    }
+  }
+};
+var menuLevelTwoRefactoring = function menuLevelTwoRefactoring() {
+  var menuItems = document.querySelectorAll(".menu-level-2 > li");
+  menuItems.forEach(function (li) {
+    var imgLink = li.querySelector("a.menu-image");
+    var textLink = li.querySelector('div > a[data-testid="headerMenuItem"]');
+    var wrapperDiv = li.querySelector("div");
+    if (imgLink && textLink) {
+      var img = imgLink.querySelector("img");
+      if (img) {
+        textLink.prepend(img);
+      }
+      imgLink.remove();
+      if (wrapperDiv) {
+        li.appendChild(textLink);
+        wrapperDiv.remove();
+      }
+    }
+  });
+};
+var moveLoginButton = function moveLoginButton() {
+  var loginButton = document.querySelector(".top-navigation-bar .top-nav-button-login");
+  var targetWrapper = document.querySelector("#header .navigation-buttons");
+  if (!targetWrapper) return;
+
+  // Pokud už tam tlačítko je (pojistka proti dvojení), nebudeme dělat nic
+  if (targetWrapper.querySelector(".top-nav-button-login")) {
+    return;
+  }
+  if (loginButton) {
+    // Použijeme cloneNode(true), aby původní zůstalo kde je (pokud chceš kopii)
+    // nebo jen targetWrapper.prepend(loginButton), pokud ho chceš fyzicky vyjmout a přesunout
+    var loginCopy = loginButton.cloneNode(true);
+    targetWrapper.prepend(loginCopy);
+
+    // Pokud chceš ten původní v top baru schovat, aby tam nebyl 2x:
+    loginButton.style.display = "none";
+  }
+};
+var userCartHandle = function userCartHandle() {
+  var cartWidget = document.getElementById("cart-widget");
+  var cartButton = document.querySelector("#header .navigation-buttons .cart-count");
+  if (cartWidget && cartButton) {
+    if (!cartButton.contains(cartWidget)) {
+      cartButton.appendChild(cartWidget);
+    }
+  } else if (cartWidget && !cartButton) {
+    var navButtons = document.querySelector("#header .navigation-buttons");
+    if (navButtons && !navButtons.contains(cartWidget)) {
+      navButtons.appendChild(cartWidget);
+    }
+  }
+};
+var handleHeader = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+    return _regenerator().w(function (_context2) {
+      while (1) switch (_context2.n) {
+        case 0:
+          syncLanguageMenu();
+          removeMenuCommas();
+          injectOpeningHours();
+          moveNavigation();
+          menuLevelTwoRefactoring();
+          moveLoginButton();
+          userCartHandle();
+        case 1:
+          return _context2.a(2);
+      }
+    }, _callee2);
+  }));
+  return function handleHeader() {
+    return _ref2.apply(this, arguments);
   };
 }();
 handleHeader();
@@ -200,86 +353,99 @@ document.addEventListener("ShoptetDOMContentLoaded", handleHeader);
 var initHomepageSwiper = function initHomepageSwiper() {
   var $carousel = document.querySelector("#carousel");
   var $inner = document.querySelector(".carousel-inner");
-  var $items = document.querySelectorAll(".carousel-inner .item");
-  if (!$carousel || !$inner || $items.length === 0) return;
+  if (!$carousel || !$inner) return;
+  var $items = $carousel.querySelectorAll(".item");
+  if ($items.length === 0) return;
 
-  // Transformace DOMu (stejná jako minule)
+  // 1. ZABIJEME SHOPTET LOGIKU
+  $carousel.removeAttribute("data-ride");
+  $carousel.removeAttribute("data-interval");
+  $carousel.removeAttribute("style");
+  $inner.removeAttribute("style");
+
+  // 2. TRANSFORMACE DOMU
   $carousel.classList.add("swiper");
   $inner.classList.replace("carousel-inner", "swiper-wrapper");
   $items.forEach(function (el) {
-    return el.classList.remove("item", "active") || el.classList.add("swiper-slide");
+    el.classList.remove("item", "active");
+    el.classList.add("swiper-slide");
+    el.removeAttribute("style");
   });
 
-  // Vyčistíme navigaci
+  // 3. VYČISTÍME A VLOŽÍME NOVOU NAVIGACI
   $carousel.querySelectorAll(".carousel-control").forEach(function (el) {
     return el.remove();
   });
-  $carousel.insertAdjacentHTML("beforeend", '<div class="swiper-pagination"></div>');
 
-  // Inicializace
+  // Vložíme šipky DOVNITŘ swiperu
+  if (!$carousel.querySelector(".swiper-button-prev")) {
+    $carousel.insertAdjacentHTML("beforeend", "\n      <div class=\"swiper-button-prev\"></div>\n      <div class=\"swiper-button-next\"></div>\n      ");
+  }
+
+  // Vložíme paginaci ZA swiper (jako sourozenec)
+  var $pagination = $carousel.nextElementSibling;
+  if (!$pagination || !$pagination.classList.contains("swiper-pagination")) {
+    $carousel.insertAdjacentHTML("afterend", "<div class=\"swiper-pagination\"></div>");
+    $pagination = $carousel.nextElementSibling;
+  }
+
+  // 4. INICIALIZACE SWIPERU
   new window.Swiper("#carousel", {
     grabCursor: true,
     watchSlidesProgress: true,
-    speed: 800,
+    speed: 600,
     breakpointsBase: "container",
     slidesPerView: 1.1,
-    spaceBetween: 10,
+    spaceBetween: 12,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev"
+    },
+    pagination: {
+      el: $pagination,
+      // Použijeme referenci na element za swiperem
+      clickable: true,
+      renderBullet: function renderBullet(index, className) {
+        // Vygeneruje button místo divu
+        return '<button class="' + className + '" aria-label="Go to slide ' + (index + 1) + '"></button>';
+      }
+    },
     breakpoints: {
       768: {
         slidesPerView: 2,
-        spaceBetween: 20
+        spaceBetween: 14
       },
       1024: {
         slidesPerView: 3,
-        spaceBetween: 30
+        spaceBetween: 16
       },
       1360: {
         slidesPerView: 4,
-        spaceBetween: 30
+        spaceBetween: 16
       }
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true
     }
   });
 };
 document.addEventListener("DOMContentLoaded", initHomepageSwiper);
 var handleCategory = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-    var reload,
-      _args2 = arguments;
-    return _regenerator().w(function (_context2) {
-      while (1) switch (_context2.n) {
-        case 0:
-          reload = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : false;
-        case 1:
-          return _context2.a(2);
-      }
-    }, _callee2);
-  }));
-  return function handleCategory() {
-    return _ref2.apply(this, arguments);
-  };
-}();
-var handleCheckedFilters = function handleCheckedFilters() {};
-var handleProductDetail = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+    var reload,
+      _args3 = arguments;
     return _regenerator().w(function (_context3) {
       while (1) switch (_context3.n) {
         case 0:
+          reload = _args3.length > 0 && _args3[0] !== undefined ? _args3[0] : false;
+        case 1:
           return _context3.a(2);
       }
     }, _callee3);
   }));
-  return function handleProductDetail() {
+  return function handleCategory() {
     return _ref3.apply(this, arguments);
   };
 }();
-if (shoptetPage === "productDetail") {
-  handleProductDetail();
-}
-var handlePost = /*#__PURE__*/function () {
+var handleCheckedFilters = function handleCheckedFilters() {};
+var handleProductDetail = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
     return _regenerator().w(function (_context4) {
       while (1) switch (_context4.n) {
@@ -288,8 +454,24 @@ var handlePost = /*#__PURE__*/function () {
       }
     }, _callee4);
   }));
-  return function handlePost() {
+  return function handleProductDetail() {
     return _ref4.apply(this, arguments);
+  };
+}();
+if (shoptetPage === "productDetail") {
+  handleProductDetail();
+}
+var handlePost = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+    return _regenerator().w(function (_context5) {
+      while (1) switch (_context5.n) {
+        case 0:
+          return _context5.a(2);
+      }
+    }, _callee5);
+  }));
+  return function handlePost() {
+    return _ref5.apply(this, arguments);
   };
 }();
 if (document.body.classList.contains("type-post")) handlePost();

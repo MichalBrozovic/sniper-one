@@ -1,0 +1,102 @@
+.swiper-button-prev,
+.swiper-button-next {
+  @include trans(0.3s);
+  width: 40px;
+  height: 40px;
+  display: block;
+  position: absolute;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  cursor: pointer;
+  background-color: $color-font-invert; // Nebo jiná barva pozadí šipky
+
+  @include hover {
+    background-color: $color-primary; // Při hoveru změníme pozadí
+    &::after {
+      background-color: $color-font-invert; // A barva šipky se změní na bílou (invert)
+    }
+  }
+
+  &::after {
+    @include trans(0.3s);
+    content: "";
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    position: absolute;
+
+    // MASK LOGIC
+    background-color: $color-primary; // Výchozí barva šipky
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-image: url("/assets/images/icons/arrow-right-swiper-primary.svg");
+    mask-image: url("/assets/images/icons/arrow-right-swiper-primary.svg");
+  }
+
+  &::before {
+    content: "";
+    display: none; // Zabijeme defaultní Swiper font ikonku
+  }
+
+  // Specifické ikony pro směry
+  &.swiper-button-prev::after {
+    transform: translate(-50%, -50%) rotate(180deg);
+  }
+
+  &.swiper-button-lock {
+    display: none;
+  }
+
+  &.swiper-button-disabled {
+    opacity: 0;
+  }
+  &.primary {
+    background-color: $color-primary; // Při hoveru změníme pozadí
+    &::after {
+      background-color: $color-font-invert; // A barva šipky se změní na bílou (invert)
+    }
+    @include hover{
+       background-color: $color-primary-600;
+    }
+  }
+}
+
+.swiper-pagination {
+  position: relative;
+  bottom: unset !important;
+  top: unset !important;
+  left: unset !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 24px 0 0px 0;
+  &.swiper-pagination-lock {
+    padding: 0;
+  }
+  .swiper-pagination-bullet {
+    margin: 0 !important;
+    width: 12px;
+    height: 12px;
+    border: 1px solid $border-primary;
+    background-color: transparent;
+    opacity: 1;
+    &-active {
+      border-color: $color-secondary;
+      background-color: $color-secondary;
+    }
+  }
+}

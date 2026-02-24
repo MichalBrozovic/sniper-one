@@ -1,0 +1,38 @@
+.favourite-categories {
+  padding: 32px 0;
+  h2 {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .swiper-slide {
+    display: flex;
+  }
+  a {
+    @include trans(0.3s);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    text-decoration: unset;
+    padding: 40px 16px 16px 16px;
+    background-color: $color-primary-050;
+    border-radius: 12px;
+    overflow: hidden;
+
+    @include hover {
+      background-color: $color-primary-100;
+      h3 {
+        color: $color-primary;
+      }
+    }
+  }
+  img {
+    max-width: 100%;
+    object-fit: contain;
+  }
+  h3 {
+    font-size: remMM(18);
+    line-height: emMM(25, 18);
+    color: $color-font;
+    min-height: 50px;
+  }
+}

@@ -14,7 +14,7 @@ $color-font-second: var(--color-tertiary, #757575); // Barva šablony 3
 $border-primary: var(--color-tertiary-hover, #d0d5de); // Barva šablony 4
 
 $color-accent: #4b4b4b;
-$color-danger: #8a1616;
+$color-danger: #AD1C1C;
 
 // POZADÍ (napojení na body styl Shoptetu)
 $color-page-bg: var(--color-body-background, #fff);
@@ -22,8 +22,8 @@ $color-page-bg-invert: #1d1d1b;
 // U page-bg-secondary musíme použít color-mix, aby reagovalo na změnu barvy pozadí
 $color-page-bg-secondary: color-mix(in srgb, #{$color-page-bg}, #fff 5%);
 
-$header-bg: transparent;
-$footer-bg: $color-primary; // Patička podle tvého zadání přebírá primary
+$header-bg: var(--color-header-background, #fff);
+$footer-bg: $color-secondary; // Patička podle tvého zadání přebírá primary
 
 $border-secondary: $border-primary;
 $border-input: $border-primary;
@@ -61,8 +61,20 @@ $color-primary-500: $color-primary;
 $color-primary-400: tint($color-primary, 20%);
 $color-primary-300: tint($color-primary, 40%);
 $color-primary-200: tint($color-primary, 60%);
-$color-primary-100: tint($color-primary, 75%);
-$color-primary-050: tint($color-primary, 90%);
+$color-primary-100: tint($color-primary, 80%);
+$color-primary-050: tint($color-primary, 95%);
+
+// Secondary Paleta
+$color-secondary-900: shade($color-secondary, 80%);
+$color-secondary-800: shade($color-secondary, 60%);
+$color-secondary-700: shade($color-secondary, 40%);
+$color-secondary-600: shade($color-secondary, 20%);
+$color-secondary-500: $color-secondary;
+$color-secondary-400: tint($color-secondary, 20%);
+$color-secondary-300: tint($color-secondary, 40%);
+$color-secondary-200: tint($color-secondary, 60%);
+$color-secondary-100: tint($color-secondary, 75%);
+$color-secondary-050: tint($color-secondary, 90%);
 
 // Font/Grey Paleta
 $color-font-900: shade($color-font, 80%);

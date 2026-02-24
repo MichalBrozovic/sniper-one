@@ -112,7 +112,7 @@ export default (env) => {
                             loader: 'css-loader', 
                             options: { 
                                 sourceMap: !isProduction,
-                                url: false // DŮLEŽITÉ: Vypíná řešení url() cest, které Shoptet/Webpack nevidí
+                                url: true // DŮLEŽITÉ: Vypíná řešení url() cest, které Shoptet/Webpack nevidí
                             } 
                         },
                         {

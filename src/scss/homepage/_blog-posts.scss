@@ -1,0 +1,93 @@
+.blog-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 32px 0;
+  .homepage-group-title {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .blog-all-articles-wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 8px;
+  }
+}
+.news-item {
+  // Výpočet pro 3 sloupce s mezerou 30px: (100% - (2 * 30px)) / 3
+  flex: 1 1 calc((100% - (2 * 16px)) / 3);
+  min-width: 300px;
+  a {
+    @include trans(0.3s);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    text-decoration: unset;
+    @include hover {
+      .title {
+        color: $color-primary;
+      }
+    }
+  }
+  .text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+  }
+  .image {
+    border-radius: 12px;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    aspect-ratio: 482.67 / 310;
+    margin-bottom: 16px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  time {
+    font-size: remMM(14);
+    line-height: emMM(20, 14);
+    color: $color-font-second;
+    position: relative;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 8px;
+    &::before {
+      content: "";
+      @include icon-mask(
+        "/assets/images/icons/calendar-off.svg",
+        $color-font-second,
+        12px,
+        12px
+      );
+      margin-right: 4px;
+    }
+  }
+  .title {
+    @include trans(0.3s);
+    font-size: remMM(16);
+    line-height: emMM(22, 16);
+    color: $color-font;
+    font-weight: 600;
+  }
+  .description,
+  .read-article {
+    display: none;
+  }
+}

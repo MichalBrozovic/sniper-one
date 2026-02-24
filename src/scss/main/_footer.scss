@@ -1,0 +1,135 @@
+footer {
+  background-color: $footer-bg;
+  color: $color-font-invert;
+  a {
+    color: $color-font-invert;
+  }
+  .custom-footer__newsletter,
+  .custom-footer__instagram {
+    display: none;
+  }
+  .custom-footer {
+    display: none;
+  }
+}
+
+.socials-footer {
+  .socials-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  a {
+    display: flex;
+    flex-direction: column;
+    &::before {
+      content: "";
+    }
+    &.instagram {
+      &::before {
+        @include icon-mask(
+          "/assets/images/icons/instagram.svg",
+          $color-font-invert,
+          32px,
+          32px
+        );
+      }
+    }
+    &.facebook {
+      &::before {
+        @include icon-mask(
+          "/assets/images/icons/facebook.svg",
+          $color-font-invert,
+          32px,
+          32px
+        );
+      }
+    }
+    &.youtube {
+      &::before {
+        @include icon-mask(
+          "/assets/images/icons/youtube.svg",
+          $color-font-invert,
+          32px,
+          32px
+        );
+      }
+    }
+  }
+}
+.footer-upper {
+  border-bottom: 1px solid $border-color;
+  padding: 32px 0;
+  .flex-holder {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 56px;
+  }
+  .footer-contact-person {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 16px;
+  }
+  .footer-contact-details {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    .project-phone,
+    .project-email {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      text-align: left;
+      padding-left: 28px;
+      position: relative;
+      font-size: remMM(16);
+      line-height: emMM(22, 16);
+      gap: 0;
+      &::before {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+      small {
+        font-size: remMM(14);
+        line-height: emMM(20, 14);
+        color: $color-primary-200;
+      }
+    }
+
+    .project-phone {
+      &::before {
+        @include icon-mask(
+          "/assets/images/icons/phone-white.svg",
+          $color-font-invert,
+          24px,
+          24px
+        );
+      }
+    }
+    .project-email {
+      &::before {
+        @include icon-mask(
+          "/assets/images/icons/mail-white.svg",
+          $color-font-invert,
+          24px,
+          24px
+        );
+      }
+    }
+  }
+  .socials-footer {
+    margin-left: auto;
+  }
+}
