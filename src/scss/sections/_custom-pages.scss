@@ -50,12 +50,12 @@
             max-width: 44%;
 
             h2 {
-                font-size: remMM(46);
+                font-size: rem(46);
                 margin-bottom: 30px;
             }
 
             p {
-                font-size: remMM(20);
+                font-size: rem(20);
                 font-weight: 400;
                 margin-bottom: 22px;
             }
@@ -65,7 +65,7 @@
             }
 
             h3 {
-                font-size: remMM(36);
+                font-size: rem(36);
                 margin-bottom: 40px;
             }
 
@@ -84,7 +84,7 @@
                     position: relative;
                     padding-left: 46px;
                     margin-bottom: 35px;
-                    font-size: remMM(18);
+                    font-size: rem(18);
                     font-weight: 700;
                     color: $black;
                     list-style: none;
@@ -113,7 +113,7 @@
 
 
                     span {
-                        font-size: remMM(16);
+                        font-size: rem(16);
                         font-weight: 400;
                     }
                 }
@@ -215,16 +215,16 @@
 
                 span {
                     color: $color-font-second;
-                    font-size: remMM(16);
+                    font-size: rem(16);
                     line-height: 1.1em;
 
                     &.big {
-                        font-size: remMM(36);
+                        font-size: rem(36);
                         font-weight: 700;
                     }
 
                     &.small {
-                        font-size: remMM(18);
+                        font-size: rem(18);
                         font-weight: 700;
                     }
                 }
@@ -248,13 +248,13 @@
 
         h5 {
             margin-bottom: 25px;
-            font-size: remMM(18);
+            font-size: rem(18);
             font-weight: 700;
         }
 
         p {
             margin-bottom: 24px;
-            font-size: remMM(14);
+            font-size: rem(14);
             color: $black;
 
             &:last-of-type {
@@ -263,7 +263,7 @@
 
             a {
                 color: $black;
-                font-size: remMM(14);
+                font-size: rem(14);
                 text-decoration: underline;
 
                 &:hover {
@@ -553,25 +553,25 @@
 
                 h2 {
                     margin-bottom: 16px;
-                    font-size: remMM(36);
+                    font-size: rem(36);
                 }
 
                 p {
-                    font-size: remMM(16);
+                    font-size: rem(16);
                 }
 
                 .btn {
-                    padding: emMM(17)emMM(24)emMM(17)emMM(24);
+                    padding: em(17)em(24)em(17)em(24);
                     margin-bottom: 40px;
                 }
 
                 h3 {
-                    font-size: remMM(30);
+                    font-size: rem(30);
                 }
 
                 ul {
                     li {
-                        font-size: remMM(16);
+                        font-size: rem(16);
                         margin-bottom: 20px;
 
                         &:last-of-type {}
@@ -581,7 +581,7 @@
                         &::before {}
 
                         span {
-                            font-size: remMM(16);
+                            font-size: rem(16);
                         }
                     }
                 }
@@ -609,7 +609,7 @@
                 h2 {}
 
                 .btn {
-                    padding: emMM(17)emMM(24)emMM(17)emMM(24);
+                    padding: em(17)em(24)em(17)em(24);
                 }
             }
 
@@ -618,14 +618,14 @@
 
                 .block {
                     span {
-                        font-size: remMM(14);
+                        font-size: rem(14);
 
                         &.big {
-                            font-size: remMM(36);
+                            font-size: rem(36);
                         }
 
                         &.small {
-                            font-size: remMM(18);
+                            font-size: rem(18);
                         }
                     }
                 }
@@ -734,7 +734,7 @@
             margin-right: auto;
 
             padding: 0 0 0 105px;
-            font-size: remMM(46);
+            font-size: rem(46);
             margin-bottom: 35px;
         }
 
@@ -801,7 +801,7 @@
             p {
                 margin-bottom: 24px;
                 color: $black;
-                font-size: remMM(18);
+                font-size: rem(18);
                 font-weight: 400;
                 line-height: 1.2em;
 
@@ -862,7 +862,7 @@
             span {
                 width: 100%;
                 padding: 0 70px;
-                font-size: remMM(18);
+                font-size: rem(18);
                 font-weight: 700;
                 line-height: 1.2em;
                 color: $color-font;
@@ -900,7 +900,7 @@
 
             p {
                 margin-bottom: 24px;
-                font-size: remMM(18);
+                font-size: rem(18);
                 font-weight: 400;
                 line-height: 1.2em;
                 color: $black;
@@ -985,7 +985,7 @@
             p {
                 margin-bottom: 24px;
                 color: $black;
-                font-size: remMM(18);
+                font-size: rem(18);
                 font-weight: 400;
                 line-height: 1.2em;
 
@@ -1099,7 +1099,7 @@
             }
 
             p {
-                font-size: remMM(20);
+                font-size: rem(20);
                 font-weight: 400;
                 margin-bottom: 40px;
                 line-height: 1.2em;
@@ -1138,7 +1138,7 @@
                     flex-wrap: nowrap;
 
                     h4 {
-                        font-size: remMM(18);
+                        font-size: rem(18);
                         font-weight: 700;
                         margin-bottom: 8px;
                         line-height: 1.2em;
@@ -1146,7 +1146,7 @@
                     }
 
                     span {
-                        font-size: remMM(16);
+                        font-size: rem(16);
                         font-weight: 400;
                         margin-right: 0px;
                         line-height: 1.2em;
@@ -1510,7 +1510,7 @@
     .main-store {
         .flex-holder {
             h2 {
-                font-size: remMM(36);
+                font-size: rem(36);
             }
 
             .img-holder {
@@ -1688,7 +1688,7 @@
                 }
 
                 p {
-                    font-size: remMM(16);
+                    font-size: rem(16);
                 }
 
                 .wrapper {
@@ -1761,7 +1761,7 @@
 
             p {
                 margin: 0 0 24px 0;
-                font-size: remMM(18);
+                font-size: rem(18);
                 color: $black;
                 line-height: 1.2em;
             }
@@ -1846,14 +1846,14 @@
                 }
 
                 a {
-                    font-size: remMM(30);
+                    font-size: rem(30);
                     line-height: 1.2em;
                     color: $black;
                     font-weight: 700;
                 }
 
                 span {
-                    font-size: remMM(18);
+                    font-size: rem(18);
                     line-height: 1.2em;
                     color: $black;
                     font-weight: 400;
@@ -1873,14 +1873,14 @@
             }
 
             a {
-                font-size: remMM(18);
+                font-size: rem(18);
                 line-height: 1.2em;
                 color: $black;
                 font-weight: 400;
             }
 
             span {
-                font-size: remMM(18);
+                font-size: rem(18);
                 line-height: 1.2em;
                 color: $black;
                 font-weight: 400;
@@ -1959,7 +1959,7 @@
                 }
 
                 h4 {
-                    font-size: remMM(18);
+                    font-size: rem(18);
                     font-weight: 700;
                     color: $black;
                     line-height: 1.2em;
@@ -1972,7 +1972,7 @@
                     }
 
                     span {
-                        font-size: remMM(16);
+                        font-size: rem(16);
                         line-height: 1em;
                         color: $black;
                         font-weight: 400;
@@ -1982,7 +1982,7 @@
                 }
 
                 a {
-                    font-size: remMM(16);
+                    font-size: rem(16);
                     line-height: 1.2em;
                     color: $black;
                     font-weight: 400;
@@ -2017,7 +2017,7 @@
             }
 
             address {
-                font-size: remMM(18);
+                font-size: rem(18);
                 line-height: 1.2em;
                 color: $black;
                 font-weight: 400;
@@ -2026,7 +2026,7 @@
             }
 
             span {
-                font-size: remMM(18);
+                font-size: rem(18);
                 line-height: 1.2em;
                 color: $black;
                 font-weight: 400;
@@ -2038,7 +2038,7 @@
             }
 
             p {
-                font-size: remMM(18);
+                font-size: rem(18);
                 line-height: 1.2em;
                 color: $black;
                 font-weight: 400;
@@ -2066,7 +2066,7 @@
             }
 
             span {
-                font-size: remMM(18);
+                font-size: rem(18);
                 line-height: 1.2em;
                 color: $black;
                 font-weight: 400;
@@ -2304,11 +2304,11 @@
                     &:last-of-type {}
 
                     a {
-                        font-size: remMM(24);
+                        font-size: rem(24);
                     }
 
                     span {
-                        font-size: remMM(18);
+                        font-size: rem(18);
                     }
                 }
             }
@@ -2317,11 +2317,11 @@
                 h3 {}
 
                 a {
-                    font-size: remMM(16);
+                    font-size: rem(16);
                 }
 
                 span {
-                    font-size: remMM(16);
+                    font-size: rem(16);
                 }
 
                 .holder {
@@ -2376,21 +2376,21 @@
                 max-width: 100%;
 
                 h3 {
-                    font-size: remMM(16);
+                    font-size: rem(16);
                 }
 
                 address {
-                    font-size: remMM(16);
+                    font-size: rem(16);
                 }
 
                 span {
-                    font-size: remMM(16);
+                    font-size: rem(16);
 
                     &:last-of-type {}
                 }
 
                 p {
-                    font-size: remMM(16);
+                    font-size: rem(16);
 
                     &:last-of-type {}
                 }
@@ -2402,7 +2402,7 @@
                 h3 {}
 
                 span {
-                    font-size: remMM(16);
+                    font-size: rem(16);
                 }
             }
         }

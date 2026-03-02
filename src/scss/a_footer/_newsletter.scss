@@ -1,0 +1,45 @@
+.custom-footer__newsletter {
+  padding: 32px 0;
+  background-color: $color-primary-050;
+
+  .newsletter-header {
+    margin: 0 auto 16px auto;
+    max-width: 510px;
+    h4 {
+        text-align: center;
+    }
+  }
+  form {
+    margin: 0 auto;
+    max-width: 510px;
+  }
+  fieldset {
+  }
+  .validator-msg-holder {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 8px;
+    input {
+      background-color: $color-font-invert;
+    }
+  }
+  .consents-first {
+    text-align: center;
+    a{
+        color: $color-primary;
+    }
+  }
+  br {
+    display: none;
+  }
+  button {
+    span {
+      white-space: nowrap;
+      @include inherit();
+    }
+  }
+}

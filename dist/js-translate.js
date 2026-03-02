@@ -27,7 +27,18 @@ window.projectTranslations = {
     contactPerson: {
       img: "/user/documents/upload/sniper-one/photos/contact-person.png",
       title: "Potřebujete poradit?"
-    }
+    },
+    instagram: {
+      name: "@SniperOne",
+      link: "https://www.instagram.com/sniperdesign_cz/",
+      text: "Sledujte nás na instagramu"
+    },
+    facebook: {
+      name: "@SniperOne",
+      link: "https://www.instagram.com/sniperdesign_cz/",
+      text: "Najdete nás také na:"
+    },
+    newsletter: "Novinky, tipy a slevy na váš e-mail"
   },
   sk: {
     cart: {
@@ -51,7 +62,18 @@ window.projectTranslations = {
     contactPerson: {
       img: "/user/documents/upload/sniper-one/photos/contact-person.png",
       title: "Potřebujete poradit?"
-    }
+    },
+    instagram: {
+      name: "@SniperOne",
+      link: "https://www.instagram.com/sniperdesign_cz/",
+      text: "Sledujte nás na instagramu"
+    },
+    facebook: {
+      name: "@SniperOne",
+      link: "https://www.instagram.com/sniperdesign_cz/",
+      text: "Najdete nás také na:"
+    },
+    newsletter: "Novinky, tipy a slevy na váš e-mail"
   }
 };
 /******/ })()

@@ -664,35 +664,102 @@ const fetchArticleDatesAndButtons = async () => {
 
 fetchArticleDatesAndButtons();
 
-// FLAGS and card
-const handleFlags = (product) => {};
+// Šablona pro ovládání množství
+const quantityTemplate = document.createElement("span");
+quantityTemplate.className = "quantity";
+quantityTemplate.innerHTML = `
+  <span class="increase-tooltip js-increase-tooltip" data-trigger="manual" data-container="body" data-original-title="Není možné zakoupit více než 9999 ks." aria-hidden="true" role="tooltip" data-testid="tooltip"></span>
+  <span class="decrease-tooltip js-decrease-tooltip" data-trigger="manual" data-container="body" data-original-title="Minimální množství, které lze zakoupit, je 1 ks." aria-hidden="true" role="tooltip" data-testid="tooltip"></span>
+  <label>
+      <input type="number" name="amount" value="1" class="amount" autocomplete="off" data-decimals="0" step="1" min="1" max="9999" aria-label="Množství" data-testid="cartAmount">
+  </label>
+  <button class="increase" type="button" aria-label="Zvýšit množství o 1" data-testid="increase">
+      <span class="increase__sign">+</span>
+  </button>
+  <button class="decrease" type="button" aria-label="Snížit množství o 1" data-testid="decrease">
+      <span class="decrease__sign">−</span>
+  </button>
+`;
 
-const handleTextLayout = (product) => {};
-const products = document.querySelectorAll(
-  ".products-block .product:not(.banner-category)",
-);
+// Přeskládá prvky v produktové kartě
+const handleTextLayout = (product) => {
+  const pCode = product.querySelector(".p-code");
+  const ratingsWrapper = product.querySelector(".ratings-wrapper");
+  const pDesc = product.querySelector(".p-desc");
+  const nameLink = product.querySelector(".name");
+  const availability = product.querySelector(".availability");
+  
+  const flagDiscount = product.querySelector(".flag-discount");
+  const priceStandard = flagDiscount ? flagDiscount.querySelector(".price-standard") : null;
+  
+  const pricesWrapper = product.querySelector(".prices");
+  const priceFinal = pricesWrapper ? pricesWrapper.querySelector(".price-final") : null;
+  
+  const form = product.querySelector(".p-tools form.pr-action");
+  const hiddenAmountInput = form ? form.querySelector('input[name="amount"]') : null;
+  const submitBtn = form ? form.querySelector("button[type='submit']") : null;
+const prListUnit = product.querySelector(".pr-list-unit");
+  // 1. Kód do hodnocení
+  if (pCode && ratingsWrapper) ratingsWrapper.append(pCode);
+  
+  // 2. Popis za název
+  if (pDesc && nameLink) nameLink.after(pDesc);
+  
+  // 3. Dostupnost za popis/název
+  if (availability) {
+    if (pDesc) pDesc.after(availability);
+    else if (nameLink) nameLink.after(availability);
+  }
 
-// const mmAllProducts = document.querySelectorAll(".products-block .product");
-// if (mmAllProducts.length) {
-//   mmAllProducts.forEach((product) => {
-//     if (!product.classList.contains("banner-category")) {
-//       handleFlags(product);
-//       handleTextLayout(product);
-//     }
-//   });
-// }
+  // 4. Přesun "od" a přeškrtnuté ceny
+  if (priceStandard && pricesWrapper) {
+    const oldPriceWrapper = document.createElement("div");
+    oldPriceWrapper.className = "price-standard-wrapper";
+    
+    // Zkontrolujeme textový uzel těsně před cenou (hledáme "od")
+    const prevNode = priceStandard.previousSibling;
+    if (prevNode && prevNode.nodeType === Node.TEXT_NODE && prevNode.textContent.trim() === "od") {
+      oldPriceWrapper.append(prevNode);
+    }
+    
+    // Přesuneme samotnou přeškrtnutou cenu
+    oldPriceWrapper.append(priceStandard);
+    
+    // Vložíme nad finální cenu
+    if (priceFinal) priceFinal.before(oldPriceWrapper);
+    else pricesWrapper.append(oldPriceWrapper);
+    
+    // Zbytek štítku (tj. "až -15 %") záměrně necháváme na původním místě
+  }
 
-// document.addEventListener("ShoptetDOMContentLoaded", () => {
-//   const mmAllProducts = document.querySelectorAll(".products-block .product");
-//   if (mmAllProducts.length) {
-//     mmAllProducts.forEach((product) => {
-//       if (!product.classList.contains("banner-category")) {
-//         handleFlags(product);
-//         handleTextLayout(product);
-//       }
-//     });
-//   }
-// });
+  // 5. Formulář a množství
+  if (form) {
+    if (hiddenAmountInput) hiddenAmountInput.remove();
+
+    const quantityWrapper = quantityTemplate.cloneNode(true);
+
+    if (submitBtn) submitBtn.before(quantityWrapper);
+    else form.append(quantityWrapper);
+  }
+  if (prListUnit) {
+    // Odstraní jak HTML entitu, tak fyzický znak pevné mezery
+    prListUnit.innerHTML = prListUnit.innerHTML.replace(/&nbsp;|\u00A0/g, "");
+  }
+};
+
+// Spouštěč
+const initProducts = () => {
+  const products = document.querySelectorAll(".products-block .product:not(.banner-category):not(.is-processed)");
+  
+  products.forEach((product) => {
+    product.classList.add("is-processed");
+    if (typeof handleFlags === "function") handleFlags(product);
+    if (typeof handleTextLayout === "function") handleTextLayout(product);
+  });
+};
+
+initProducts();
+document.addEventListener("ShoptetDOMContentLoaded", initProducts);
 
 // CART
 const handleCart = () => {};
@@ -701,12 +768,12 @@ if (document.body.classList.contains("ordering-process")) {
   document.addEventListener("ShoptetDOMCartContentLoaded", handleCart);
 }
 
-// Vytvoří střední část patičky s logy, přesunutou navigací a flexibilním obalem
+// Vytvoří střední část patičky s logy a rozdělenou navigací (bloky samostatně)
 const handleFooterMiddle = () => {
   const currentLang = window.shoptetLang || "cs";
   const translations = window.projectTranslations[currentLang];
   const footerBottom = document.querySelector(".footer-bottom");
-  const footerNav = document.querySelector(".footer-rows .footer-nav");
+  const footerNav = document.querySelector(".footer-nav"); // Hledáme obecněji
 
   if (!footerBottom || !translations) return;
 
@@ -733,6 +800,7 @@ const handleFooterMiddle = () => {
     flexHolder.innerHTML = "";
   }
 
+  // 1. Logo sekce
   const logoFooter = document.createElement("div");
   logoFooter.className = "logo-footer";
 
@@ -745,85 +813,61 @@ const handleFooterMiddle = () => {
       mainLogoImg.src = translations.patickaLogo;
       mainLogoImg.removeAttribute("data-src");
     }
-
     logoFooter.appendChild(mainLogoLink);
   }
 
   const heurekaLink = document.createElement("a");
   heurekaLink.className = "heureka";
   heurekaLink.href = translations.heureka.href;
-
   const heurekaImg = document.createElement("img");
   heurekaImg.src = translations.heureka.img;
   heurekaImg.alt = "Heureka";
   heurekaImg.loading = "lazy";
-
   heurekaLink.appendChild(heurekaImg);
   logoFooter.appendChild(heurekaLink);
 
   flexHolder.appendChild(logoFooter);
 
+  // 2. Navigace - rozebírání na jednotlivé bloky
   if (footerNav) {
-    flexHolder.appendChild(footerNav);
+    const navBlocks = footerNav.querySelectorAll(".block");
+    navBlocks.forEach((block) => {
+      // Klonujeme každý blok zvlášť, aby mohl být přímým potomkem flex-holderu
+      const clonedBlock = block.cloneNode(true);
+      flexHolder.appendChild(clonedBlock);
+    });
   }
 };
 
+// Přebuduje textová data z Shoptet banneru do strukturovaného seznamu odkazů na sociální sítě
 const reshapeSocials = () => {
-  // Najdeme banner podle tvojí třídy
-  const socialWrapper = document.querySelector('.socials-footer');
-  if (!socialWrapper) return;
+  const wrapper = document.querySelector(".socials-footer");
+  const dataSpan = wrapper?.querySelector("span[data-ec-promo-id]");
+  const banner = wrapper?.querySelector(".banner");
 
-  // Najdeme span s daty
-  const dataSpan = socialWrapper.querySelector('span[data-ec-promo-id]');
-  if (!dataSpan) return;
+  if (!dataSpan || !banner) return;
 
-  // 1. Získáme text a nahradíme &nbsp; mezerami
   const rawContent = dataSpan.innerHTML.replace(/\u00a0/g, " ");
-
-  // 2. Regex [\s\S]+? zajistí, že projdeme i přes konce řádků (<br> nebo \n)
   const items = rawContent.match(/#([\s\S]+?)#/g);
 
-  if (items) {
-    const list = document.createElement('div');
-    list.className = 'socials-list';
+  if (!items) return;
 
-    items.forEach(item => {
-      // Odstraníme mřížky a VŠECHNY HTML tagy (br, span atd.), pak trimujeme
-      const cleanItem = item.replace(/#|<[^>]*>?/gm, "").trim();
-      
-      // Rozdělíme na jméno a URL
-      const parts = cleanItem.split(';');
+  const listContent = items.reduce((html, item) => {
+    const cleanItem = item.replace(/#|<[^>]*>?/gm, "").trim();
+    const [name, url] = cleanItem.split(";").map((str) => str.trim());
 
-      if (parts.length >= 2) {
-        const name = parts[0].trim();
-        const url = parts[1].trim();
-
-        const a = document.createElement('a');
-        a.href = url;
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        a.className = `social-link ${name.toLowerCase()}`;
-        
-        // Vytvoření vnitřního spanu
-        const span = document.createElement('span');
-        span.className = 'sr-only';
-        span.textContent = name;
-        
-        a.appendChild(span);
-        list.appendChild(a);
-      }
-    });
-
-    // 3. Najdeme .banner a nahradíme celý vnitřek naším novým seznamem
-    const banner = socialWrapper.querySelector('.banner');
-    if (banner) {
-      banner.innerHTML = "";
-      banner.appendChild(list);
+    if (name && url) {
+      html += `<a href="${url}" target="_blank" rel="noopener noreferrer" class="social-link ${name.toLowerCase()}"><span class="sr-only">${name}</span></a>`;
     }
+    return html;
+  }, "");
+
+  if (listContent) {
+    banner.innerHTML = `<div class="socials-list">${listContent}</div>`;
   }
 };
 
-// Přesune platební metody, dopravu, sociální sítě a newsletter do nové spodní sekce patičky
+// Přesune platební a dopravní bloky do footer-lower a vyčistí HTML strukturu
 const handleFooterLower = () => {
   const footer = document.querySelector("footer");
   if (!footer) return;
@@ -863,99 +907,79 @@ const handleFooterLower = () => {
     flexHolder.innerHTML = "";
   }
 
-  if (payment) {
-    flexHolder.appendChild(payment);
-  }
-  if (shipping) {
-    flexHolder.appendChild(shipping);
-  }
+  // Funkce pro vytažení čistého bloku z Bender balastu
+  const injectCleanBlock = (parentEl) => {
+    if (!parentEl) return;
+    const block = parentEl.querySelector(".block");
+    if (block) {
+      const clonedBlock = block.cloneNode(true);
+      flexHolder.appendChild(clonedBlock);
+    }
+  };
+
+  injectCleanBlock(payment);
+  injectCleanBlock(shipping);
 };
 
-// Vytvoří horní sekci patičky s fotkou, nadpisem, kontakty a přesunutými sociálními sítěmi
+// Refaktorovaná horní sekce patičky (Pro verze): využití moderních DOM API a ES6+
 const handleFooterUpper = () => {
-  const currentLang = window.shoptetLang || "cs";
-  const translations = window.projectTranslations[currentLang];
-  const openingHours = window.projectOpeningHours;
+  const lang = window.shoptetLang || "cs";
+  const translations = window.projectTranslations?.[lang];
   const footer = document.querySelector("footer");
 
   if (!footer || !translations) return;
 
-  const footerMiddle = document.querySelector(".footer-middle");
-  const footerLower = document.querySelector(".footer-lower");
-  const footerBottom = document.querySelector(".footer-bottom");
-  const socialFooter = document.querySelector(".footer-rows .socials-footer");
-
+  // 1. Bezpečné vytvoření a vložení hlavního wrapperu
   let footerUpper = document.querySelector(".footer-upper");
   if (!footerUpper) {
     footerUpper = document.createElement("div");
     footerUpper.className = "footer-upper";
 
-    if (footerMiddle) {
-      footer.insertBefore(footerUpper, footerMiddle);
-    } else if (footerLower) {
-      footer.insertBefore(footerUpper, footerLower);
-    } else if (footerBottom) {
-      footer.insertBefore(footerUpper, footerBottom);
-    } else {
-      footer.prepend(footerUpper);
-    }
+    // Nalezení první dostupné sekce a vložení PŘED ni (moderní metoda .before)
+    const target = footer.querySelector(
+      ".footer-middle, .footer-lower, .footer-bottom",
+    );
+    target ? target.before(footerUpper) : footer.prepend(footerUpper);
   }
 
-  let container = footerUpper.querySelector(".container");
-  if (!container) {
-    container = document.createElement("div");
-    container.className = "container";
-    footerUpper.appendChild(container);
-  }
-
-  let flexHolder = container.querySelector(".flex-holder");
-  if (!flexHolder) {
-    flexHolder = document.createElement("div");
-    flexHolder.className = "flex-holder";
-    container.appendChild(flexHolder);
-  } else {
-    flexHolder.innerHTML = "";
-  }
-
-  // 1. Blok s fotkou a nadpisem
-  const contactPersonBlock = document.createElement("div");
-  contactPersonBlock.className = "footer-contact-person";
-  contactPersonBlock.innerHTML = `
-    <img src="${translations.contactPerson.img}" alt="${translations.contactPerson.title}" class="contact-img" loading="lazy">
-    <h3 class="contact-title">${translations.contactPerson.title}</h3>
+  // 2. Sestavení kostry pomocí jediného překreslení DOMu
+  footerUpper.innerHTML = `
+    <div class="container">
+      <div class="flex-holder">
+        <div class="footer-contact-person">
+          <img src="${translations.contactPerson.img}" alt="${translations.contactPerson.title}" class="contact-img" loading="lazy">
+          <h3 class="contact-title">${translations.contactPerson.title}</h3>
+        </div>
+        <div class="footer-contact-details"></div>
+      </div>
+    </div>
   `;
-  flexHolder.appendChild(contactPersonBlock);
 
-  // 2. Blok pro telefon a email
-  const contactDetailsBlock = document.createElement("div");
-  contactDetailsBlock.className = "footer-contact-details";
+  const flexHolder = footerUpper.querySelector(".flex-holder");
+  const detailsBlock = flexHolder.querySelector(".footer-contact-details");
 
-  const originalPhone = document.querySelector(".project-phone");
-  if (originalPhone) {
-    const phoneLink = originalPhone.cloneNode(true);
-    const hoursLabel = phoneLink.querySelector(".project-opening-hours");
-    if (hoursLabel && openingHours) {
-      hoursLabel.textContent = openingHours;
-    }
-    contactDetailsBlock.appendChild(phoneLink);
+  // 3. Klonování telefonu s využitím optional chaining
+  const phone = document.querySelector(".project-phone")?.cloneNode(true);
+  if (phone) {
+    const hours = phone.querySelector(".project-opening-hours");
+    if (hours && window.projectOpeningHours)
+      hours.textContent = window.projectOpeningHours;
+    detailsBlock.append(phone);
   }
 
-  const originalEmail = document.querySelector(".project-email");
-  if (originalEmail) {
-    const emailLink = originalEmail.cloneNode(true);
-    const subText = document.createElement("small");
-    subText.className = "email-subtext";
-    subText.textContent = translations.emilSubText;
-    emailLink.appendChild(subText);
-    contactDetailsBlock.appendChild(emailLink);
+  // 4. Klonování e-mailu a bezpečné vložení textu
+  const email = document.querySelector(".project-email")?.cloneNode(true);
+  if (email) {
+    email.insertAdjacentHTML(
+      "beforeend",
+      `<small class="email-subtext">${translations.emilSubText}</small>`,
+    );
+    detailsBlock.append(email);
   }
 
-  flexHolder.appendChild(contactDetailsBlock);
-
-  // 3. Přesun sociálních sítí
-  if (socialFooter) {
-    flexHolder.appendChild(socialFooter);
-  }
+  // 5. Přesun sociálních sítí
+  const socials = document.querySelector(".footer-rows .socials-footer");
+  if (socials) flexHolder.append(socials);
 };
 // Upraví spodní lištu patičky na minimalistický design podle předlohy
 const handleFooterBottom = () => {
@@ -1001,16 +1025,98 @@ const handleFooterBottom = () => {
   footerBottom.innerHTML = "";
   footerBottom.appendChild(bottomFlex);
 };
+
+// Přemění Instagram wrapper na sekci, dynamicky vytáhne link i handle a přesune před patičku
+const handleInstagram = () => {
+  const translations = window.projectTranslations?.[window.shoptetLang || "cs"];
+  const oldWrapper = document.querySelector(".custom-footer__instagram");
+  const footer = document.querySelector("footer");
+
+  if (!oldWrapper || !translations) return;
+
+  const section = document.createElement("section");
+  section.className = oldWrapper.className;
+  section.append(...oldWrapper.childNodes);
+
+  const igLink =
+    section.querySelector(".instagram-follow-btn a")?.href ||
+    translations.instagram.link;
+  const igHandle = `@${igLink.split("/").filter(Boolean).pop()}`;
+
+  const oldH4 = section.querySelector("h4");
+  if (oldH4) oldH4.remove();
+
+  let flexHolder = section.querySelector(".instagram-header-flex");
+  if (!flexHolder) {
+    flexHolder = document.createElement("div");
+    flexHolder.className = "instagram-header-flex container";
+    section.prepend(flexHolder);
+  }
+
+  flexHolder.innerHTML = `
+    <div class="left">
+      <a href="${igLink}" target="_blank" rel="noopener">
+        <h4>${translations.instagram.text}</h4>
+        <small>${igHandle}</small>
+      </a>
+    </div>
+    <div class="right">
+      <span class="fb-label">${translations.facebook.text}</span>
+      <a href="${translations.facebook.link}" target="_blank" rel="noopener" class="fb-link-icon">
+        <span class="sr-only">${translations.facebook.name}</span>
+      </a>
+    </div>
+  `;
+
+  oldWrapper.replaceWith(section);
+  if (footer) footer.before(section);
+};
+
+// Přemění newsletter na sekci, obalí obsah, zarovná a ostyluje tlačítko a přesune před patičku
+const handleNewsletter = () => {
+  const translations = window.projectTranslations?.[window.shoptetLang || "cs"];
+  const oldNewsletter = document.querySelector(".custom-footer__newsletter");
+  const footer = document.querySelector("footer");
+
+  if (!oldNewsletter || !translations) return;
+
+  const section = document.createElement("section");
+  section.className = oldNewsletter.className;
+
+  const container = document.createElement("div");
+  container.className = "container";
+  container.append(...oldNewsletter.childNodes);
+  section.append(container);
+
+  const headerTarget = section.querySelector(
+    ".newsletter-header h4 span, .newsletter-header h4",
+  );
+  if (headerTarget) headerTarget.textContent = translations.newsletter;
+
+  const submitBtn = section.querySelector("button[type='submit']");
+  const emailInput = section.querySelector("input[type='email']");
+
+  if (submitBtn && emailInput) {
+    submitBtn.className = "btn btn-primary secondary";
+    submitBtn.querySelector("span.sr-only")?.classList.remove("sr-only");
+    emailInput.after(submitBtn);
+  }
+
+  oldNewsletter.replaceWith(section);
+  if (footer) footer.before(section);
+};
+
 const handleFooter = async () => {
   handleFooterUpper();
   handleFooterMiddle();
   reshapeSocials();
   handleFooterLower();
   handleFooterBottom();
-  
+
+  handleInstagram();
+  handleNewsletter();
 };
 handleFooter();
-
 
 on("click", ".shp-tab-link", function (e) {
   const target = this.getAttribute("href");
@@ -1018,3 +1124,243 @@ on("click", ".shp-tab-link", function (e) {
     smoothScrollTo(target, 200);
   }
 });
+
+
+
+/**
+ * Ultimate Optimized Recently Viewed Module for Shoptet
+ * Performance + Full Functional Parity + Adjusted Swiper Structure
+ */
+const RecentlyViewed = (() => {
+    const CONFIG = {
+        storageKey: 'recentlyViewed',
+        maxItems: 10,
+        revalidateMs: 172800000, // 48h
+    };
+
+    const $ = (s, el = document) => el.querySelector(s);
+    
+    const getMsg = (key, fallback) => (typeof shoptet !== 'undefined' ? shoptet.messages[key] : fallback);
+
+    const quantityFragment = (() => {
+        const span = document.createElement("span");
+        span.className = "quantity";
+        span.innerHTML = `
+            <span class="increase-tooltip js-increase-tooltip" data-trigger="manual" data-container="body" data-original-title="Není možné zakoupit více než 9999 ks." aria-hidden="true" role="tooltip"></span>
+            <span class="decrease-tooltip js-decrease-tooltip" data-trigger="manual" data-container="body" data-original-title="Minimální množství, které lze zakoupit, je 1 ks." aria-hidden="true" role="tooltip"></span>
+            <label><input type="number" name="amount" value="1" class="amount" autocomplete="off" step="1" min="1" max="9999" aria-label="Množství"></label>
+            <button class="increase" type="button" aria-label="Zvýšit množství o 1"><span class="increase__sign">+</span></button>
+            <button class="decrease" type="button" aria-label="Snížit množství o 1"><span class="decrease__sign">−</span></button>
+        `;
+        return span;
+    })();
+
+    const handleLayout = (product) => {
+        const refs = {
+            pCode: $('.p-code', product),
+            ratings: $('.ratings-wrapper', product),
+            pDesc: $('.p-desc', product),
+            name: $('.name', product),
+            avail: $('.availability', product),
+            flagDiscount: $('.flag-discount', product),
+            pricesWrapper: $('.prices', product),
+            form: $('form.pr-action', product),
+            unit: $('.pr-list-unit', product)
+        };
+
+        if (refs.pCode && refs.ratings) refs.ratings.append(refs.pCode);
+        if (refs.pDesc && refs.name) refs.name.after(refs.pDesc);
+        if (refs.avail) (refs.pDesc || refs.name)?.after(refs.avail);
+
+        const priceStd = refs.flagDiscount ? $('.price-standard', refs.flagDiscount) : null;
+        if (priceStd && refs.pricesWrapper) {
+            const wrap = document.createElement('div');
+            wrap.className = 'price-standard-wrapper';
+            const prev = priceStd.previousSibling;
+            if (prev?.nodeType === 3 && prev.textContent.trim() === 'od') wrap.append(prev);
+            wrap.append(priceStd);
+            const priceFinal = $('.price-final', refs.pricesWrapper);
+            priceFinal ? priceFinal.before(wrap) : refs.pricesWrapper.append(wrap);
+        }
+
+        if (refs.form) {
+            $('input[name="amount"]', refs.form)?.remove();
+            const btn = $('button[type="submit"]', refs.form);
+            const qty = quantityFragment.cloneNode(true);
+            btn ? btn.before(qty) : refs.form.append(qty);
+        }
+
+        if (refs.unit) refs.unit.innerHTML = refs.unit.innerHTML.replace(/&nbsp;|\u00A0/g, '');
+    };
+
+    const getPriceData = (doc) => {
+        const p = $('.price-final-holder', doc)?.innerText.trim() || $('.nowrap', doc)?.innerText.trim() || '';
+        const u = $('.pr-list-unit', doc)?.innerText.trim() || '';
+        return { 
+            price: u ? p.replace(u, '').replace(/\/$/, '').trim() : p, 
+            unit: u ? `/${u.replace('/', '').trim()}` : '/ks' 
+        };
+    };
+
+    const trackProduct = () => {
+        const form = $('#product-detail-form');
+        if (!form) return;
+
+        const { price, unit } = getPriceData(document);
+        const item = {
+            id: $('input[name="productId"]', form)?.value,
+            priceId: $('input[name="priceId"]', form)?.value,
+            name: $('.p-detail-inner-header h1')?.innerText.trim(),
+            url: location.pathname,
+            imgSrc: $('.p-main-image img')?.src,
+            price,
+            unit,
+            priceVat: $('.price-additional')?.innerHTML.trim() || '',
+            availabilityText: $('.availability-label')?.innerText.trim(),
+            availabilityColor: $('.availability-label')?.style.color,
+            codeLabel: $('.p-code-label')?.innerText.trim() || 'Kód:',
+            code: $('.p-code span:not(.p-code-label)')?.innerText.trim() || '',
+            description: $('.p-short-description')?.innerText.trim(),
+            flagsHtml: $('.flags-default')?.innerHTML.trim() || '',
+            starsHtml: $('.stars-wrapper .star-list')?.outerHTML.trim() || '',
+            isVariant: !!$('.variant-list'),
+            lastVisit: Date.now()
+        };
+
+        if (!item.id || !item.name) return;
+
+        let h = JSON.parse(localStorage.getItem(CONFIG.storageKey) || '[]');
+        h = [item, ...h.filter(p => p.id !== item.id)].slice(0, CONFIG.maxItems);
+        localStorage.setItem(CONFIG.storageKey, JSON.stringify(h));
+    };
+
+    const revalidate = async () => {
+        const history = JSON.parse(localStorage.getItem(CONFIG.storageKey) || '[]');
+        const now = Date.now();
+        const stale = history.filter(i => (now - i.lastVisit > CONFIG.revalidateMs) && i.url !== location.pathname);
+        
+        if (!stale.length) return;
+
+        for (const item of stale.slice(0, 3)) {
+            try {
+                const res = await fetch(item.url, { priority: 'low' });
+                const html = await res.text();
+                const doc = new DOMParser().parseFromString(html, 'text/html');
+                const { price, unit } = getPriceData(doc);
+
+                Object.assign(item, {
+                    price, unit,
+                    priceVat: $('.price-additional', doc)?.innerHTML.trim() || '',
+                    availabilityText: $('.availability-label', doc)?.innerText.trim(),
+                    availabilityColor: $('.availability-label', doc)?.style.color,
+                    flagsHtml: $('.flags-default', doc)?.innerHTML.trim() || '',
+                    starsHtml: $('.stars-wrapper .star-list', doc)?.outerHTML.trim() || '',
+                    code: $('.p-code span:not(.p-code-label)', doc)?.innerText.trim() || item.code,
+                    lastVisit: now
+                });
+            } catch (e) {}
+        }
+        localStorage.setItem(CONFIG.storageKey, JSON.stringify(history));
+    };
+
+    const render = () => {
+        const history = JSON.parse(localStorage.getItem(CONFIG.storageKey) || '[]')
+            .filter(i => i.url !== location.pathname);
+
+        if (!history.length || $('.last-visited') || !$('footer')) return;
+
+        const section = document.createElement('section');
+        section.className = 'last-visited';
+        
+        const cards = history.map(item => `
+            <div class="swiper-slide">
+                <div class="product">
+                    <div class="p" data-micro-product-id="${item.id}">
+                        <a href="${item.url}" class="image">
+                            <img src="${item.imgSrc}" class="swap-image" loading="lazy">
+                            <div class="flags flags-default">${item.flagsHtml}</div>
+                        </a>
+                        <div class="p-in">
+                            <div class="p-in-in">
+                                <a href="${item.url}" class="name"><span>${item.name}</span></a>
+                                <div class="ratings-wrapper">${item.starsHtml}</div>
+                                <div class="availability"><span style="color:${item.availabilityColor}">${item.availabilityText}</span></div>
+                            </div>
+                            <div class="p-bottom ${item.isVariant ? 'single-button' : ''}">
+                                <div data-micro="offer">
+                                    <div class="prices">
+                                        ${item.priceVat ? `<div class="price-additional">${item.priceVat}</div>` : ''}
+                                        <div class="price price-final"><strong>${item.price}</strong><span class="pr-list-unit">${item.unit}</span></div>
+                                    </div>
+                                    <div class="p-tools">
+                                        ${item.isVariant ? `<a href="${item.url}" class="btn btn-primary">${getMsg('moreInfo', 'Detail')}</a>` : `
+                                        <form action="/action/Cart/addCartItem/" method="post" class="pr-action csrf-enabled">
+                                            <input type="hidden" name="productId" value="${item.id}">
+                                            <input type="hidden" name="priceId" value="${item.priceId || ''}">
+                                            <input type="hidden" name="amount" value="1">
+                                            <button type="submit" class="btn btn-cart"><span>${getMsg('toCart', 'Do košíku')}</span></button>
+                                        </form>`}
+                                    </div>
+                                </div>
+                                <p class="p-desc">${item.description || ''}</p>
+                            </div>
+                        </div>
+                        <span class="p-code">${item.codeLabel} <span>${item.code || ''}</span></span>
+                    </div>
+                </div>
+            </div>`).join('');
+
+        // Nová struktura se .swiper-helper
+        section.innerHTML = `
+            <div class="container">
+                <h2>Naposledy prohlížené</h2>
+                <div class="swiper-helper">
+                    <div class="swiper swiper-last-visited">
+                        <div class="swiper-wrapper">${cards}</div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>`;
+        
+        $('footer').before(section);
+
+        section.querySelectorAll('.product').forEach(handleLayout);
+
+        if (window.Swiper) {
+            new Swiper('.swiper-last-visited', {
+                slidesPerView: 1, 
+                spaceBetween: 20,
+                navigation: { 
+                    nextEl: '.last-visited .swiper-button-next', 
+                    prevEl: '.last-visited .swiper-button-prev' 
+                },
+                pagination: { 
+                    el: '.last-visited .swiper-pagination', 
+                    clickable: true 
+                },
+                breakpoints: { 
+                    768: { slidesPerView: 2 }, 
+                    1024: { slidesPerView: 4, spaceBetween: 30 } 
+                }
+            });
+        }
+    };
+
+    return {
+        run: () => {
+            trackProduct();
+            const defer = window.requestIdleCallback || (cb => setTimeout(cb, 200));
+            defer(() => {
+                revalidate().then(render);
+            });
+        }
+    };
+})();
+
+if (document.readyState === 'complete') {
+    RecentlyViewed.run();
+} else {
+    window.addEventListener('load', RecentlyViewed.run);
+}

@@ -121,39 +121,39 @@ h6,
 // 3. DEFINICE JEDNOTLIVÝCH STUPŇŮ
 // H1
 h1 {
-  font-size: remMM($h1);
-  line-height: emMM($h1-lineHeight, $h1);
+  font-size: rem($h1);
+  line-height: em($h1-lineHeight, $h1);
 
   @media screen and (max-width: 1023px) {
-    font-size: remMM($h1-tablet);
-    line-height: emMM($h1-tablet-lineHeight, $h1-tablet);
+    font-size: rem($h1-tablet);
+    line-height: em($h1-tablet-lineHeight, $h1-tablet);
   }
   @media screen and (max-width: 767px) {
-    font-size: remMM($h1-mobile);
-    line-height: emMM($h1-mobile-lineHeight, $h1-mobile);
+    font-size: rem($h1-mobile);
+    line-height: em($h1-mobile-lineHeight, $h1-mobile);
   }
 }
 
 // H2
 h2 {
-  font-size: remMM($h2);
-  line-height: emMM($h2-lineHeight, $h2);
+  font-size: rem($h2);
+  line-height: em($h2-lineHeight, $h2);
 
   &.big {
-    font-size: remMM($h2-big);
-    line-height: emMM($h2-big-lineHeight, $h2-big);
+    font-size: rem($h2-big);
+    line-height: em($h2-big-lineHeight, $h2-big);
   }
   &.mid {
-    font-size: remMM($h2-mid);
-    line-height: emMM($h2-mid-lineHeight, $h2-mid);
+    font-size: rem($h2-mid);
+    line-height: em($h2-mid-lineHeight, $h2-mid);
   }
   &.small {
-    font-size: remMM($h2-small);
-    line-height: emMM($h2-small-lineHeight, $h2-small);
+    font-size: rem($h2-small);
+    line-height: em($h2-small-lineHeight, $h2-small);
   }
   &.tiny {
-    font-size: remMM($h2-tiny);
-    line-height: emMM($h2-tiny-lineHeight, $h2-tiny);
+    font-size: rem($h2-tiny);
+    line-height: em($h2-tiny-lineHeight, $h2-tiny);
   }
 
   span {
@@ -175,67 +175,67 @@ h2 {
   }
 
   @media screen and (max-width: 1023px) {
-    font-size: remMM($h2-tablet);
-    line-height: emMM($h2-tablet-lineHeight, $h2-tablet);
+    font-size: rem($h2-tablet);
+    line-height: em($h2-tablet-lineHeight, $h2-tablet);
     &.big {
-      font-size: remMM($h2-big-tablet);
-      line-height: emMM($h2-big-tablet-lineHeight, $h2-big-tablet);
+      font-size: rem($h2-big-tablet);
+      line-height: em($h2-big-tablet-lineHeight, $h2-big-tablet);
     }
     &.mid {
-      font-size: remMM($h2-mid-tablet);
-      line-height: emMM($h2-mid-tablet-lineHeight, $h2-mid-tablet);
+      font-size: rem($h2-mid-tablet);
+      line-height: em($h2-mid-tablet-lineHeight, $h2-mid-tablet);
     }
     &.small {
-      font-size: remMM($h2-small-tablet);
-      line-height: emMM($h2-small-tablet-lineHeight, $h2-small-tablet);
+      font-size: rem($h2-small-tablet);
+      line-height: em($h2-small-tablet-lineHeight, $h2-small-tablet);
     }
     &.tiny {
-      font-size: remMM($h2-tiny-tablet);
-      line-height: emMM($h2-tiny-tablet-lineHeight, $h2-tiny-tablet);
+      font-size: rem($h2-tiny-tablet);
+      line-height: em($h2-tiny-tablet-lineHeight, $h2-tiny-tablet);
     }
   }
   @media screen and (max-width: 767px) {
-    font-size: remMM($h2-mobile);
-    line-height: emMM($h2-mobile-lineHeight, $h2-mobile);
+    font-size: rem($h2-mobile);
+    line-height: em($h2-mobile-lineHeight, $h2-mobile);
     &.big {
-      font-size: remMM($h2-big-mobile);
-      line-height: emMM($h2-big-mobile-lineHeight, $h2-big-mobile);
+      font-size: rem($h2-big-mobile);
+      line-height: em($h2-big-mobile-lineHeight, $h2-big-mobile);
     }
     &.mid {
-      font-size: remMM($h2-mid-mobile);
-      line-height: emMM($h2-mid-mobile-lineHeight, $h2-mid-mobile);
+      font-size: rem($h2-mid-mobile);
+      line-height: em($h2-mid-mobile-lineHeight, $h2-mid-mobile);
     }
     &.small {
-      font-size: remMM($h2-small-mobile);
-      line-height: emMM($h2-small-mobile-lineHeight, $h2-small-mobile);
+      font-size: rem($h2-small-mobile);
+      line-height: em($h2-small-mobile-lineHeight, $h2-small-mobile);
     }
     &.tiny {
-      font-size: remMM($h2-tiny-mobile);
-      line-height: emMM($h2-tiny-mobile-lineHeight, $h2-tiny-mobile);
+      font-size: rem($h2-tiny-mobile);
+      line-height: em($h2-tiny-mobile-lineHeight, $h2-tiny-mobile);
     }
   }
 }
 
 // H3
 h3 {
-  font-size: remMM($h3);
-  line-height: emMM($h3-lineHeight, $h3);
+  font-size: rem($h3);
+  line-height: em($h3-lineHeight, $h3);
 
   &.big {
-    font-size: remMM($h3-big);
-    line-height: emMM($h3-big-lineHeight, $h3-big);
+    font-size: rem($h3-big);
+    line-height: em($h3-big-lineHeight, $h3-big);
   }
   &.mid {
-    font-size: remMM($h3-mid);
-    line-height: emMM($h3-mid-lineHeight, $h3-mid);
+    font-size: rem($h3-mid);
+    line-height: em($h3-mid-lineHeight, $h3-mid);
   }
   &.small {
-    font-size: remMM($h3-small);
-    line-height: emMM($h3-small-lineHeight, $h3-small);
+    font-size: rem($h3-small);
+    line-height: em($h3-small-lineHeight, $h3-small);
   }
   &.tiny {
-    font-size: remMM($h3-tiny);
-    line-height: emMM($h3-tiny-lineHeight, $h3-tiny);
+    font-size: rem($h3-tiny);
+    line-height: em($h3-tiny-lineHeight, $h3-tiny);
   }
 
   &.underline {
@@ -253,47 +253,47 @@ h3 {
   }
 
   @media screen and (max-width: 1023px) {
-    font-size: remMM($h3-tablet);
+    font-size: rem($h3-tablet);
     &.big {
-      font-size: remMM($h3-big-tablet);
+      font-size: rem($h3-big-tablet);
     }
     &.mid {
-      font-size: remMM($h3-mid-tablet);
+      font-size: rem($h3-mid-tablet);
     }
   }
   @media screen and (max-width: 767px) {
-    font-size: remMM($h3-mobile);
+    font-size: rem($h3-mobile);
     &.big {
-      font-size: remMM($h3-big-mobile);
+      font-size: rem($h3-big-mobile);
     }
   }
 }
 
 // H4, H5, H6 (Zjednodušený zápis pro ukázku)
 h4 {
-  font-size: remMM($h4);
-  line-height: emMM($h4-lineHeight, $h4);
+  font-size: rem($h4);
+  line-height: em($h4-lineHeight, $h4);
   &.big {
-    font-size: remMM($h4-big);
+    font-size: rem($h4-big);
   }
   @media screen and (max-width: 767px) {
-    font-size: remMM($h4-mobile);
+    font-size: rem($h4-mobile);
   }
 }
 
 h5 {
-  font-size: remMM($h5);
-  line-height: emMM($h5-lineHeight, $h5);
+  font-size: rem($h5);
+  line-height: em($h5-lineHeight, $h5);
   @media screen and (max-width: 767px) {
-    font-size: remMM($h5-mobile);
+    font-size: rem($h5-mobile);
   }
 }
 
 h6 {
-  font-size: remMM($h6);
-  line-height: emMM($h6-lineHeight, $h6);
+  font-size: rem($h6);
+  line-height: em($h6-lineHeight, $h6);
   @media screen and (max-width: 767px) {
-    font-size: remMM($h6-mobile);
+    font-size: rem($h6-mobile);
   }
 }
 
@@ -517,24 +517,24 @@ table {
           }
 
           .name {
-            font-size: remMM(18);
+            font-size: rem(18);
             color: $color-font;
             line-height: 1.2em;
             font-weight: 500;
             text-align: left;
 
             span {
-              font-size: remMM(18);
+              font-size: rem(18);
               color: $color-font;
               line-height: 1.2em;
               font-weight: 500;
             }
 
             @media screen and (max-width: 767px) {
-              font-size: remMM(14);
+              font-size: rem(14);
 
               span {
-                font-size: remMM(14);
+                font-size: rem(14);
               }
             }
           }
@@ -746,7 +746,7 @@ table {
     right: 15px;
     font-weight: 700;
     color: $color-page-bg;
-    font-size: remMM(20);
+    font-size: rem(20);
     z-index: 2;
   }
 
@@ -814,550 +814,11 @@ table {
 
 .homepage-products-heading-7 {
   position: relative;
-
-  &:after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: -57px;
-    transform: translateY(-50%);
-    width: 37px;
-    height: 37px;
-    //background-image: url(../img/icon/procenta.svg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
 }
 
-.product {
-  background-color: $white;
-  position: relative;
 
-  &:hover,
-  &:focus {
-    // .image {
-    //     &::before {
-    //         border-color: $color-font;
-    //     }
-    // }
-  }
 
-  .widget-parameter-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    align-items: center;
-    padding: 16px 16px 0px 16px;
-    gap: 10px;
 
-    .widget-parameter-list {
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-start;
-      flex-wrap: nowrap;
-      gap: 10px;
-
-      .widget-parameter-value {
-        list-style: none;
-
-        a {
-          color: $color-font-800;
-          font-size: remMM(12);
-          line-height: 1.2em;
-
-          &:hover {
-            color: $color-font;
-          }
-        }
-      }
-    }
-
-    .widget-parameter-more {
-      display: flex;
-      color: $color-font-800;
-      font-size: remMM(12);
-      line-height: 1.2em;
-    }
-
-    @media (max-width: 767px) {
-      display: none;
-    }
-  }
-
-  a {
-    text-decoration: none;
-  }
-
-  .image {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
-    aspect-ratio: 1;
-    position: relative;
-    // border: 1px solid $color-font-100;
-    // border-radius: 10px;
-    overflow: hidden;
-    flex-shrink: 0;
-    height: 245px;
-    padding-bottom: 25px;
-
-    // &::before {
-    //     @include trans(0.3s);
-    //     content: "";
-    //     width: 100%;
-    //     height: 100%;
-    //     display: block;
-    //     z-index: 20;
-    //     position: absolute;
-    //     border: 3px solid transparent;
-    //     padding: 0 !important;
-    //     margin: 0;
-    // }
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      aspect-ratio: 1;
-    }
-
-    @media screen and (max-width: 767px) {
-      height: unset;
-    }
-  }
-
-  .custom-ratings {
-    position: absolute;
-    bottom: 13px;
-    right: 13px;
-    font-size: remMM(12);
-    display: flex;
-    align-items: center;
-    font-weight: 400;
-    display: none;
-
-    .star {
-      margin-left: 5px;
-      width: 18px;
-      height: 18px;
-
-      &::before {
-        font-size: 18px;
-        line-height: 18px;
-        // color: $flag-action;
-      }
-    }
-  }
-
-  .stars-wrapper {
-    display: none;
-  }
-
-  .ratings-wrapper {
-    display: none;
-  }
-
-  .p-in {
-    padding: 0 10px 19px 10px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 12px;
-
-    .p-in-in {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      text-align: left;
-      gap: 0px;
-      flex-wrap: nowrap;
-      text-align: center;
-
-      .name {
-      }
-
-      @media screen and (max-width: 767px) {
-        .name {
-          font-size: remMM(14);
-        }
-      }
-    }
-  }
-
-  .name {
-    font-family: $heading-font-family;
-    font-size: remMM(18);
-    font-weight: 500;
-    margin-bottom: 12px;
-    display: block;
-    line-height: 1.2em;
-
-    span {
-      display: block;
-    }
-  }
-
-  .p-desc {
-    order: -1;
-    flex-basis: 100%;
-    margin: 0;
-    font-size: remMM(13);
-  }
-
-  .availability {
-    // flex-basis: 100%;
-    margin-top: auto;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
-    text-align: center;
-    // color: #8CB72A;
-
-    span {
-      font-size: remMM(14);
-      font-weight: 700;
-      line-height: 1.2em;
-
-      &.availability-amount {
-        color: #8cb72a;
-      }
-    }
-  }
-
-  .p-bottom {
-    // margin-top: auto;
-    .p-desc {
-      margin-bottom: 12px;
-    }
-
-    & > div {
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 14px;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-    }
-  }
-
-  .p {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .p-tools {
-    .btn-primary {
-    }
-  }
-
-  .prices {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .price-standard {
-    order: 1;
-    font-size: remMM(14);
-    color: $color-font-second;
-    font-weight: 500;
-  }
-
-  .price-final {
-    order: 2;
-    font-size: remMM(18);
-    font-weight: 700;
-  }
-
-  .price-additional {
-    order: 3;
-    font-size: remMM(12);
-    color: $color-font-400;
-  }
-
-  .pr-list-unit {
-    display: none;
-  }
-
-  .p-code {
-    display: none;
-  }
-
-  .flags-default {
-    position: absolute;
-    display: flex;
-    bottom: 12px;
-    top: unset;
-    left: 0;
-    width: 100%;
-    padding: 0 10px;
-    gap: 8px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-
-    @media screen and (max-width: 767px) {
-      gap: 3px;
-    }
-  }
-
-  // @media (max-width: 767px) {
-  //     .p-in {
-  //         padding: 6px;
-  //     }
-
-  //     .p-desc {
-  //         display: none;
-  //     }
-
-  //     .availability {
-  //         width: 100%;
-  //     }
-
-  //     .name {
-  //         font-size: remMM(16);
-  //     }
-
-  //     .p-bottom {
-  //         // margin-top: auto;
-
-  //         &>div {
-  //             display: flex;
-  //             gap: 10px;
-  //             height: 100%;
-  //             flex-direction: row;
-  //             flex-wrap: wrap;
-  //             align-items: flex-start;
-  //             justify-content: flex-start;
-  //         }
-  //     }
-
-  //     .p-tools {
-  //         max-width: calc(55% - 5px);
-  //         width: 100%;
-  //         display: flex;
-  //         flex-direction: column;
-  //         align-items: flex-end;
-
-  //         .btn {
-  //             // width: 100%;
-  //             justify-content: center;
-
-  //         }
-
-  //         @media (max-width: 767px) {
-
-  //             display: none;
-  //         }
-  //     }
-
-  .btn-cart {
-    &:after {
-      display: none;
-    }
-  }
-
-  //     .prices {
-  //         display: flex;
-  //         flex-direction: column;
-  //         align-items: flex-start;
-  //         justify-content: flex-start;
-  //         flex-wrap: nowrap;
-  //         gap: 10px;
-  //         width: 100%;
-  //         max-width: 100%;
-  //         margin-right: unset;
-
-  //         .price-final {
-  //             // margin-left: auto;
-  //         }
-  //     }
-  // }
-}
-
-.flags-default,
-.flags-extra {
-  position: absolute;
-  display: flex;
-  bottom: 12px;
-  top: unset;
-  left: 0;
-  width: 100%;
-  padding: 0 10px;
-  gap: 8px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-
-  // @media (max-width: 767px) {
-  //     flex-direction: row;
-  //     flex-wrap: wrap;
-  //     gap: 2px;
-  //     left: 0;
-  //     top: 0;
-  // }
-}
-
-.flags-default.contains-extra {
-  .flags-extra {
-    width: unset;
-    padding: 0;
-    position: initial;
-  }
-}
-
-.flag {
-  font-size: remMM(11);
-  padding: 6px 11px 5px 8px;
-  color: $color-page-bg-secondary;
-  line-height: 1em;
-  text-transform: uppercase;
-  font-weight: 700;
-  border-radius: 2px;
-  clip-path: polygon(0 0, 100% 0, 100% 0, calc(100% - 5px) 100%, 0 100%, 0 0px);
-  -webkit-clip-path: polygon(
-    0 0,
-    100% 0,
-    100% 0,
-    calc(100% - 5px) 100%,
-    0 100%,
-    0 0px
-  );
-
-  &.flag-discount {
-    background-color: #b27a61;
-  }
-
-  &.flag-new {
-    background-color: $color-font;
-  }
-
-  &.flag-action {
-    background-color: $color-font;
-  }
-
-  &.flag-tip {
-    background-color: $color-font;
-  }
-
-  // &.flag-gift {
-  //     background-color: #5b595a;
-  // }
-
-  // &.flags-extra {
-  //     background-color: $flag-action;
-  // }
-
-  &.flag-custom1 {
-  }
-
-  // @media (max-width: 767px) {
-  //     font-size: remMM(12);
-  //     padding: 0 emMM(2, 12);
-  // }
-}
-
-.mobile {
-  .product-section {
-    // overflow: visible;
-    width: 100vw;
-    left: 50%;
-    display: block;
-    position: relative;
-    transform: translateX(-50%);
-
-    .homepage-group-title {
-      text-align: left;
-    }
-
-    .container {
-      padding: 0;
-    }
-
-    @media (max-width: 1300px) {
-      width: 100% !important;
-    }
-  }
-}
-
-.product-section {
-  overflow: hidden;
-  margin: 0 auto;
-
-  // max-width: 2150px;
-  // padding: 0 0 100px 0;
-  .homepage-group-title {
-    text-align: left;
-  }
-
-  .slick-initialized {
-    .slick-list {
-      // overflow: visible;
-    }
-  }
-
-  @media (max-width: 1300px) {
-    width: 100% !important;
-  }
-
-  @media (max-width: 767px) {
-    overflow: unset;
-
-    .slick-initialized {
-      margin-right: -1rem;
-
-      .slick-list {
-      }
-    }
-  }
-}
-
-.products-block.slick-initialized {
-  .slick-track {
-    padding: 15px 0;
-  }
-
-  .slick-list {
-    margin: 0 -16px;
-  }
-
-  .slick-slide {
-    margin: 0 12px;
-    // opacity: 0.25;
-
-    &.slick-active {
-      opacity: 1;
-    }
-  }
-
-  @media (max-width: 1300px) {
-    .slick-list {
-      margin: 0;
-    }
-
-    .slick-slide {
-      margin: 0 6px;
-    }
-  }
-}
 
 // KATEGORIE
 .category-top-wrapper {
@@ -1491,7 +952,7 @@ table {
     margin: 0 0 20px 0;
     width: 100%;
     z-index: 2;
-    font-size: remMM(18);
+    font-size: rem(18);
     font-weight: 400;
     line-height: 1.2em;
 
@@ -1622,15 +1083,15 @@ table {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: remMM(14);
+    font-size: rem(14);
 
     & > a {
       color: $color-font;
       text-decoration: none;
-      font-size: remMM(14);
+      font-size: rem(14);
 
       span {
-        font-size: remMM(14);
+        font-size: rem(14);
       }
 
       &:hover {
@@ -1680,7 +1141,7 @@ table {
     letter-spacing: 0.5px;
     margin: 0;
     color: $color-page-bg-secondary;
-    font-size: remMM(14);
+    font-size: rem(14);
     text-transform: uppercase;
     line-height: 1.2em;
   }
@@ -1723,7 +1184,7 @@ table {
 
         .text {
           @include trans(0.3s);
-          font-size: remMM(18);
+          font-size: rem(18);
           color: $color-font;
           line-height: 1.2em;
           position: relative;
@@ -1850,21 +1311,21 @@ table {
   }
 
   .text {
-    // padding: emMM(8) emMM(12) emMM(12) emMM(12);
+    // padding: em(8) em(12) em(12) em(12);
     width: 100%;
     // background-color: $color-font;
     // color: $color-font-second;
-    font-size: remMM(16);
+    font-size: rem(16);
     font-weight: 600;
   }
 
   @media (max-width: 767px) {
     // .text {
-    //     padding: emMM(5) emMM(8) emMM(8) emMM(8);
+    //     padding: em(5) em(8) em(8) em(8);
     //     width: 100%;
     //     background-color: $color-font;
     //     color: $color-font-second;
-    //     font-size: remMM(14);
+    //     font-size: rem(14);
     //     font-weight: 800;
     // }
   }
@@ -1872,7 +1333,7 @@ table {
   .show-categories {
     display: flex;
     align-items: center;
-    padding: emMM(10);
+    padding: em(10);
     border-radius: 5px;
     border: 1px solid $color-font-100;
     background-color: $color-page-bg;
@@ -1950,7 +1411,7 @@ body.mobile {
 
     label {
       display: inline-block;
-      padding: emMM(8);
+      padding: em(8);
       // border-radius: 5px 5px 0 0;
       font-weight: 600;
 
@@ -1979,7 +1440,7 @@ body.mobile {
   }
 
   & > div {
-    padding: emMM(10);
+    padding: em(10);
     display: none;
 
     @media (max-width: 1100px) {
@@ -1995,9 +1456,9 @@ body.mobile {
 
   h4 {
     text-transform: initial;
-    font-size: remMM($h6);
+    font-size: rem($h6);
     margin: 0 0 20px 0;
-    // padding: emMM(10, $h6) 0;
+    // padding: em(10, $h6) 0;
     // border-bottom: 1px solid $color-font-100;
     display: flex;
     align-items: center;
@@ -2017,10 +1478,10 @@ body.mobile {
   // &::before {
   //     content: 'Filtrácia';
   //     display: block;
-  //     font-size: remMM(24);
+  //     font-size: rem(24);
   //     font-weight: 700;
-  //     padding: emMM(10, 24) emMM(10, 24) emMM(10, 24) calc(emMM(20, 24) + 24px);
-  //     background: url(../img/icon/filters.svg) emMM(10, 24) center no-repeat, $color-font-050;
+  //     padding: em(10, 24) em(10, 24) em(10, 24) calc(em(20, 24) + 24px);
+  //     background: url(../img/icon/filters.svg) em(10, 24) center no-repeat, $color-font-050;
   //     margin-bottom: 20px;
   //     border-radius: 5px;
   // }
@@ -2038,7 +1499,7 @@ body.mobile {
   }
 
   .slider-header {
-    font-size: remMM(12);
+    font-size: rem(12);
   }
 }
 
@@ -2216,7 +1677,7 @@ body.mobile {
       flex-wrap: nowrap;
       background-color: $color-font;
       color: $color-font-second;
-      padding: emMM(10);
+      padding: em(10);
 
       &::before {
         //content: url(../img/icon/filter.svg);
@@ -2625,7 +2086,7 @@ body.mobile {
 
     .size-table-link {
       margin-left: auto;
-      font-size: remMM(14) w;
+      font-size: rem(14) w;
       text-decoration: none;
       position: relative;
       display: flex;
@@ -2648,7 +2109,7 @@ body.mobile {
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: nowrap;
-    font-size: remMM(16);
+    font-size: rem(16);
     font-weight: 600;
 
     .show-tooltip {
@@ -2660,7 +2121,7 @@ body.mobile {
     position: relative;
 
     .validation-error {
-      font-size: remMM(14);
+      font-size: rem(14);
       color: #e82b37;
       font-weight: 600;
     }
@@ -2674,7 +2135,7 @@ body.mobile {
 
   select {
     background-color: $color-page-bg;
-    padding: emMM(20) emMM(35) emMM(20) emMM(16);
+    padding: em(20) em(35) em(20) em(16);
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -2761,13 +2222,13 @@ body.mobile {
 
       .p-code {
         .p-code-label {
-          font-size: remMM(12);
+          font-size: rem(12);
           color: $color-font-500;
           font-weight: 700;
         }
 
         .parameter-dependent {
-          font-size: remMM(12);
+          font-size: rem(12);
           color: $color-font-500;
           font-weight: 400;
         }
@@ -2775,13 +2236,13 @@ body.mobile {
 
       .zaruka {
         .zaruka1 {
-          font-size: remMM(12);
+          font-size: rem(12);
           color: $color-font-500;
           font-weight: 700;
         }
 
         .zaruka2 {
-          font-size: remMM(12);
+          font-size: rem(12);
           color: $color-font-500;
           font-weight: 400;
         }
@@ -2793,7 +2254,7 @@ body.mobile {
     display: flex;
     align-items: center;
     gap: 0.3em;
-    font-size: remMM(12);
+    font-size: rem(12);
 
     // color: #8CB72A;
     .availability-amount {
@@ -2927,10 +2388,10 @@ body.mobile {
   h1 {
     order: 0;
     margin: 0 0 8px 0;
-    font-size: remMM(36);
+    font-size: rem(36);
 
     @media (max-width: 767px) {
-      font-size: remMM($h1-mobile);
+      font-size: rem($h1-mobile);
     }
   }
 
@@ -2944,7 +2405,7 @@ body.mobile {
     flex-wrap: nowrap;
 
     .p-code-label {
-      font-size: remMM(14);
+      font-size: rem(14);
       color: $black;
       font-weight: 400;
       width: 145px;
@@ -2953,7 +2414,7 @@ body.mobile {
 
     span:nth-of-type(2),
     .parameter-dependent {
-      font-size: remMM(16);
+      font-size: rem(16);
       color: $black;
       font-weight: 600;
     }
@@ -2987,7 +2448,7 @@ body.mobile {
 
     // display: none;
     div {
-      font-size: remMM(14);
+      font-size: rem(14);
       color: $black;
       font-weight: 400;
       display: flex;
@@ -2998,7 +2459,7 @@ body.mobile {
       margin: 0 0 4px 0;
 
       .brand-label {
-        font-size: remMM(14);
+        font-size: rem(14);
         color: $black;
         font-weight: 400;
         width: 145px;
@@ -3006,7 +2467,7 @@ body.mobile {
       }
 
       a {
-        font-size: remMM(14);
+        font-size: rem(14);
         color: $black;
         font-weight: 400;
         text-decoration: none;
@@ -3025,7 +2486,7 @@ body.mobile {
 
     span {
       &:first-of-type {
-        font-size: remMM(14);
+        font-size: rem(14);
         color: $black;
         font-weight: 400;
         width: 145px;
@@ -3033,7 +2494,7 @@ body.mobile {
       }
 
       &:last-of-type {
-        font-size: remMM(14);
+        font-size: rem(14);
         font-weight: 400;
 
         .parameter-dependent {
@@ -3051,7 +2512,7 @@ body.mobile {
     gap: 0;
 
     .availability-label-first {
-      font-size: remMM(14);
+      font-size: rem(14);
       color: $black;
       font-weight: 400;
       width: 145px;
@@ -3059,7 +2520,7 @@ body.mobile {
     }
 
     .parameter-dependent {
-      font-size: remMM(14);
+      font-size: rem(14);
       font-weight: 400;
     }
   }
@@ -3075,7 +2536,7 @@ body.mobile {
 
     span {
       &:first-of-type {
-        font-size: remMM(14);
+        font-size: rem(14);
         color: $black;
         font-weight: 400;
         width: 145px;
@@ -3083,7 +2544,7 @@ body.mobile {
       }
 
       &:last-of-type {
-        font-size: remMM(14);
+        font-size: rem(14);
         color: #e82b37;
         font-weight: 600;
         width: 145px;
@@ -3101,7 +2562,7 @@ body.mobile {
     flex-wrap: nowrap;
 
     .final-price-label {
-      font-size: remMM(18);
+      font-size: rem(18);
       color: $black;
       font-weight: 600;
       width: 145px;
@@ -3114,7 +2575,7 @@ body.mobile {
       line-height: 1.2em;
 
       .price-final-holder {
-        font-size: remMM(24);
+        font-size: rem(24);
         color: $black;
         font-weight: 700;
       }
@@ -3131,11 +2592,11 @@ body.mobile {
 }
 
 .delivery-time-label {
-  font-size: remMM(14);
+  font-size: rem(14);
 }
 
 .delivery-time {
-  font-size: remMM(14);
+  font-size: rem(14);
 }
 
 .fvDoplnek {
@@ -3174,7 +2635,7 @@ body.mobile {
     order: 3;
 
     .add-to-cart-button {
-      padding: emMM(20.5) emMM(56) emMM(20.5) emMM(16);
+      padding: em(20.5) em(56) em(20.5) em(16);
     }
   }
 
@@ -3185,7 +2646,7 @@ body.mobile {
       order: 6;
       display: flex;
       position: relative;
-      font-size: remMM(14);
+      font-size: rem(14);
       line-height: 1.2em;
       color: $black;
       text-decoration: underline;
@@ -3252,14 +2713,14 @@ body.mobile {
   .price-final {
     // grid-row: 1/2;
     // grid-column: 1/2;
-    font-size: remMM(20);
+    font-size: rem(20);
   }
 
   .price-standard {
     // grid-row: 1/2;
     // grid-column: 2/3;
     color: $color-font-800;
-    font-size: remMM(12);
+    font-size: rem(12);
   }
 
   .price-additional {
@@ -3281,7 +2742,7 @@ body.mobile {
 
   p {
     margin-top: 0;
-    font-size: remMM(14);
+    font-size: rem(14);
     font-weight: 400;
 
     &:last-child {
@@ -3296,7 +2757,7 @@ body.mobile {
   margin: 0 auto;
 
   h2 {
-    font-size: remMM(36);
+    font-size: rem(36);
   }
 }
 
@@ -3334,7 +2795,7 @@ body.mobile {
 
         .content-activator {
           @include trans(0.3s);
-          font-size: remMM(14);
+          font-size: rem(14);
           font-weight: 400;
           display: block;
           width: 100%;
@@ -3392,11 +2853,11 @@ body.mobile {
           }
 
           p {
-            font-size: remMM(14);
+            font-size: rem(14);
           }
 
           .special-text {
-            font-size: remMM(22);
+            font-size: rem(22);
             font-weight: 300;
           }
 
@@ -3479,7 +2940,7 @@ body.mobile {
   color: $color-page-bg;
 
   h1 {
-    margin: 0 0 emMM(20, $h1);
+    margin: 0 0 em(20, $h1);
   }
 
   & > br {
@@ -3560,7 +3021,7 @@ body.mobile {
     }
 
     // .text {
-    //     padding: emMM(15);
+    //     padding: em(15);
 
     // }
 
@@ -3585,8 +3046,8 @@ body.mobile {
     // &::before {
     //     content: 'Kategorie blogu:';
     //     display: inline-block;
-    //     padding: emMM(15, 28);
-    //     font-size: remMM(28);
+    //     padding: em(15, 28);
+    //     font-size: rem(28);
     //     margin-right: 40px;
     //     font-weight: 700;
     // }
@@ -3620,7 +3081,7 @@ body.mobile {
     justify-content: flex-start;
     flex-wrap: nowrap;
     gap: 60px;
-    font-size: remMM(24);
+    font-size: rem(24);
     font-weight: 800;
     text-decoration: unset;
 
@@ -3643,7 +3104,7 @@ body.mobile {
     gap: 20px;
 
     a {
-      font-size: remMM(18);
+      font-size: rem(18);
       gap: 20px;
     }
   }
@@ -3692,7 +3153,7 @@ body.mobile {
         width: 100%;
 
         .title {
-          font-size: remMM(46);
+          font-size: rem(46);
 
           &:hover {
             text-decoration: underline;
@@ -3741,7 +3202,7 @@ body.mobile {
 
       .title {
         @include trans(0.3s);
-        font-size: remMM(30);
+        font-size: rem(30);
         font-weight: 700;
         margin-bottom: 12px;
         line-height: 1.2em;
@@ -3755,7 +3216,7 @@ body.mobile {
       }
 
       time {
-        font-size: remMM(16);
+        font-size: rem(16);
         color: $color-font;
         font-weight: 400;
         margin-bottom: 16px;
@@ -3765,7 +3226,7 @@ body.mobile {
         order: 3;
         // color: $color-font;
 
-        font-size: remMM(14);
+        font-size: rem(14);
         padding: 15px 20px 14px 20px;
       }
 
@@ -3851,7 +3312,7 @@ body.mobile {
         }
 
         p {
-          font-size: remMM(20);
+          font-size: rem(20);
           font-weight: 400;
           margin-bottom: 40px;
           line-height: 1.2em;
@@ -3890,7 +3351,7 @@ body.mobile {
             flex-wrap: nowrap;
 
             h4 {
-              font-size: remMM(18);
+              font-size: rem(18);
               font-weight: 700;
               margin-bottom: 8px;
               line-height: 1.2em;
@@ -3898,7 +3359,7 @@ body.mobile {
             }
 
             span {
-              font-size: remMM(16);
+              font-size: rem(16);
               font-weight: 400;
               margin-right: 0px;
               line-height: 1.2em;
@@ -3927,7 +3388,7 @@ body.mobile {
           }
 
           p {
-            font-size: remMM(16);
+            font-size: rem(16);
           }
 
           .wrapper {
@@ -4022,7 +3483,7 @@ body.mobile {
 .display-more {
   cursor: pointer;
   margin-top: 10px;
-  font-size: remMM(14);
+  font-size: rem(14);
   font-weight: 600;
 }
 
@@ -4078,7 +3539,7 @@ body.mobile {
   }
 
   h1 {
-    margin: 0 0 emMM(30, $h1);
+    margin: 0 0 em(30, $h1);
   }
 
   .post-header-image {
@@ -4109,13 +3570,13 @@ body.mobile {
     max-width: 824px;
 
     .post-date {
-      font-size: remMM(16);
+      font-size: rem(16);
       color: $color-font;
       margin-bottom: 15px;
     }
 
     h1 {
-      font-size: remMM(46);
+      font-size: rem(46);
       font-weight: 700;
       margin-bottom: 0px;
     }
@@ -4131,13 +3592,13 @@ body.mobile {
 
     @media (max-width: 767px) {
       h1 {
-        font-size: remMM(32);
+        font-size: rem(32);
       }
     }
   }
 
   .post-description {
-    font-size: remMM(20);
+    font-size: rem(20);
     color: $color-font-700;
   }
 
@@ -4265,7 +3726,7 @@ body.mobile {
     // &::before {
     //     content: 'Kategorie';
     //     display: block;
-    //     font-size: remMM(16);
+    //     font-size: rem(16);
     //     margin-bottom: 30px;
     //     font-weight: 700;
     //     color: $color-font;
@@ -4282,8 +3743,8 @@ body.mobile {
       span {
         background-color: unset;
         font-weight: 400;
-        font-size: remMM(14);
-        padding: remMM(10) remMM(15) remMM(14) remMM(15);
+        font-size: rem(14);
+        padding: rem(10) rem(15) rem(14) rem(15);
         color: $color-font;
         text-decoration: none !important;
       }
@@ -4538,7 +3999,7 @@ aside {
 
   //                     .from,
   //                     .to {
-  //                         font-size: remMM(15);
+  //                         font-size: rem(15);
   //                         padding: 5px;
   //                         color: $color-font;
   //                         // background-color: $color-page-bg;
@@ -4564,11 +4025,11 @@ aside {
   //                     .btn-primary {
   //                         width: 100%;
   //                         max-width: 163px;
-  //                         font-size: remMM(12);
+  //                         font-size: rem(12);
   //                         text-transform: unset;
   //                         font-weight: 400;
   //                         position: relative;
-  //                         padding: remMM(11) remMM(10) remMM(11) remMM(45);
+  //                         padding: rem(11) rem(10) rem(11) rem(45);
 
   //                         &::before {
   //                             content: "";
@@ -4643,10 +4104,10 @@ aside {
 
   //                             h4 {
   //                                 @include trans(0.3s);
-  //                                 font-size: remMM(12);
+  //                                 font-size: rem(12);
   //                                 font-weight: 400;
   //                                 line-height: 1em;
-  //                                 // padding: emMM(13) emMM(40) emMM(14) emMM(10);
+  //                                 // padding: em(13) em(40) em(14) em(10);
   //                                 padding: 13px 40px 14px 10px;
   //                                 cursor: pointer;
   //                                 background-color: $black-10;
@@ -4690,7 +4151,7 @@ aside {
   //                                 width: 100%;
   //                                 transform: translateX(-50%);
   //                                 margin: 0;
-  //                                 padding: emMM(8);
+  //                                 padding: em(8);
   //                                 background-color: $color-page-bg;
   //                                 -webkit-box-shadow: 0px 10px 16px 8px rgba(0, 0, 0, 0.12);
   //                                 box-shadow: 0px 10px 16px 8px rgba(0, 0, 0, 0.12);
@@ -4698,7 +4159,7 @@ aside {
   //                                 input[type="checkbox"] {
   //                                     &+label {
   //                                         width: 100%;
-  //                                         font-size: remMM(12);
+  //                                         font-size: rem(12);
   //                                     }
   //                                 }
 
@@ -4748,7 +4209,7 @@ aside {
 
   //                         .from,
   //                         .to {
-  //                             font-size: remMM(12);
+  //                             font-size: rem(12);
   //                             padding: 5px;
   //                             background-color: $color-font-200;
   //                         }
@@ -4901,7 +4362,7 @@ aside {
     margin: 0 auto;
     width: 100%;
     text-align: center;
-    font-size: remMM(14);
+    font-size: rem(14);
   }
 
   #formContact {
@@ -4972,7 +4433,7 @@ aside {
 
             .name {
               width: 100% !important;
-              font-size: remMM(18);
+              font-size: rem(18);
               font-weight: 800;
               color: $color-font-second;
             }
@@ -4997,14 +4458,14 @@ aside {
             width: 100% !important;
             padding: 0 !important;
             margin: 0 !important;
-            font-size: remMM(10);
+            font-size: rem(10);
             color: $color-font-second;
           }
         }
 
         .btn-secondary {
           width: 100%;
-          padding: emMM(5) emMM(10) emMM(10) emMM(10);
+          padding: em(5) em(10) em(10) em(10);
 
           &:hover {
             color: $color-font;
@@ -5048,14 +4509,14 @@ aside {
       }
 
       h2 {
-        font-size: remMM(30);
+        font-size: rem(30);
         font-weight: 700;
         color: $black;
         margin: 0 0 8px 0;
       }
 
       p {
-        font-size: remMM(16);
+        font-size: rem(16);
         font-weight: 400;
         color: $black;
         margin: 0 0 30px 0;
@@ -5074,7 +4535,7 @@ aside {
           position: relative;
           padding-left: 46px;
           margin-bottom: 16px;
-          font-size: remMM(16);
+          font-size: rem(16);
           font-weight: 400;
           color: $black;
           list-style: none;
@@ -5218,7 +4679,7 @@ aside {
     order: 6;
     display: flex;
     position: relative;
-    font-size: remMM(14);
+    font-size: rem(14);
     line-height: 1.2em;
     color: $black;
     text-decoration: underline;
@@ -5334,7 +4795,7 @@ aside {
     flex-wrap: nowrap;
 
     a {
-      font-size: remMM(14);
+      font-size: rem(14);
       line-height: 1.2em;
       color: $color-font;
       text-decoration: underline;
@@ -5349,7 +4810,7 @@ aside {
   }
 
   button {
-    font-size: remMM(14);
+    font-size: rem(14);
     line-height: 1.2em;
     color: $color-font;
     text-decoration: underline;
@@ -5368,7 +4829,7 @@ aside {
   //     padding: 3px !important;
 
   //     a {
-  //         font-size: remMM(14);
+  //         font-size: rem(14);
   //         line-height: 1.2em;
   //         color: $color-font;
   //         text-decoration: underline;
@@ -5386,4 +4847,4 @@ aside {
 
 @import "basics/loader";
 @import "basics/cookies";
-@import "main/header";
+@import "a_header/header";

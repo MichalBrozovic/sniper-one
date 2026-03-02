@@ -6,7 +6,7 @@
     }
 
     h2 {
-        font-size: remMM(30);
+        font-size: rem(30);
         line-height: 1.2em;
         margin: 0 0 40px 0;
     }
@@ -136,7 +136,7 @@
                     text-align: center;
                     line-height: 1.2em;
                     padding-bottom: 8px;
-                    font-size: remMM(12);
+                    font-size: rem(12);
 
                     &:after {
                         content: "";
@@ -174,7 +174,7 @@
 
             p {
                 margin: 0 0 30px 0;
-                font-size: remMM(20);
+                font-size: rem(20);
                 font-weight: 400;
             }
 
@@ -293,7 +293,7 @@
 
         h2 {
             margin: 0 0 40px 0;
-            font-size: remMM(46);
+            font-size: rem(46);
         }
 
         .wrapper {
@@ -336,7 +336,7 @@
 
                     .title {
                         @include trans(0.3s);
-                        font-size: remMM(30);
+                        font-size: rem(30);
                         font-weight: 700;
                         margin-bottom: 12px;
                         line-height: 1.2em;
@@ -349,7 +349,7 @@
                     a {}
 
                     time {
-                        font-size: remMM(16);
+                        font-size: rem(16);
                         color: $color-font;
                         font-weight: 400;
                         margin-bottom: 16px;
@@ -359,7 +359,7 @@
                         order: 3;
                         // color: $color-font;
 
-                        font-size: remMM(14);
+                        font-size: rem(14);
                         padding: 15px 20px 14px 20px;
                     }
 
@@ -397,7 +397,7 @@
                         padding: 15px;
 
                         .title {
-                            font-size: remMM(24);
+                            font-size: rem(24);
 
                             &:hover {}
                         }

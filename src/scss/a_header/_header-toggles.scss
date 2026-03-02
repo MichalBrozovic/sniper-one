@@ -41,8 +41,8 @@
   }
 
   &-empty {
-    font-size: remMM(14);
-    line-height: emMM(20, 14);
+    font-size: rem(14);
+    line-height: em(20, 14);
     font-weight: 600;
     margin: 0;
   }
@@ -93,13 +93,13 @@
     }
 
     .p-name {
-      font-size: remMM(18);
-      line-height: emMM(25, 16);
+      font-size: rem(18);
+      line-height: em(25, 16);
       font-weight: 600;
     }
 
     .p-availability {
-      font-size: remMM(14);
+      font-size: rem(14);
       font-weight: 600;
       margin-left: 8px;
 
@@ -132,7 +132,7 @@
       align-items: center;
       gap: 8px;
       padding: 6px 16px;
-      font-size: remMM(14);
+      font-size: rem(14);
       font-weight: 600;
 
       em {
@@ -233,8 +233,8 @@
   }
   h2,
   h3 {
-    font-size: remMM(20);
-    line-height: emMM(25, 20);
+    font-size: rem(20);
+    line-height: em(25, 20);
     margin-bottom: 16px;
   }
   ul {
@@ -250,8 +250,8 @@
     margin: 0;
     list-style: none;
     position: relative;
-    font-size: remMM(16);
-    line-height: emMM(22, 16);
+    font-size: rem(16);
+    line-height: em(22, 16);
     color: $color-font;
     &::before {
       content: "";
@@ -267,8 +267,8 @@
     }
   }
   .btn {
-    font-size: remMM(16);
-    line-height: emMM(22, 16);
+    font-size: rem(16);
+    line-height: em(22, 16);
     padding: 12px 20px;
     width: 100%;
   }
@@ -374,7 +374,7 @@ body.login-window-visible {
     .quantity {
       input.amount {
         padding: 0px 4px;
-        font-size: remMM(14);
+        font-size: rem(14);
         min-height: 24px;
       }
       .decrease,
@@ -386,8 +386,8 @@ body.login-window-visible {
     &-name {
       order: -2;
       width: 100%;
-      font-size: remMM(18);
-      line-height: emMM(25, 16);
+      font-size: rem(18);
+      line-height: em(25, 16);
       font-weight: 600;
       padding-right: 10px;
       margin-bottom: 4px;
@@ -408,15 +408,15 @@ body.login-window-visible {
       flex-wrap: nowrap;
     }
     .cart-widget-product-single-price {
-      font-size: remMM(12);
-      line-height: emMM(14, 12);
+      font-size: rem(12);
+      line-height: em(14, 12);
       font-weight: 400;
       color: $color-font;
     }
     [data-testid="cartWidgetProductPrice"] {
       display: block;
-      font-size: remMM(14);
-      line-height: emMM(18, 14);
+      font-size: rem(14);
+      line-height: em(18, 14);
       font-weight: 600;
       color: $color-font;
     }
@@ -442,12 +442,12 @@ body.login-window-visible {
       flex-direction: row;
       gap: 8px;
       strong {
-        font-size: remMM(16);
-        line-height: emMM(22, 16);
+        font-size: rem(16);
+        line-height: em(22, 16);
       }
       span {
-        font-size: remMM(14);
-        line-height: emMM(20, 14);
+        font-size: rem(14);
+        line-height: em(20, 14);
       }
       &-label {
         display: inline-block;
@@ -459,8 +459,8 @@ body.login-window-visible {
   }
   .cart-free-shipping {
     padding-bottom: 16px;
-    font-size: remMM(14);
-    line-height: emMM(20, 14);
+    font-size: rem(14);
+    line-height: em(20, 14);
   }
 }
 body.cart-window-visible {

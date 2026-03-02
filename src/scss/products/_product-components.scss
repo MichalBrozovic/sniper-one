@@ -1,0 +1,94 @@
+.stars {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 4px;
+}
+.star {
+  display: inline-block;
+  display: flex;
+  &::before {
+    content: "";
+    width: 14px;
+    height: 14px;
+    display: block;
+    position: relative;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  &.star-on {
+    &::before {
+      background-image: url(/assets/images/icons/star-on.svg);
+    }
+  }
+  &.star-off {
+    &::before {
+      background-image: url(/assets/images/icons/star-off.svg);
+    }
+  }
+  &.star-half {
+    &::before {
+      background-image: url(/assets/images/icons/star-half.svg);
+    }
+  }
+}
+
+.flags-default {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  top: 14px;
+  left: 16px;
+  position: absolute;
+  gap: 4px;
+}
+.flag {
+  font-size: rem(14);
+  line-height: em(20, 14);
+  padding: 2px 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  font-weight: 600;
+  &.flag-action {
+    color: $color-danger;
+    background-color: $color-danger-100;
+  }
+  &.flag-new {
+    color: $color-primary;
+    background-color: $color-primary-100;
+  }
+  &.flag-tip {
+    color: $color-secondary;
+    background-color: $color-secondary-100;
+  }
+  &.flag-custom1 {
+    color: $flag-custom1;
+    background-color: $flag-custom1-100;
+  }
+  &.flag-discount {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    background-color: $flag-discount;
+    color: $color-font-invert;
+    font-size: rem(13);
+    line-height: em(16, 13);
+    border-radius: 50%;
+    aspect-ratio: 1;
+    font-weight: 400;
+    min-width: 60px;
+    .price-save {
+      font-weight: 600;
+      font-size: rem(16);
+      line-height: em(22, 16);
+    }
+  }
+}

@@ -48,8 +48,8 @@
         align-items: center;
         flex-wrap: nowrap;
         justify-content: center;
-        font-size: remMM(20);
-        line-height: emMM(25, 20);
+        font-size: rem(20);
+        line-height: em(25, 20);
         color: $color-font-invert;
         background-color: $color-danger;
         border-radius: 50%;
@@ -57,8 +57,8 @@
         padding: 13px;
         transform: rotate(-15deg);
         strong {
-          font-size: remMM(38);
-          line-height: emMM(38, 38);
+          font-size: rem(38);
+          line-height: em(38, 38);
         }
       }
     }

@@ -42,8 +42,8 @@
     gap: 24px;
     li {
       display: flex;
-      font-size: remMM(14);
-      line-height: emMM(20, 14);
+      font-size: rem(14);
+      line-height: em(20, 14);
       color: $color-font;
       margin: 0;
       a {
@@ -94,8 +94,8 @@
   }
 
   &__header {
-    font-size: remMM(14);
-    line-height: emMM(16, 14);
+    font-size: rem(14);
+    line-height: em(16, 14);
     color: $color-font;
     text-decoration: unset;
     background-color: $color-primary-050;
@@ -150,8 +150,8 @@
       justify-content: flex-start;
       flex-wrap: nowrap;
       background-color: $header-bg;
-      font-size: remMM(14);
-      line-height: emMM(16, 14);
+      font-size: rem(14);
+      line-height: em(16, 14);
       color: $color-font;
       padding-top: 2px;
 
@@ -227,8 +227,8 @@ body.submenu-visible {
 
       > a {
         @include trans(0.3s);
-        font-size: remMM(18);
-        line-height: emMM(25, 18);
+        font-size: rem(18);
+        line-height: em(25, 18);
         color: $color-font;
         font-weight: 600;
         @include underline-mid($color-primary-600, 3px, 0px);
@@ -404,8 +404,8 @@ body.submenu-visible {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    font-size: remMM(10);
-    line-height: emMM(10, 10);
+    font-size: rem(10);
+    line-height: em(10, 10);
     color: $color-font-invert;
     background-color: $color-primary;
     padding: 2px;
@@ -437,8 +437,8 @@ body.submenu-visible {
     border: 2px solid $color-secondary-400;
     border-radius: 4px;
     padding: 9px 40px 9px 13px;
-    font-size: remMM(14);
-    line-height: emMM(20, 14);
+    font-size: rem(14);
+    line-height: em(20, 14);
     color: $color-font;
     &::placeholder {
       color: $color-font-second;
@@ -475,9 +475,9 @@ body.submenu-visible {
   }
   .text {
     padding: 6px 30px 6px 30px;
-    font-size: remMM(16);
+    font-size: rem(16);
     font-weight: 600;
-    line-height: emMM(22, 16);
+    line-height: em(22, 16);
     text-align: center;
   }
 }

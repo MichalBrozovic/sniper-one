@@ -20,7 +20,7 @@ input[type='checkbox']+label {
     padding-left: 24px;
     display: inline-block;
     color: $color-font;
-    font-size: remMM(14);
+    font-size: rem(14);
     line-height: 1.2em;
 
     &::before {
@@ -103,8 +103,8 @@ input[type='number'],
 textarea,
 select {
     border: 1px solid $border-primary;
-    font-size: remMM(16);
-    line-height: emMM(22, 16);
+    font-size: rem(16);
+    line-height: em(22, 16);
     width: 100%;
     color: $color-font;
     background-color: transparent;
@@ -122,7 +122,7 @@ border-radius: 4px;
 
 .js-validator-msg {
     color: #E82B37;
-    font-size: remMM(14);
+    font-size: rem(14);
     font-weight: 400;
 }
 
@@ -237,10 +237,10 @@ body:not(.customer-page) {
                         @include trans(0.3s);
                         width: 100%;
                         text-align: center;
-                        padding: emMM(17);
+                        padding: em(17);
                         color: $color-font-second;
                         background-color: $color-font;
-                        font-size: remMM(16);
+                        font-size: rem(16);
 
                         &:hover {
                             background-color: $color-primary;
@@ -257,14 +257,14 @@ body:not(.customer-page) {
                 align-items: flex-start;
                 flex-wrap: nowrap;
                 gap: 0px;
-                font-size: remMM(14);
+                font-size: rem(14);
                 line-height: 1.2em;
                 color: $black;
                 margin: 0 0 20px 0;
 
                 a {
                     margin-left: 6px;
-                    font-size: remMM(14);
+                    font-size: rem(14);
                     line-height: 1.2em;
                     color: $black;
 

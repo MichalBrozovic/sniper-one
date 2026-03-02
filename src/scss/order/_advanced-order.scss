@@ -18,14 +18,14 @@
     }
 
     .h1 {
-        font-size: remMM(20);
+        font-size: rem(20);
         font-family: $default-font-family;
         color: #54bf00;
     }
 
     .h2,
     .ao-product {
-        font-size: remMM(16);
+        font-size: rem(16);
         font-family: $default-font-family;
     }
 
@@ -98,17 +98,17 @@
         gap: 20px;
 
         .btn.btn-conversion {
-            font-size: remMM(20);
+            font-size: rem(20);
             font-weight: 700;
-            padding: emMM(15, 20);
+            padding: em(15, 20);
 
             &::before {
                 display: none;
             }
 
             @media screen and (max-width: 767px) {
-                font-size: remMM(16);
-                padding: emMM(10);
+                font-size: rem(16);
+                padding: em(10);
 
             }
         }
@@ -131,7 +131,7 @@
     .btn-continue-shopping {
         display: flex;
         align-items: center;
-        gap: emMM(10);
+        gap: em(10);
         color: $color-accent;
         text-decoration: underline;
 
@@ -157,7 +157,7 @@
 .advanced-order-suggestion {
     margin-top: 51px;
     text-align: center;
-    font-size: remMM(24);
+    font-size: rem(24);
 }
 
 @media (max-width: 767px) {
@@ -196,14 +196,14 @@
         margin: 0;
 
         .h1 {
-            font-size: remMM(46);
+            font-size: rem(46);
             line-height: 1.2em;
             color: $black;
             font-weight: 700;
             margin-bottom: 32px;
 
             @media (max-width: 900px) {
-                font-size: remMM(32);
+                font-size: rem(32);
                 margin-bottom: 16px;
             }
         }
@@ -259,7 +259,7 @@
                 max-width: 350px;
 
                 .h3 {
-                    font-size: remMM(18);
+                    font-size: rem(18);
                     line-height: 1.2em;
                     color: $black;
                     font-weight: 500;
@@ -273,24 +273,24 @@
                     margin-bottom: 8px;
 
                     span {
-                        font-size: remMM(14);
+                        font-size: rem(14);
                         line-height: 1.2em;
                         font-weight: 500;
                         color: #939393;
                     }
 
                     @media (max-width: 767px) {
-                        font-size: remMM(14);
+                        font-size: rem(14);
 
                         span {
-                            font-size: remMM(12);
+                            font-size: rem(12);
 
                         }
                     }
                 }
 
                 .ao-availability {
-                    font-size: remMM(14);
+                    font-size: rem(14);
                     line-height: 1.2em;
                     font-weight: 700;
 
@@ -340,14 +340,14 @@
     }
 
     .advanced-order-suggestion {
-        font-size: remMM(24);
+        font-size: rem(24);
         line-height: 1.2em;
         color: $black;
         font-weight: 700;
         text-align: left;
 
         @media (max-width: 900px) {
-            font-size: remMM(20);
+            font-size: rem(20);
             margin: 16px 0 16px 0;
         }
     }

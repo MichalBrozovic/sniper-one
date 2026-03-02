@@ -92,7 +92,7 @@
 	.parameter-value {
 		display: none;
 		text-align: center;
-		font-size: remMM(12);
+		font-size: rem(12);
 	}
 }
 
@@ -124,7 +124,7 @@
 //         span {
 //             display: inline-block;
 //             padding: 8px 2px;
-//             font-size: remMM(16);
+//             font-size: rem(16);
 //         }
 
 //         &.yes-before {
@@ -146,7 +146,7 @@
 // 		content: url(../img/template-default/icon/van.svg);
 // 		display: block;
 // 		line-height: 0;
-// 		margin-right: emMM(10);
+// 		margin-right: em(10);
 // 	}
 // }
 
@@ -254,13 +254,13 @@
 
 .shp-tab-link {
 	@include trans(0.3s);
-	padding: emMM(10) emMM(0);
+	padding: em(10) em(0);
 	// border: 1px solid transparent;
 	color: $color-font;
 	text-decoration: none;
 	display: inline-block;
 	position: relative;
-	font-size: remMM(16);
+	font-size: rem(16);
 	font-weight: 700;
 	text-transform: uppercase;
 
@@ -337,10 +337,10 @@
 		// padding: 0 100px;
 		h2,
 		.h2 {
-			font-size: remMM($h4);
+			font-size: rem($h4);
 
 			@media (max-width: 767px) {
-				font-size: remMM($h4-mobile);
+				font-size: rem($h4-mobile);
 			}
 		}
 
@@ -349,7 +349,7 @@
 		}
 
 		& > h3:first-child {
-			font-size: remMM($h2);
+			font-size: rem($h2);
 		}
 
 		@media (max-width: 1400px) {
@@ -364,7 +364,7 @@
 
 		h3 {
 			// @include trans(0.3s);
-			// font-size: remMM(14);
+			// font-size: rem(14);
 			// font-weight: 400;
 			// display: block;
 			// width: 100%;
@@ -426,11 +426,11 @@
 			}
 
 			p {
-				font-size: remMM(14);
+				font-size: rem(14);
 			}
 
 			.special-text {
-				font-size: remMM(22);
+				font-size: rem(22);
 				font-weight: 400;
 			}
 
@@ -445,7 +445,7 @@
 					align-items: flex-start;
 					justify-content: flex-start;
 					flex-wrap: nowrap;
-					font-size: remMM(16);
+					font-size: rem(16);
 					padding: 16px 30px;
 					font-weight: 400;
 
@@ -466,11 +466,11 @@
 					}
 
 					.row-header-label {
-						// font-size: remMM(12);
+						// font-size: rem(12);
 						font-weight: 400;
 
 						.row-header-label-colon {
-							// font-size: remMM(12);
+							// font-size: rem(12);
 						}
 					}
 				}
@@ -520,11 +520,11 @@
 	//         }
 
 	//         p {
-	//             font-size: remMM(14);
+	//             font-size: rem(14);
 	//         }
 
 	//         .special-text {
-	//             font-size: remMM(22);
+	//             font-size: rem(22);
 	//             font-weight: 400;
 	//         }
 
@@ -544,7 +544,7 @@
 
 	//     h3 {
 	//         @include trans(0.3s);
-	//         font-size: remMM(14);
+	//         font-size: rem(14);
 	//         font-weight: 400;
 	//         display: block;
 	//         width: 100%;
@@ -578,9 +578,9 @@
 
 	//     h3 {
 	//         // text-transform: initial;
-	//         // font-size: remMM(16);
+	//         // font-size: rem(16);
 	//         // margin: 0;
-	//         // padding: emMM(10);
+	//         // padding: em(10);
 	//         // border-bottom: 1px solid $color-accent;
 
 	//         @media (max-width: 767px) {
@@ -605,7 +605,7 @@
 	h4,
 	h5,
 	h6 {
-		margin: 0 0 emMM(20, $h2);
+		margin: 0 0 em(20, $h2);
 	}
 
 	@media (max-width: 767px) {
@@ -616,7 +616,7 @@
 		// .basic-description,
 		// .extended-description {
 		//     &>h3:first-child {
-		//         font-size: remMM($h2-mobile);
+		//         font-size: rem($h2-mobile);
 		//     }
 		// }
 
@@ -645,7 +645,7 @@ table {
 
 	td,
 	th {
-		padding: emMM(10);
+		padding: em(10);
 	}
 
 	th + td {
@@ -677,7 +677,7 @@ table {
 
 	h4 {
 		margin: 0;
-		font-size: remMM(18);
+		font-size: rem(18);
 		line-height: 1.2em;
 	}
 
@@ -696,7 +696,7 @@ table {
 			.rate-average-inner {
 				.rate-average {
 					line-height: 1em;
-					font-size: remMM(24);
+					font-size: rem(24);
 					color: $color-font-second;
 					font-weight: 700;
 					position: relative;
@@ -760,13 +760,13 @@ table {
 	}
 
 	.rate-average {
-		font-size: remMM(36);
+		font-size: rem(36);
 		display: flex;
 		align-items: center;
 
 		&::after {
 			content: 'z 5';
-			font-size: remMM(16);
+			font-size: rem(16);
 			margin-left: 0.4em;
 		}
 	}
@@ -833,8 +833,8 @@ table {
 	}
 
 	.vote-name {
-		font-size: remMM(24);
-		line-height: emMM(30, 24);
+		font-size: rem(24);
+		line-height: em(30, 24);
 		margin-bottom: 10px;
 		display: block;
 		font-family: $heading-font-family;
@@ -890,12 +890,12 @@ table {
 	}
 
 	.vote-time {
-		font-size: remMM(12);
+		font-size: rem(12);
 	}
 
 	.vote-content {
 		color: $color-font-700;
-		line-height: emMM(24);
+		line-height: em(24);
 	}
 
 	@media (max-width: 767px) {
@@ -1031,7 +1031,7 @@ table {
 	.p-gifts-heading {
 		font-family: $heading-font-family;
 		font-weight: 700;
-		margin-bottom: emMM(10);
+		margin-bottom: em(10);
 	}
 
 	.p-gift {
@@ -1157,14 +1157,14 @@ table {
 
 	// .vote-name {
 	//     font-family: $default-font-family;
-	//     font-size: remMM(16);
+	//     font-size: rem(16);
 	//     font-weight: 700;
 	//     margin-bottom: 0;
 	// }
 
 	// .vote-title {
 	//     font-family: $heading-font-family;
-	//     font-size: remMM(24);
+	//     font-size: rem(24);
 	//     width: 100%;
 	//     margin-bottom: 10px;
 	// }
@@ -1329,7 +1329,7 @@ table {
 		text-decoration: unset !important;
 
 		span {
-			font-size: remMM(14);
+			font-size: rem(14);
 			line-height: 1.2em;
 			color: $color-font-second;
 			font-weight: 500;
@@ -1340,7 +1340,7 @@ table {
 		h4 {
 			text-decoration: unset !important;
 			margin: 0;
-			font-size: remMM(26);
+			font-size: rem(26);
 			line-height: 1.2em;
 			color: $color-font-second;
 			font-weight: 700;
@@ -1369,7 +1369,7 @@ table {
 			}
 
 			h4 {
-				font-size: remMM(20);
+				font-size: rem(20);
 			}
 		}
 	}
@@ -1419,7 +1419,7 @@ table {
 	}
 
 	.show-more {
-		font-size: remMM(14);
+		font-size: rem(14);
 		color: $black;
 		text-decoration: underline;
 		max-width: 60px;
@@ -1455,14 +1455,14 @@ table {
 		}
 
 		.variant-availability {
-			font-size: remMM(12);
+			font-size: rem(12);
 			color: #000000;
 			font-weight: 600;
 			text-decoration: none !important;
 		}
 
 		.variant-price {
-			font-size: remMM(16);
+			font-size: rem(16);
 			color: #000000;
 			font-weight: 600;
 			margin-top: auto;

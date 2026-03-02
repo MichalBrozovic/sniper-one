@@ -40,11 +40,11 @@
     transition: all $t ease-in-out;
 }
 
-@function emMM($size, $context: $default-font-size) {
+@function em($size, $context: $default-font-size) {
     @return calc(($size / $context) * 1em);
 }
 
-@function remMM($size, $context: $default-font-size) {
+@function rem($size, $context: $default-font-size) {
     @return calc(($size / $context) * 1rem);
 }
 

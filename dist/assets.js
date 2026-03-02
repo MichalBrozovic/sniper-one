@@ -432,6 +432,16 @@ module.exports = __webpack_require__.p + "assets/facebook.svg";
 
 /***/ },
 
+/***/ "./assets/images/icons/instagram-white.svg"
+/*!*************************************************!*\
+  !*** ./assets/images/icons/instagram-white.svg ***!
+  \*************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/instagram-white.svg";
+
+/***/ },
+
 /***/ "./assets/images/icons/instagram.svg"
 /*!*******************************************!*\
   !*** ./assets/images/icons/instagram.svg ***!
@@ -519,6 +529,36 @@ module.exports = __webpack_require__.p + "assets/post-icon.svg";
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/search-primary.svg";
+
+/***/ },
+
+/***/ "./assets/images/icons/star-half.svg"
+/*!*******************************************!*\
+  !*** ./assets/images/icons/star-half.svg ***!
+  \*******************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/star-half.svg";
+
+/***/ },
+
+/***/ "./assets/images/icons/star-off.svg"
+/*!******************************************!*\
+  !*** ./assets/images/icons/star-off.svg ***!
+  \******************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/star-off.svg";
+
+/***/ },
+
+/***/ "./assets/images/icons/star-on.svg"
+/*!*****************************************!*\
+  !*** ./assets/images/icons/star-on.svg ***!
+  \*****************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/star-on.svg";
 
 /***/ },
 
@@ -617,6 +657,9 @@ module.exports = __webpack_require__.p + "assets/youtube.svg";
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
 /******/ 	__webpack_require__("./assets/images/icons/youtube.svg");
 /******/ 	__webpack_require__("./assets/images/icons/ul-check.svg");
+/******/ 	__webpack_require__("./assets/images/icons/star-on.svg");
+/******/ 	__webpack_require__("./assets/images/icons/star-off.svg");
+/******/ 	__webpack_require__("./assets/images/icons/star-half.svg");
 /******/ 	__webpack_require__("./assets/images/icons/search-primary.svg");
 /******/ 	__webpack_require__("./assets/images/icons/post-icon.svg");
 /******/ 	__webpack_require__("./assets/images/icons/plus.svg");
@@ -626,6 +669,7 @@ module.exports = __webpack_require__.p + "assets/youtube.svg";
 /******/ 	__webpack_require__("./assets/images/icons/mail-white.svg");
 /******/ 	__webpack_require__("./assets/images/icons/mail-primary.svg");
 /******/ 	__webpack_require__("./assets/images/icons/instagram.svg");
+/******/ 	__webpack_require__("./assets/images/icons/instagram-white.svg");
 /******/ 	__webpack_require__("./assets/images/icons/facebook.svg");
 /******/ 	__webpack_require__("./assets/images/icons/category-icon.svg");
 /******/ 	__webpack_require__("./assets/images/icons/cart-primary.svg");

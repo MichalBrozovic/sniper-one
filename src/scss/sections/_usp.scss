@@ -15,14 +15,14 @@ border-bottom: 1px solid $border-color;
     gap: 8px;
   }
   &__title {
-    font-size: remMM(18);
-    line-height: emMM(25, 18);
+    font-size: rem(18);
+    line-height: em(25, 18);
     font-weight: 600;
     color: $color-font;
   }
   &__data {
-    font-size: remMM(16);
-    line-height: emMM(22, 16);
+    font-size: rem(16);
+    line-height: em(22, 16);
     font-weight: 400;
     color: $color-font-second;
   }

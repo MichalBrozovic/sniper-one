@@ -186,7 +186,7 @@
 
         .text {
           .title {
-            font-size: remMM(28);
+            font-size: rem(28);
           }
 
           .description {
@@ -210,7 +210,7 @@
         }
 
         .title {
-          font-size: remMM(24);
+          font-size: rem(24);
         }
 
         .description {
@@ -237,7 +237,7 @@
 
         .text {
           .title {
-            font-size: remMM(28);
+            font-size: rem(28);
           }
 
           .description {
@@ -263,7 +263,7 @@
         }
 
         .title {
-          font-size: remMM(24);
+          font-size: rem(24);
         }
 
         .description {
@@ -280,14 +280,14 @@
 ol {
   li {
     &::marker {
-      font-size: remMM(20);
+      font-size: rem(20);
       font-weight: 500;
     }
 
     ol {
       li {
         &::marker {
-          font-size: remMM(16);
+          font-size: rem(16);
           font-weight: 400;
         }
       }
@@ -313,7 +313,7 @@ ol {
     flex-direction: row;
     flex-wrap: nowrap;
     gap: 10px;
-    font-size: remMM(20);
+    font-size: rem(20);
     border: 3px solid transparent;
 
     &:first-of-type {
@@ -362,7 +362,7 @@ span.p-label {
 }
 
 p.large {
-  font-size: remMM(20);
+  font-size: rem(20);
 }
 
 // PRODUCTS
@@ -455,7 +455,7 @@ p.large {
   }
 
   @media (max-width: 767px) {
-    top: remMM(-50);
+    top: rem(-50);
 
     &.slick-next,
     &.slick-prev {
@@ -468,56 +468,11 @@ p.large {
   }
 }
 
-.flag-vip,
-.flag-custom2 {
-  background-color: unset !important;
-  left: 10px;
-  top: 10px;
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  display: block;
 
-  &::before {
-    content: "";
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    position: absolute;
-    //background: url(../img/icon/star.svg) no-repeat center center;
-    background-size: cover;
-  }
-}
 
-.flags-default,
-.flags-extra {
-  position: absolute;
-  z-index: 1;
 
-  .dkLabFavFlagProduct {
-    display: none !important;
-  }
-}
 
-.flags-default.contains-extra {
-  .flags-extra {
-    position: initial;
-  }
-}
 
-.products-block:not(.slick-initialized),
-.products-inline.dkLabVisitedProducts:not(.slick-initialized) {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
-
-  @media (max-width: 767px) {
-    grid-template-columns: repeat(2, minmax(1px, 1fr));
-    gap: 15px;
-  }
-}
 
 .one-column-body {
   .products-block:not(.slick-initialized),
@@ -639,16 +594,7 @@ p.large {
   }
 }
 
-.type-index .products-block:not(.slick-initialized) {
-  display: flex;
-  overflow: hidden;
-  gap: 30px;
 
-  .product {
-    width: calc(25% - 22.5px);
-    flex: 0 0 auto;
-  }
-}
 
 .dkLabVisitedProductsBox.dkLabVisitedClassic a.image > img {
   width: auto !important;
@@ -687,7 +633,7 @@ p.large {
       margin-bottom: 10px;
 
       a:not(.btn) {
-        line-height: emMM(24);
+        line-height: em(24);
         color: $color-font;
 
         &:hover,
@@ -906,7 +852,7 @@ table.border {
 @media (max-width: 767px) {
   h1,
   .h1 {
-    font-size: remMM($h1-mobile);
+    font-size: rem($h1-mobile);
   }
 
   h2,
@@ -915,12 +861,12 @@ table.border {
   .cart-inner h4,
   .welcome-wrapper h1,
   .custom-footer__instagram h4 {
-    font-size: remMM($h2-mobile);
+    font-size: rem($h2-mobile);
   }
 
   h3,
   .h3 {
-    font-size: remMM($h3-mobile);
+    font-size: rem($h3-mobile);
   }
 
   .admin-bar {
@@ -932,7 +878,7 @@ table.border {
   }
 
   .site-msg.information {
-    font-size: remMM(12);
+    font-size: rem(12);
   }
 }
 
@@ -957,78 +903,6 @@ table.border {
   }
 }
 
-// STARS
-.stars-wrapper {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-
-  .stars-label {
-    color: $color-font-500;
-  }
-}
-
-.stars {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-
-  a,
-  span {
-    display: flex;
-    position: relative;
-    width: 25px;
-    height: 25px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    &::before {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      font-size: 20px;
-      line-height: 20px;
-      font-family: "shoptet";
-    }
-
-    &.star-off {
-      color: #f9cab5;
-
-      &::before {
-        // content: url(../img/icon/star-off.svg);
-      }
-    }
-
-    &.star-on {
-      color: #2a2a28;
-
-      &::before {
-        // content: url(../img/icon/star-on.svg);
-      }
-    }
-
-    &.star-half {
-      color: #2a2a28;
-
-      &::before {
-        // content: url(../img/icon/star-on.svg);
-      }
-    }
-
-    @media (max-width: 767px) {
-      width: 20px;
-      height: 20px;
-
-      &::before {
-        font-size: 20px;
-        line-height: 20px;
-      }
-    }
-  }
-}
 
 
 
@@ -1038,12 +912,12 @@ table.border {
   margin-bottom: 40px;
 
   h4 {
-    font-size: remMM($h3);
+    font-size: rem($h3);
   }
 
   a:not(.btn) {
     color: $color-accent;
-    line-height: emMM(28);
+    line-height: em(28);
   }
 }
 
@@ -1153,7 +1027,7 @@ table.border {
       margin-top: 27px;
 
       h4 {
-        font-size: remMM(18);
+        font-size: rem(18);
         margin: 0 0 24px 0;
       }
 
@@ -1236,7 +1110,7 @@ table.border {
 
   a {
     text-decoration: unset;
-    font-size: remMM(18);
+    font-size: rem(18);
     font-weight: 400;
     line-height: 1.2em;
     color: $black;
@@ -1283,7 +1157,7 @@ table.border {
     h2 {
       margin: 0;
       position: relative;
-      font-size: remMM(30);
+      font-size: rem(30);
       color: $color-font-second;
       font-weight: 700;
       width: 56px;

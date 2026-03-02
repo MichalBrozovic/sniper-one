@@ -5,6 +5,14 @@
   \**************************/
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 var _window$shoptet;
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function _regeneratorValues(e) { if (null != e) { var t = e["function" == typeof Symbol && Symbol.iterator || "@@iterator"], r = 0; if (t) return t.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) return { next: function next() { return e && r >= e.length && (e = void 0), { value: e && e[r++], done: !e }; } }; } throw new TypeError(_typeof(e) + " is not iterable"); }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
@@ -704,32 +712,80 @@ var fetchArticleDatesAndButtons = /*#__PURE__*/function () {
 }();
 fetchArticleDatesAndButtons();
 
-// FLAGS and card
-var handleFlags = function handleFlags(product) {};
-var handleTextLayout = function handleTextLayout(product) {};
-var products = document.querySelectorAll(".products-block .product:not(.banner-category)");
+// Šablona pro ovládání množství
+var quantityTemplate = document.createElement("span");
+quantityTemplate.className = "quantity";
+quantityTemplate.innerHTML = "\n  <span class=\"increase-tooltip js-increase-tooltip\" data-trigger=\"manual\" data-container=\"body\" data-original-title=\"Nen\xED mo\u017En\xE9 zakoupit v\xEDce ne\u017E 9999 ks.\" aria-hidden=\"true\" role=\"tooltip\" data-testid=\"tooltip\"></span>\n  <span class=\"decrease-tooltip js-decrease-tooltip\" data-trigger=\"manual\" data-container=\"body\" data-original-title=\"Minim\xE1ln\xED mno\u017Estv\xED, kter\xE9 lze zakoupit, je 1 ks.\" aria-hidden=\"true\" role=\"tooltip\" data-testid=\"tooltip\"></span>\n  <label>\n      <input type=\"number\" name=\"amount\" value=\"1\" class=\"amount\" autocomplete=\"off\" data-decimals=\"0\" step=\"1\" min=\"1\" max=\"9999\" aria-label=\"Mno\u017Estv\xED\" data-testid=\"cartAmount\">\n  </label>\n  <button class=\"increase\" type=\"button\" aria-label=\"Zv\xFD\u0161it mno\u017Estv\xED o 1\" data-testid=\"increase\">\n      <span class=\"increase__sign\">+</span>\n  </button>\n  <button class=\"decrease\" type=\"button\" aria-label=\"Sn\xED\u017Eit mno\u017Estv\xED o 1\" data-testid=\"decrease\">\n      <span class=\"decrease__sign\">\u2212</span>\n  </button>\n";
 
-// const mmAllProducts = document.querySelectorAll(".products-block .product");
-// if (mmAllProducts.length) {
-//   mmAllProducts.forEach((product) => {
-//     if (!product.classList.contains("banner-category")) {
-//       handleFlags(product);
-//       handleTextLayout(product);
-//     }
-//   });
-// }
+// Přeskládá prvky v produktové kartě
+var handleTextLayout = function handleTextLayout(product) {
+  var pCode = product.querySelector(".p-code");
+  var ratingsWrapper = product.querySelector(".ratings-wrapper");
+  var pDesc = product.querySelector(".p-desc");
+  var nameLink = product.querySelector(".name");
+  var availability = product.querySelector(".availability");
+  var flagDiscount = product.querySelector(".flag-discount");
+  var priceStandard = flagDiscount ? flagDiscount.querySelector(".price-standard") : null;
+  var pricesWrapper = product.querySelector(".prices");
+  var priceFinal = pricesWrapper ? pricesWrapper.querySelector(".price-final") : null;
+  var form = product.querySelector(".p-tools form.pr-action");
+  var hiddenAmountInput = form ? form.querySelector('input[name="amount"]') : null;
+  var submitBtn = form ? form.querySelector("button[type='submit']") : null;
+  var prListUnit = product.querySelector(".pr-list-unit");
+  // 1. Kód do hodnocení
+  if (pCode && ratingsWrapper) ratingsWrapper.append(pCode);
 
-// document.addEventListener("ShoptetDOMContentLoaded", () => {
-//   const mmAllProducts = document.querySelectorAll(".products-block .product");
-//   if (mmAllProducts.length) {
-//     mmAllProducts.forEach((product) => {
-//       if (!product.classList.contains("banner-category")) {
-//         handleFlags(product);
-//         handleTextLayout(product);
-//       }
-//     });
-//   }
-// });
+  // 2. Popis za název
+  if (pDesc && nameLink) nameLink.after(pDesc);
+
+  // 3. Dostupnost za popis/název
+  if (availability) {
+    if (pDesc) pDesc.after(availability);else if (nameLink) nameLink.after(availability);
+  }
+
+  // 4. Přesun "od" a přeškrtnuté ceny
+  if (priceStandard && pricesWrapper) {
+    var oldPriceWrapper = document.createElement("div");
+    oldPriceWrapper.className = "price-standard-wrapper";
+
+    // Zkontrolujeme textový uzel těsně před cenou (hledáme "od")
+    var prevNode = priceStandard.previousSibling;
+    if (prevNode && prevNode.nodeType === Node.TEXT_NODE && prevNode.textContent.trim() === "od") {
+      oldPriceWrapper.append(prevNode);
+    }
+
+    // Přesuneme samotnou přeškrtnutou cenu
+    oldPriceWrapper.append(priceStandard);
+
+    // Vložíme nad finální cenu
+    if (priceFinal) priceFinal.before(oldPriceWrapper);else pricesWrapper.append(oldPriceWrapper);
+
+    // Zbytek štítku (tj. "až -15 %") záměrně necháváme na původním místě
+  }
+
+  // 5. Formulář a množství
+  if (form) {
+    if (hiddenAmountInput) hiddenAmountInput.remove();
+    var quantityWrapper = quantityTemplate.cloneNode(true);
+    if (submitBtn) submitBtn.before(quantityWrapper);else form.append(quantityWrapper);
+  }
+  if (prListUnit) {
+    // Odstraní jak HTML entitu, tak fyzický znak pevné mezery
+    prListUnit.innerHTML = prListUnit.innerHTML.replace(/&nbsp;|\u00A0/g, "");
+  }
+};
+
+// Spouštěč
+var initProducts = function initProducts() {
+  var products = document.querySelectorAll(".products-block .product:not(.banner-category):not(.is-processed)");
+  products.forEach(function (product) {
+    product.classList.add("is-processed");
+    if (typeof handleFlags === "function") handleFlags(product);
+    if (typeof handleTextLayout === "function") handleTextLayout(product);
+  });
+};
+initProducts();
+document.addEventListener("ShoptetDOMContentLoaded", initProducts);
 
 // CART
 var handleCart = function handleCart() {};
@@ -738,12 +794,13 @@ if (document.body.classList.contains("ordering-process")) {
   document.addEventListener("ShoptetDOMCartContentLoaded", handleCart);
 }
 
-// Vytvoří střední část patičky s logy, přesunutou navigací a flexibilním obalem
+// Vytvoří střední část patičky s logy a rozdělenou navigací (bloky samostatně)
 var handleFooterMiddle = function handleFooterMiddle() {
   var currentLang = window.shoptetLang || "cs";
   var translations = window.projectTranslations[currentLang];
   var footerBottom = document.querySelector(".footer-bottom");
-  var footerNav = document.querySelector(".footer-rows .footer-nav");
+  var footerNav = document.querySelector(".footer-nav"); // Hledáme obecněji
+
   if (!footerBottom || !translations) return;
   var footerMiddle = document.querySelector(".footer-middle");
   if (!footerMiddle) {
@@ -765,6 +822,8 @@ var handleFooterMiddle = function handleFooterMiddle() {
   } else {
     flexHolder.innerHTML = "";
   }
+
+  // 1. Logo sekce
   var logoFooter = document.createElement("div");
   logoFooter.className = "logo-footer";
   var originalLogoLink = document.querySelector(".site-name a");
@@ -787,61 +846,46 @@ var handleFooterMiddle = function handleFooterMiddle() {
   heurekaLink.appendChild(heurekaImg);
   logoFooter.appendChild(heurekaLink);
   flexHolder.appendChild(logoFooter);
+
+  // 2. Navigace - rozebírání na jednotlivé bloky
   if (footerNav) {
-    flexHolder.appendChild(footerNav);
-  }
-};
-var reshapeSocials = function reshapeSocials() {
-  // Najdeme banner podle tvojí třídy
-  var socialWrapper = document.querySelector('.socials-footer');
-  if (!socialWrapper) return;
-
-  // Najdeme span s daty
-  var dataSpan = socialWrapper.querySelector('span[data-ec-promo-id]');
-  if (!dataSpan) return;
-
-  // 1. Získáme text a nahradíme &nbsp; mezerami
-  var rawContent = dataSpan.innerHTML.replace(/\u00a0/g, " ");
-
-  // 2. Regex [\s\S]+? zajistí, že projdeme i přes konce řádků (<br> nebo \n)
-  var items = rawContent.match(/#([\s\S]+?)#/g);
-  if (items) {
-    var list = document.createElement('div');
-    list.className = 'socials-list';
-    items.forEach(function (item) {
-      // Odstraníme mřížky a VŠECHNY HTML tagy (br, span atd.), pak trimujeme
-      var cleanItem = item.replace(/#|<[^>]*>?/gm, "").trim();
-
-      // Rozdělíme na jméno a URL
-      var parts = cleanItem.split(';');
-      if (parts.length >= 2) {
-        var name = parts[0].trim();
-        var url = parts[1].trim();
-        var a = document.createElement('a');
-        a.href = url;
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        a.className = "social-link ".concat(name.toLowerCase());
-
-        // Vytvoření vnitřního spanu
-        var span = document.createElement('span');
-        span.className = 'sr-only';
-        span.textContent = name;
-        a.appendChild(span);
-        list.appendChild(a);
-      }
+    var navBlocks = footerNav.querySelectorAll(".block");
+    navBlocks.forEach(function (block) {
+      // Klonujeme každý blok zvlášť, aby mohl být přímým potomkem flex-holderu
+      var clonedBlock = block.cloneNode(true);
+      flexHolder.appendChild(clonedBlock);
     });
-
-    // 3. Najdeme .banner a nahradíme celý vnitřek naším novým seznamem
-    var banner = socialWrapper.querySelector('.banner');
-    if (banner) {
-      banner.innerHTML = "";
-      banner.appendChild(list);
-    }
   }
 };
 
-// Přesune platební metody, dopravu, sociální sítě a newsletter do nové spodní sekce patičky
+// Přebuduje textová data z Shoptet banneru do strukturovaného seznamu odkazů na sociální sítě
+var reshapeSocials = function reshapeSocials() {
+  var wrapper = document.querySelector(".socials-footer");
+  var dataSpan = wrapper === null || wrapper === void 0 ? void 0 : wrapper.querySelector("span[data-ec-promo-id]");
+  var banner = wrapper === null || wrapper === void 0 ? void 0 : wrapper.querySelector(".banner");
+  if (!dataSpan || !banner) return;
+  var rawContent = dataSpan.innerHTML.replace(/\u00a0/g, " ");
+  var items = rawContent.match(/#([\s\S]+?)#/g);
+  if (!items) return;
+  var listContent = items.reduce(function (html, item) {
+    var cleanItem = item.replace(/#|<[^>]*>?/gm, "").trim();
+    var _cleanItem$split$map = cleanItem.split(";").map(function (str) {
+        return str.trim();
+      }),
+      _cleanItem$split$map2 = _slicedToArray(_cleanItem$split$map, 2),
+      name = _cleanItem$split$map2[0],
+      url = _cleanItem$split$map2[1];
+    if (name && url) {
+      html += "<a href=\"".concat(url, "\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"social-link ").concat(name.toLowerCase(), "\"><span class=\"sr-only\">").concat(name, "</span></a>");
+    }
+    return html;
+  }, "");
+  if (listContent) {
+    banner.innerHTML = "<div class=\"socials-list\">".concat(listContent, "</div>");
+  }
+};
+
+// Přesune platební a dopravní bloky do footer-lower a vyčistí HTML strukturu
 var handleFooterLower = function handleFooterLower() {
   var footer = document.querySelector("footer");
   if (!footer) return;
@@ -875,87 +919,62 @@ var handleFooterLower = function handleFooterLower() {
   } else {
     flexHolder.innerHTML = "";
   }
-  if (payment) {
-    flexHolder.appendChild(payment);
-  }
-  if (shipping) {
-    flexHolder.appendChild(shipping);
-  }
+
+  // Funkce pro vytažení čistého bloku z Bender balastu
+  var injectCleanBlock = function injectCleanBlock(parentEl) {
+    if (!parentEl) return;
+    var block = parentEl.querySelector(".block");
+    if (block) {
+      var clonedBlock = block.cloneNode(true);
+      flexHolder.appendChild(clonedBlock);
+    }
+  };
+  injectCleanBlock(payment);
+  injectCleanBlock(shipping);
 };
 
-// Vytvoří horní sekci patičky s fotkou, nadpisem, kontakty a přesunutými sociálními sítěmi
+// Refaktorovaná horní sekce patičky (Pro verze): využití moderních DOM API a ES6+
 var handleFooterUpper = function handleFooterUpper() {
-  var currentLang = window.shoptetLang || "cs";
-  var translations = window.projectTranslations[currentLang];
-  var openingHours = window.projectOpeningHours;
+  var _window$projectTransl, _document$querySelect, _document$querySelect2;
+  var lang = window.shoptetLang || "cs";
+  var translations = (_window$projectTransl = window.projectTranslations) === null || _window$projectTransl === void 0 ? void 0 : _window$projectTransl[lang];
   var footer = document.querySelector("footer");
   if (!footer || !translations) return;
-  var footerMiddle = document.querySelector(".footer-middle");
-  var footerLower = document.querySelector(".footer-lower");
-  var footerBottom = document.querySelector(".footer-bottom");
-  var socialFooter = document.querySelector(".footer-rows .socials-footer");
+
+  // 1. Bezpečné vytvoření a vložení hlavního wrapperu
   var footerUpper = document.querySelector(".footer-upper");
   if (!footerUpper) {
     footerUpper = document.createElement("div");
     footerUpper.className = "footer-upper";
-    if (footerMiddle) {
-      footer.insertBefore(footerUpper, footerMiddle);
-    } else if (footerLower) {
-      footer.insertBefore(footerUpper, footerLower);
-    } else if (footerBottom) {
-      footer.insertBefore(footerUpper, footerBottom);
-    } else {
-      footer.prepend(footerUpper);
-    }
-  }
-  var container = footerUpper.querySelector(".container");
-  if (!container) {
-    container = document.createElement("div");
-    container.className = "container";
-    footerUpper.appendChild(container);
-  }
-  var flexHolder = container.querySelector(".flex-holder");
-  if (!flexHolder) {
-    flexHolder = document.createElement("div");
-    flexHolder.className = "flex-holder";
-    container.appendChild(flexHolder);
-  } else {
-    flexHolder.innerHTML = "";
+
+    // Nalezení první dostupné sekce a vložení PŘED ni (moderní metoda .before)
+    var target = footer.querySelector(".footer-middle, .footer-lower, .footer-bottom");
+    target ? target.before(footerUpper) : footer.prepend(footerUpper);
   }
 
-  // 1. Blok s fotkou a nadpisem
-  var contactPersonBlock = document.createElement("div");
-  contactPersonBlock.className = "footer-contact-person";
-  contactPersonBlock.innerHTML = "\n    <img src=\"".concat(translations.contactPerson.img, "\" alt=\"").concat(translations.contactPerson.title, "\" class=\"contact-img\" loading=\"lazy\">\n    <h3 class=\"contact-title\">").concat(translations.contactPerson.title, "</h3>\n  ");
-  flexHolder.appendChild(contactPersonBlock);
+  // 2. Sestavení kostry pomocí jediného překreslení DOMu
+  footerUpper.innerHTML = "\n    <div class=\"container\">\n      <div class=\"flex-holder\">\n        <div class=\"footer-contact-person\">\n          <img src=\"".concat(translations.contactPerson.img, "\" alt=\"").concat(translations.contactPerson.title, "\" class=\"contact-img\" loading=\"lazy\">\n          <h3 class=\"contact-title\">").concat(translations.contactPerson.title, "</h3>\n        </div>\n        <div class=\"footer-contact-details\"></div>\n      </div>\n    </div>\n  ");
+  var flexHolder = footerUpper.querySelector(".flex-holder");
+  var detailsBlock = flexHolder.querySelector(".footer-contact-details");
 
-  // 2. Blok pro telefon a email
-  var contactDetailsBlock = document.createElement("div");
-  contactDetailsBlock.className = "footer-contact-details";
-  var originalPhone = document.querySelector(".project-phone");
-  if (originalPhone) {
-    var phoneLink = originalPhone.cloneNode(true);
-    var hoursLabel = phoneLink.querySelector(".project-opening-hours");
-    if (hoursLabel && openingHours) {
-      hoursLabel.textContent = openingHours;
-    }
-    contactDetailsBlock.appendChild(phoneLink);
+  // 3. Klonování telefonu s využitím optional chaining
+  var phone = (_document$querySelect = document.querySelector(".project-phone")) === null || _document$querySelect === void 0 ? void 0 : _document$querySelect.cloneNode(true);
+  if (phone) {
+    var hours = phone.querySelector(".project-opening-hours");
+    if (hours && window.projectOpeningHours) hours.textContent = window.projectOpeningHours;
+    detailsBlock.append(phone);
   }
-  var originalEmail = document.querySelector(".project-email");
-  if (originalEmail) {
-    var emailLink = originalEmail.cloneNode(true);
-    var subText = document.createElement("small");
-    subText.className = "email-subtext";
-    subText.textContent = translations.emilSubText;
-    emailLink.appendChild(subText);
-    contactDetailsBlock.appendChild(emailLink);
-  }
-  flexHolder.appendChild(contactDetailsBlock);
 
-  // 3. Přesun sociálních sítí
-  if (socialFooter) {
-    flexHolder.appendChild(socialFooter);
+  // 4. Klonování e-mailu a bezpečné vložení textu
+  var email = (_document$querySelect2 = document.querySelector(".project-email")) === null || _document$querySelect2 === void 0 ? void 0 : _document$querySelect2.cloneNode(true);
+  if (email) {
+    email.insertAdjacentHTML("beforeend", "<small class=\"email-subtext\">".concat(translations.emilSubText, "</small>"));
+    detailsBlock.append(email);
   }
+
+  // 5. Přesun sociálních sítí
+  var socials = document.querySelector(".footer-rows .socials-footer");
+  if (socials) flexHolder.append(socials);
 };
 // Upraví spodní lištu patičky na minimalistický design podle předlohy
 var handleFooterBottom = function handleFooterBottom() {
@@ -995,6 +1014,58 @@ var handleFooterBottom = function handleFooterBottom() {
   footerBottom.innerHTML = "";
   footerBottom.appendChild(bottomFlex);
 };
+
+// Přemění Instagram wrapper na sekci, dynamicky vytáhne link i handle a přesune před patičku
+var handleInstagram = function handleInstagram() {
+  var _window$projectTransl2, _section$querySelecto;
+  var translations = (_window$projectTransl2 = window.projectTranslations) === null || _window$projectTransl2 === void 0 ? void 0 : _window$projectTransl2[window.shoptetLang || "cs"];
+  var oldWrapper = document.querySelector(".custom-footer__instagram");
+  var footer = document.querySelector("footer");
+  if (!oldWrapper || !translations) return;
+  var section = document.createElement("section");
+  section.className = oldWrapper.className;
+  section.append.apply(section, _toConsumableArray(oldWrapper.childNodes));
+  var igLink = ((_section$querySelecto = section.querySelector(".instagram-follow-btn a")) === null || _section$querySelecto === void 0 ? void 0 : _section$querySelecto.href) || translations.instagram.link;
+  var igHandle = "@".concat(igLink.split("/").filter(Boolean).pop());
+  var oldH4 = section.querySelector("h4");
+  if (oldH4) oldH4.remove();
+  var flexHolder = section.querySelector(".instagram-header-flex");
+  if (!flexHolder) {
+    flexHolder = document.createElement("div");
+    flexHolder.className = "instagram-header-flex container";
+    section.prepend(flexHolder);
+  }
+  flexHolder.innerHTML = "\n    <div class=\"left\">\n      <a href=\"".concat(igLink, "\" target=\"_blank\" rel=\"noopener\">\n        <h4>").concat(translations.instagram.text, "</h4>\n        <small>").concat(igHandle, "</small>\n      </a>\n    </div>\n    <div class=\"right\">\n      <span class=\"fb-label\">").concat(translations.facebook.text, "</span>\n      <a href=\"").concat(translations.facebook.link, "\" target=\"_blank\" rel=\"noopener\" class=\"fb-link-icon\">\n        <span class=\"sr-only\">").concat(translations.facebook.name, "</span>\n      </a>\n    </div>\n  ");
+  oldWrapper.replaceWith(section);
+  if (footer) footer.before(section);
+};
+
+// Přemění newsletter na sekci, obalí obsah, zarovná a ostyluje tlačítko a přesune před patičku
+var handleNewsletter = function handleNewsletter() {
+  var _window$projectTransl3;
+  var translations = (_window$projectTransl3 = window.projectTranslations) === null || _window$projectTransl3 === void 0 ? void 0 : _window$projectTransl3[window.shoptetLang || "cs"];
+  var oldNewsletter = document.querySelector(".custom-footer__newsletter");
+  var footer = document.querySelector("footer");
+  if (!oldNewsletter || !translations) return;
+  var section = document.createElement("section");
+  section.className = oldNewsletter.className;
+  var container = document.createElement("div");
+  container.className = "container";
+  container.append.apply(container, _toConsumableArray(oldNewsletter.childNodes));
+  section.append(container);
+  var headerTarget = section.querySelector(".newsletter-header h4 span, .newsletter-header h4");
+  if (headerTarget) headerTarget.textContent = translations.newsletter;
+  var submitBtn = section.querySelector("button[type='submit']");
+  var emailInput = section.querySelector("input[type='email']");
+  if (submitBtn && emailInput) {
+    var _submitBtn$querySelec;
+    submitBtn.className = "btn btn-primary secondary";
+    (_submitBtn$querySelec = submitBtn.querySelector("span.sr-only")) === null || _submitBtn$querySelec === void 0 || _submitBtn$querySelec.classList.remove("sr-only");
+    emailInput.after(submitBtn);
+  }
+  oldNewsletter.replaceWith(section);
+  if (footer) footer.before(section);
+};
 var handleFooter = /*#__PURE__*/function () {
   var _ref5 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
     return _regenerator().w(function (_context6) {
@@ -1005,6 +1076,8 @@ var handleFooter = /*#__PURE__*/function () {
           reshapeSocials();
           handleFooterLower();
           handleFooterBottom();
+          handleInstagram();
+          handleNewsletter();
         case 1:
           return _context6.a(2);
       }
@@ -1021,6 +1094,243 @@ on("click", ".shp-tab-link", function (e) {
     smoothScrollTo(target, 200);
   }
 });
+
+/**
+ * Ultimate Optimized Recently Viewed Module for Shoptet
+ * Performance + Full Functional Parity + Adjusted Swiper Structure
+ */
+var RecentlyViewed = function () {
+  var CONFIG = {
+    storageKey: 'recentlyViewed',
+    maxItems: 10,
+    revalidateMs: 172800000 // 48h
+  };
+  var $ = function $(s) {
+    var el = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document;
+    return el.querySelector(s);
+  };
+  var getMsg = function getMsg(key, fallback) {
+    return typeof shoptet !== 'undefined' ? shoptet.messages[key] : fallback;
+  };
+  var quantityFragment = function () {
+    var span = document.createElement("span");
+    span.className = "quantity";
+    span.innerHTML = "\n            <span class=\"increase-tooltip js-increase-tooltip\" data-trigger=\"manual\" data-container=\"body\" data-original-title=\"Nen\xED mo\u017En\xE9 zakoupit v\xEDce ne\u017E 9999 ks.\" aria-hidden=\"true\" role=\"tooltip\"></span>\n            <span class=\"decrease-tooltip js-decrease-tooltip\" data-trigger=\"manual\" data-container=\"body\" data-original-title=\"Minim\xE1ln\xED mno\u017Estv\xED, kter\xE9 lze zakoupit, je 1 ks.\" aria-hidden=\"true\" role=\"tooltip\"></span>\n            <label><input type=\"number\" name=\"amount\" value=\"1\" class=\"amount\" autocomplete=\"off\" step=\"1\" min=\"1\" max=\"9999\" aria-label=\"Mno\u017Estv\xED\"></label>\n            <button class=\"increase\" type=\"button\" aria-label=\"Zv\xFD\u0161it mno\u017Estv\xED o 1\"><span class=\"increase__sign\">+</span></button>\n            <button class=\"decrease\" type=\"button\" aria-label=\"Sn\xED\u017Eit mno\u017Estv\xED o 1\"><span class=\"decrease__sign\">\u2212</span></button>\n        ";
+    return span;
+  }();
+  var handleLayout = function handleLayout(product) {
+    var _ref6;
+    var refs = {
+      pCode: $('.p-code', product),
+      ratings: $('.ratings-wrapper', product),
+      pDesc: $('.p-desc', product),
+      name: $('.name', product),
+      avail: $('.availability', product),
+      flagDiscount: $('.flag-discount', product),
+      pricesWrapper: $('.prices', product),
+      form: $('form.pr-action', product),
+      unit: $('.pr-list-unit', product)
+    };
+    if (refs.pCode && refs.ratings) refs.ratings.append(refs.pCode);
+    if (refs.pDesc && refs.name) refs.name.after(refs.pDesc);
+    if (refs.avail) (_ref6 = refs.pDesc || refs.name) === null || _ref6 === void 0 || _ref6.after(refs.avail);
+    var priceStd = refs.flagDiscount ? $('.price-standard', refs.flagDiscount) : null;
+    if (priceStd && refs.pricesWrapper) {
+      var wrap = document.createElement('div');
+      wrap.className = 'price-standard-wrapper';
+      var prev = priceStd.previousSibling;
+      if ((prev === null || prev === void 0 ? void 0 : prev.nodeType) === 3 && prev.textContent.trim() === 'od') wrap.append(prev);
+      wrap.append(priceStd);
+      var priceFinal = $('.price-final', refs.pricesWrapper);
+      priceFinal ? priceFinal.before(wrap) : refs.pricesWrapper.append(wrap);
+    }
+    if (refs.form) {
+      var _$;
+      (_$ = $('input[name="amount"]', refs.form)) === null || _$ === void 0 || _$.remove();
+      var btn = $('button[type="submit"]', refs.form);
+      var qty = quantityFragment.cloneNode(true);
+      btn ? btn.before(qty) : refs.form.append(qty);
+    }
+    if (refs.unit) refs.unit.innerHTML = refs.unit.innerHTML.replace(/&nbsp;|\u00A0/g, '');
+  };
+  var getPriceData = function getPriceData(doc) {
+    var _$2, _$3, _$4;
+    var p = ((_$2 = $('.price-final-holder', doc)) === null || _$2 === void 0 ? void 0 : _$2.innerText.trim()) || ((_$3 = $('.nowrap', doc)) === null || _$3 === void 0 ? void 0 : _$3.innerText.trim()) || '';
+    var u = ((_$4 = $('.pr-list-unit', doc)) === null || _$4 === void 0 ? void 0 : _$4.innerText.trim()) || '';
+    return {
+      price: u ? p.replace(u, '').replace(/\/$/, '').trim() : p,
+      unit: u ? "/".concat(u.replace('/', '').trim()) : '/ks'
+    };
+  };
+  var trackProduct = function trackProduct() {
+    var _$5, _$6, _$7, _$8, _$9, _$0, _$1, _$10, _$11, _$12, _$13, _$14;
+    var form = $('#product-detail-form');
+    if (!form) return;
+    var _getPriceData = getPriceData(document),
+      price = _getPriceData.price,
+      unit = _getPriceData.unit;
+    var item = {
+      id: (_$5 = $('input[name="productId"]', form)) === null || _$5 === void 0 ? void 0 : _$5.value,
+      priceId: (_$6 = $('input[name="priceId"]', form)) === null || _$6 === void 0 ? void 0 : _$6.value,
+      name: (_$7 = $('.p-detail-inner-header h1')) === null || _$7 === void 0 ? void 0 : _$7.innerText.trim(),
+      url: location.pathname,
+      imgSrc: (_$8 = $('.p-main-image img')) === null || _$8 === void 0 ? void 0 : _$8.src,
+      price: price,
+      unit: unit,
+      priceVat: ((_$9 = $('.price-additional')) === null || _$9 === void 0 ? void 0 : _$9.innerHTML.trim()) || '',
+      availabilityText: (_$0 = $('.availability-label')) === null || _$0 === void 0 ? void 0 : _$0.innerText.trim(),
+      availabilityColor: (_$1 = $('.availability-label')) === null || _$1 === void 0 ? void 0 : _$1.style.color,
+      codeLabel: ((_$10 = $('.p-code-label')) === null || _$10 === void 0 ? void 0 : _$10.innerText.trim()) || 'Kód:',
+      code: ((_$11 = $('.p-code span:not(.p-code-label)')) === null || _$11 === void 0 ? void 0 : _$11.innerText.trim()) || '',
+      description: (_$12 = $('.p-short-description')) === null || _$12 === void 0 ? void 0 : _$12.innerText.trim(),
+      flagsHtml: ((_$13 = $('.flags-default')) === null || _$13 === void 0 ? void 0 : _$13.innerHTML.trim()) || '',
+      starsHtml: ((_$14 = $('.stars-wrapper .star-list')) === null || _$14 === void 0 ? void 0 : _$14.outerHTML.trim()) || '',
+      isVariant: !!$('.variant-list'),
+      lastVisit: Date.now()
+    };
+    if (!item.id || !item.name) return;
+    var h = JSON.parse(localStorage.getItem(CONFIG.storageKey) || '[]');
+    h = [item].concat(_toConsumableArray(h.filter(function (p) {
+      return p.id !== item.id;
+    }))).slice(0, CONFIG.maxItems);
+    localStorage.setItem(CONFIG.storageKey, JSON.stringify(h));
+  };
+  var revalidate = /*#__PURE__*/function () {
+    var _ref7 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+      var history, now, stale, _iterator2, _step2, item, _$15, _$16, _$17, _$18, _$19, _$20, res, html, doc, _getPriceData2, price, unit, _t2, _t3;
+      return _regenerator().w(function (_context7) {
+        while (1) switch (_context7.p = _context7.n) {
+          case 0:
+            history = JSON.parse(localStorage.getItem(CONFIG.storageKey) || '[]');
+            now = Date.now();
+            stale = history.filter(function (i) {
+              return now - i.lastVisit > CONFIG.revalidateMs && i.url !== location.pathname;
+            });
+            if (stale.length) {
+              _context7.n = 1;
+              break;
+            }
+            return _context7.a(2);
+          case 1:
+            _iterator2 = _createForOfIteratorHelper(stale.slice(0, 3));
+            _context7.p = 2;
+            _iterator2.s();
+          case 3:
+            if ((_step2 = _iterator2.n()).done) {
+              _context7.n = 9;
+              break;
+            }
+            item = _step2.value;
+            _context7.p = 4;
+            _context7.n = 5;
+            return fetch(item.url, {
+              priority: 'low'
+            });
+          case 5:
+            res = _context7.v;
+            _context7.n = 6;
+            return res.text();
+          case 6:
+            html = _context7.v;
+            doc = new DOMParser().parseFromString(html, 'text/html');
+            _getPriceData2 = getPriceData(doc), price = _getPriceData2.price, unit = _getPriceData2.unit;
+            Object.assign(item, {
+              price: price,
+              unit: unit,
+              priceVat: ((_$15 = $('.price-additional', doc)) === null || _$15 === void 0 ? void 0 : _$15.innerHTML.trim()) || '',
+              availabilityText: (_$16 = $('.availability-label', doc)) === null || _$16 === void 0 ? void 0 : _$16.innerText.trim(),
+              availabilityColor: (_$17 = $('.availability-label', doc)) === null || _$17 === void 0 ? void 0 : _$17.style.color,
+              flagsHtml: ((_$18 = $('.flags-default', doc)) === null || _$18 === void 0 ? void 0 : _$18.innerHTML.trim()) || '',
+              starsHtml: ((_$19 = $('.stars-wrapper .star-list', doc)) === null || _$19 === void 0 ? void 0 : _$19.outerHTML.trim()) || '',
+              code: ((_$20 = $('.p-code span:not(.p-code-label)', doc)) === null || _$20 === void 0 ? void 0 : _$20.innerText.trim()) || item.code,
+              lastVisit: now
+            });
+            _context7.n = 8;
+            break;
+          case 7:
+            _context7.p = 7;
+            _t2 = _context7.v;
+          case 8:
+            _context7.n = 3;
+            break;
+          case 9:
+            _context7.n = 11;
+            break;
+          case 10:
+            _context7.p = 10;
+            _t3 = _context7.v;
+            _iterator2.e(_t3);
+          case 11:
+            _context7.p = 11;
+            _iterator2.f();
+            return _context7.f(11);
+          case 12:
+            localStorage.setItem(CONFIG.storageKey, JSON.stringify(history));
+          case 13:
+            return _context7.a(2);
+        }
+      }, _callee6, null, [[4, 7], [2, 10, 11, 12]]);
+    }));
+    return function revalidate() {
+      return _ref7.apply(this, arguments);
+    };
+  }();
+  var render = function render() {
+    var history = JSON.parse(localStorage.getItem(CONFIG.storageKey) || '[]').filter(function (i) {
+      return i.url !== location.pathname;
+    });
+    if (!history.length || $('.last-visited') || !$('footer')) return;
+    var section = document.createElement('section');
+    section.className = 'last-visited';
+    var cards = history.map(function (item) {
+      return "\n            <div class=\"swiper-slide\">\n                <div class=\"product\">\n                    <div class=\"p\" data-micro-product-id=\"".concat(item.id, "\">\n                        <a href=\"").concat(item.url, "\" class=\"image\">\n                            <img src=\"").concat(item.imgSrc, "\" class=\"swap-image\" loading=\"lazy\">\n                            <div class=\"flags flags-default\">").concat(item.flagsHtml, "</div>\n                        </a>\n                        <div class=\"p-in\">\n                            <div class=\"p-in-in\">\n                                <a href=\"").concat(item.url, "\" class=\"name\"><span>").concat(item.name, "</span></a>\n                                <div class=\"ratings-wrapper\">").concat(item.starsHtml, "</div>\n                                <div class=\"availability\"><span style=\"color:").concat(item.availabilityColor, "\">").concat(item.availabilityText, "</span></div>\n                            </div>\n                            <div class=\"p-bottom ").concat(item.isVariant ? 'single-button' : '', "\">\n                                <div data-micro=\"offer\">\n                                    <div class=\"prices\">\n                                        ").concat(item.priceVat ? "<div class=\"price-additional\">".concat(item.priceVat, "</div>") : '', "\n                                        <div class=\"price price-final\"><strong>").concat(item.price, "</strong><span class=\"pr-list-unit\">").concat(item.unit, "</span></div>\n                                    </div>\n                                    <div class=\"p-tools\">\n                                        ").concat(item.isVariant ? "<a href=\"".concat(item.url, "\" class=\"btn btn-primary\">").concat(getMsg('moreInfo', 'Detail'), "</a>") : "\n                                        <form action=\"/action/Cart/addCartItem/\" method=\"post\" class=\"pr-action csrf-enabled\">\n                                            <input type=\"hidden\" name=\"productId\" value=\"".concat(item.id, "\">\n                                            <input type=\"hidden\" name=\"priceId\" value=\"").concat(item.priceId || '', "\">\n                                            <input type=\"hidden\" name=\"amount\" value=\"1\">\n                                            <button type=\"submit\" class=\"btn btn-cart\"><span>").concat(getMsg('toCart', 'Do košíku'), "</span></button>\n                                        </form>"), "\n                                    </div>\n                                </div>\n                                <p class=\"p-desc\">").concat(item.description || '', "</p>\n                            </div>\n                        </div>\n                        <span class=\"p-code\">").concat(item.codeLabel, " <span>").concat(item.code || '', "</span></span>\n                    </div>\n                </div>\n            </div>");
+    }).join('');
+
+    // Nová struktura se .swiper-helper
+    section.innerHTML = "\n            <div class=\"container\">\n                <h2>Naposledy prohl\xED\u017Een\xE9</h2>\n                <div class=\"swiper-helper\">\n                    <div class=\"swiper swiper-last-visited\">\n                        <div class=\"swiper-wrapper\">".concat(cards, "</div>\n                    </div>\n                    <div class=\"swiper-button-next\"></div>\n                    <div class=\"swiper-button-prev\"></div>\n                </div>\n                <div class=\"swiper-pagination\"></div>\n            </div>");
+    $('footer').before(section);
+    section.querySelectorAll('.product').forEach(handleLayout);
+    if (window.Swiper) {
+      new Swiper('.swiper-last-visited', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        navigation: {
+          nextEl: '.last-visited .swiper-button-next',
+          prevEl: '.last-visited .swiper-button-prev'
+        },
+        pagination: {
+          el: '.last-visited .swiper-pagination',
+          clickable: true
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 2
+          },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 30
+          }
+        }
+      });
+    }
+  };
+  return {
+    run: function run() {
+      trackProduct();
+      var defer = window.requestIdleCallback || function (cb) {
+        return setTimeout(cb, 200);
+      };
+      defer(function () {
+        revalidate().then(render);
+      });
+    }
+  };
+}();
+if (document.readyState === 'complete') {
+  RecentlyViewed.run();
+} else {
+  window.addEventListener('load', RecentlyViewed.run);
+}
 /******/ })()
 ;
 //# sourceMappingURL=js-script.js.map

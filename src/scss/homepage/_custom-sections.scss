@@ -30,8 +30,8 @@
     object-fit: contain;
   }
   h3 {
-    font-size: remMM(18);
-    line-height: emMM(25, 18);
+    font-size: rem(18);
+    line-height: em(25, 18);
     color: $color-font;
     min-height: 50px;
   }

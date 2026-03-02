@@ -22,8 +22,8 @@
   color: $color-font;
   background-color: transparent;
   border: 2px solid $color-font;
-  padding: emMM(16) emMM(22) emMM(16) emMM(22);
-  font-size: remMM(16);
+  padding: em(16) em(22) em(16) em(22);
+  font-size: rem(16);
   letter-spacing: 0.75px;
   font-weight: 700;
   text-align: center;
@@ -47,8 +47,8 @@
   text-align: center;
   padding: 8px 15px;
   text-transform: unset;
-  font-size: remMM(14);
-  line-height: emMM(20, 14);
+  font-size: rem(14);
+  line-height: em(20, 14);
   font-weight: 600;
   border-radius: 4px;
 
@@ -81,27 +81,32 @@
 .btn-conversion {
   text-decoration: unset;
   text-align: center;
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+
+  gap: 8px;
   @include trans(0.3s);
   background-color: $color-primary;
   color: $color-font-invert;
   padding: 9px 16px;
   text-transform: unset;
-  font-size: remMM(14);
-  line-height: emMM(20, 14);
+  font-size: rem(14);
+  line-height: em(20, 14);
   font-weight: 600;
   border-radius: 4px;
- @include hover{
+  @include hover {
     background-color: $color-primary-600;
   }
-&.secondary{
-  background-color: $color-secondary;
-@include hover{
-    background-color:$color-secondary-600;
+  &.secondary {
+    background-color: $color-secondary;
+    @include hover {
+      background-color: $color-secondary-600;
+    }
   }
-}
   // @media (max-width: 767px) {
-  //     padding: emMM(5) emMM(10)emMM(10) emMM(10);
+  //     padding: em(5) em(10)em(10) em(10);
   // }
 }
 .btn-tertiary {
@@ -112,51 +117,5 @@
   &:focus {
     background-color: $color-font;
     color: $color-page-bg;
-  }
-}
-
-.add-to-cart-button {
-  text-decoration: unset;
-  text-align: center;
-  display: inline-block;
-  @include trans(0.3s);
-  background-color: $color-primary;
-  color: $color-font;
-  padding: emMM(20) emMM(56) emMM(20) emMM(16);
-  text-transform: unset;
-  font-size: remMM(16);
-  line-height: 1.2em;
-  font-weight: 700;
-  position: relative;
-  letter-spacing: 0.75px;
-
-  &.disabled {
-    background-color: #e4e4e4;
-    color: $color-font;
-    cursor: auto;
-
-    &:hover {
-      background-color: #e4e4e4;
-      color: $color-font;
-    }
-  }
-
-  &:after {
-    content: "";
-    width: 32px;
-    height: 32px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 16px;
-    display: block;
-    //background: url(../img/icon/cart-big.svg) no-repeat center center;
-    background-size: cover;
-    z-index: 10;
-  }
-
-  &:hover {
-    background-color: $color-font;
-    color: $color-font-second;
   }
 }

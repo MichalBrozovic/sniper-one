@@ -3,7 +3,7 @@
     margin: 0 auto 30px auto;
     width: 100%;
     max-width: 620px;
-    font-size: remMM(36);
+    font-size: rem(36);
     position: relative;
     padding-top: 110px;
 
@@ -35,17 +35,17 @@
     margin: 0 auto 70px auto;
     width: 100%;
     max-width: 620px;
-    font-size: remMM(16);
+    font-size: rem(16);
     position: relative;
 }
 
 .reca-number {
     text-align: center;
-    font-size: remMM($h2);
+    font-size: rem($h2);
     display: none;
 
     @media (max-width: 767px) {
-        font-size: remMM($h2-mobile);
+        font-size: rem($h2-mobile);
     }
 }
 
@@ -103,7 +103,7 @@
                             margin: 0 0 1px 0;
                             padding: 11px 7px;
                             background-color: #F1F1F1;
-                            font-size: remMM(14);
+                            font-size: rem(14);
                             line-height: 1.2em;
                             color: $black;
                             font-weight: 400;
@@ -117,7 +117,7 @@
                                 padding: 0;
 
                                 strong {
-                                    font-size: remMM(14);
+                                    font-size: rem(14);
                                     line-height: 1.2em;
                                     color: $black;
                                     font-weight: 400;
@@ -176,14 +176,14 @@
                 }
 
                 .cart-item-amount {
-                    font-size: remMM(14);
+                    font-size: rem(14);
                     color: $black;
                     font-weight: 600;
                 }
 
                 .p-save {
                     margin: 0 10px;
-                    font-size: remMM(14);
+                    font-size: rem(14);
                     color: $black;
                     font-weight: 600;
                 }
@@ -195,7 +195,7 @@
                     justify-content: center;
                     flex-wrap: nowrap;
                     white-space: nowrap;
-                    font-size: remMM(12);
+                    font-size: rem(12);
                     font-weight: 400 !important;
 
                     strong {
@@ -219,14 +219,14 @@
 
                     a {
                         color: $black;
-                        font-size: remMM(14);
+                        font-size: rem(14);
                         line-height: 1.2em;
                         text-decoration: none;
                         font-weight: 400;
                     }
 
                     .main-link-variant {
-                        font-size: remMM(12);
+                        font-size: rem(12);
                         color: $color-font-second;
                     }
                 }
@@ -243,7 +243,7 @@
                 }
 
                 .cart-item-price {
-                    font-size: remMM(14);
+                    font-size: rem(14);
                     color: $black;
                     font-weight: 600;
                 }
