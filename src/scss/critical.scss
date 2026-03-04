@@ -7,6 +7,11 @@
 @import "homepage/main-swiper";
 @import "components/swiper";
 
+.container{
+  .container{
+    padding: 0 !important;
+  }
+}
 
 
 .underline-1 {
@@ -423,39 +428,6 @@ table {
   }
 }
 
-// CUSTOM
-.products-block,
-.top-categories,
-.countdown-banner,
-.loyalty-club,
-.homepage-box.welcome-wrapper,
-.newsletter-wrapper,
-#productsTop,
-.category-top-wrapper,
-.product-top,
-.tab-pane,
-.usp-container,
-.type-posts-listing #content,
-.type-post #content,
-.type-page #content,
-.customer-page #content-wrapper {
-  margin-bottom: 44px;
-
-  @media (max-width: 767px) {
-    margin-bottom: 30px;
-  }
-}
-
-.customer-page {
-  .content-wrapper-in {
-    align-items: flex-start;
-
-    .sidebar {
-      // position: sticky;
-      // top: 190px;
-    }
-  }
-}
 
 #productsTop {
   display: flex;

@@ -84,6 +84,7 @@ const headerIncludes = {
         const suffix = isProduction ? '.min' : ''
         
         const translateExists = fs.existsSync(outputFolder + `/js-translate${suffix}.js`)
+        const swiperizeExists = fs.existsSync(outputFolder + `/js-swiperize${suffix}.js`)
         const criticalStyleExists = fs.existsSync(outputFolder + `/scss-critical${suffix}.css`)
         const styleExists = fs.existsSync(outputFolder + `/scss-style${suffix}.css`)
         
@@ -98,6 +99,10 @@ const headerIncludes = {
 
         if (criticalStyleExists) {
             headerMarkup += `<link rel="stylesheet" href="/scss-critical${suffix}.css">`
+        }
+
+        if (swiperizeExists) {
+            headerMarkup += `<script src="/js-swiperize${suffix}.js" async></script>`
         }
 
         if (styleExists) {
@@ -121,7 +126,7 @@ const footerIncludes = {
         if (criticalScriptExists) footerMarkup += `<script src="/js-critical${suffix}.js"></script>`
 
         const scriptExists = fs.existsSync(outputFolder + `/js-script${suffix}.js`)
-        if (scriptExists) footerMarkup += `<script src="/js-script${suffix}.js"></script>`
+        if (scriptExists) footerMarkup += `<script src="/js-script${suffix}.js" defer></script>`
 
         return footerMarkup + match
     },

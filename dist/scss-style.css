@@ -1853,7 +1853,7 @@ footer .custom-footer {
 
 .user-action-login {
   display: none;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -6786,10 +6786,80 @@ table thead {
   line-height: 1.375em;
 }
 
-.products-block {
+.products-block:not(.swiper-wrapper) {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
+}
+
+.product-section,
+.product-section-swapper {
+  padding: 40px 0;
+}
+.product-section .homepage-group-title,
+.product-section-swapper .homepage-group-title {
+  text-align: center;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.product-section-swapper {
+  padding: 32px 0 24px 0;
+}
+.product-section-swapper .product-swapper-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 8px;
+  position: relative;
+}
+.product-section-swapper .product-swapper-nav::before {
+  content: "";
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  display: block;
+  position: absolute;
+  background-color: var(--color-tertiary-hover, #d0d5de);
+  z-index: 0;
+}
+.product-section-swapper .swapper-btn {
+  padding: 5px 16px;
+  border-radius: 4px 4px 0 0;
+  border: 1px solid var(--color-tertiary-hover, #d0d5de);
+  position: relative;
+  z-index: 2;
+  background-color: var(--color-body-background, #fff);
+}
+.product-section-swapper .swapper-btn.active {
+  border-bottom-color: var(--color-body-background, #fff);
+  font-weight: 600;
+}
+.product-section-swapper .swapper-btn.active:hover, .product-section-swapper .swapper-btn.active:focus, .product-section-swapper .swapper-btn.active:active, .product-section-swapper .swapper-btn.active:focus-visible, .product-section-swapper .swapper-btn.active:focus-within {
+  background-color: var(--color-body-background, #fff);
+}
+.product-section-swapper .swapper-btn:hover, .product-section-swapper .swapper-btn:focus, .product-section-swapper .swapper-btn:active, .product-section-swapper .swapper-btn:focus-visible, .product-section-swapper .swapper-btn:focus-within {
+  background-color: color-mix(in srgb, var(--color-secondary, #1563ed), #fff 95%);
+}
+
+.swapper-content {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 1s ease-in-out;
+  padding: 0 0 24px 0;
+}
+.swapper-content:not(.active) {
+  padding: 0;
+}
+.swapper-content.active {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 1000ms;
 }
 
 .last-visited {

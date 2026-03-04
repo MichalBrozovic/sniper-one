@@ -13,14 +13,43 @@ function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLim
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _regeneratorValues(e) { if (null != e) { var t = e["function" == typeof Symbol && Symbol.iterator || "@@iterator"], r = 0; if (t) return t.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) return { next: function next() { return e && r >= e.length && (e = void 0), { value: e && e[r++], done: !e }; } }; } throw new TypeError(_typeof(e) + " is not iterable"); }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+var sniperBenchmark = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(name, fn) {
+    var start, result, end, duration, color;
+    return _regenerator().w(function (_context) {
+      while (1) switch (_context.n) {
+        case 0:
+          start = performance.now();
+          _context.n = 1;
+          return fn();
+        case 1:
+          result = _context.v;
+          end = performance.now();
+          duration = (end - start).toFixed(2);
+          color = duration > 50 ? "red" : duration > 10 ? "yellow" : "green";
+          console.log("%c[PERF] ".concat(name, ": %c").concat(duration, "ms"), "color: gray; font-weight: bold;", "color: ".concat(color, "; font-weight: bold;"));
+          return _context.a(2, result);
+      }
+    }, _callee);
+  }));
+  return function sniperBenchmark(_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
 // window.addEventListener('load', () => document.body.classList.add('hideSpinner'))
 var debounce = function debounce(func, delay) {
   var debounceTimer;
@@ -261,7 +290,7 @@ var loginWidgetRefactoring = function loginWidgetRefactoring() {
 };
 loginWidgetRefactoring();
 var parseBenderContent = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(selector) {
+  var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(selector) {
     var devMode,
       dev,
       wrappers,
@@ -301,19 +330,19 @@ var parseBenderContent = /*#__PURE__*/function () {
       li,
       a,
       bannerContainer,
-      _args2 = arguments;
-    return _regenerator().w(function (_context2) {
-      while (1) switch (_context2.n) {
+      _args3 = arguments;
+    return _regenerator().w(function (_context3) {
+      while (1) switch (_context3.n) {
         case 0:
-          devMode = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : false;
+          devMode = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : false;
           dev = devMode;
           wrappers = document.querySelectorAll(selector);
           if (!(wrappers.length === 0)) {
-            _context2.n = 1;
+            _context3.n = 1;
             break;
           }
           if (dev) console.warn("%c[BENDER DEV]%c \u017D\xE1dn\xE9 elementy pro \"".concat(selector, "\" nebyly nalezeny."), "color: #ff0000; font-weight: bold;", "");
-          return _context2.a(2);
+          return _context3.a(2);
         case 1:
           if (dev) console.time("Bender Performance Test");
           slugCache = {};
@@ -326,23 +355,23 @@ var parseBenderContent = /*#__PURE__*/function () {
           i = 0;
         case 2:
           if (!(i < wrappers.length)) {
-            _context2.n = 14;
+            _context3.n = 14;
             break;
           }
           wrapper = wrappers[i];
           dataSpan = wrapper.querySelector("span[data-ec-promo-id]");
           if (dataSpan) {
-            _context2.n = 3;
+            _context3.n = 3;
             break;
           }
-          return _context2.a(3, 13);
+          return _context3.a(3, 13);
         case 3:
           fullText = dataSpan.innerHTML.replace(/\u00a0/g, " ").trim();
           if (dev) console.log("%c[BENDER DEV]%c Banner ".concat(i + 1, " vstup:"), "color: #00ff00; font-weight: bold;", fullText);
           classMatch = fullText.match(/###([^#]+)###/);
           customClass = classMatch ? classMatch[1].trim() : null; // --- SPECIÁLNÍ PŘÍPAD: FAVOURITE CATEGORIES (SWIPER) ---
           if (!(customClass === "socials-footer")) {
-            _context2.n = 4;
+            _context3.n = 4;
             break;
           }
           if (customClass) {
@@ -353,10 +382,10 @@ var parseBenderContent = /*#__PURE__*/function () {
               resultContainer.classList.add(customClass);
             }
           }
-          return _context2.a(3, 13);
+          return _context3.a(3, 13);
         case 4:
           if (!(customClass === "favourite-categories" && shoptetPage == "homepage")) {
-            _context2.n = 8;
+            _context3.n = 8;
             break;
           }
           _textWithoutClass = fullText.replace(/###[^#]+###/g, "").trim();
@@ -368,8 +397,8 @@ var parseBenderContent = /*#__PURE__*/function () {
           section.appendChild(container);
           _loop = /*#__PURE__*/_regenerator().m(function _loop() {
             var titleText, contentText, h2, swiperDiv, swiperWrapper, items, paginationDiv;
-            return _regenerator().w(function (_context) {
-              while (1) switch (_context.n) {
+            return _regenerator().w(function (_context2) {
+              while (1) switch (_context2.n) {
                 case 0:
                   titleText = _blocksRaw[j].trim();
                   contentText = _blocksRaw[j + 1] ? _blocksRaw[j + 1].trim() : "";
@@ -423,26 +452,26 @@ var parseBenderContent = /*#__PURE__*/function () {
                   paginationDiv.className = "swiper-pagination";
                   container.appendChild(paginationDiv);
                 case 1:
-                  return _context.a(2);
+                  return _context2.a(2);
               }
             }, _loop);
           });
           j = 1;
         case 5:
           if (!(j < _blocksRaw.length)) {
-            _context2.n = 7;
+            _context3.n = 7;
             break;
           }
-          return _context2.d(_regeneratorValues(_loop()), 6);
+          return _context3.d(_regeneratorValues(_loop()), 6);
         case 6:
           j += 2;
-          _context2.n = 5;
+          _context3.n = 5;
           break;
         case 7:
           wrapper.remove();
           targets = [".content-wrapper:has(.benefitBanner)", ".before-carousel"];
           moveElement(section, targets);
-          return _context2.a(3, 13);
+          return _context3.a(3, 13);
         case 8:
           // --- STANDARDNÍ BENDER MÓD (PATIČKA) ---
           resultContainer = document.createElement("div");
@@ -460,16 +489,16 @@ var parseBenderContent = /*#__PURE__*/function () {
           _j = 1;
         case 9:
           if (!(_j < blocksRaw.length)) {
-            _context2.n = 12;
+            _context3.n = 12;
             break;
           }
           titleText = blocksRaw[_j].trim();
           contentText = blocksRaw[_j + 1] ? blocksRaw[_j + 1].trim() : "";
           if (titleText) {
-            _context2.n = 10;
+            _context3.n = 10;
             break;
           }
-          return _context2.a(3, 11);
+          return _context3.a(3, 11);
         case 10:
           currentBlock = document.createElement("div");
           currentBlock.className = "block";
@@ -508,7 +537,7 @@ var parseBenderContent = /*#__PURE__*/function () {
           resultContainer.appendChild(currentBlock);
         case 11:
           _j += 2;
-          _context2.n = 9;
+          _context3.n = 9;
           break;
         case 12:
           bannerContainer = wrapper.querySelector(".banner") || wrapper;
@@ -516,31 +545,31 @@ var parseBenderContent = /*#__PURE__*/function () {
           bannerContainer.appendChild(resultContainer);
         case 13:
           i++;
-          _context2.n = 2;
+          _context3.n = 2;
           break;
         case 14:
           if (dev) console.timeEnd("Bender Performance Test");
         case 15:
-          return _context2.a(2);
+          return _context3.a(2);
       }
-    }, _callee);
+    }, _callee2);
   }));
-  return function parseBenderContent(_x) {
-    return _ref.apply(this, arguments);
+  return function parseBenderContent(_x3) {
+    return _ref2.apply(this, arguments);
   };
 }();
 
 // Spuštění na bannery v patičce
-_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-  return _regenerator().w(function (_context3) {
-    while (1) switch (_context3.n) {
+_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+  return _regenerator().w(function (_context4) {
+    while (1) switch (_context4.n) {
       case 0:
-        _context3.n = 1;
+        _context4.n = 1;
         return parseBenderContent(".custom-footer > div", false);
       case 1:
-        return _context3.a(2);
+        return _context4.a(2);
     }
-  }, _callee2);
+  }, _callee3);
 }))();
 var initFavouriteCategoriesSwiper = function initFavouriteCategoriesSwiper() {
   var selector = ".swiper-favourite-categories";
@@ -613,10 +642,10 @@ var unwrapBanners = function unwrapBanners() {
 // Spouštíme po načtení DOMu
 document.addEventListener("DOMContentLoaded", unwrapBanners);
 var fetchArticleDatesAndButtons = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+  var _ref4 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
     var blogWrappers, currentLang, langData, moreArticlesText;
-    return _regenerator().w(function (_context5) {
-      while (1) switch (_context5.n) {
+    return _regenerator().w(function (_context6) {
+      while (1) switch (_context6.n) {
         case 0:
           // Ověření stránky a existence blogu
           if (shoptetPage == "homepage" && document.querySelector(".blog-wrapper")) {
@@ -643,27 +672,27 @@ var fetchArticleDatesAndButtons = /*#__PURE__*/function () {
               // --- 2. DOTAHování DATUMŮ ---
               var articles = wrapper.querySelectorAll(".news-item");
               articles.forEach(/*#__PURE__*/function () {
-                var _ref4 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(article) {
+                var _ref5 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4(article) {
                   var link, response, html, parser, doc, metaDate, rawDate, dateObj, formattedDate, timeEl, textContainer, _t;
-                  return _regenerator().w(function (_context4) {
-                    while (1) switch (_context4.p = _context4.n) {
+                  return _regenerator().w(function (_context5) {
+                    while (1) switch (_context5.p = _context5.n) {
                       case 0:
                         if (!article.querySelector(".article-published-date")) {
-                          _context4.n = 1;
+                          _context5.n = 1;
                           break;
                         }
-                        return _context4.a(2);
+                        return _context5.a(2);
                       case 1:
                         link = article.querySelector("a").href;
-                        _context4.p = 2;
-                        _context4.n = 3;
+                        _context5.p = 2;
+                        _context5.n = 3;
                         return fetch(link);
                       case 3:
-                        response = _context4.v;
-                        _context4.n = 4;
+                        response = _context5.v;
+                        _context5.n = 4;
                         return response.text();
                       case 4:
-                        html = _context4.v;
+                        html = _context5.v;
                         parser = new DOMParser();
                         doc = parser.parseFromString(html, "text/html");
                         metaDate = doc.querySelector('meta[itemprop="datePublished"]');
@@ -684,30 +713,30 @@ var fetchArticleDatesAndButtons = /*#__PURE__*/function () {
                             textContainer.prepend(timeEl);
                           }
                         }
-                        _context4.n = 6;
+                        _context5.n = 6;
                         break;
                       case 5:
-                        _context4.p = 5;
-                        _t = _context4.v;
+                        _context5.p = 5;
+                        _t = _context5.v;
                         console.warn("[BENDER] Chyba p\u0159i na\u010D\xEDt\xE1n\xED data: ".concat(link));
                       case 6:
-                        return _context4.a(2);
+                        return _context5.a(2);
                     }
-                  }, _callee3, null, [[2, 5]]);
+                  }, _callee4, null, [[2, 5]]);
                 }));
-                return function (_x2) {
-                  return _ref4.apply(this, arguments);
+                return function (_x4) {
+                  return _ref5.apply(this, arguments);
                 };
               }());
             });
           }
         case 1:
-          return _context5.a(2);
+          return _context6.a(2);
       }
-    }, _callee4);
+    }, _callee5);
   }));
   return function fetchArticleDatesAndButtons() {
-    return _ref3.apply(this, arguments);
+    return _ref4.apply(this, arguments);
   };
 }();
 fetchArticleDatesAndButtons();
@@ -786,6 +815,232 @@ var initProducts = function initProducts() {
 };
 initProducts();
 document.addEventListener("ShoptetDOMContentLoaded", initProducts);
+var SHARED_SWIPER_CONFIG = {
+  customOptions: {
+    dots: true,
+    arrows: true,
+    helper: true // Aktivuje .swiper-helper obal
+  },
+  swiperOptions: {
+    slidesPerView: 1.2,
+    spaceBetween: 16,
+    watchSlidesProgress: true,
+    breakpoints: {
+      560: {
+        slidesPerView: 2,
+        spaceBetween: 16
+      },
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 16
+      },
+      1024: {
+        slidesPerView: 4,
+        spaceBetween: 16
+      }
+    },
+    on: {
+      init: function init(swiper) {
+        return swiperize.setLastVisibleSlide(swiper);
+      },
+      slideChange: function slideChange(swiper) {
+        return swiperize.setLastVisibleSlide(swiper);
+      }
+    }
+  }
+};
+
+/**
+ * Restrukturalizuje produktové sekce na úvodní straně: obalí nadpis a produkty do
+ * struktury section > .container a nahradí jimi původní elementy na jejich místě.
+ */
+var reshapeProductSections = function reshapeProductSections() {
+  if (window.shoptetPage !== "homepage") return;
+  var headings = document.querySelectorAll(".homepage-group-title");
+  headings.forEach(function (heading) {
+    var _heading$className$ma;
+    var sectionId = (_heading$className$ma = heading.className.match(/homepage-products-heading-(\d+)/)) === null || _heading$className$ma === void 0 ? void 0 : _heading$className$ma[1];
+    var productEl = document.querySelector(".homepage-products-".concat(sectionId));
+    if (productEl && sectionId) {
+      var section = document.createElement("section");
+      section.className = "product-section product-section-".concat(sectionId, " is-processed");
+      var container = document.createElement("div");
+      container.className = "container";
+      heading.replaceWith(section);
+      container.append(heading, productEl);
+      section.append(container);
+    }
+  });
+};
+
+/**
+ * Vytvoří Swapper navigaci a přesune první 3 sekce hned za ni.
+ * Ovládá viditelnost sekcí pomocí třídy .active.
+ */
+var initProductSwapper = /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+    var _window$projectTransl;
+    var sections, lang, trans, anchor, swapperModule, nav, frag, mainTitle, container;
+    return _regenerator().w(function (_context7) {
+      while (1) switch (_context7.n) {
+        case 0:
+          if (!(window.shoptetPage !== "homepage")) {
+            _context7.n = 1;
+            break;
+          }
+          return _context7.a(2);
+        case 1:
+          sections = Array.from(document.querySelectorAll('.product-section')).slice(0, 3);
+          if (!(sections.length < 3)) {
+            _context7.n = 2;
+            break;
+          }
+          return _context7.a(2);
+        case 2:
+          lang = document.documentElement.lang || 'cs';
+          trans = ((_window$projectTransl = window.projectTranslations[lang]) === null || _window$projectTransl === void 0 ? void 0 : _window$projectTransl.homepage) || {
+            popularProducts: "Nejoblíbenější produkty"
+          };
+          anchor = document.querySelector(".favourite-categories, .content-wrapper .benefitBanner, .before-carousel, header");
+          if (anchor) {
+            _context7.n = 3;
+            break;
+          }
+          return _context7.a(2);
+        case 3:
+          swapperModule = document.createElement("section");
+          swapperModule.className = "product-section-swapper is-processed";
+          nav = document.createElement("div");
+          nav.className = "product-swapper-nav";
+          frag = document.createDocumentFragment();
+          sections.forEach(function (section, index) {
+            var heading = section.querySelector(".homepage-group-title");
+            if (!heading) return;
+            var originalText = heading.innerText.trim();
+            // Zrychlený ID generátor bez zbytečné normalizace
+            var safeId = originalText.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+            section.classList.add("swapper-content");
+            if (index === 0) section.classList.add("active");
+            section.id = "section-".concat(safeId);
+            heading.style.display = 'none';
+            var btn = document.createElement("button");
+            btn.className = "swapper-btn ".concat(index === 0 ? "active" : "");
+            btn.innerText = originalText;
+            btn.onclick = function () {
+              var _section$querySelecto;
+              if (btn.classList.contains("active")) return;
+              swapperModule.querySelectorAll(".swapper-btn").forEach(function (b) {
+                return b.classList.remove("active");
+              });
+              sections.forEach(function (s) {
+                return s.classList.remove("active");
+              });
+              btn.classList.add("active");
+              section.classList.add("active");
+              var sw = (_section$querySelecto = section.querySelector('.swiper')) === null || _section$querySelecto === void 0 ? void 0 : _section$querySelecto.swiper;
+              if (sw) sw.update();
+            };
+            nav.append(btn);
+          });
+          mainTitle = document.createElement("h2");
+          mainTitle.className = "homepage-group-title main-swapper-title";
+          mainTitle.innerHTML = trans.popularProducts;
+          container = document.createElement("div");
+          container.className = "container";
+          container.append(mainTitle, nav);
+          swapperModule.append(container);
+
+          // Vložení všeho najednou přes fragment šetří reflow
+          frag.append(swapperModule);
+          sections.forEach(function (s) {
+            return frag.append(s);
+          });
+          anchor.after(frag);
+        case 4:
+          return _context7.a(2);
+      }
+    }, _callee6);
+  }));
+  return function initProductSwapper() {
+    return _ref6.apply(this, arguments);
+  };
+}();
+
+// Vyhledá Welcome text a přesune ho na první dostupnou pozici dle priorit.
+var handleWelcomeText = function handleWelcomeText() {
+  var _document$querySelect;
+  if (window.shoptetPage !== "homepage") return;
+  var welcome = (_document$querySelect = document.querySelector('.welcome-wrapper')) === null || _document$querySelect === void 0 ? void 0 : _document$querySelect.closest('.content-wrapper.homepage-box');
+  if (!welcome) return;
+  var lastSwapper = document.querySelectorAll('.swapper-content');
+  var target = lastSwapper.length ? lastSwapper[lastSwapper.length - 1] : document.querySelector('.product-section, .favourite-categories, .before-carousel, header');
+  if (target) {
+    target.after(welcome);
+    welcome.classList.add('processed-welcome-section');
+  }
+};
+
+/**
+ * Hlavní orchestrátor
+ */
+var handleHomePage = /*#__PURE__*/function () {
+  var _ref7 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+    var sections, selectors;
+    return _regenerator().w(function (_context8) {
+      while (1) switch (_context8.n) {
+        case 0:
+          if (!(window.shoptetPage !== "homepage")) {
+            _context8.n = 1;
+            break;
+          }
+          return _context8.a(2);
+        case 1:
+          _context8.n = 2;
+          return sniperBenchmark("Reshape Sections", function () {
+            reshapeProductSections();
+          });
+        case 2:
+          _context8.n = 3;
+          return sniperBenchmark("Swapper Creation", function () {
+            initProductSwapper();
+          });
+        case 3:
+          _context8.n = 4;
+          return sniperBenchmark("Welcome Text Move", function () {
+            handleWelcomeText();
+          });
+        case 4:
+          if (!(typeof swiperize === "function")) {
+            _context8.n = 5;
+            break;
+          }
+          sections = document.querySelectorAll(".product-section");
+          selectors = Array.from(sections).map(function (s) {
+            var _s$className$match;
+            var id = (_s$className$match = s.className.match(/product-section-(\d+)/)) === null || _s$className$match === void 0 ? void 0 : _s$className$match[1];
+            return ".product-section-".concat(id, " .homepage-products-").concat(id);
+          });
+          if (!selectors.length) {
+            _context8.n = 5;
+            break;
+          }
+          _context8.n = 5;
+          return sniperBenchmark("Swiperize Init", function () {
+            swiperize(_objectSpread({
+              containers: selectors,
+              slide: ".product"
+            }, SHARED_SWIPER_CONFIG));
+          });
+        case 5:
+          return _context8.a(2);
+      }
+    }, _callee7);
+  }));
+  return function handleHomePage() {
+    return _ref7.apply(this, arguments);
+  };
+}();
+handleHomePage();
 
 // CART
 var handleCart = function handleCart() {};
@@ -935,9 +1190,9 @@ var handleFooterLower = function handleFooterLower() {
 
 // Refaktorovaná horní sekce patičky (Pro verze): využití moderních DOM API a ES6+
 var handleFooterUpper = function handleFooterUpper() {
-  var _window$projectTransl, _document$querySelect, _document$querySelect2;
+  var _window$projectTransl2, _document$querySelect2, _document$querySelect3;
   var lang = window.shoptetLang || "cs";
-  var translations = (_window$projectTransl = window.projectTranslations) === null || _window$projectTransl === void 0 ? void 0 : _window$projectTransl[lang];
+  var translations = (_window$projectTransl2 = window.projectTranslations) === null || _window$projectTransl2 === void 0 ? void 0 : _window$projectTransl2[lang];
   var footer = document.querySelector("footer");
   if (!footer || !translations) return;
 
@@ -958,7 +1213,7 @@ var handleFooterUpper = function handleFooterUpper() {
   var detailsBlock = flexHolder.querySelector(".footer-contact-details");
 
   // 3. Klonování telefonu s využitím optional chaining
-  var phone = (_document$querySelect = document.querySelector(".project-phone")) === null || _document$querySelect === void 0 ? void 0 : _document$querySelect.cloneNode(true);
+  var phone = (_document$querySelect2 = document.querySelector(".project-phone")) === null || _document$querySelect2 === void 0 ? void 0 : _document$querySelect2.cloneNode(true);
   if (phone) {
     var hours = phone.querySelector(".project-opening-hours");
     if (hours && window.projectOpeningHours) hours.textContent = window.projectOpeningHours;
@@ -966,7 +1221,7 @@ var handleFooterUpper = function handleFooterUpper() {
   }
 
   // 4. Klonování e-mailu a bezpečné vložení textu
-  var email = (_document$querySelect2 = document.querySelector(".project-email")) === null || _document$querySelect2 === void 0 ? void 0 : _document$querySelect2.cloneNode(true);
+  var email = (_document$querySelect3 = document.querySelector(".project-email")) === null || _document$querySelect3 === void 0 ? void 0 : _document$querySelect3.cloneNode(true);
   if (email) {
     email.insertAdjacentHTML("beforeend", "<small class=\"email-subtext\">".concat(translations.emilSubText, "</small>"));
     detailsBlock.append(email);
@@ -1017,15 +1272,15 @@ var handleFooterBottom = function handleFooterBottom() {
 
 // Přemění Instagram wrapper na sekci, dynamicky vytáhne link i handle a přesune před patičku
 var handleInstagram = function handleInstagram() {
-  var _window$projectTransl2, _section$querySelecto;
-  var translations = (_window$projectTransl2 = window.projectTranslations) === null || _window$projectTransl2 === void 0 ? void 0 : _window$projectTransl2[window.shoptetLang || "cs"];
+  var _window$projectTransl3, _section$querySelecto2;
+  var translations = (_window$projectTransl3 = window.projectTranslations) === null || _window$projectTransl3 === void 0 ? void 0 : _window$projectTransl3[window.shoptetLang || "cs"];
   var oldWrapper = document.querySelector(".custom-footer__instagram");
   var footer = document.querySelector("footer");
   if (!oldWrapper || !translations) return;
   var section = document.createElement("section");
   section.className = oldWrapper.className;
   section.append.apply(section, _toConsumableArray(oldWrapper.childNodes));
-  var igLink = ((_section$querySelecto = section.querySelector(".instagram-follow-btn a")) === null || _section$querySelecto === void 0 ? void 0 : _section$querySelecto.href) || translations.instagram.link;
+  var igLink = ((_section$querySelecto2 = section.querySelector(".instagram-follow-btn a")) === null || _section$querySelecto2 === void 0 ? void 0 : _section$querySelecto2.href) || translations.instagram.link;
   var igHandle = "@".concat(igLink.split("/").filter(Boolean).pop());
   var oldH4 = section.querySelector("h4");
   if (oldH4) oldH4.remove();
@@ -1042,8 +1297,8 @@ var handleInstagram = function handleInstagram() {
 
 // Přemění newsletter na sekci, obalí obsah, zarovná a ostyluje tlačítko a přesune před patičku
 var handleNewsletter = function handleNewsletter() {
-  var _window$projectTransl3;
-  var translations = (_window$projectTransl3 = window.projectTranslations) === null || _window$projectTransl3 === void 0 ? void 0 : _window$projectTransl3[window.shoptetLang || "cs"];
+  var _window$projectTransl4;
+  var translations = (_window$projectTransl4 = window.projectTranslations) === null || _window$projectTransl4 === void 0 ? void 0 : _window$projectTransl4[window.shoptetLang || "cs"];
   var oldNewsletter = document.querySelector(".custom-footer__newsletter");
   var footer = document.querySelector("footer");
   if (!oldNewsletter || !translations) return;
@@ -1067,9 +1322,9 @@ var handleNewsletter = function handleNewsletter() {
   if (footer) footer.before(section);
 };
 var handleFooter = /*#__PURE__*/function () {
-  var _ref5 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-    return _regenerator().w(function (_context6) {
-      while (1) switch (_context6.n) {
+  var _ref8 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+    return _regenerator().w(function (_context9) {
+      while (1) switch (_context9.n) {
         case 0:
           handleFooterUpper();
           handleFooterMiddle();
@@ -1079,12 +1334,12 @@ var handleFooter = /*#__PURE__*/function () {
           handleInstagram();
           handleNewsletter();
         case 1:
-          return _context6.a(2);
+          return _context9.a(2);
       }
-    }, _callee5);
+    }, _callee8);
   }));
   return function handleFooter() {
-    return _ref5.apply(this, arguments);
+    return _ref8.apply(this, arguments);
   };
 }();
 handleFooter();
@@ -1097,11 +1352,11 @@ on("click", ".shp-tab-link", function (e) {
 
 /**
  * Ultimate Optimized Recently Viewed Module for Shoptet
- * Performance + Full Functional Parity + Adjusted Swiper Structure
+ * Injects before Instagram block if present, otherwise before Footer.
  */
 var RecentlyViewed = function () {
   var CONFIG = {
-    storageKey: 'recentlyViewed',
+    storageKey: "recentlyViewed",
     maxItems: 10,
     revalidateMs: 172800000 // 48h
   };
@@ -1110,7 +1365,7 @@ var RecentlyViewed = function () {
     return el.querySelector(s);
   };
   var getMsg = function getMsg(key, fallback) {
-    return typeof shoptet !== 'undefined' ? shoptet.messages[key] : fallback;
+    return typeof shoptet !== "undefined" ? shoptet.messages[key] : fallback;
   };
   var quantityFragment = function () {
     var span = document.createElement("span");
@@ -1119,29 +1374,29 @@ var RecentlyViewed = function () {
     return span;
   }();
   var handleLayout = function handleLayout(product) {
-    var _ref6;
+    var _ref9;
     var refs = {
-      pCode: $('.p-code', product),
-      ratings: $('.ratings-wrapper', product),
-      pDesc: $('.p-desc', product),
-      name: $('.name', product),
-      avail: $('.availability', product),
-      flagDiscount: $('.flag-discount', product),
-      pricesWrapper: $('.prices', product),
-      form: $('form.pr-action', product),
-      unit: $('.pr-list-unit', product)
+      pCode: $(".p-code", product),
+      ratings: $(".ratings-wrapper", product),
+      pDesc: $(".p-desc", product),
+      name: $(".name", product),
+      avail: $(".availability", product),
+      flagDiscount: $(".flag-discount", product),
+      pricesWrapper: $(".prices", product),
+      form: $("form.pr-action", product),
+      unit: $(".pr-list-unit", product)
     };
     if (refs.pCode && refs.ratings) refs.ratings.append(refs.pCode);
     if (refs.pDesc && refs.name) refs.name.after(refs.pDesc);
-    if (refs.avail) (_ref6 = refs.pDesc || refs.name) === null || _ref6 === void 0 || _ref6.after(refs.avail);
-    var priceStd = refs.flagDiscount ? $('.price-standard', refs.flagDiscount) : null;
+    if (refs.avail) (_ref9 = refs.pDesc || refs.name) === null || _ref9 === void 0 || _ref9.after(refs.avail);
+    var priceStd = refs.flagDiscount ? $(".price-standard", refs.flagDiscount) : null;
     if (priceStd && refs.pricesWrapper) {
-      var wrap = document.createElement('div');
-      wrap.className = 'price-standard-wrapper';
+      var wrap = document.createElement("div");
+      wrap.className = "price-standard-wrapper";
       var prev = priceStd.previousSibling;
-      if ((prev === null || prev === void 0 ? void 0 : prev.nodeType) === 3 && prev.textContent.trim() === 'od') wrap.append(prev);
+      if ((prev === null || prev === void 0 ? void 0 : prev.nodeType) === 3 && prev.textContent.trim() === "od") wrap.append(prev);
       wrap.append(priceStd);
-      var priceFinal = $('.price-final', refs.pricesWrapper);
+      var priceFinal = $(".price-final", refs.pricesWrapper);
       priceFinal ? priceFinal.before(wrap) : refs.pricesWrapper.append(wrap);
     }
     if (refs.form) {
@@ -1151,20 +1406,20 @@ var RecentlyViewed = function () {
       var qty = quantityFragment.cloneNode(true);
       btn ? btn.before(qty) : refs.form.append(qty);
     }
-    if (refs.unit) refs.unit.innerHTML = refs.unit.innerHTML.replace(/&nbsp;|\u00A0/g, '');
+    if (refs.unit) refs.unit.innerHTML = refs.unit.innerHTML.replace(/&nbsp;|\u00A0/g, "");
   };
   var getPriceData = function getPriceData(doc) {
     var _$2, _$3, _$4;
-    var p = ((_$2 = $('.price-final-holder', doc)) === null || _$2 === void 0 ? void 0 : _$2.innerText.trim()) || ((_$3 = $('.nowrap', doc)) === null || _$3 === void 0 ? void 0 : _$3.innerText.trim()) || '';
-    var u = ((_$4 = $('.pr-list-unit', doc)) === null || _$4 === void 0 ? void 0 : _$4.innerText.trim()) || '';
+    var p = ((_$2 = $(".price-final-holder", doc)) === null || _$2 === void 0 ? void 0 : _$2.innerText.trim()) || ((_$3 = $(".nowrap", doc)) === null || _$3 === void 0 ? void 0 : _$3.innerText.trim()) || "";
+    var u = ((_$4 = $(".pr-list-unit", doc)) === null || _$4 === void 0 ? void 0 : _$4.innerText.trim()) || "";
     return {
-      price: u ? p.replace(u, '').replace(/\/$/, '').trim() : p,
-      unit: u ? "/".concat(u.replace('/', '').trim()) : '/ks'
+      price: u ? p.replace(u, "").replace(/\/$/, "").trim() : p,
+      unit: u ? "/".concat(u.replace("/", "").trim()) : "/ks"
     };
   };
   var trackProduct = function trackProduct() {
     var _$5, _$6, _$7, _$8, _$9, _$0, _$1, _$10, _$11, _$12, _$13, _$14;
-    var form = $('#product-detail-form');
+    var form = $("#product-detail-form");
     if (!form) return;
     var _getPriceData = getPriceData(document),
       price = _getPriceData.price,
@@ -1172,134 +1427,138 @@ var RecentlyViewed = function () {
     var item = {
       id: (_$5 = $('input[name="productId"]', form)) === null || _$5 === void 0 ? void 0 : _$5.value,
       priceId: (_$6 = $('input[name="priceId"]', form)) === null || _$6 === void 0 ? void 0 : _$6.value,
-      name: (_$7 = $('.p-detail-inner-header h1')) === null || _$7 === void 0 ? void 0 : _$7.innerText.trim(),
+      name: (_$7 = $(".p-detail-inner-header h1")) === null || _$7 === void 0 ? void 0 : _$7.innerText.trim(),
       url: location.pathname,
-      imgSrc: (_$8 = $('.p-main-image img')) === null || _$8 === void 0 ? void 0 : _$8.src,
+      imgSrc: (_$8 = $(".p-main-image img")) === null || _$8 === void 0 ? void 0 : _$8.src,
       price: price,
       unit: unit,
-      priceVat: ((_$9 = $('.price-additional')) === null || _$9 === void 0 ? void 0 : _$9.innerHTML.trim()) || '',
-      availabilityText: (_$0 = $('.availability-label')) === null || _$0 === void 0 ? void 0 : _$0.innerText.trim(),
-      availabilityColor: (_$1 = $('.availability-label')) === null || _$1 === void 0 ? void 0 : _$1.style.color,
-      codeLabel: ((_$10 = $('.p-code-label')) === null || _$10 === void 0 ? void 0 : _$10.innerText.trim()) || 'Kód:',
-      code: ((_$11 = $('.p-code span:not(.p-code-label)')) === null || _$11 === void 0 ? void 0 : _$11.innerText.trim()) || '',
-      description: (_$12 = $('.p-short-description')) === null || _$12 === void 0 ? void 0 : _$12.innerText.trim(),
-      flagsHtml: ((_$13 = $('.flags-default')) === null || _$13 === void 0 ? void 0 : _$13.innerHTML.trim()) || '',
-      starsHtml: ((_$14 = $('.stars-wrapper .star-list')) === null || _$14 === void 0 ? void 0 : _$14.outerHTML.trim()) || '',
-      isVariant: !!$('.variant-list'),
+      priceVat: ((_$9 = $(".price-additional")) === null || _$9 === void 0 ? void 0 : _$9.innerHTML.trim()) || "",
+      availabilityText: (_$0 = $(".availability-label")) === null || _$0 === void 0 ? void 0 : _$0.innerText.trim(),
+      availabilityColor: (_$1 = $(".availability-label")) === null || _$1 === void 0 ? void 0 : _$1.style.color,
+      codeLabel: ((_$10 = $(".p-code-label")) === null || _$10 === void 0 ? void 0 : _$10.innerText.trim()) || "Kód:",
+      code: ((_$11 = $(".p-code span:not(.p-code-label)")) === null || _$11 === void 0 ? void 0 : _$11.innerText.trim()) || "",
+      description: (_$12 = $(".p-short-description")) === null || _$12 === void 0 ? void 0 : _$12.innerText.trim(),
+      flagsHtml: ((_$13 = $(".flags-default")) === null || _$13 === void 0 ? void 0 : _$13.innerHTML.trim()) || "",
+      starsHtml: ((_$14 = $(".stars-wrapper .star-list")) === null || _$14 === void 0 ? void 0 : _$14.outerHTML.trim()) || "",
+      isVariant: !!$(".variant-list"),
       lastVisit: Date.now()
     };
     if (!item.id || !item.name) return;
-    var h = JSON.parse(localStorage.getItem(CONFIG.storageKey) || '[]');
+    var h = JSON.parse(localStorage.getItem(CONFIG.storageKey) || "[]");
     h = [item].concat(_toConsumableArray(h.filter(function (p) {
       return p.id !== item.id;
     }))).slice(0, CONFIG.maxItems);
     localStorage.setItem(CONFIG.storageKey, JSON.stringify(h));
   };
   var revalidate = /*#__PURE__*/function () {
-    var _ref7 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+    var _ref0 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
       var history, now, stale, _iterator2, _step2, item, _$15, _$16, _$17, _$18, _$19, _$20, res, html, doc, _getPriceData2, price, unit, _t2, _t3;
-      return _regenerator().w(function (_context7) {
-        while (1) switch (_context7.p = _context7.n) {
+      return _regenerator().w(function (_context0) {
+        while (1) switch (_context0.p = _context0.n) {
           case 0:
-            history = JSON.parse(localStorage.getItem(CONFIG.storageKey) || '[]');
+            history = JSON.parse(localStorage.getItem(CONFIG.storageKey) || "[]");
             now = Date.now();
             stale = history.filter(function (i) {
               return now - i.lastVisit > CONFIG.revalidateMs && i.url !== location.pathname;
             });
             if (stale.length) {
-              _context7.n = 1;
+              _context0.n = 1;
               break;
             }
-            return _context7.a(2);
+            return _context0.a(2);
           case 1:
             _iterator2 = _createForOfIteratorHelper(stale.slice(0, 3));
-            _context7.p = 2;
+            _context0.p = 2;
             _iterator2.s();
           case 3:
             if ((_step2 = _iterator2.n()).done) {
-              _context7.n = 9;
+              _context0.n = 9;
               break;
             }
             item = _step2.value;
-            _context7.p = 4;
-            _context7.n = 5;
+            _context0.p = 4;
+            _context0.n = 5;
             return fetch(item.url, {
-              priority: 'low'
+              priority: "low"
             });
           case 5:
-            res = _context7.v;
-            _context7.n = 6;
+            res = _context0.v;
+            _context0.n = 6;
             return res.text();
           case 6:
-            html = _context7.v;
-            doc = new DOMParser().parseFromString(html, 'text/html');
+            html = _context0.v;
+            doc = new DOMParser().parseFromString(html, "text/html");
             _getPriceData2 = getPriceData(doc), price = _getPriceData2.price, unit = _getPriceData2.unit;
             Object.assign(item, {
               price: price,
               unit: unit,
-              priceVat: ((_$15 = $('.price-additional', doc)) === null || _$15 === void 0 ? void 0 : _$15.innerHTML.trim()) || '',
-              availabilityText: (_$16 = $('.availability-label', doc)) === null || _$16 === void 0 ? void 0 : _$16.innerText.trim(),
-              availabilityColor: (_$17 = $('.availability-label', doc)) === null || _$17 === void 0 ? void 0 : _$17.style.color,
-              flagsHtml: ((_$18 = $('.flags-default', doc)) === null || _$18 === void 0 ? void 0 : _$18.innerHTML.trim()) || '',
-              starsHtml: ((_$19 = $('.stars-wrapper .star-list', doc)) === null || _$19 === void 0 ? void 0 : _$19.outerHTML.trim()) || '',
-              code: ((_$20 = $('.p-code span:not(.p-code-label)', doc)) === null || _$20 === void 0 ? void 0 : _$20.innerText.trim()) || item.code,
+              priceVat: ((_$15 = $(".price-additional", doc)) === null || _$15 === void 0 ? void 0 : _$15.innerHTML.trim()) || "",
+              availabilityText: (_$16 = $(".availability-label", doc)) === null || _$16 === void 0 ? void 0 : _$16.innerText.trim(),
+              availabilityColor: (_$17 = $(".availability-label", doc)) === null || _$17 === void 0 ? void 0 : _$17.style.color,
+              flagsHtml: ((_$18 = $(".flags-default", doc)) === null || _$18 === void 0 ? void 0 : _$18.innerHTML.trim()) || "",
+              starsHtml: ((_$19 = $(".stars-wrapper .star-list", doc)) === null || _$19 === void 0 ? void 0 : _$19.outerHTML.trim()) || "",
+              code: ((_$20 = $(".p-code span:not(.p-code-label)", doc)) === null || _$20 === void 0 ? void 0 : _$20.innerText.trim()) || item.code,
               lastVisit: now
             });
-            _context7.n = 8;
+            _context0.n = 8;
             break;
           case 7:
-            _context7.p = 7;
-            _t2 = _context7.v;
+            _context0.p = 7;
+            _t2 = _context0.v;
           case 8:
-            _context7.n = 3;
+            _context0.n = 3;
             break;
           case 9:
-            _context7.n = 11;
+            _context0.n = 11;
             break;
           case 10:
-            _context7.p = 10;
-            _t3 = _context7.v;
+            _context0.p = 10;
+            _t3 = _context0.v;
             _iterator2.e(_t3);
           case 11:
-            _context7.p = 11;
+            _context0.p = 11;
             _iterator2.f();
-            return _context7.f(11);
+            return _context0.f(11);
           case 12:
             localStorage.setItem(CONFIG.storageKey, JSON.stringify(history));
           case 13:
-            return _context7.a(2);
+            return _context0.a(2);
         }
-      }, _callee6, null, [[4, 7], [2, 10, 11, 12]]);
+      }, _callee9, null, [[4, 7], [2, 10, 11, 12]]);
     }));
     return function revalidate() {
-      return _ref7.apply(this, arguments);
+      return _ref0.apply(this, arguments);
     };
   }();
   var render = function render() {
-    var history = JSON.parse(localStorage.getItem(CONFIG.storageKey) || '[]').filter(function (i) {
+    var history = JSON.parse(localStorage.getItem(CONFIG.storageKey) || "[]").filter(function (i) {
       return i.url !== location.pathname;
     });
-    if (!history.length || $('.last-visited') || !$('footer')) return;
-    var section = document.createElement('section');
-    section.className = 'last-visited';
-    var cards = history.map(function (item) {
-      return "\n            <div class=\"swiper-slide\">\n                <div class=\"product\">\n                    <div class=\"p\" data-micro-product-id=\"".concat(item.id, "\">\n                        <a href=\"").concat(item.url, "\" class=\"image\">\n                            <img src=\"").concat(item.imgSrc, "\" class=\"swap-image\" loading=\"lazy\">\n                            <div class=\"flags flags-default\">").concat(item.flagsHtml, "</div>\n                        </a>\n                        <div class=\"p-in\">\n                            <div class=\"p-in-in\">\n                                <a href=\"").concat(item.url, "\" class=\"name\"><span>").concat(item.name, "</span></a>\n                                <div class=\"ratings-wrapper\">").concat(item.starsHtml, "</div>\n                                <div class=\"availability\"><span style=\"color:").concat(item.availabilityColor, "\">").concat(item.availabilityText, "</span></div>\n                            </div>\n                            <div class=\"p-bottom ").concat(item.isVariant ? 'single-button' : '', "\">\n                                <div data-micro=\"offer\">\n                                    <div class=\"prices\">\n                                        ").concat(item.priceVat ? "<div class=\"price-additional\">".concat(item.priceVat, "</div>") : '', "\n                                        <div class=\"price price-final\"><strong>").concat(item.price, "</strong><span class=\"pr-list-unit\">").concat(item.unit, "</span></div>\n                                    </div>\n                                    <div class=\"p-tools\">\n                                        ").concat(item.isVariant ? "<a href=\"".concat(item.url, "\" class=\"btn btn-primary\">").concat(getMsg('moreInfo', 'Detail'), "</a>") : "\n                                        <form action=\"/action/Cart/addCartItem/\" method=\"post\" class=\"pr-action csrf-enabled\">\n                                            <input type=\"hidden\" name=\"productId\" value=\"".concat(item.id, "\">\n                                            <input type=\"hidden\" name=\"priceId\" value=\"").concat(item.priceId || '', "\">\n                                            <input type=\"hidden\" name=\"amount\" value=\"1\">\n                                            <button type=\"submit\" class=\"btn btn-cart\"><span>").concat(getMsg('toCart', 'Do košíku'), "</span></button>\n                                        </form>"), "\n                                    </div>\n                                </div>\n                                <p class=\"p-desc\">").concat(item.description || '', "</p>\n                            </div>\n                        </div>\n                        <span class=\"p-code\">").concat(item.codeLabel, " <span>").concat(item.code || '', "</span></span>\n                    </div>\n                </div>\n            </div>");
-    }).join('');
+    if (!history.length || $(".last-visited")) return;
 
-    // Nová struktura se .swiper-helper
+    // Logika pro cílový element (před Instagram nebo před Footer)
+    var instagramBlock = $(".custom-footer__instagram");
+    var footer = $("footer");
+    var targetElement = instagramBlock || footer;
+    if (!targetElement) return;
+    var section = document.createElement("section");
+    section.className = "last-visited";
+    var cards = history.map(function (item) {
+      return "\n            <div class=\"swiper-slide\">\n                <div class=\"product\">\n                    <div class=\"p\" data-micro-product-id=\"".concat(item.id, "\">\n                        <a href=\"").concat(item.url, "\" class=\"image\">\n                            <img src=\"").concat(item.imgSrc, "\" class=\"swap-image\" loading=\"lazy\">\n                            <div class=\"flags flags-default\">").concat(item.flagsHtml, "</div>\n                        </a>\n                        <div class=\"p-in\">\n                            <div class=\"p-in-in\">\n                                <a href=\"").concat(item.url, "\" class=\"name\"><span>").concat(item.name, "</span></a>\n                                <div class=\"ratings-wrapper\">").concat(item.starsHtml, "</div>\n                                <div class=\"availability\"><span style=\"color:").concat(item.availabilityColor, "\">").concat(item.availabilityText, "</span></div>\n                            </div>\n                            <div class=\"p-bottom ").concat(item.isVariant ? "single-button" : "", "\">\n                                <div data-micro=\"offer\">\n                                    <div class=\"prices\">\n                                        ").concat(item.priceVat ? "<div class=\"price-additional\">".concat(item.priceVat, "</div>") : "", "\n                                        <div class=\"price price-final\"><strong>").concat(item.price, "</strong><span class=\"pr-list-unit\">").concat(item.unit, "</span></div>\n                                    </div>\n                                    <div class=\"p-tools\">\n                                        ").concat(item.isVariant ? "<a href=\"".concat(item.url, "\" class=\"btn btn-primary\">").concat(getMsg("moreInfo", "Detail"), "</a>") : "\n                                        <form action=\"/action/Cart/addCartItem/\" method=\"post\" class=\"pr-action csrf-enabled\">\n                                            <input type=\"hidden\" name=\"productId\" value=\"".concat(item.id, "\">\n                                            <input type=\"hidden\" name=\"priceId\" value=\"").concat(item.priceId || "", "\">\n                                            <input type=\"hidden\" name=\"amount\" value=\"1\">\n                                            <button type=\"submit\" class=\"btn btn-cart\"><span>").concat(getMsg("toCart", "Do košíku"), "</span></button>\n                                        </form>"), "\n                                    </div>\n                                </div>\n                                <p class=\"p-desc\">").concat(item.description || "", "</p>\n                            </div>\n                        </div>\n                        <span class=\"p-code\">").concat(item.codeLabel, " <span>").concat(item.code || "", "</span></span>\n                    </div>\n                </div>\n            </div>");
+    }).join("");
     section.innerHTML = "\n            <div class=\"container\">\n                <h2>Naposledy prohl\xED\u017Een\xE9</h2>\n                <div class=\"swiper-helper\">\n                    <div class=\"swiper swiper-last-visited\">\n                        <div class=\"swiper-wrapper\">".concat(cards, "</div>\n                    </div>\n                    <div class=\"swiper-button-next\"></div>\n                    <div class=\"swiper-button-prev\"></div>\n                </div>\n                <div class=\"swiper-pagination\"></div>\n            </div>");
-    $('footer').before(section);
-    section.querySelectorAll('.product').forEach(handleLayout);
+    targetElement.before(section);
+    section.querySelectorAll(".product").forEach(handleLayout);
     if (window.Swiper) {
-      new Swiper('.swiper-last-visited', {
+      new Swiper(".swiper-last-visited", {
         slidesPerView: 1,
         spaceBetween: 20,
         navigation: {
-          nextEl: '.last-visited .swiper-button-next',
-          prevEl: '.last-visited .swiper-button-prev'
+          nextEl: ".last-visited .swiper-button-next",
+          prevEl: ".last-visited .swiper-button-prev"
         },
         pagination: {
-          el: '.last-visited .swiper-pagination',
+          el: ".last-visited .swiper-pagination",
           clickable: true
         },
         breakpoints: {
@@ -1326,10 +1585,10 @@ var RecentlyViewed = function () {
     }
   };
 }();
-if (document.readyState === 'complete') {
+if (document.readyState === "complete") {
   RecentlyViewed.run();
 } else {
-  window.addEventListener('load', RecentlyViewed.run);
+  window.addEventListener("load", RecentlyViewed.run);
 }
 /******/ })()
 ;

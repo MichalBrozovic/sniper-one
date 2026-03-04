@@ -668,6 +668,10 @@ html * {
   height: 100%;
 }
 
+.container .container {
+  padding: 0 !important;
+}
+
 .underline-1 {
   position: relative;
 }
@@ -1124,46 +1128,6 @@ table th {
   }
 }
 
-.products-block,
-.top-categories,
-.countdown-banner,
-.loyalty-club,
-.homepage-box.welcome-wrapper,
-.newsletter-wrapper,
-#productsTop,
-.category-top-wrapper,
-.product-top,
-.tab-pane,
-.usp-container,
-.type-posts-listing #content,
-.type-post #content,
-.type-page #content,
-.customer-page #content-wrapper {
-  margin-bottom: 44px;
-}
-@media (max-width: 767px) {
-  .products-block,
-  .top-categories,
-  .countdown-banner,
-  .loyalty-club,
-  .homepage-box.welcome-wrapper,
-  .newsletter-wrapper,
-  #productsTop,
-  .category-top-wrapper,
-  .product-top,
-  .tab-pane,
-  .usp-container,
-  .type-posts-listing #content,
-  .type-post #content,
-  .type-page #content,
-  .customer-page #content-wrapper {
-    margin-bottom: 30px;
-  }
-}
-
-.customer-page .content-wrapper-in {
-  align-items: flex-start;
-}
 #productsTop {
   display: flex;
   flex-direction: row;
@@ -4129,16 +4093,16 @@ body.spinner-visible .overlay {
 }
 .siteCookies {
   background-color: rgba(var(--color-body-background, #fff), 0.7);
-  backdrop-filter: blur(10px);
-  border-top: 2px solid #4b4b4b;
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  bottom: 2rem;
+  left: 1rem;
   color: var(--color-primary, #1c1c1d);
   padding: 20px 2rem;
   z-index: 1060;
   text-align: center;
+  max-width: calc(100% - 2rem);
+  width: 480px;
+  box-shadow: 0px 2px 16px 5px rgba(0, 0, 0, 0.16);
 }
 .siteCookies a {
   text-decoration: underline;
@@ -4152,6 +4116,10 @@ body.spinner-visible .overlay {
   padding: 1em 2em;
   background-color: #4b4b4b;
   color: var(--color-body-background, #fff);
+}
+.siteCookies .siteCookies__text,
+.siteCookies .siteCookies__links {
+  margin-bottom: 8px;
 }
 
 .cookiesSetting__form {
@@ -4342,6 +4310,9 @@ body.spinner-visible .overlay {
 }
 #header .container {
   position: relative;
+}
+#header.sticky {
+  box-shadow: 0px 3px 16px 5px rgba(0, 0, 0, 0.16);
 }
 
 .top-navigation-bar {

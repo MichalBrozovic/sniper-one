@@ -1,3 +1,20 @@
+const sniperBenchmark = async (name, fn) => {
+  const start = performance.now();
+  const result = await fn();
+  const end = performance.now();
+  const duration = (end - start).toFixed(2);
+
+  const color = duration > 50 ? "red" : duration > 10 ? "yellow" : "green";
+
+  console.log(
+    `%c[PERF] ${name}: %c${duration}ms`,
+    "color: gray; font-weight: bold;",
+    `color: ${color}; font-weight: bold;`,
+  );
+
+  return result;
+};
+
 // window.addEventListener('load', () => document.body.classList.add('hideSpinner'))
 const debounce = (func, delay) => {
   let debounceTimer;
@@ -688,23 +705,29 @@ const handleTextLayout = (product) => {
   const pDesc = product.querySelector(".p-desc");
   const nameLink = product.querySelector(".name");
   const availability = product.querySelector(".availability");
-  
+
   const flagDiscount = product.querySelector(".flag-discount");
-  const priceStandard = flagDiscount ? flagDiscount.querySelector(".price-standard") : null;
-  
+  const priceStandard = flagDiscount
+    ? flagDiscount.querySelector(".price-standard")
+    : null;
+
   const pricesWrapper = product.querySelector(".prices");
-  const priceFinal = pricesWrapper ? pricesWrapper.querySelector(".price-final") : null;
-  
+  const priceFinal = pricesWrapper
+    ? pricesWrapper.querySelector(".price-final")
+    : null;
+
   const form = product.querySelector(".p-tools form.pr-action");
-  const hiddenAmountInput = form ? form.querySelector('input[name="amount"]') : null;
+  const hiddenAmountInput = form
+    ? form.querySelector('input[name="amount"]')
+    : null;
   const submitBtn = form ? form.querySelector("button[type='submit']") : null;
-const prListUnit = product.querySelector(".pr-list-unit");
+  const prListUnit = product.querySelector(".pr-list-unit");
   // 1. Kód do hodnocení
   if (pCode && ratingsWrapper) ratingsWrapper.append(pCode);
-  
+
   // 2. Popis za název
   if (pDesc && nameLink) nameLink.after(pDesc);
-  
+
   // 3. Dostupnost za popis/název
   if (availability) {
     if (pDesc) pDesc.after(availability);
@@ -715,20 +738,24 @@ const prListUnit = product.querySelector(".pr-list-unit");
   if (priceStandard && pricesWrapper) {
     const oldPriceWrapper = document.createElement("div");
     oldPriceWrapper.className = "price-standard-wrapper";
-    
+
     // Zkontrolujeme textový uzel těsně před cenou (hledáme "od")
     const prevNode = priceStandard.previousSibling;
-    if (prevNode && prevNode.nodeType === Node.TEXT_NODE && prevNode.textContent.trim() === "od") {
+    if (
+      prevNode &&
+      prevNode.nodeType === Node.TEXT_NODE &&
+      prevNode.textContent.trim() === "od"
+    ) {
       oldPriceWrapper.append(prevNode);
     }
-    
+
     // Přesuneme samotnou přeškrtnutou cenu
     oldPriceWrapper.append(priceStandard);
-    
+
     // Vložíme nad finální cenu
     if (priceFinal) priceFinal.before(oldPriceWrapper);
     else pricesWrapper.append(oldPriceWrapper);
-    
+
     // Zbytek štítku (tj. "až -15 %") záměrně necháváme na původním místě
   }
 
@@ -749,8 +776,10 @@ const prListUnit = product.querySelector(".pr-list-unit");
 
 // Spouštěč
 const initProducts = () => {
-  const products = document.querySelectorAll(".products-block .product:not(.banner-category):not(.is-processed)");
-  
+  const products = document.querySelectorAll(
+    ".products-block .product:not(.banner-category):not(.is-processed)",
+  );
+
   products.forEach((product) => {
     product.classList.add("is-processed");
     if (typeof handleFlags === "function") handleFlags(product);
@@ -760,6 +789,188 @@ const initProducts = () => {
 
 initProducts();
 document.addEventListener("ShoptetDOMContentLoaded", initProducts);
+
+const SHARED_SWIPER_CONFIG = {
+  customOptions: {
+    dots: true,
+    arrows: true,
+    helper: true, // Aktivuje .swiper-helper obal
+  },
+  swiperOptions: {
+    slidesPerView: 1.2,
+    spaceBetween: 16,
+    watchSlidesProgress: true,
+    breakpoints: {
+      560: { slidesPerView: 2, spaceBetween: 16 },
+      768: { slidesPerView: 3, spaceBetween: 16 },
+      1024: { slidesPerView: 4, spaceBetween: 16 },
+    },
+    on: {
+      init: (swiper) => swiperize.setLastVisibleSlide(swiper),
+      slideChange: (swiper) => swiperize.setLastVisibleSlide(swiper),
+    },
+  },
+};
+
+/**
+ * Restrukturalizuje produktové sekce na úvodní straně: obalí nadpis a produkty do
+ * struktury section > .container a nahradí jimi původní elementy na jejich místě.
+ */
+const reshapeProductSections = () => {
+  if (window.shoptetPage !== "homepage") return;
+
+  const headings = document.querySelectorAll(".homepage-group-title");
+
+  headings.forEach((heading) => {
+    const sectionId = heading.className.match(
+      /homepage-products-heading-(\d+)/,
+    )?.[1];
+    const productEl = document.querySelector(`.homepage-products-${sectionId}`);
+
+    if (productEl && sectionId) {
+      const section = document.createElement("section");
+      section.className = `product-section product-section-${sectionId} is-processed`;
+
+      const container = document.createElement("div");
+      container.className = "container";
+
+      heading.replaceWith(section);
+
+      container.append(heading, productEl);
+      section.append(container);
+    }
+  });
+};
+
+/**
+ * Vytvoří Swapper navigaci a přesune první 3 sekce hned za ni.
+ * Ovládá viditelnost sekcí pomocí třídy .active.
+ */
+const initProductSwapper = async () => {
+    if (window.shoptetPage !== "homepage") return;
+
+    const sections = Array.from(document.querySelectorAll('.product-section')).slice(0, 3);
+    if (sections.length < 3) return;
+
+    const lang = document.documentElement.lang || 'cs';
+    const trans = window.projectTranslations[lang]?.homepage || { popularProducts: "Nejoblíbenější produkty" };
+    
+    const anchor = document.querySelector(".favourite-categories, .content-wrapper .benefitBanner, .before-carousel, header");
+    if (!anchor) return;
+
+    const swapperModule = document.createElement("section");
+    swapperModule.className = "product-section-swapper is-processed";
+    
+    const nav = document.createElement("div");
+    nav.className = "product-swapper-nav";
+
+    const frag = document.createDocumentFragment();
+
+    sections.forEach((section, index) => {
+        const heading = section.querySelector(".homepage-group-title");
+        if (!heading) return;
+
+        const originalText = heading.innerText.trim();
+        // Zrychlený ID generátor bez zbytečné normalizace
+        const safeId = originalText.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+
+        section.classList.add("swapper-content");
+        if (index === 0) section.classList.add("active");
+        section.id = `section-${safeId}`;
+        heading.style.display = 'none';
+
+        const btn = document.createElement("button");
+        btn.className = `swapper-btn ${index === 0 ? "active" : ""}`;
+        btn.innerText = originalText;
+        
+        btn.onclick = () => {
+            if (btn.classList.contains("active")) return;
+            swapperModule.querySelectorAll(".swapper-btn").forEach(b => b.classList.remove("active"));
+            sections.forEach(s => s.classList.remove("active"));
+            btn.classList.add("active");
+            section.classList.add("active");
+            const sw = section.querySelector('.swiper')?.swiper;
+            if (sw) sw.update();
+        };
+
+        nav.append(btn);
+    });
+
+    const mainTitle = document.createElement("h2");
+    mainTitle.className = "homepage-group-title main-swapper-title";
+    mainTitle.innerHTML = trans.popularProducts;
+
+    const container = document.createElement("div");
+    container.className = "container";
+    container.append(mainTitle, nav);
+    swapperModule.append(container);
+
+    // Vložení všeho najednou přes fragment šetří reflow
+    frag.append(swapperModule);
+    sections.forEach(s => frag.append(s));
+    anchor.after(frag);
+};
+
+// Vyhledá Welcome text a přesune ho na první dostupnou pozici dle priorit.
+const handleWelcomeText = () => {
+    if (window.shoptetPage !== "homepage") return;
+
+    const welcome = document.querySelector('.welcome-wrapper')?.closest('.content-wrapper.homepage-box');
+    if (!welcome) return;
+
+    const lastSwapper = document.querySelectorAll('.swapper-content');
+    const target = lastSwapper.length ? lastSwapper[lastSwapper.length - 1] : 
+                   document.querySelector('.product-section, .favourite-categories, .before-carousel, header');
+
+    if (target) {
+        target.after(welcome);
+        welcome.classList.add('processed-welcome-section');
+    }
+};
+
+/**
+ * Hlavní orchestrátor
+ */
+const handleHomePage = async () => {
+  if (window.shoptetPage !== "homepage") return;
+
+  // 1. Nejdřív základní reshape všech sekcí (section > container)
+  await sniperBenchmark("Reshape Sections", () => {
+    reshapeProductSections();
+  });
+
+  // 2. Potom vytvoření Swapperu a přesun sekcí (vytvoří .swapper-content a .active)
+  await sniperBenchmark("Swapper Creation", () => {
+    initProductSwapper();
+  });
+
+    // 3. Přesun Welcome textu (teď už uvidí ty swapper sekce)
+  await sniperBenchmark("Welcome Text Move", () => {
+    handleWelcomeText();
+  });
+
+  // 3. Nakonec oživení Swiperem na všech kontejnerech
+  if (typeof swiperize === "function") {
+    const sections = document.querySelectorAll(".product-section");
+
+    const selectors = Array.from(sections).map((s) => {
+      const id = s.className.match(/product-section-(\d+)/)?.[1];
+      return `.product-section-${id} .homepage-products-${id}`;
+    });
+
+    if (selectors.length) {
+      await sniperBenchmark("Swiperize Init", () => {
+        swiperize({
+          containers: selectors,
+          slide: ".product",
+          ...SHARED_SWIPER_CONFIG,
+        });
+      });
+    }
+  }
+};
+
+handleHomePage();
 
 // CART
 const handleCart = () => {};
@@ -1125,154 +1336,177 @@ on("click", ".shp-tab-link", function (e) {
   }
 });
 
-
-
 /**
  * Ultimate Optimized Recently Viewed Module for Shoptet
- * Performance + Full Functional Parity + Adjusted Swiper Structure
+ * Injects before Instagram block if present, otherwise before Footer.
  */
 const RecentlyViewed = (() => {
-    const CONFIG = {
-        storageKey: 'recentlyViewed',
-        maxItems: 10,
-        revalidateMs: 172800000, // 48h
-    };
+  const CONFIG = {
+    storageKey: "recentlyViewed",
+    maxItems: 10,
+    revalidateMs: 172800000, // 48h
+  };
 
-    const $ = (s, el = document) => el.querySelector(s);
-    
-    const getMsg = (key, fallback) => (typeof shoptet !== 'undefined' ? shoptet.messages[key] : fallback);
+  const $ = (s, el = document) => el.querySelector(s);
 
-    const quantityFragment = (() => {
-        const span = document.createElement("span");
-        span.className = "quantity";
-        span.innerHTML = `
+  const getMsg = (key, fallback) =>
+    typeof shoptet !== "undefined" ? shoptet.messages[key] : fallback;
+
+  const quantityFragment = (() => {
+    const span = document.createElement("span");
+    span.className = "quantity";
+    span.innerHTML = `
             <span class="increase-tooltip js-increase-tooltip" data-trigger="manual" data-container="body" data-original-title="Není možné zakoupit více než 9999 ks." aria-hidden="true" role="tooltip"></span>
             <span class="decrease-tooltip js-decrease-tooltip" data-trigger="manual" data-container="body" data-original-title="Minimální množství, které lze zakoupit, je 1 ks." aria-hidden="true" role="tooltip"></span>
             <label><input type="number" name="amount" value="1" class="amount" autocomplete="off" step="1" min="1" max="9999" aria-label="Množství"></label>
             <button class="increase" type="button" aria-label="Zvýšit množství o 1"><span class="increase__sign">+</span></button>
             <button class="decrease" type="button" aria-label="Snížit množství o 1"><span class="decrease__sign">−</span></button>
         `;
-        return span;
-    })();
+    return span;
+  })();
 
-    const handleLayout = (product) => {
-        const refs = {
-            pCode: $('.p-code', product),
-            ratings: $('.ratings-wrapper', product),
-            pDesc: $('.p-desc', product),
-            name: $('.name', product),
-            avail: $('.availability', product),
-            flagDiscount: $('.flag-discount', product),
-            pricesWrapper: $('.prices', product),
-            form: $('form.pr-action', product),
-            unit: $('.pr-list-unit', product)
-        };
-
-        if (refs.pCode && refs.ratings) refs.ratings.append(refs.pCode);
-        if (refs.pDesc && refs.name) refs.name.after(refs.pDesc);
-        if (refs.avail) (refs.pDesc || refs.name)?.after(refs.avail);
-
-        const priceStd = refs.flagDiscount ? $('.price-standard', refs.flagDiscount) : null;
-        if (priceStd && refs.pricesWrapper) {
-            const wrap = document.createElement('div');
-            wrap.className = 'price-standard-wrapper';
-            const prev = priceStd.previousSibling;
-            if (prev?.nodeType === 3 && prev.textContent.trim() === 'od') wrap.append(prev);
-            wrap.append(priceStd);
-            const priceFinal = $('.price-final', refs.pricesWrapper);
-            priceFinal ? priceFinal.before(wrap) : refs.pricesWrapper.append(wrap);
-        }
-
-        if (refs.form) {
-            $('input[name="amount"]', refs.form)?.remove();
-            const btn = $('button[type="submit"]', refs.form);
-            const qty = quantityFragment.cloneNode(true);
-            btn ? btn.before(qty) : refs.form.append(qty);
-        }
-
-        if (refs.unit) refs.unit.innerHTML = refs.unit.innerHTML.replace(/&nbsp;|\u00A0/g, '');
+  const handleLayout = (product) => {
+    const refs = {
+      pCode: $(".p-code", product),
+      ratings: $(".ratings-wrapper", product),
+      pDesc: $(".p-desc", product),
+      name: $(".name", product),
+      avail: $(".availability", product),
+      flagDiscount: $(".flag-discount", product),
+      pricesWrapper: $(".prices", product),
+      form: $("form.pr-action", product),
+      unit: $(".pr-list-unit", product),
     };
 
-    const getPriceData = (doc) => {
-        const p = $('.price-final-holder', doc)?.innerText.trim() || $('.nowrap', doc)?.innerText.trim() || '';
-        const u = $('.pr-list-unit', doc)?.innerText.trim() || '';
-        return { 
-            price: u ? p.replace(u, '').replace(/\/$/, '').trim() : p, 
-            unit: u ? `/${u.replace('/', '').trim()}` : '/ks' 
-        };
+    if (refs.pCode && refs.ratings) refs.ratings.append(refs.pCode);
+    if (refs.pDesc && refs.name) refs.name.after(refs.pDesc);
+    if (refs.avail) (refs.pDesc || refs.name)?.after(refs.avail);
+
+    const priceStd = refs.flagDiscount
+      ? $(".price-standard", refs.flagDiscount)
+      : null;
+    if (priceStd && refs.pricesWrapper) {
+      const wrap = document.createElement("div");
+      wrap.className = "price-standard-wrapper";
+      const prev = priceStd.previousSibling;
+      if (prev?.nodeType === 3 && prev.textContent.trim() === "od")
+        wrap.append(prev);
+      wrap.append(priceStd);
+      const priceFinal = $(".price-final", refs.pricesWrapper);
+      priceFinal ? priceFinal.before(wrap) : refs.pricesWrapper.append(wrap);
+    }
+
+    if (refs.form) {
+      $('input[name="amount"]', refs.form)?.remove();
+      const btn = $('button[type="submit"]', refs.form);
+      const qty = quantityFragment.cloneNode(true);
+      btn ? btn.before(qty) : refs.form.append(qty);
+    }
+
+    if (refs.unit)
+      refs.unit.innerHTML = refs.unit.innerHTML.replace(/&nbsp;|\u00A0/g, "");
+  };
+
+  const getPriceData = (doc) => {
+    const p =
+      $(".price-final-holder", doc)?.innerText.trim() ||
+      $(".nowrap", doc)?.innerText.trim() ||
+      "";
+    const u = $(".pr-list-unit", doc)?.innerText.trim() || "";
+    return {
+      price: u ? p.replace(u, "").replace(/\/$/, "").trim() : p,
+      unit: u ? `/${u.replace("/", "").trim()}` : "/ks",
+    };
+  };
+
+  const trackProduct = () => {
+    const form = $("#product-detail-form");
+    if (!form) return;
+
+    const { price, unit } = getPriceData(document);
+    const item = {
+      id: $('input[name="productId"]', form)?.value,
+      priceId: $('input[name="priceId"]', form)?.value,
+      name: $(".p-detail-inner-header h1")?.innerText.trim(),
+      url: location.pathname,
+      imgSrc: $(".p-main-image img")?.src,
+      price,
+      unit,
+      priceVat: $(".price-additional")?.innerHTML.trim() || "",
+      availabilityText: $(".availability-label")?.innerText.trim(),
+      availabilityColor: $(".availability-label")?.style.color,
+      codeLabel: $(".p-code-label")?.innerText.trim() || "Kód:",
+      code: $(".p-code span:not(.p-code-label)")?.innerText.trim() || "",
+      description: $(".p-short-description")?.innerText.trim(),
+      flagsHtml: $(".flags-default")?.innerHTML.trim() || "",
+      starsHtml: $(".stars-wrapper .star-list")?.outerHTML.trim() || "",
+      isVariant: !!$(".variant-list"),
+      lastVisit: Date.now(),
     };
 
-    const trackProduct = () => {
-        const form = $('#product-detail-form');
-        if (!form) return;
+    if (!item.id || !item.name) return;
 
-        const { price, unit } = getPriceData(document);
-        const item = {
-            id: $('input[name="productId"]', form)?.value,
-            priceId: $('input[name="priceId"]', form)?.value,
-            name: $('.p-detail-inner-header h1')?.innerText.trim(),
-            url: location.pathname,
-            imgSrc: $('.p-main-image img')?.src,
-            price,
-            unit,
-            priceVat: $('.price-additional')?.innerHTML.trim() || '',
-            availabilityText: $('.availability-label')?.innerText.trim(),
-            availabilityColor: $('.availability-label')?.style.color,
-            codeLabel: $('.p-code-label')?.innerText.trim() || 'Kód:',
-            code: $('.p-code span:not(.p-code-label)')?.innerText.trim() || '',
-            description: $('.p-short-description')?.innerText.trim(),
-            flagsHtml: $('.flags-default')?.innerHTML.trim() || '',
-            starsHtml: $('.stars-wrapper .star-list')?.outerHTML.trim() || '',
-            isVariant: !!$('.variant-list'),
-            lastVisit: Date.now()
-        };
+    let h = JSON.parse(localStorage.getItem(CONFIG.storageKey) || "[]");
+    h = [item, ...h.filter((p) => p.id !== item.id)].slice(0, CONFIG.maxItems);
+    localStorage.setItem(CONFIG.storageKey, JSON.stringify(h));
+  };
 
-        if (!item.id || !item.name) return;
+  const revalidate = async () => {
+    const history = JSON.parse(localStorage.getItem(CONFIG.storageKey) || "[]");
+    const now = Date.now();
+    const stale = history.filter(
+      (i) =>
+        now - i.lastVisit > CONFIG.revalidateMs && i.url !== location.pathname,
+    );
 
-        let h = JSON.parse(localStorage.getItem(CONFIG.storageKey) || '[]');
-        h = [item, ...h.filter(p => p.id !== item.id)].slice(0, CONFIG.maxItems);
-        localStorage.setItem(CONFIG.storageKey, JSON.stringify(h));
-    };
+    if (!stale.length) return;
 
-    const revalidate = async () => {
-        const history = JSON.parse(localStorage.getItem(CONFIG.storageKey) || '[]');
-        const now = Date.now();
-        const stale = history.filter(i => (now - i.lastVisit > CONFIG.revalidateMs) && i.url !== location.pathname);
-        
-        if (!stale.length) return;
+    for (const item of stale.slice(0, 3)) {
+      try {
+        const res = await fetch(item.url, { priority: "low" });
+        const html = await res.text();
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        const { price, unit } = getPriceData(doc);
 
-        for (const item of stale.slice(0, 3)) {
-            try {
-                const res = await fetch(item.url, { priority: 'low' });
-                const html = await res.text();
-                const doc = new DOMParser().parseFromString(html, 'text/html');
-                const { price, unit } = getPriceData(doc);
+        Object.assign(item, {
+          price,
+          unit,
+          priceVat: $(".price-additional", doc)?.innerHTML.trim() || "",
+          availabilityText: $(".availability-label", doc)?.innerText.trim(),
+          availabilityColor: $(".availability-label", doc)?.style.color,
+          flagsHtml: $(".flags-default", doc)?.innerHTML.trim() || "",
+          starsHtml:
+            $(".stars-wrapper .star-list", doc)?.outerHTML.trim() || "",
+          code:
+            $(".p-code span:not(.p-code-label)", doc)?.innerText.trim() ||
+            item.code,
+          lastVisit: now,
+        });
+      } catch (e) {}
+    }
+    localStorage.setItem(CONFIG.storageKey, JSON.stringify(history));
+  };
 
-                Object.assign(item, {
-                    price, unit,
-                    priceVat: $('.price-additional', doc)?.innerHTML.trim() || '',
-                    availabilityText: $('.availability-label', doc)?.innerText.trim(),
-                    availabilityColor: $('.availability-label', doc)?.style.color,
-                    flagsHtml: $('.flags-default', doc)?.innerHTML.trim() || '',
-                    starsHtml: $('.stars-wrapper .star-list', doc)?.outerHTML.trim() || '',
-                    code: $('.p-code span:not(.p-code-label)', doc)?.innerText.trim() || item.code,
-                    lastVisit: now
-                });
-            } catch (e) {}
-        }
-        localStorage.setItem(CONFIG.storageKey, JSON.stringify(history));
-    };
+  const render = () => {
+    const history = JSON.parse(
+      localStorage.getItem(CONFIG.storageKey) || "[]",
+    ).filter((i) => i.url !== location.pathname);
 
-    const render = () => {
-        const history = JSON.parse(localStorage.getItem(CONFIG.storageKey) || '[]')
-            .filter(i => i.url !== location.pathname);
+    if (!history.length || $(".last-visited")) return;
 
-        if (!history.length || $('.last-visited') || !$('footer')) return;
+    // Logika pro cílový element (před Instagram nebo před Footer)
+    const instagramBlock = $(".custom-footer__instagram");
+    const footer = $("footer");
+    const targetElement = instagramBlock || footer;
 
-        const section = document.createElement('section');
-        section.className = 'last-visited';
-        
-        const cards = history.map(item => `
+    if (!targetElement) return;
+
+    const section = document.createElement("section");
+    section.className = "last-visited";
+
+    const cards = history
+      .map(
+        (item) => `
             <div class="swiper-slide">
                 <div class="product">
                     <div class="p" data-micro-product-id="${item.id}">
@@ -1286,32 +1520,37 @@ const RecentlyViewed = (() => {
                                 <div class="ratings-wrapper">${item.starsHtml}</div>
                                 <div class="availability"><span style="color:${item.availabilityColor}">${item.availabilityText}</span></div>
                             </div>
-                            <div class="p-bottom ${item.isVariant ? 'single-button' : ''}">
+                            <div class="p-bottom ${item.isVariant ? "single-button" : ""}">
                                 <div data-micro="offer">
                                     <div class="prices">
-                                        ${item.priceVat ? `<div class="price-additional">${item.priceVat}</div>` : ''}
+                                        ${item.priceVat ? `<div class="price-additional">${item.priceVat}</div>` : ""}
                                         <div class="price price-final"><strong>${item.price}</strong><span class="pr-list-unit">${item.unit}</span></div>
                                     </div>
                                     <div class="p-tools">
-                                        ${item.isVariant ? `<a href="${item.url}" class="btn btn-primary">${getMsg('moreInfo', 'Detail')}</a>` : `
+                                        ${
+                                          item.isVariant
+                                            ? `<a href="${item.url}" class="btn btn-primary">${getMsg("moreInfo", "Detail")}</a>`
+                                            : `
                                         <form action="/action/Cart/addCartItem/" method="post" class="pr-action csrf-enabled">
                                             <input type="hidden" name="productId" value="${item.id}">
-                                            <input type="hidden" name="priceId" value="${item.priceId || ''}">
+                                            <input type="hidden" name="priceId" value="${item.priceId || ""}">
                                             <input type="hidden" name="amount" value="1">
-                                            <button type="submit" class="btn btn-cart"><span>${getMsg('toCart', 'Do košíku')}</span></button>
-                                        </form>`}
+                                            <button type="submit" class="btn btn-cart"><span>${getMsg("toCart", "Do košíku")}</span></button>
+                                        </form>`
+                                        }
                                     </div>
                                 </div>
-                                <p class="p-desc">${item.description || ''}</p>
+                                <p class="p-desc">${item.description || ""}</p>
                             </div>
                         </div>
-                        <span class="p-code">${item.codeLabel} <span>${item.code || ''}</span></span>
+                        <span class="p-code">${item.codeLabel} <span>${item.code || ""}</span></span>
                     </div>
                 </div>
-            </div>`).join('');
+            </div>`,
+      )
+      .join("");
 
-        // Nová struktura se .swiper-helper
-        section.innerHTML = `
+    section.innerHTML = `
             <div class="container">
                 <h2>Naposledy prohlížené</h2>
                 <div class="swiper-helper">
@@ -1323,44 +1562,44 @@ const RecentlyViewed = (() => {
                 </div>
                 <div class="swiper-pagination"></div>
             </div>`;
-        
-        $('footer').before(section);
 
-        section.querySelectorAll('.product').forEach(handleLayout);
+    targetElement.before(section);
 
-        if (window.Swiper) {
-            new Swiper('.swiper-last-visited', {
-                slidesPerView: 1, 
-                spaceBetween: 20,
-                navigation: { 
-                    nextEl: '.last-visited .swiper-button-next', 
-                    prevEl: '.last-visited .swiper-button-prev' 
-                },
-                pagination: { 
-                    el: '.last-visited .swiper-pagination', 
-                    clickable: true 
-                },
-                breakpoints: { 
-                    768: { slidesPerView: 2 }, 
-                    1024: { slidesPerView: 4, spaceBetween: 30 } 
-                }
-            });
-        }
-    };
+    section.querySelectorAll(".product").forEach(handleLayout);
 
-    return {
-        run: () => {
-            trackProduct();
-            const defer = window.requestIdleCallback || (cb => setTimeout(cb, 200));
-            defer(() => {
-                revalidate().then(render);
-            });
-        }
-    };
+    if (window.Swiper) {
+      new Swiper(".swiper-last-visited", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        navigation: {
+          nextEl: ".last-visited .swiper-button-next",
+          prevEl: ".last-visited .swiper-button-prev",
+        },
+        pagination: {
+          el: ".last-visited .swiper-pagination",
+          clickable: true,
+        },
+        breakpoints: {
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 4, spaceBetween: 30 },
+        },
+      });
+    }
+  };
+
+  return {
+    run: () => {
+      trackProduct();
+      const defer = window.requestIdleCallback || ((cb) => setTimeout(cb, 200));
+      defer(() => {
+        revalidate().then(render);
+      });
+    },
+  };
 })();
 
-if (document.readyState === 'complete') {
-    RecentlyViewed.run();
+if (document.readyState === "complete") {
+  RecentlyViewed.run();
 } else {
-    window.addEventListener('load', RecentlyViewed.run);
+  window.addEventListener("load", RecentlyViewed.run);
 }

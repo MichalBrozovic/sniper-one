@@ -40,6 +40,9 @@ window.projectTranslations = {
       text: "Najdete nás také na:",
     },
     newsletter: "Novinky, tipy a slevy na váš e-mail",
+    homepage: {
+      popularProducts: "Vybírejte z nejoblíbenějších <span>produktů</span>",
+    },
   },
   sk: {
     cart: {
@@ -80,5 +83,8 @@ window.projectTranslations = {
       text: "Najdete nás také na:",
     },
     newsletter: "Novinky, tipy a slevy na váš e-mail",
+    homepage: {
+      popularProducts: "Vyberajte z najobľúbenejších <span>produktov</span>",
+    },
   },
 };
