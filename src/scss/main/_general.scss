@@ -485,108 +485,7 @@ p.large {
 // 		}
 // 	}
 // }
-.products-inline {
-  .product {
-    // border-bottom: 1px solid $color-font-100;
-    padding: 5px 0;
 
-    &.inactive {
-      display: none;
-    }
-
-    .p {
-      flex-direction: row;
-      height: auto;
-      align-items: center;
-    }
-
-    .p-in {
-      flex-direction: row;
-      padding: 0;
-      height: auto;
-      padding: 20px;
-      width: 100%;
-      gap: 20px;
-    }
-
-    .p-in-in {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      flex-grow: 1;
-
-      .ratings-wrapper {
-        margin-left: auto;
-      }
-    }
-
-    .image {
-      border: none;
-      flex: 0 0 80px;
-    }
-
-    .name {
-      margin: 0;
-    }
-
-    .p-bottom {
-      flex: 0 0 100px;
-      text-align: right;
-
-      & > div {
-        display: block;
-        height: auto;
-      }
-    }
-
-    .prices {
-      display: block;
-      margin-right: 0;
-
-      .price-save,
-      .price-standard-label {
-        display: none;
-      }
-    }
-
-    .price-standard-wrapper-placeholder {
-      display: none;
-    }
-
-    .flag-discount .price-standard {
-      display: none;
-    }
-
-    @media (max-width: 767px) {
-      .p-in-in {
-        flex-direction: column;
-        align-items: flex-start;
-        text-align: left;
-
-        .ratings-wrapper {
-          margin-left: 0;
-        }
-      }
-
-      .p-bottom {
-        margin-top: 0;
-        flex-basis: 70px;
-      }
-
-      .price-final {
-        font-size: 1rem;
-      }
-    }
-  }
-
-  .button-wrapper {
-    // margin-top: 30px;
-
-    @media (max-width: 767px) {
-      text-align: center;
-    }
-  }
-}
 
 .dkLabVisitedProductsBox.dkLabVisitedClassic a.image > img {
   width: auto !important;
@@ -598,13 +497,6 @@ p.large {
 
 .price-standard {
   text-decoration: line-through;
-}
-
-// CONTROLS
-
-.toggle-top-products {
-  border: 1px solid $color-font;
-  color: $color-font;
 }
 
 // MISC
@@ -832,38 +724,7 @@ table.border {
   }
 }
 
-@media (max-width: 767px) {
-  h1,
-  .h1 {
-    font-size: rem($h1-mobile);
-  }
 
-  h2,
-  .h2,
-  .h4,
-  .cart-inner h4,
-  .welcome-wrapper h1,
-  .custom-footer__instagram h4 {
-    font-size: rem($h2-mobile);
-  }
-
-  h3,
-  .h3 {
-    font-size: rem($h3-mobile);
-  }
-
-  .admin-bar {
-    display: none;
-  }
-
-  .admin-logged .overall-wrapper {
-    padding-top: 0;
-  }
-
-  .site-msg.information {
-    font-size: rem(12);
-  }
-}
 
 .plus-gallery-wrap {
   margin: 16px 0;
@@ -886,9 +747,7 @@ table.border {
 .search-results:not(#products-found) {
   margin-bottom: 40px;
 
-  h4 {
-    font-size: rem($h3);
-  }
+
 
   a:not(.btn) {
     color: $color-accent;

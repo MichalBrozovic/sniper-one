@@ -2,7 +2,6 @@
 .next-step-back,
 .rate-form-trigger,
 .cp-button,
-.chevron-after,
 .add-comment,
 .login-btn,
 .display-results-group {
@@ -18,7 +17,6 @@
 }
 
 .btn-border {
-  display: inline-block;
   color: $color-font;
   background-color: transparent;
   border: 2px solid $color-font;
@@ -37,10 +35,10 @@
 .btn-secondary,
 .btn-default,
 .btn.inline-block,
-.comment-icon {
+.comment-icon,
+.chevron-after:not(.chevron-down-after) {
   text-decoration: unset;
   // white-space: nowrap;
-  display: inline-block;
   color: $color-font;
   border: 1px solid $color-secondary;
   background-color: $color-font-invert;

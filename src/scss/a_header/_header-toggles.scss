@@ -58,7 +58,7 @@
     flex-direction: column;
     gap: 8px;
     width: 100%;
-
+white-space: normal;
     a {
       @include trans(0.3s);
       display: flex;
@@ -90,6 +90,7 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
+      gap: 0 12px;
     }
 
     .p-name {
@@ -101,7 +102,7 @@
     .p-availability {
       font-size: rem(14);
       font-weight: 600;
-      margin-left: 8px;
+      margin-left: 0px;
 
       .availability-label,
       .p-availability-inner {

@@ -997,6 +997,251 @@ const handleHomePage = async () => {
 
 handleHomePage();
 
+//Category || kategorie
+
+/**
+ * POMOCNÉ NÁSTROJE
+ */
+
+// Funkce zajišťuje plynulý posun stránky na začátek obsahu s offsetem 100px.
+const scrollToContent = () => {
+  const content = document.querySelector("#content");
+  if (content) {
+    // Použijeme RequestAnimationFrame pro synchronizaci s vykreslením prohlížeče
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        const offset = 100;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = content.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }, 50); // Stačí krátký timeout, protože event už hlásí hotový DOM
+    });
+  }
+};
+
+// Vypnutí interního scrollu Shoptetu, aby se nepral s naší logikou.
+if (typeof shoptet !== "undefined" && shoptet.scripts) {
+  shoptet.scripts.scrollToHeader = () => {
+    return false; // Shoptet teď neudělá nic
+  };
+}
+
+// Reagujeme na moment, kdy Shoptet potvrdí, že je obsah na místě a připraven.
+document.addEventListener("ShoptetDOMPageContentLoaded", () => {
+  scrollToContent();
+});
+
+// Vygeneruje seznam aktivních filtrů pod filtrační lištou. Kliknutím na tag se filtr zruší.
+const handleCheckedFilters = () => {
+  const filtersWrapper = document.querySelector("#filters-wrapper");
+  const activeCheckboxes = document.querySelectorAll(
+    '#filters input[type="checkbox"]:checked',
+  );
+
+  const oldActive = document.querySelector(".active-filters-container");
+  if (oldActive) oldActive.remove();
+
+  if (activeCheckboxes.length > 0 && filtersWrapper) {
+    const container = document.createElement("div");
+    container.className = "active-filters-container";
+
+    const list = document.createElement("div");
+    list.className = "active-filters-list";
+
+    activeCheckboxes.forEach((input) => {
+      const label = document.querySelector(`label[for="${input.id}"]`);
+      if (!label) return;
+
+      const tag = document.createElement("div");
+      tag.className = "active-filter-tag";
+      const cleanText = label.textContent.split("(")[0].trim();
+      tag.innerHTML = `${cleanText} <div class="close black small"></div>`;
+
+      tag.addEventListener("click", () => {
+        input.click();
+      });
+
+      list.appendChild(tag);
+    });
+
+    container.appendChild(list);
+
+    const clearBtn = document.querySelector("#clear-filters");
+    if (clearBtn) container.appendChild(clearBtn);
+
+    filtersWrapper.after(container);
+  }
+};
+
+let categoryBottomCache = null;
+
+// Pomocná funkce pro získání klíče k uložení spodního popisu kategorie.
+const getCategoryBottomCacheKey = () => {
+  const pageId = window.dataLayer?.[0]?.shoptet?.pageId || "unknown";
+  return `bottom_desc_${pageId}`;
+};
+
+// Funkce stáhne první stranu kategorie, vyjme spodní popis a rovnou do něj přidá H2 nadpis z dataLayeru.
+const fetchAndBuildCategoryBottom = async () => {
+  try {
+    const baseUrl = window.location.pathname.replace(/\/strana-[0-9]+\/?/, "/");
+    const response = await fetch(baseUrl);
+    const text = await response.text();
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, "text/html");
+
+    const fetchedDesc = doc.querySelector(".category__secondDescription");
+
+    if (fetchedDesc) {
+      fetchedDesc.id = "category-description-bottom";
+      const categoryName = window.dataLayer?.[0]?.shoptet?.category?.path || "";
+
+      if (categoryName && !fetchedDesc.querySelector("h2")) {
+        const h2 = document.createElement("h2");
+        h2.textContent = categoryName;
+        fetchedDesc.prepend(h2);
+      }
+      return fetchedDesc;
+    }
+  } catch (error) {
+    console.error("Chyba při stahování spodního popisu:", error);
+  }
+  return null;
+};
+
+// Funkce zajišťuje persistenci spodního popisu s H2 nadpisem a obaluje ho do sémantické sekce.
+const handleCategoryBottomText = async () => {
+  if (window.shoptetPage !== "category") return;
+
+  const contentWrapper = document.querySelector("#content-wrapper");
+  if (!contentWrapper) return;
+
+  let currentDesc = document.querySelector(".category__secondDescription");
+  const cacheKey = getCategoryBottomCacheKey();
+
+  if (currentDesc && !categoryBottomCache) {
+    currentDesc.id = "category-description-bottom";
+    const categoryName = window.dataLayer?.[0]?.shoptet?.category?.path || "";
+
+    if (categoryName && !currentDesc.querySelector("h2")) {
+      const h2 = document.createElement("h2");
+      h2.textContent = categoryName;
+      currentDesc.prepend(h2);
+    }
+
+    // Zabalení do nové struktury section > container
+    const section = document.createElement("section");
+    section.className = "section-second-description";
+    const container = document.createElement("div");
+    container.className = "container";
+
+    container.append(currentDesc.cloneNode(true));
+    section.append(container);
+
+    categoryBottomCache = section.cloneNode(true);
+    sessionStorage.setItem(cacheKey, section.outerHTML);
+
+    // Odstranění původního popisu (aby nebyl duplicitně v content-wrapper) a jeho vložení zpět už v novém obalu
+    currentDesc.remove();
+  } else if (!categoryBottomCache) {
+    const savedData = sessionStorage.getItem(cacheKey);
+
+    if (savedData) {
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = savedData;
+      categoryBottomCache = tempDiv.firstElementChild;
+    } else {
+      const fetchedDesc = await fetchAndBuildCategoryBottom();
+      if (fetchedDesc) {
+        const section = document.createElement("section");
+        section.className = "section-second-description";
+        const container = document.createElement("div");
+        container.className = "container";
+
+        container.append(fetchedDesc);
+        section.append(container);
+
+        categoryBottomCache = section;
+        sessionStorage.setItem(cacheKey, categoryBottomCache.outerHTML);
+      }
+    }
+  }
+
+  const isDescInDom = document.querySelector(".section-second-description");
+
+  if (categoryBottomCache && !isDescInDom) {
+    // Vkládáme těsně za #content-wrapper. Pokud za ním budou benefity, posunou se až za tento text.
+    contentWrapper.after(categoryBottomCache.cloneNode(true));
+  }
+};
+
+// Funkce najde benefitní bannery uvnitř obsahového wrapperu, přesune je za něj (případně za spodní popis)
+// a obalí je novou sémantickou sekcí s vlastním kontejnerem.
+const handleCategoryBenefits = () => {
+  if (window.shoptetPage !== "category") return;
+
+  const benefitsBanner = document.querySelector(
+    "#content-wrapper .benefitBanner.position--benefitCategory",
+  );
+  const contentWrapper = document.querySelector("#content-wrapper");
+
+  if (!benefitsBanner || !contentWrapper) return;
+
+  let section = document.querySelector(".section-benefits");
+
+  if (!section) {
+    section = document.createElement("section");
+    section.className = "section-benefits";
+
+    const container = document.createElement("div");
+    container.className = "container";
+    section.append(container);
+
+    // Pokud už v DOMu je vložený spodní popis, vložíme benefity až ZA NĚJ.
+    const bottomDescSection = document.querySelector(
+      ".section-second-description",
+    );
+    if (bottomDescSection) {
+      bottomDescSection.after(section);
+    } else {
+      contentWrapper.after(section);
+    }
+  }
+
+  const container = section.querySelector(".container");
+  if (container) {
+    container.innerHTML = "";
+    container.append(benefitsBanner);
+  }
+};
+
+// Souhrnný orchestrátor pro doplňkové funkce kategorie, které se spouští po hlavní logice.
+const handleCategoryNonCritical = async () => {
+  if (window.shoptetPage !== "category") return;
+
+  if (typeof handleCheckedFilters === "function") {
+    handleCheckedFilters();
+  }
+
+  await handleCategoryBottomText();
+  handleCategoryBenefits();
+
+  const events = ["shoptet.contentUpdated", "ShoptetDOMPageContentLoaded"];
+  events.forEach((eventName) => {
+    document.removeEventListener(eventName, handleCategoryNonCritical);
+    document.addEventListener(eventName, handleCategoryNonCritical);
+  });
+};
+
+handleCategoryNonCritical();
+
 // CART
 const handleCart = () => {};
 if (document.body.classList.contains("ordering-process")) {
@@ -1361,15 +1606,13 @@ on("click", ".shp-tab-link", function (e) {
   }
 });
 
-/**
- * Ultimate Optimized Recently Viewed Module for Shoptet
- * Injects before Instagram block if present, otherwise before Footer.
- */
+// Modul pro zobrazení naposledy prohlížených produktů.
+// Na kategorii se vkládá před benefity, jinak před Instagram/Footer.
 const RecentlyViewed = (() => {
   const CONFIG = {
     storageKey: "recentlyViewed",
     maxItems: 10,
-    revalidateMs: 172800000, // 48h
+    revalidateMs: 172800000,
   };
 
   const $ = (s, el = document) => el.querySelector(s);
@@ -1519,10 +1762,23 @@ const RecentlyViewed = (() => {
 
     if (!history.length || $(".last-visited")) return;
 
-    // Logika pro cílový element (před Instagram nebo před Footer)
     const instagramBlock = $(".custom-footer__instagram");
     const footer = $("footer");
-    const targetElement = instagramBlock || footer;
+
+    // Definujeme sekce v pořadí, v jakém mají jít za sebou
+    const benefitsSection = $(".section-benefits");
+    const secondDescription = $(".section-second-description");
+
+    let targetElement = instagramBlock || footer;
+
+    // Na kategorii chceme být až pod benefity nebo pod popisem
+    if (window.shoptetPage === "category") {
+      if (secondDescription) {
+        targetElement = secondDescription;
+      } else if (benefitsSection) {
+        targetElement = benefitsSection;
+      }
+    }
 
     if (!targetElement) return;
 

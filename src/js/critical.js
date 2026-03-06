@@ -454,96 +454,653 @@ const initHomepageSwiper = () => {
 
 document.addEventListener("DOMContentLoaded", initHomepageSwiper);
 
+/**
+ * GLOBÁLNÍ PROMĚNNÉ
+ * Uchování stavu popisu pro aktuální instanci běhu JS.
+ */
+let categoryDescriptionCache = null;
+let bestSellingCache = null;
+// Získání čistého URL pro případný fetch 1. strany
+const getCategoryBaseUrl = () => {
+  return window.location.pathname.replace(/\/strana-[0-9]+\/?/, "/");
+};
 
+// Generování unikátního klíče na základě Shoptet ID
+const getCategoryCacheKey = () => {
+  const pageId = window.dataLayer?.[0]?.shoptet?.pageId || "unknown";
+  return `perex_${pageId}`;
+};
 
+// Funkce stáhne první stranu kategorie, najde v ní perex a sestaví "upperWrapper" s odděleným obsahem a obrázkem.
+const fetchAndBuildCategoryTop = async (categoryTop) => {
+  try {
+    const baseUrl = getCategoryBaseUrl();
+    const response = await fetch(baseUrl);
+    const text = await response.text();
 
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, "text/html");
 
+    const fetchedPerex = doc.querySelector(".category-perex");
+    const fetchedTitle = doc.querySelector(".category-title");
+    const secondDesc = doc.querySelector(".category__secondDescription");
 
-// Kritická restrukturalizace horní části kategorie: obalení title a perex, vytažení obrázku a přesun top-wrapperu.
-const handleCategoryTop = () => {
-    if (window.shoptetPage !== "category") return;
+    if (fetchedPerex) {
+      const lang = document.documentElement.lang || "cs";
+      const readMoreText =
+        window.projectTranslations?.[lang]?.category?.readMore ||
+        "Přečíst více";
 
-    const categoryTop = document.querySelector('.category-top');
-    if (!categoryTop || categoryTop.classList.contains('is-processed')) return;
+      const upperWrapper = document.createElement("div");
+      upperWrapper.className = "category-top-upper";
 
-    const title = categoryTop.querySelector('.category-title');
-    const perex = categoryTop.querySelector('.category-perex');
-    const subcategories = categoryTop.querySelector('.subcategories');
-    const secondDesc = document.querySelector('.category__secondDescription');
-    const topWrapper = categoryTop.querySelector('.products-top-wrapper');
+      const contentDiv = document.createElement("div");
+      contentDiv.className = "category-top-upper--content";
 
-    if (topWrapper) {
-        categoryTop.after(topWrapper);
+      const img =
+        fetchedPerex.querySelector("img") ||
+        doc.querySelector(".category-top img");
+      if (img) {
+        const newImg = img.cloneNode(true);
+        upperWrapper.append(newImg);
+        const parentP = img.closest("p");
+        if (parentP && !parentP.textContent.trim()) parentP.remove();
+      }
+
+      if (fetchedTitle) contentDiv.append(fetchedTitle.cloneNode(true));
+      contentDiv.append(fetchedPerex.cloneNode(true));
+
+      if (secondDesc) {
+        const readMoreBtn = document.createElement("a");
+        readMoreBtn.className = "read-more-link";
+        readMoreBtn.innerText = readMoreText;
+        readMoreBtn.style.cursor = "pointer";
+        contentDiv.append(readMoreBtn);
+      }
+
+      upperWrapper.prepend(contentDiv);
+      return upperWrapper;
+    }
+  } catch (error) {
+    console.error("Nepodařilo se stáhnout data kategorie:", error);
+  }
+  return null;
+};
+
+// Funkce zajišťuje dostupnost dat o kategorii z DOMu, Cache, nebo přes Fetch a spouští renderování.
+const handleCategoryTop = async () => {
+  if (window.shoptetPage !== "category") return;
+
+  const categoryTop = document.querySelector(".category-top");
+  if (!categoryTop) return;
+
+  const cacheKey = getCategoryCacheKey();
+  const currentPerex = categoryTop.querySelector(".category-perex");
+
+  if (currentPerex && !categoryDescriptionCache) {
+    const title = categoryTop.querySelector(".category-title");
+    const secondDesc = document.querySelector(".category__secondDescription");
+    const lang = document.documentElement.lang || "cs";
+    const readMoreText =
+      window.projectTranslations?.[lang]?.category?.readMore || "Přečíst více";
+
+    const upperWrapper = document.createElement("div");
+    upperWrapper.className = "category-top-upper";
+
+    const contentDiv = document.createElement("div");
+    contentDiv.className = "category-top-upper--content";
+
+    const img =
+      currentPerex.querySelector("img") || categoryTop.querySelector("img");
+    if (img) {
+      const newImg = img.cloneNode(true);
+      upperWrapper.append(newImg);
+      const parentP = img.closest("p");
+      if (parentP && !parentP.textContent.trim()) parentP.remove();
     }
 
-    const lang = document.documentElement.lang || 'cs';
-    const readMoreText = window.projectTranslations?.[lang]?.category?.readMore || "Přečíst více";
-
-    const container = document.createElement('div');
-    container.className = 'container';
-
-    const upperWrapper = document.createElement('div');
-    upperWrapper.className = 'category-top-upper';
-
-    if (perex) {
-        const img = perex.querySelector('img');
-        if (img) {
-            const parentP = img.closest('p');
-            upperWrapper.append(img);
-            if (parentP && !parentP.textContent.trim()) {
-                parentP.remove();
-            }
-        }
-    }
-
-    if (title) upperWrapper.prepend(title);
-    if (perex) upperWrapper.append(perex);
+    if (title) contentDiv.append(title.cloneNode(true));
+    contentDiv.append(currentPerex.cloneNode(true));
 
     if (secondDesc) {
-        secondDesc.id = 'category-description-bottom';
-        const readMoreBtn = document.createElement('a');
-        readMoreBtn.className = 'read-more-link';
-        readMoreBtn.href = '#category-description-bottom';
-        readMoreBtn.innerText = readMoreText;
-        readMoreBtn.onclick = (e) => {
-            e.preventDefault();
-            secondDesc.scrollIntoView({ behavior: 'smooth' });
-        };
-        upperWrapper.append(readMoreBtn);
+      const readMoreBtn = document.createElement("a");
+      readMoreBtn.className = "read-more-link";
+      readMoreBtn.innerText = readMoreText;
+      readMoreBtn.style.cursor = "pointer";
+      contentDiv.append(readMoreBtn);
     }
 
-    container.append(upperWrapper);
-    if (subcategories) container.append(subcategories);
+    upperWrapper.prepend(contentDiv);
+    categoryDescriptionCache = upperWrapper.cloneNode(true);
+    sessionStorage.setItem(cacheKey, upperWrapper.innerHTML);
+  } else if (!categoryDescriptionCache) {
+    let savedData = sessionStorage.getItem(cacheKey);
+    let upperWrapper = document.createElement("div");
+    upperWrapper.className = "category-top-upper";
 
-    categoryTop.innerHTML = '';
-    categoryTop.append(container);
+    if (savedData) {
+      upperWrapper.innerHTML = savedData;
+    } else {
+      const fetchedWrapper = await fetchAndBuildCategoryTop(categoryTop);
+      if (fetchedWrapper) {
+        upperWrapper = fetchedWrapper;
+        sessionStorage.setItem(cacheKey, upperWrapper.innerHTML);
+      } else {
+        return;
+      }
+    }
+    categoryDescriptionCache = upperWrapper;
+  }
 
-    categoryTop.classList.add('is-processed');
+  const hasOurStructure = categoryTop.querySelector(".category-top-upper");
+  if (categoryDescriptionCache && !hasOurStructure) {
+    renderCategoryTopStructure(categoryTop);
+  }
 };
-// Hlavní orchestrátor pro kategorii, který hlídá iniciální načtení i asynchronní změny při filtraci pomocí Shoptet eventů.
-const handleCategoryCritical = () => {
-    if (window.shoptetPage !== "category") return;
 
-    handleCategoryTop();
+// Funkce sestavuje finální HTML z cache a zajišťuje funkčnost eventů a správnost nadpisu.
+const renderCategoryTopStructure = (categoryTop) => {
+  const subcategories = categoryTop.querySelector(".subcategories");
+  const newTitle = categoryTop.querySelector(".category-title");
+  const container = document.createElement("div");
+  container.className = "container active";
 
-    const events = ['shoptet.contentUpdated', 'ShoptetDOMPageContentLoaded'];
-    events.forEach(eventName => {
-        document.removeEventListener(eventName, handleCategoryTop);
-        document.addEventListener(eventName, handleCategoryTop);
+  const cachedContent = categoryDescriptionCache.cloneNode(true);
+
+  const setupReadMore = (el) => {
+    const btn = el.querySelector(".read-more-link");
+    if (btn) {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        document
+          .getElementById("category-description-bottom")
+          ?.scrollIntoView({ behavior: "smooth" });
+      };
+    }
+  };
+
+  setupReadMore(cachedContent);
+
+  if (newTitle) {
+    const oldTitle = cachedContent.querySelector(".category-title");
+    if (oldTitle) {
+      oldTitle.replaceWith(newTitle.cloneNode(true));
+    } else {
+      cachedContent
+        .querySelector(".category-top-upper--content")
+        ?.prepend(newTitle.cloneNode(true));
+    }
+  }
+
+  container.append(cachedContent);
+
+  if (subcategories) {
+    container.append(subcategories.cloneNode(true));
+  }
+
+  categoryTop.innerHTML = "";
+  categoryTop.append(container);
+  categoryTop.classList.add("is-processed");
+
+  const title = categoryTop.querySelector(".category-title");
+  const appendix =
+    title?.querySelector(".pagination-appendix") ||
+    document.querySelector(".pagination-appendix");
+
+  if (title && appendix) {
+    appendix.textContent = appendix.textContent.replace(",", "").trim();
+    if (!title.contains(appendix)) {
+      title.append(appendix);
+    }
+  }
+};
+/**
+ * ZPRACOVÁNÍ NEJPRODÁVANĚJŠÍCH PRODUKTŮ
+ */
+
+// Funkce ukládá nejprodávanější produkty do cache a v případě jejich absence v DOMu je vkládá zpět.
+const handleBestSellingInjection = () => {
+  if (window.shoptetPage !== "category") return;
+
+  const categoryTop = document.querySelector(".category-top");
+  let existingBestSelling = document.querySelector(".products-top-wrapper");
+
+  if (existingBestSelling && !bestSellingCache) {
+    existingBestSelling.classList.remove("has-inactive");
+    bestSellingCache = existingBestSelling.cloneNode(true);
+
+    if (categoryTop && categoryTop.contains(existingBestSelling)) {
+      categoryTop.after(existingBestSelling);
+    }
+  }
+
+  if (
+    !document.querySelector(".products-top-wrapper") &&
+    bestSellingCache &&
+    categoryTop
+  ) {
+    categoryTop.after(bestSellingCache.cloneNode(true));
+    handleBestSellingProducts();
+  }
+};
+
+// Funkce přidává tlačítka "Detail" k nejprodávanějším produktům, řeší jejich persistenci přes cache a opravuje src u obrázků.
+const handleBestSellingProducts = () => {
+  const categoryTop = document.querySelector(".category-top");
+  let bestSelling = document.querySelector(".products-top-wrapper");
+
+  const fixImages = (container) => {
+    const images = container.querySelectorAll("img[data-src]");
+    images.forEach((img) => {
+      img.setAttribute("src", img.getAttribute("data-src"));
     });
+  };
+
+  if (bestSelling && !bestSellingCache) {
+    bestSelling.classList.remove("has-inactive");
+    fixImages(bestSelling);
+    bestSellingCache = bestSelling.cloneNode(true);
+  }
+
+  if (!bestSelling && bestSellingCache && categoryTop) {
+    const fragment = bestSellingCache.cloneNode(true);
+    fixImages(fragment);
+    categoryTop.after(fragment);
+    bestSelling = document.querySelector(".products-top-wrapper");
+  }
+
+  const products = document.querySelectorAll("#productsTop .product");
+  if (!products.length) return;
+
+  const lang = document.documentElement.lang || "cs";
+  const detailText =
+    window.projectTranslations?.[lang]?.category?.productsTopButton || "Detail";
+  const btnTemplate = `<a href="{{url}}" class="btn btn-primary btn-detail-added">${detailText}</a>`;
+
+  for (let i = 0; i < products.length; i++) {
+    const product = products[i];
+    if (product.querySelector(".btn-detail-added")) continue;
+
+    const productInner = product.querySelector(".p");
+    const productNameLink = product.querySelector(".name");
+
+    if (productInner && productNameLink) {
+      const productUrl = productNameLink.getAttribute("href");
+      productInner.insertAdjacentHTML(
+        "beforeend",
+        btnTemplate.replace("{{url}}", productUrl),
+      );
+    }
+  }
+};
+
+/**
+ * ZPRACOVÁNÍ FILTRŮ
+ */
+
+// Funkce obaluje vnitřní prvky cenového slideru do kontejneru pro lepší vizuální kontrolu.
+const wrapPriceSliderInner = (sliderWrapper) => {
+  const header = sliderWrapper.querySelector(".slider-header");
+  const content = sliderWrapper.querySelector(".slider-content");
+
+  if (header && content) {
+    const innerContainer = document.createElement("div");
+    innerContainer.className = "slider-inner-container";
+    header.before(innerContainer);
+    innerContainer.append(header, content);
+  }
+};
+
+// Funkce rozděluje filtry do dvou skupin podle typu, aby umožnila specifický layout (např. boční panel).
+const splitFiltersToGroups = (filters) => {
+  const leftWrapper = document.createElement("div");
+  leftWrapper.className = "filters-left";
+  const rightWrapper = document.createElement("div");
+  rightWrapper.className = "filters-right";
+
+  const slider = filters.querySelector(".slider-wrapper");
+  const priceForm = filters.querySelector("#price-filter-form");
+  const booleanSection = filters.querySelector(".filter-section-boolean");
+  const otherSections = filters.querySelectorAll(
+    ".filter-section:not(.filter-section-boolean)",
+  );
+
+  if (slider) leftWrapper.append(slider);
+  if (priceForm) leftWrapper.append(priceForm);
+  if (booleanSection) leftWrapper.append(booleanSection);
+
+  for (let i = 0; i < otherSections.length; i++) {
+    rightWrapper.append(otherSections[i]);
+  }
+
+  filters.innerHTML = "";
+  filters.append(leftWrapper, rightWrapper);
+};
+
+// Funkce spouští proces restrukturalizace filtrů a označuje je jako zpracované.
+const handleCategoryFilters = () => {
+  if (window.shoptetPage !== "category") return;
+
+  const filters = document.querySelector("#filters");
+  if (!filters || filters.classList.contains("filters-processed")) return;
+
+  const sliderWrapper = filters.querySelector(".slider-wrapper");
+  if (sliderWrapper) {
+    wrapPriceSliderInner(sliderWrapper);
+    splitFiltersToGroups(filters);
+    filters.classList.add("filters-processed");
+  }
+};
+
+/**
+ * HLAVNÍ ORCHESTRÁTOR
+ */
+
+// Hlavní řídicí funkce pro kategorii, která registruje eventy a spouští všechny dílčí úpravy.
+const handleCategoryCritical = () => {
+  if (window.shoptetPage !== "category") return;
+
+  handleBestSellingInjection();
+  handleCategoryTop();
+  handleBestSellingProducts();
+  handleCategoryFilters();
+
+  const events = ["shoptet.contentUpdated", "ShoptetDOMPageContentLoaded"];
+  events.forEach((eventName) => {
+    document.removeEventListener(eventName, handleCategoryCritical);
+    document.addEventListener(eventName, (e) => {
+      handleCategoryCritical();
+    });
+  });
 };
 
 handleCategoryCritical();
 
+// Funkce transformuje galerii na Swiper a optimalizuje načítání (LCP).
+// Hlavní slider a jeho šipky jsou obaleny do jednoho kontejneru pro snadné centrování.
+const handleProductGallery = () => {
+  const wrapper = document.querySelector(".p-image-wrapper");
+  if (!wrapper) return;
 
+  const thumbAnchors = wrapper.querySelectorAll(
+    ".p-thumbnails-inner a.p-thumbnail",
+  );
+  if (!thumbAnchors.length) return;
 
+  const isDesktop = window.innerWidth >= 768;
+  const flags =
+    document.querySelector(".p-image .flags-extra")?.outerHTML || "";
 
-const handleCheckedFilters = () => {};
+  let mainSlides = "";
+  let thumbSlides = "";
 
-const handleProductDetail = async () => {};
-if (shoptetPage === "productDetail") {
-  handleProductDetail();
-}
+  for (let i = 0; i < thumbAnchors.length; i++) {
+    const anchor = thumbAnchors[i];
+    const fullImg = anchor.href;
+    const origImg = anchor.nextElementSibling?.getAttribute("href") || fullImg;
+    const imgEl = anchor.querySelector("img");
+    const thumbImg = imgEl?.getAttribute("data-src") || imgEl?.src || fullImg;
+    const alt = imgEl?.alt || "";
+
+    const loadingAttr =
+      i === 0 ? 'fetchpriority="high" loading="eager"' : 'loading="lazy"';
+
+    mainSlides += `
+            <div class="swiper-slide">
+                <div class="p-main-image cloud-zoom" 
+                     data-href="${origImg}"
+                     style="position: relative; display: block; cursor: crosshair;">
+                    <img src="${fullImg}" alt="${alt}" ${loadingAttr}>
+                </div>
+            </div>`;
+
+    if (isDesktop) {
+      thumbSlides += `<div class="swiper-slide" style="cursor: pointer;"><img src="${thumbImg}" alt="${alt}" loading="lazy"></div>`;
+    }
+  }
+
+  let galleryHtml = `
+        <div class="swiper-main-wrapper">
+            <div class="swiper swiper-main-image">
+                ${flags}
+                <div class="swiper-wrapper">${mainSlides}</div>
+            </div>
+            <div class="swiper-button-next main-nav-next secondary"></div>
+            <div class="swiper-button-prev main-nav-prev secondary"></div>
+        </div>
+    `;
+
+  if (isDesktop) {
+    galleryHtml += `
+            <div class="swiper-thumbnails-wrapper">
+                <div class="swiper swiper-thumbnails">
+                    <div class="swiper-wrapper">${thumbSlides}</div>
+                </div>
+                <div class="swiper-button-next swiper-thumb-next small"></div>
+                <div class="swiper-button-prev swiper-thumb-prev small"></div>
+            </div>
+        `;
+  }
+
+  wrapper.innerHTML = galleryHtml;
+
+  if (window.Swiper) {
+    let swiperOptions = {
+      spaceBetween: 16,
+      navigation: {
+        nextEl: ".main-nav-next",
+        prevEl: ".main-nav-prev",
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    };
+
+    if (isDesktop) {
+      const thumbSwiper = new Swiper(".swiper-thumbnails", {
+        spaceBetween: 8,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+        navigation: {
+          nextEl: ".swiper-thumb-next",
+          prevEl: ".swiper-thumb-prev",
+        },
+      });
+      swiperOptions.thumbs = { swiper: thumbSwiper };
+      swiperOptions.pagination = false;
+    }
+
+    new Swiper(".swiper-main-image", swiperOptions);
+
+    if (isDesktop && window.jQuery && $.fn.CloudZoom) {
+      try {
+        $(".swiper-main-image .cloud-zoom").CloudZoom();
+      } catch (e) {
+        console.warn("CloudZoom neprošel:", e);
+      }
+    }
+  }
+};
+
+// Funkce přesouvá hlavičku, hvězdičky a kód produktu na začátek informačního panelu.
+// Kód produktu je vložen přímo do obalu s hodnocením pro lepší rozložení prostoru.
+const handleProductTop = () => {
+  const infoWrapper = document.querySelector(".p-detail .p-info-wrapper");
+  const header = document.querySelector(".p-detail-inner-header");
+  const stars = document.querySelector(".stars-wrapper");
+  const pCode = document.querySelector(".p-code");
+
+  if (!infoWrapper || !header) return;
+
+  infoWrapper.prepend(header);
+
+  if (stars) {
+    header.after(stars);
+    if (pCode) {
+      stars.append(pCode);
+    }
+  }
+};
+
+// Funkce přesouvá příznaky produktu z informačního bloku přímo do hlavního Swiper kontejneru.
+const handleProductFlags = () => {
+  const mainSwiper = document.querySelector(".swiper-main-image");
+  const flags = document.querySelector(".p-detail-info .flags");
+
+  if (!mainSwiper || !flags) return;
+
+  // Přesuneme příznaky na začátek Swiperu, aby byly vidět nad obrázky
+  mainSwiper.prepend(flags);
+};
+
+// Funkce sjednotí nákupní blok do jednoho obalu, vypočítá ušetřenou částku
+// a upraví text tlačítka košíku podle systémových proměnných Shoptetu.
+const handleAddToCartWrapper = () => {
+  const infoWrapper = document.querySelector(".p-info-wrapper");
+  if (!infoWrapper) return;
+
+  let cartWrapper = infoWrapper.querySelector(".add-to-cart-wrapper");
+  const addToCartBlock = infoWrapper.querySelector(".add-to-cart");
+  const finalPriceWrapper = document.querySelector(".p-final-price-wrapper");
+
+  if (!cartWrapper) {
+    cartWrapper = document.createElement("div");
+    cartWrapper.className = "add-to-cart-wrapper";
+
+    if (addToCartBlock) {
+      addToCartBlock.before(cartWrapper);
+    } else {
+      infoWrapper.append(cartWrapper);
+    }
+  }
+
+  // --- 1. Přesun a úprava ceny (Výpočet slevy) ---
+  if (finalPriceWrapper) {
+    cartWrapper.append(finalPriceWrapper);
+
+    const standardPriceEl = cartWrapper.querySelector(".price-standard");
+    const finalPriceEl = cartWrapper.querySelector(".price-final-holder");
+    const priceSaveEl = cartWrapper.querySelector(".price-save");
+
+    if (
+      standardPriceEl &&
+      finalPriceEl &&
+      priceSaveEl &&
+      !priceSaveEl.querySelector(".save-amount-text")
+    ) {
+      const extractValue = (el) => {
+        const clone = el.cloneNode(true);
+        const unit = clone.querySelector(".pr-list-unit");
+        if (unit) unit.remove();
+
+        const rawText = clone.textContent
+          .replace(/\s/g, "")
+          .replace(/\u00A0/g, "");
+        const match = rawText.match(/[\d,]+/);
+        return match ? parseFloat(match[0].replace(",", ".")) : 0;
+      };
+
+      const standardPrice = extractValue(standardPriceEl);
+      const finalPrice = extractValue(finalPriceEl);
+
+      if (standardPrice > finalPrice) {
+        const savedAmount = standardPrice - finalPrice;
+        
+        const cInfo = window.dataLayer?.[0]?.shoptet?.currencyInfo || {
+          decimalSeparator: ",",
+          thousandSeparator: " ",
+          symbol: "Kč",
+          symbolLeft: 0,
+          priceDecimalPlaces: 2
+        };
+
+        let formattedNum = parseFloat(savedAmount.toFixed(cInfo.priceDecimalPlaces)).toString();
+        let parts = formattedNum.split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, cInfo.thousandSeparator);
+        let formattedSave = parts.join(cInfo.decimalSeparator);
+
+        const saveTextString = cInfo.symbolLeft 
+          ? `${cInfo.symbol} ${formattedSave}` 
+          : `${formattedSave} ${cInfo.symbol}`;
+
+        const saveText = document.createElement("span");
+        saveText.className = "save-amount-text";
+        saveText.textContent = ` (${saveTextString})`;
+
+        priceSaveEl.append(saveText);
+      }
+    }
+  }
+
+  // --- 2. Přesun nákupního bloku a úprava textu tlačítka ---
+  if (addToCartBlock) {
+    cartWrapper.append(addToCartBlock);
+    
+    const addToCartButton = addToCartBlock.querySelector(".add-to-cart-button");
+    if (addToCartButton && window.shoptet && window.shoptet.messages && window.shoptet.messages['toCart']) {
+        addToCartButton.textContent = window.shoptet.messages['toCart'];
+    }
+  }
+};
+
+// Funkce sjednotí informace o dostupnosti a doručení do jednoho bloku
+// a obarví čas doručení stejnou barvou, jakou má hlavní štítek dostupnosti.
+const handleAvailabilityProductTop = () => {
+    const infoWrapper = document.querySelector(".p-info-wrapper");
+    if (!infoWrapper) return;
+
+    const availabilityValue = infoWrapper.querySelector(".availability-value");
+    const availabilityLabel = infoWrapper.querySelector(".availability-label");
+    const availabilityAmount = infoWrapper.querySelector(".availability-amount");
+    const deliveryTimeLabel = infoWrapper.querySelector(".delivery-time-label");
+    const deliveryTime = infoWrapper.querySelector(".delivery-time");
+
+    if (!availabilityValue) return;
+
+    const statusColor = availabilityLabel ? availabilityLabel.style.color : "";
+
+    if (availabilityAmount && statusColor) {
+        availabilityAmount.style.color = statusColor;
+    }
+
+    if (deliveryTimeLabel) {
+        if (statusColor) deliveryTimeLabel.style.color = statusColor;
+        availabilityValue.append(deliveryTimeLabel);
+    }
+
+    if (deliveryTime) {
+        if (statusColor) deliveryTime.style.color = statusColor;
+        availabilityValue.append(deliveryTime);
+    }
+};
+
+// Hlavní řídicí funkce pro detail produktu, která registruje eventy a spouští dílčí úpravy.
+const handleProductDetailCritical = () => {
+  if (window.shoptetPage !== "productDetail") return;
+  const productDetail = document.querySelector(".p-detail");
+  if (!productDetail) return;
+
+  handleProductGallery();
+  handleProductTop();
+  handleProductFlags();
+  handleAddToCartWrapper();
+  handleAvailabilityProductTop();
+  setTimeout(() => {
+    productDetail.classList.add("is-processed");
+  }, 40);
+
+  const events = ["shoptet.contentUpdated", "shoptet.variantsUpdated"];
+  events.forEach((eventName) => {
+    document.removeEventListener(eventName, handleProductDetailCritical);
+    document.addEventListener(eventName, (e) => {
+      handleProductDetailCritical();
+    });
+  });
+};
+
+handleProductDetailCritical();
 
 const handlePost = async () => {};
 if (document.body.classList.contains("type-post")) handlePost();

@@ -1,0 +1,311 @@
+.p-detail {
+  opacity: 0;
+  &.is-processed {
+    opacity: 1;
+  }
+}
+.product-top {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  padding: 24px 0 32px 0;
+  .col-xs-12:has(.p-detail-info) {
+    display: none;
+  }
+}
+.p-image-wrapper {
+  width: 100%;
+  max-width: calc((810 / 1480) * 100%);
+  position: relative;
+  .flags {
+    z-index: 10;
+    top: 0.5rem;
+    left: 0.5rem;
+  }
+  .flags-extra {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    left: unset;
+    top: unset;
+    .price-standard {
+      display: none;
+    }
+  }
+}
+.swiper-main-wrapper {
+  position: relative;
+}
+.swiper-main-image {
+  max-width: 550px;
+  position: relative;
+  margin-bottom: 16px;
+  .swiper-slide {
+    img {
+      border-radius: 12px;
+    }
+  }
+}
+.swiper-thumbnails-wrapper {
+  position: relative;
+  max-width: 408px;
+  padding: 0 32px;
+  margin: 0 auto;
+  .swiper-button-next {
+    right: 0;
+  }
+  .swiper-button-prev {
+    left: 0;
+  }
+  .swiper-slide {
+    aspect-ratio: 1;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    background-color: $color-page-bg;
+    overflow: hidden;
+    &.swiper-slide-thumb-active {
+      border-color: $color-secondary;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+}
+
+.p-info-wrapper {
+  width: 100%;
+  max-width: calc((630 / 1480) * 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+//Top detail info || produt top || product-top
+.p-detail-inner-header {
+}
+.product-top {
+  .p-info-wrapper {
+  }
+  .p-detail-inner-header {
+    order: -6;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .stars-wrapper {
+    order: -5;
+    margin-bottom: 8px;
+  }
+  .stars-label {
+    font-size: rem(14);
+    line-height: em(20, 14);
+  }
+  .p-final-price-wrapper {
+  }
+  .availability-value {
+    font-size: rem(16);
+    line-height: em(22, 16);
+    .availability-label {
+      font-weight: 600;
+    }
+    .availability-amount {
+      font-weight: 600;
+    }
+    .delivery-time {
+      display: inline-block;
+      margin-left: 4px;
+      font-weight: 600;
+    }
+  }
+  .p-short-description {
+    order: -4;
+    margin-bottom: 8px;
+  }
+  [data-testid="productCardDescr"] {
+    order: -3;
+    display: flex;
+    margin-bottom: 16px;
+    a {
+      color: $color-primary;
+      text-decoration: unset;
+      font-size: rem(16);
+      line-height: em(22, 16);
+      @include underline-mid-reverse($color-primary, 1px, 3px);
+    }
+  }
+  h1 {
+    margin: 0;
+  }
+  .p-code {
+    font-size: rem(14);
+    line-height: em(20, 14);
+    color: $color-font-second;
+    font-weight: 400;
+    margin-left: auto;
+  }
+  .stars-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .detail-parameters {
+    th {
+      padding: 0;
+    }
+  }
+}
+.shipping-options {
+  font-size: rem(14);
+  line-height: em(20, 14);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  margin-bottom: 16px;
+  &::before {
+    content: "";
+    @include icon-mask(
+      "/assets/images/icons/shipping-black.svg",
+      $color-font,
+      16px,
+      16px
+    );
+  }
+}
+.add-to-cart-wrapper {
+  border-radius: 12px;
+  background-color: $color-primary-050;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 8px;
+  .price-save {
+    padding: 5px 8px;
+    border-radius: 50px;
+    background-color: $color-danger-100;
+    color: $color-danger;
+    font-weight: 600;
+    font-size: rem(14);
+    line-height: em(20, 14);
+  }
+  .price-standard {
+    font-weight: 400;
+    color: $color-font-second;
+    font-size: rem(18);
+    line-height: em(25, 18);
+  }
+  .price-additional {
+    // Cena bez DPH
+    font-size: rem(13);
+    line-height: em(16, 13);
+    color: $color-font;
+    display: none;
+    background-color: $color-font-invert;
+    position: absolute;
+    font-weight: 600;
+    left: 0;
+    bottom: 100%;
+    -webkit-box-shadow: 0px 3px 15px 4px rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 3px 15px 4px rgba(0, 0, 0, 0.16);
+    border-radius: 4px;
+    padding: 6px 8px;
+    white-space: nowrap;
+  }
+  .p-final-price-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    max-width: 200px;
+    &:has(.price-save) {
+      .price-final {
+        color: $color-danger;
+      }
+    }
+    .price-measure {
+      display: none;
+    }
+  }
+  .price-final {
+    width: 100%;
+    display: block;
+    font-size: rem(30);
+    line-height: em(38, 30);
+
+    .pr-list-unit {
+      color: $color-font-second;
+      font-weight: 400;
+      font-size: rem(14);
+      line-height: em(20, 14);
+    }
+  }
+  .add-to-cart {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  .add-to-cart-button {
+    padding: 11.5px 48px;
+    font-size: rem(16);
+    line-height: rem(22, 16);
+    &::before {
+      content: "";
+      @include icon-mask(
+        "/assets/images/icons/cart-primary.svg",
+        $color-font-invert,
+        18px,
+        18px
+      );
+    }
+  }
+}
+.social-buttons-wrapper {
+  .link-icon {
+    color: $color-font;
+    text-decoration: underline;
+    font-weight: 400;
+    font-size: rem(14);
+    line-height: em(20, 14);
+    display: inline-flex;
+    gap: 4px;
+    &.print {
+        &::before{
+            content: "";
+            @include icon-mask("/assets/images/icons/print-primary.svg", $color-secondary, 16px, 16px)
+        }
+    }
+    &.chat {
+        &::before{
+            content: "";
+            @include icon-mask("/assets/images/icons/dotaz-primary.svg", $color-secondary, 16px, 16px)
+        }
+    }
+    &.watchdog {
+        &::before{
+            content: "";
+            @include icon-mask("/assets/images/icons/watch-primary.svg", $color-secondary, 16px, 16px)
+        }
+    }
+    &.share {
+        &::before{
+            content: "";
+            @include icon-mask("/assets/images/icons/share-primary.svg", $color-secondary, 16px, 16px)
+        }
+    }
+  }
+}

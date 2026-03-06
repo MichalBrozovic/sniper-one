@@ -1046,6 +1046,292 @@ var handleHomePage = /*#__PURE__*/function () {
 }();
 handleHomePage();
 
+//Category || kategorie
+
+/**
+ * POMOCNÉ NÁSTROJE
+ */
+
+// Funkce zajišťuje plynulý posun stránky na začátek obsahu s offsetem 100px.
+var scrollToContent = function scrollToContent() {
+  var content = document.querySelector("#content");
+  if (content) {
+    // Použijeme RequestAnimationFrame pro synchronizaci s vykreslením prohlížeče
+    requestAnimationFrame(function () {
+      setTimeout(function () {
+        var offset = 100;
+        var bodyRect = document.body.getBoundingClientRect().top;
+        var elementRect = content.getBoundingClientRect().top;
+        var elementPosition = elementRect - bodyRect;
+        var offsetPosition = elementPosition - offset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }, 50); // Stačí krátký timeout, protože event už hlásí hotový DOM
+    });
+  }
+};
+
+// Vypnutí interního scrollu Shoptetu, aby se nepral s naší logikou.
+if (typeof shoptet !== "undefined" && shoptet.scripts) {
+  shoptet.scripts.scrollToHeader = function () {
+    return false; // Shoptet teď neudělá nic
+  };
+}
+
+// Reagujeme na moment, kdy Shoptet potvrdí, že je obsah na místě a připraven.
+document.addEventListener("ShoptetDOMPageContentLoaded", function () {
+  scrollToContent();
+});
+
+// Vygeneruje seznam aktivních filtrů pod filtrační lištou. Kliknutím na tag se filtr zruší.
+var handleCheckedFilters = function handleCheckedFilters() {
+  var filtersWrapper = document.querySelector("#filters-wrapper");
+  var activeCheckboxes = document.querySelectorAll('#filters input[type="checkbox"]:checked');
+  var oldActive = document.querySelector(".active-filters-container");
+  if (oldActive) oldActive.remove();
+  if (activeCheckboxes.length > 0 && filtersWrapper) {
+    var container = document.createElement("div");
+    container.className = "active-filters-container";
+    var list = document.createElement("div");
+    list.className = "active-filters-list";
+    activeCheckboxes.forEach(function (input) {
+      var label = document.querySelector("label[for=\"".concat(input.id, "\"]"));
+      if (!label) return;
+      var tag = document.createElement("div");
+      tag.className = "active-filter-tag";
+      var cleanText = label.textContent.split("(")[0].trim();
+      tag.innerHTML = "".concat(cleanText, " <div class=\"close black small\"></div>");
+      tag.addEventListener("click", function () {
+        input.click();
+      });
+      list.appendChild(tag);
+    });
+    container.appendChild(list);
+    var clearBtn = document.querySelector("#clear-filters");
+    if (clearBtn) container.appendChild(clearBtn);
+    filtersWrapper.after(container);
+  }
+};
+var categoryBottomCache = null;
+
+// Pomocná funkce pro získání klíče k uložení spodního popisu kategorie.
+var getCategoryBottomCacheKey = function getCategoryBottomCacheKey() {
+  var _window$dataLayer;
+  var pageId = ((_window$dataLayer = window.dataLayer) === null || _window$dataLayer === void 0 || (_window$dataLayer = _window$dataLayer[0]) === null || _window$dataLayer === void 0 || (_window$dataLayer = _window$dataLayer.shoptet) === null || _window$dataLayer === void 0 ? void 0 : _window$dataLayer.pageId) || "unknown";
+  return "bottom_desc_".concat(pageId);
+};
+
+// Funkce stáhne první stranu kategorie, vyjme spodní popis a rovnou do něj přidá H2 nadpis z dataLayeru.
+var fetchAndBuildCategoryBottom = /*#__PURE__*/function () {
+  var _ref8 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+    var baseUrl, response, text, parser, doc, fetchedDesc, _window$dataLayer2, categoryName, h2, _t2;
+    return _regenerator().w(function (_context9) {
+      while (1) switch (_context9.p = _context9.n) {
+        case 0:
+          _context9.p = 0;
+          baseUrl = window.location.pathname.replace(/\/strana-[0-9]+\/?/, "/");
+          _context9.n = 1;
+          return fetch(baseUrl);
+        case 1:
+          response = _context9.v;
+          _context9.n = 2;
+          return response.text();
+        case 2:
+          text = _context9.v;
+          parser = new DOMParser();
+          doc = parser.parseFromString(text, "text/html");
+          fetchedDesc = doc.querySelector(".category__secondDescription");
+          if (!fetchedDesc) {
+            _context9.n = 3;
+            break;
+          }
+          fetchedDesc.id = "category-description-bottom";
+          categoryName = ((_window$dataLayer2 = window.dataLayer) === null || _window$dataLayer2 === void 0 || (_window$dataLayer2 = _window$dataLayer2[0]) === null || _window$dataLayer2 === void 0 || (_window$dataLayer2 = _window$dataLayer2.shoptet) === null || _window$dataLayer2 === void 0 || (_window$dataLayer2 = _window$dataLayer2.category) === null || _window$dataLayer2 === void 0 ? void 0 : _window$dataLayer2.path) || "";
+          if (categoryName && !fetchedDesc.querySelector("h2")) {
+            h2 = document.createElement("h2");
+            h2.textContent = categoryName;
+            fetchedDesc.prepend(h2);
+          }
+          return _context9.a(2, fetchedDesc);
+        case 3:
+          _context9.n = 5;
+          break;
+        case 4:
+          _context9.p = 4;
+          _t2 = _context9.v;
+          console.error("Chyba při stahování spodního popisu:", _t2);
+        case 5:
+          return _context9.a(2, null);
+      }
+    }, _callee8, null, [[0, 4]]);
+  }));
+  return function fetchAndBuildCategoryBottom() {
+    return _ref8.apply(this, arguments);
+  };
+}();
+
+// Funkce zajišťuje persistenci spodního popisu s H2 nadpisem a obaluje ho do sémantické sekce.
+var handleCategoryBottomText = /*#__PURE__*/function () {
+  var _ref9 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+    var contentWrapper, currentDesc, cacheKey, _window$dataLayer3, categoryName, h2, section, container, savedData, tempDiv, fetchedDesc, _section, _container, isDescInDom;
+    return _regenerator().w(function (_context0) {
+      while (1) switch (_context0.n) {
+        case 0:
+          if (!(window.shoptetPage !== "category")) {
+            _context0.n = 1;
+            break;
+          }
+          return _context0.a(2);
+        case 1:
+          contentWrapper = document.querySelector("#content-wrapper");
+          if (contentWrapper) {
+            _context0.n = 2;
+            break;
+          }
+          return _context0.a(2);
+        case 2:
+          currentDesc = document.querySelector(".category__secondDescription");
+          cacheKey = getCategoryBottomCacheKey();
+          if (!(currentDesc && !categoryBottomCache)) {
+            _context0.n = 3;
+            break;
+          }
+          currentDesc.id = "category-description-bottom";
+          categoryName = ((_window$dataLayer3 = window.dataLayer) === null || _window$dataLayer3 === void 0 || (_window$dataLayer3 = _window$dataLayer3[0]) === null || _window$dataLayer3 === void 0 || (_window$dataLayer3 = _window$dataLayer3.shoptet) === null || _window$dataLayer3 === void 0 || (_window$dataLayer3 = _window$dataLayer3.category) === null || _window$dataLayer3 === void 0 ? void 0 : _window$dataLayer3.path) || "";
+          if (categoryName && !currentDesc.querySelector("h2")) {
+            h2 = document.createElement("h2");
+            h2.textContent = categoryName;
+            currentDesc.prepend(h2);
+          }
+
+          // Zabalení do nové struktury section > container
+          section = document.createElement("section");
+          section.className = "section-second-description";
+          container = document.createElement("div");
+          container.className = "container";
+          container.append(currentDesc.cloneNode(true));
+          section.append(container);
+          categoryBottomCache = section.cloneNode(true);
+          sessionStorage.setItem(cacheKey, section.outerHTML);
+
+          // Odstranění původního popisu (aby nebyl duplicitně v content-wrapper) a jeho vložení zpět už v novém obalu
+          currentDesc.remove();
+          _context0.n = 6;
+          break;
+        case 3:
+          if (categoryBottomCache) {
+            _context0.n = 6;
+            break;
+          }
+          savedData = sessionStorage.getItem(cacheKey);
+          if (!savedData) {
+            _context0.n = 4;
+            break;
+          }
+          tempDiv = document.createElement("div");
+          tempDiv.innerHTML = savedData;
+          categoryBottomCache = tempDiv.firstElementChild;
+          _context0.n = 6;
+          break;
+        case 4:
+          _context0.n = 5;
+          return fetchAndBuildCategoryBottom();
+        case 5:
+          fetchedDesc = _context0.v;
+          if (fetchedDesc) {
+            _section = document.createElement("section");
+            _section.className = "section-second-description";
+            _container = document.createElement("div");
+            _container.className = "container";
+            _container.append(fetchedDesc);
+            _section.append(_container);
+            categoryBottomCache = _section;
+            sessionStorage.setItem(cacheKey, categoryBottomCache.outerHTML);
+          }
+        case 6:
+          isDescInDom = document.querySelector(".section-second-description");
+          if (categoryBottomCache && !isDescInDom) {
+            // Vkládáme těsně za #content-wrapper. Pokud za ním budou benefity, posunou se až za tento text.
+            contentWrapper.after(categoryBottomCache.cloneNode(true));
+          }
+        case 7:
+          return _context0.a(2);
+      }
+    }, _callee9);
+  }));
+  return function handleCategoryBottomText() {
+    return _ref9.apply(this, arguments);
+  };
+}();
+
+// Funkce najde benefitní bannery uvnitř obsahového wrapperu, přesune je za něj (případně za spodní popis)
+// a obalí je novou sémantickou sekcí s vlastním kontejnerem.
+var handleCategoryBenefits = function handleCategoryBenefits() {
+  if (window.shoptetPage !== "category") return;
+  var benefitsBanner = document.querySelector("#content-wrapper .benefitBanner.position--benefitCategory");
+  var contentWrapper = document.querySelector("#content-wrapper");
+  if (!benefitsBanner || !contentWrapper) return;
+  var section = document.querySelector(".section-benefits");
+  if (!section) {
+    section = document.createElement("section");
+    section.className = "section-benefits";
+    var _container2 = document.createElement("div");
+    _container2.className = "container";
+    section.append(_container2);
+
+    // Pokud už v DOMu je vložený spodní popis, vložíme benefity až ZA NĚJ.
+    var bottomDescSection = document.querySelector(".section-second-description");
+    if (bottomDescSection) {
+      bottomDescSection.after(section);
+    } else {
+      contentWrapper.after(section);
+    }
+  }
+  var container = section.querySelector(".container");
+  if (container) {
+    container.innerHTML = "";
+    container.append(benefitsBanner);
+  }
+};
+
+// Souhrnný orchestrátor pro doplňkové funkce kategorie, které se spouští po hlavní logice.
+var _handleCategoryNonCritical = /*#__PURE__*/function () {
+  var _ref0 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
+    var events;
+    return _regenerator().w(function (_context1) {
+      while (1) switch (_context1.n) {
+        case 0:
+          if (!(window.shoptetPage !== "category")) {
+            _context1.n = 1;
+            break;
+          }
+          return _context1.a(2);
+        case 1:
+          if (typeof handleCheckedFilters === "function") {
+            handleCheckedFilters();
+          }
+          _context1.n = 2;
+          return handleCategoryBottomText();
+        case 2:
+          handleCategoryBenefits();
+          events = ["shoptet.contentUpdated", "ShoptetDOMPageContentLoaded"];
+          events.forEach(function (eventName) {
+            document.removeEventListener(eventName, _handleCategoryNonCritical);
+            document.addEventListener(eventName, _handleCategoryNonCritical);
+          });
+        case 3:
+          return _context1.a(2);
+      }
+    }, _callee0);
+  }));
+  return function handleCategoryNonCritical() {
+    return _ref0.apply(this, arguments);
+  };
+}();
+_handleCategoryNonCritical();
+
 // CART
 var handleCart = function handleCart() {};
 if (document.body.classList.contains("ordering-process")) {
@@ -1326,9 +1612,9 @@ var handleNewsletter = function handleNewsletter() {
   if (footer) footer.before(section);
 };
 var handleFooter = /*#__PURE__*/function () {
-  var _ref8 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-    return _regenerator().w(function (_context9) {
-      while (1) switch (_context9.n) {
+  var _ref1 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
+    return _regenerator().w(function (_context10) {
+      while (1) switch (_context10.n) {
         case 0:
           handleFooterUpper();
           handleFooterMiddle();
@@ -1338,12 +1624,12 @@ var handleFooter = /*#__PURE__*/function () {
           handleInstagram();
           handleNewsletter();
         case 1:
-          return _context9.a(2);
+          return _context10.a(2);
       }
-    }, _callee8);
+    }, _callee1);
   }));
   return function handleFooter() {
-    return _ref8.apply(this, arguments);
+    return _ref1.apply(this, arguments);
   };
 }();
 handleFooter();
@@ -1354,15 +1640,13 @@ on("click", ".shp-tab-link", function (e) {
   }
 });
 
-/**
- * Ultimate Optimized Recently Viewed Module for Shoptet
- * Injects before Instagram block if present, otherwise before Footer.
- */
+// Modul pro zobrazení naposledy prohlížených produktů.
+// Na kategorii se vkládá před benefity, jinak před Instagram/Footer.
 var RecentlyViewed = function () {
   var CONFIG = {
     storageKey: "recentlyViewed",
     maxItems: 10,
-    revalidateMs: 172800000 // 48h
+    revalidateMs: 172800000
   };
   var $ = function $(s) {
     var el = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document;
@@ -1378,7 +1662,7 @@ var RecentlyViewed = function () {
     return span;
   }();
   var handleLayout = function handleLayout(product) {
-    var _ref9;
+    var _ref10;
     var refs = {
       pCode: $(".p-code", product),
       ratings: $(".ratings-wrapper", product),
@@ -1392,7 +1676,7 @@ var RecentlyViewed = function () {
     };
     if (refs.pCode && refs.ratings) refs.ratings.append(refs.pCode);
     if (refs.pDesc && refs.name) refs.name.after(refs.pDesc);
-    if (refs.avail) (_ref9 = refs.pDesc || refs.name) === null || _ref9 === void 0 || _ref9.after(refs.avail);
+    if (refs.avail) (_ref10 = refs.pDesc || refs.name) === null || _ref10 === void 0 || _ref10.after(refs.avail);
     var priceStd = refs.flagDiscount ? $(".price-standard", refs.flagDiscount) : null;
     if (priceStd && refs.pricesWrapper) {
       var wrap = document.createElement("div");
@@ -1455,10 +1739,10 @@ var RecentlyViewed = function () {
     localStorage.setItem(CONFIG.storageKey, JSON.stringify(h));
   };
   var revalidate = /*#__PURE__*/function () {
-    var _ref0 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
-      var history, now, stale, _iterator2, _step2, item, _$15, _$16, _$17, _$18, _$19, _$20, res, html, doc, _getPriceData2, price, unit, _t2, _t3;
-      return _regenerator().w(function (_context0) {
-        while (1) switch (_context0.p = _context0.n) {
+    var _ref11 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee10() {
+      var history, now, stale, _iterator2, _step2, item, _$15, _$16, _$17, _$18, _$19, _$20, res, html, doc, _getPriceData2, price, unit, _t3, _t4;
+      return _regenerator().w(function (_context11) {
+        while (1) switch (_context11.p = _context11.n) {
           case 0:
             history = JSON.parse(localStorage.getItem(CONFIG.storageKey) || "[]");
             now = Date.now();
@@ -1466,31 +1750,31 @@ var RecentlyViewed = function () {
               return now - i.lastVisit > CONFIG.revalidateMs && i.url !== location.pathname;
             });
             if (stale.length) {
-              _context0.n = 1;
+              _context11.n = 1;
               break;
             }
-            return _context0.a(2);
+            return _context11.a(2);
           case 1:
             _iterator2 = _createForOfIteratorHelper(stale.slice(0, 3));
-            _context0.p = 2;
+            _context11.p = 2;
             _iterator2.s();
           case 3:
             if ((_step2 = _iterator2.n()).done) {
-              _context0.n = 9;
+              _context11.n = 9;
               break;
             }
             item = _step2.value;
-            _context0.p = 4;
-            _context0.n = 5;
+            _context11.p = 4;
+            _context11.n = 5;
             return fetch(item.url, {
               priority: "low"
             });
           case 5:
-            res = _context0.v;
-            _context0.n = 6;
+            res = _context11.v;
+            _context11.n = 6;
             return res.text();
           case 6:
-            html = _context0.v;
+            html = _context11.v;
             doc = new DOMParser().parseFromString(html, "text/html");
             _getPriceData2 = getPriceData(doc), price = _getPriceData2.price, unit = _getPriceData2.unit;
             Object.assign(item, {
@@ -1504,34 +1788,34 @@ var RecentlyViewed = function () {
               code: ((_$20 = $(".p-code span:not(.p-code-label)", doc)) === null || _$20 === void 0 ? void 0 : _$20.innerText.trim()) || item.code,
               lastVisit: now
             });
-            _context0.n = 8;
+            _context11.n = 8;
             break;
           case 7:
-            _context0.p = 7;
-            _t2 = _context0.v;
+            _context11.p = 7;
+            _t3 = _context11.v;
           case 8:
-            _context0.n = 3;
+            _context11.n = 3;
             break;
           case 9:
-            _context0.n = 11;
+            _context11.n = 11;
             break;
           case 10:
-            _context0.p = 10;
-            _t3 = _context0.v;
-            _iterator2.e(_t3);
+            _context11.p = 10;
+            _t4 = _context11.v;
+            _iterator2.e(_t4);
           case 11:
-            _context0.p = 11;
+            _context11.p = 11;
             _iterator2.f();
-            return _context0.f(11);
+            return _context11.f(11);
           case 12:
             localStorage.setItem(CONFIG.storageKey, JSON.stringify(history));
           case 13:
-            return _context0.a(2);
+            return _context11.a(2);
         }
-      }, _callee9, null, [[4, 7], [2, 10, 11, 12]]);
+      }, _callee10, null, [[4, 7], [2, 10, 11, 12]]);
     }));
     return function revalidate() {
-      return _ref0.apply(this, arguments);
+      return _ref11.apply(this, arguments);
     };
   }();
   var render = function render() {
@@ -1539,11 +1823,22 @@ var RecentlyViewed = function () {
       return i.url !== location.pathname;
     });
     if (!history.length || $(".last-visited")) return;
-
-    // Logika pro cílový element (před Instagram nebo před Footer)
     var instagramBlock = $(".custom-footer__instagram");
     var footer = $("footer");
+
+    // Definujeme sekce v pořadí, v jakém mají jít za sebou
+    var benefitsSection = $(".section-benefits");
+    var secondDescription = $(".section-second-description");
     var targetElement = instagramBlock || footer;
+
+    // Na kategorii chceme být až pod benefity nebo pod popisem
+    if (window.shoptetPage === "category") {
+      if (secondDescription) {
+        targetElement = secondDescription;
+      } else if (benefitsSection) {
+        targetElement = benefitsSection;
+      }
+    }
     if (!targetElement) return;
     var section = document.createElement("section");
     section.className = "last-visited";

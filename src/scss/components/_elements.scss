@@ -54,6 +54,10 @@
       background-color: $color-font;
     }
   }
+  &.small {
+    height: 16px;
+    width: 16px;
+  }
   @include hover {
     &::before,
     &::after {

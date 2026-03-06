@@ -1,0 +1,294 @@
+#filters-wrapper {
+  order: -2;
+  position: relative;
+  padding: 24px 0;
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100%;
+    max-width: calc(100vw - var(--scrollbar-width));
+    background-color: $color-primary-050;
+    z-index: -1;
+  }
+}
+#filters {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.filters-left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 12px;
+  max-width: 420px;
+}
+.filters-right {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  flex: 1;
+}
+#price-filter-form {
+  display: none;
+}
+.filter-section-boolean {
+  .param-filter-top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  form,
+  fieldset {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
+
+.filter-section:not(.filter-section-boolean) {
+  display: flex;
+  flex: 1 1 200px;
+  position: relative;
+  &.filter-section-count {
+    display: none;
+  }
+  @include hover {
+    &:has(form) {
+      form {
+        display: flex;
+      }
+    }
+  }
+  form {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    display: none;
+    width: 100%;
+    z-index: 1;
+    padding-top: 4px;
+    fieldset {
+      color: $color-font;
+      background-color: $color-font-invert;
+      padding: 10px 16px;
+      width: 100%;
+      border-radius: 4px;
+      -webkit-box-shadow: 0px 3px 16px 5px rgba(0, 0, 0, 0.16);
+      box-shadow: 0px 3px 16px 5px rgba(0, 0, 0, 0.16);
+    }
+  }
+  h4 {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: rem(16);
+    line-height: em(22, 16);
+    font-weight: 400;
+    color: $color-font;
+    padding: 11px 16px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    background-color: $color-font-invert;
+    z-index: 2;
+    span {
+      @include inherit();
+    }
+    &::after {
+      content: "";
+      @include icon-mask(
+        "/assets/images/icons/arrow-down-primary.svg",
+        $color-secondary,
+        16px,
+        16px
+      );
+    }
+  }
+}
+.filter-count {
+  font-size: rem(13);
+  margin-left: 4px;
+  &::before {
+    content: "(";
+  }
+  &::after {
+    content: ")";
+  }
+}
+.slider-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  .slider-inner-container {
+    position: relative;
+  }
+  h4 {
+    font-size: rem(16);
+    line-height: em(22, 16);
+    font-weight: 400;
+    margin: 0 8px 0 0;
+    color: $color-font;
+    span {
+      @include inherit();
+    }
+    &::after {
+      content: ":";
+    }
+  }
+
+  // Header s hodnotami "Od - Do"
+  .slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 250px;
+    font-size: rem(16);
+    line-height: em(22, 16);
+    font-weight: 400;
+    margin: 0;
+    span {
+      @include inherit();
+    }
+  }
+
+  // Samotný jQuery UI Slider
+  .slider-content {
+    padding: 0 10px; // Aby handly nepřečnívaly ven z kontejneru
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    max-width: calc(250px - (2 * 8px));
+  }
+  #slider {
+    height: 4px;
+    border: none;
+    background: $border-color; // Světle šedá linka
+    border-radius: 6px;
+    position: relative;
+
+    // Aktivní rozsah mezi tlapkami
+  }
+  .ui-slider-range {
+    position: absolute;
+    height: 100%;
+    background: $color-primary;
+    border-radius: 6px;
+  }
+  // Ovládací tlapky (handles)
+  .ui-slider-handle {
+    position: absolute;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border: 4px solid $color-primary;
+    border-radius: 50%;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+  }
+}
+
+//filters sorting
+#category-header {
+  border-bottom: 1px solid $border-color;
+  padding: 16px 0;
+}
+.listSorting__controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 40px;
+  li {
+    list-style: none;
+    display: inline-flex;
+  }
+  .listSorting__control {
+    font-size: rem(16);
+    line-height: em(22, 16);
+    font-weight: 400;
+    color: $color-font-second;
+    text-decoration: underline;
+    @include hover {
+      color: $color-font;
+    }
+    &--current {
+      color: $color-font;
+      font-weight: 600;
+      text-decoration: unset;
+    }
+  }
+}
+.listItemsTotal {
+  font-size: rem(16);
+  line-height: em(22, 16);
+  font-weight: 400;
+  color: $color-font-second;
+  strong {
+    font-weight: 400;
+  }
+}
+
+//Aktivní filtry || active filters
+.active-filters-container {
+  padding: 16px 0;
+  order: -1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.active-filters-list {
+  .active-filter-tag {
+    font-size: rem(14);
+    line-height: em(20, 14);
+    font-weight: 400;
+    color: $color-font;
+    padding: 7px 16px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    gap: 4px;
+        display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    .close{
+        position: relative;
+        top: unset;
+        right: unset;
+        transform: unset;
+    }
+  }
+}
+.clear-filters {
+    @include hover{
+        color: $color-danger;
+    }
+}

@@ -1,0 +1,98 @@
+.listingControls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+  padding: 24px 0;
+  .goToTop {
+    order: -2;
+  }
+  .loadMore {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+  }
+  .itemsTotal {
+    display: none;
+  }
+}
+#listingControlsHeading {
+  display: none;
+}
+.pagination {
+  &__list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  li {
+    display: flex;
+  }
+  &__currentPage {
+    width: 38px;
+    aspect-ratio: 1;
+    border: 1px solid $color-primary;
+    background-color: $color-primary;
+    color: $color-font-invert;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__link {
+    &--next {
+      padding: 10px;
+      @include hover {
+        &::before {
+          background-color: $color-font-invert;
+        }
+      }
+      &::before {
+        content: "";
+        @include icon-mask(
+          "/assets/images/icons/arrow-right.svg",
+          $color-secondary,
+          16px,
+          16px
+        );
+      }
+    }
+    &--prev {
+      padding: 10px;
+      @include hover {
+        &::before {
+          background-color: $color-font-invert;
+        }
+      }
+      &::before {
+        content: "";
+        @include icon-mask(
+          "/assets/images/icons/arrow-left.svg",
+          $color-secondary,
+          16px,
+          16px
+        );
+      }
+    }
+    &--first,
+    &--last {
+      width: 38px;
+      aspect-ratio: 1;
+      border: 1px solid $color-secondary;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      @include hover{
+        background-color: $color-secondary;
+        color: $color-font-invert;
+      }
+    }
+  }
+}

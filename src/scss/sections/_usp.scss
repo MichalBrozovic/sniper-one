@@ -4,7 +4,7 @@
   gap: 16px;
   width: 100%;
   padding: 32px 0;
-border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
   &__item {
     display: flex;
     flex-direction: row;
@@ -29,5 +29,11 @@ border-bottom: 1px solid $border-color;
   &__picture {
     display: flex;
     max-width: 32px;
+  }
+}
+body.type-category {
+  .benefitBanner {
+    border-bottom: unset;
+    border-top: 1px solid $border-color;
   }
 }

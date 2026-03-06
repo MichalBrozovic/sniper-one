@@ -382,6 +382,16 @@ module.exports = __webpack_require__.p + "assets/arrow-down-primary.svg";
 
 /***/ },
 
+/***/ "./assets/images/icons/arrow-left.svg"
+/*!********************************************!*\
+  !*** ./assets/images/icons/arrow-left.svg ***!
+  \********************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/arrow-left.svg";
+
+/***/ },
+
 /***/ "./assets/images/icons/arrow-right-swiper-primary.svg"
 /*!************************************************************!*\
   !*** ./assets/images/icons/arrow-right-swiper-primary.svg ***!
@@ -389,6 +399,16 @@ module.exports = __webpack_require__.p + "assets/arrow-down-primary.svg";
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/arrow-right-swiper-primary.svg";
+
+/***/ },
+
+/***/ "./assets/images/icons/arrow-right.svg"
+/*!*********************************************!*\
+  !*** ./assets/images/icons/arrow-right.svg ***!
+  \*********************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/arrow-right.svg";
 
 /***/ },
 
@@ -422,6 +442,26 @@ module.exports = __webpack_require__.p + "assets/category-icon.svg";
 
 /***/ },
 
+/***/ "./assets/images/icons/check.svg"
+/*!***************************************!*\
+  !*** ./assets/images/icons/check.svg ***!
+  \***************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/check.svg";
+
+/***/ },
+
+/***/ "./assets/images/icons/dotaz-primary.svg"
+/*!***********************************************!*\
+  !*** ./assets/images/icons/dotaz-primary.svg ***!
+  \***********************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/dotaz-primary.svg";
+
+/***/ },
+
 /***/ "./assets/images/icons/facebook.svg"
 /*!******************************************!*\
   !*** ./assets/images/icons/facebook.svg ***!
@@ -429,6 +469,16 @@ module.exports = __webpack_require__.p + "assets/category-icon.svg";
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/facebook.svg";
+
+/***/ },
+
+/***/ "./assets/images/icons/home-primary.svg"
+/*!**********************************************!*\
+  !*** ./assets/images/icons/home-primary.svg ***!
+  \**********************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/home-primary.svg";
 
 /***/ },
 
@@ -522,6 +572,16 @@ module.exports = __webpack_require__.p + "assets/post-icon.svg";
 
 /***/ },
 
+/***/ "./assets/images/icons/print-primary.svg"
+/*!***********************************************!*\
+  !*** ./assets/images/icons/print-primary.svg ***!
+  \***********************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/print-primary.svg";
+
+/***/ },
+
 /***/ "./assets/images/icons/search-primary.svg"
 /*!************************************************!*\
   !*** ./assets/images/icons/search-primary.svg ***!
@@ -529,6 +589,26 @@ module.exports = __webpack_require__.p + "assets/post-icon.svg";
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/search-primary.svg";
+
+/***/ },
+
+/***/ "./assets/images/icons/share-primary.svg"
+/*!***********************************************!*\
+  !*** ./assets/images/icons/share-primary.svg ***!
+  \***********************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/share-primary.svg";
+
+/***/ },
+
+/***/ "./assets/images/icons/shipping-black.svg"
+/*!************************************************!*\
+  !*** ./assets/images/icons/shipping-black.svg ***!
+  \************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/shipping-black.svg";
 
 /***/ },
 
@@ -569,6 +649,16 @@ module.exports = __webpack_require__.p + "assets/star-on.svg";
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/ul-check.svg";
+
+/***/ },
+
+/***/ "./assets/images/icons/watch-primary.svg"
+/*!***********************************************!*\
+  !*** ./assets/images/icons/watch-primary.svg ***!
+  \***********************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/watch-primary.svg";
 
 /***/ },
 
@@ -656,11 +746,15 @@ module.exports = __webpack_require__.p + "assets/youtube.svg";
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
 /******/ 	__webpack_require__("./assets/images/icons/youtube.svg");
+/******/ 	__webpack_require__("./assets/images/icons/watch-primary.svg");
 /******/ 	__webpack_require__("./assets/images/icons/ul-check.svg");
 /******/ 	__webpack_require__("./assets/images/icons/star-on.svg");
 /******/ 	__webpack_require__("./assets/images/icons/star-off.svg");
 /******/ 	__webpack_require__("./assets/images/icons/star-half.svg");
+/******/ 	__webpack_require__("./assets/images/icons/shipping-black.svg");
+/******/ 	__webpack_require__("./assets/images/icons/share-primary.svg");
 /******/ 	__webpack_require__("./assets/images/icons/search-primary.svg");
+/******/ 	__webpack_require__("./assets/images/icons/print-primary.svg");
 /******/ 	__webpack_require__("./assets/images/icons/post-icon.svg");
 /******/ 	__webpack_require__("./assets/images/icons/plus.svg");
 /******/ 	__webpack_require__("./assets/images/icons/phone-white.svg");
@@ -670,11 +764,16 @@ module.exports = __webpack_require__.p + "assets/youtube.svg";
 /******/ 	__webpack_require__("./assets/images/icons/mail-primary.svg");
 /******/ 	__webpack_require__("./assets/images/icons/instagram.svg");
 /******/ 	__webpack_require__("./assets/images/icons/instagram-white.svg");
+/******/ 	__webpack_require__("./assets/images/icons/home-primary.svg");
 /******/ 	__webpack_require__("./assets/images/icons/facebook.svg");
+/******/ 	__webpack_require__("./assets/images/icons/dotaz-primary.svg");
+/******/ 	__webpack_require__("./assets/images/icons/check.svg");
 /******/ 	__webpack_require__("./assets/images/icons/category-icon.svg");
 /******/ 	__webpack_require__("./assets/images/icons/cart-primary.svg");
 /******/ 	__webpack_require__("./assets/images/icons/calendar-off.svg");
+/******/ 	__webpack_require__("./assets/images/icons/arrow-right.svg");
 /******/ 	__webpack_require__("./assets/images/icons/arrow-right-swiper-primary.svg");
+/******/ 	__webpack_require__("./assets/images/icons/arrow-left.svg");
 /******/ 	__webpack_require__("./assets/images/icons/arrow-down-primary.svg");
 /******/ 	__webpack_require__("./assets/images/icons/account-primary.svg");
 /******/ 	__webpack_require__("./assets/fonts/jost/Jost-ThinItalic.woff2");

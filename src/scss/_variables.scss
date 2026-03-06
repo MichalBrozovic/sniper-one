@@ -15,192 +15,27 @@ $border-radius-default: 0.375rem;
 // FONTS
 $default-font-size: 16;
 
-// H1
-$h1: 38;
-$h1-mobile: 32;
-$h1-tablet: calc(($h1 + $h1-mobile) / 2);
-$h1-lineHeight: 47.5; // 64 * 1.2
-$h1-mobile-lineHeight: 40; // 40 * 1.2
-$h1-tablet-lineHeight: calc(($h1-lineHeight + $h1-mobile-lineHeight) / 2);
-
-// H2
-$h2: 30;
-$h2-mobile: 26;
-$h2-tablet: calc(($h2 + $h2-mobile) / 2);
-$h2-lineHeight: 37.5;
-$h2-mobile-lineHeight: 32.5;
-$h2-tablet-lineHeight: calc(($h2-lineHeight + $h2-mobile-lineHeight) / 2);
-
-$h2-big: 38;
-$h2-big-mobile: 32;
-$h2-big-tablet: calc(($h2-big + $h2-big-mobile) / 2);
-$h2-big-lineHeight: 47.5;
-$h2-big-mobile-lineHeight: 40;
-$h2-big-tablet-lineHeight: calc(($h2-big-lineHeight + $h2-big-mobile-lineHeight) / 2);
-
-$h2-mid: 34;
-$h2-mid-mobile: 28;
-$h2-mid-tablet: calc(($h2-mid + $h2-mid-mobile) / 2);
-$h2-mid-lineHeight: 42.5;
-$h2-mid-mobile-lineHeight: 35;
-$h2-mid-tablet-lineHeight: calc(($h2-mid-lineHeight + $h2-mid-mobile-lineHeight) / 2);
-
-$h2-small: 24;
-$h2-small-mobile: 22;
-$h2-small-tablet: calc(($h2-small + $h2-small-mobile) / 2);
-$h2-small-lineHeight: 30;
-$h2-small-mobile-lineHeight: 27.5;
-$h2-small-tablet-lineHeight: calc(($h2-small-lineHeight + $h2-small-mobile-lineHeight) / 2);
-
-$h2-tiny: 22;
-$h2-tiny-mobile: 20;
-$h2-tiny-tablet: calc(($h2-tiny + $h2-tiny-mobile) / 2);
-$h2-tiny-lineHeight: 27.5;
-$h2-tiny-mobile-lineHeight: 25;
-$h2-tiny-tablet-lineHeight: calc(($h2-tiny-lineHeight + $h2-tiny-mobile-lineHeight) / 2);
-
-// H3
-$h3: 24;
-$h3-mobile: 22;
-$h3-tablet: calc(($h3 + $h3-mobile) / 2);
-$h3-lineHeight: 30;
-$h3-mobile-lineHeight: 27.5;
-$h3-tablet-lineHeight: calc(($h3-lineHeight + $h3-mobile-lineHeight) / 2);
-
-$h3-big: 30;
-$h3-big-mobile: 26;
-$h3-big-tablet: calc(($h3-big + $h3-big-mobile) / 2);
-$h3-big-lineHeight: 37.5;
-$h3-big-mobile-lineHeight: 32.5;
-$h3-big-tablet-lineHeight: calc(($h3-big-lineHeight + $h3-big-mobile-lineHeight) / 2);
-
-$h3-mid: 28;
-$h3-mid-mobile: 24;
-$h3-mid-tablet: calc(($h3-mid + $h3-mid-mobile) / 2);
-$h3-mid-lineHeight: 35;
-$h3-mid-mobile-lineHeight: 30;
-$h3-mid-tablet-lineHeight: calc(($h3-mid-lineHeight + $h3-mid-mobile-lineHeight) / 2);
-
-$h3-small: 22;
-$h3-small-mobile: 20;
-$h3-small-tablet: calc(($h3-small + $h3-small-mobile) / 2);
-$h3-small-lineHeight: 27.5;
-$h3-small-mobile-lineHeight: 25;
-$h3-small-tablet-lineHeight: calc(($h3-small-lineHeight + $h3-small-mobile-lineHeight) / 2);
-
-$h3-tiny: 20;
-$h3-tiny-mobile: 18;
-$h3-tiny-tablet: calc(($h3-tiny + $h3-tiny-mobile) / 2);
-$h3-tiny-lineHeight: 25;
-$h3-tiny-mobile-lineHeight: 22.5;
-$h3-tiny-tablet-lineHeight: calc(($h3-tiny-lineHeight + $h3-tiny-mobile-lineHeight) / 2);
-
-// H4
-$h4: 20;
-$h4-mobile: 18;
-$h4-tablet: calc(($h4 + $h4-mobile) / 2);
-$h4-lineHeight: 25;
-$h4-mobile-lineHeight: 22.5;
-$h4-tablet-lineHeight: calc(($h4-lineHeight + $h4-mobile-lineHeight) / 2);
-
-$h4-big: 24;
-$h4-big-mobile: 22;
-$h4-big-tablet: calc(($h4-big + $h4-big-mobile) / 2);
-$h4-big-lineHeight: 30;
-$h4-big-mobile-lineHeight: 27.5;
-$h4-big-tablet-lineHeight: calc(($h4-big-lineHeight + $h4-big-mobile-lineHeight) / 2);
-
-$h4-mid: 22;
-$h4-mid-mobile: 20;
-$h4-mid-tablet: calc(($h4-mid + $h4-mid-mobile) / 2);
-$h4-mid-lineHeight: 27.5;
-$h4-mid-mobile-lineHeight: 25;
-$h4-mid-tablet-lineHeight: calc(($h4-mid-lineHeight + $h4-mid-mobile-lineHeight) / 2);
-
-$h4-small: 18;
-$h4-small-mobile: 16;
-$h4-small-tablet: calc(($h4-small + $h4-small-mobile) / 2);
-$h4-small-lineHeight: 22.5;
-$h4-small-mobile-lineHeight: 20;
-$h4-small-tablet-lineHeight: calc(($h4-small-lineHeight + $h4-small-mobile-lineHeight) / 2);
-
-$h4-tiny: 16;
-$h4-tiny-mobile: 16;
-$h4-tiny-tablet: calc(($h4-tiny + $h4-tiny-mobile) / 2);
-$h4-tiny-lineHeight: 20;
-$h4-tiny-mobile-lineHeight: 20;
-$h4-tiny-tablet-lineHeight: calc(($h4-tiny-lineHeight + $h4-tiny-mobile-lineHeight) / 2);
-
-// H5
-$h5: 18;
-$h5-mobile: 16;
-$h5-tablet: calc(($h5 + $h5-mobile) / 2);
-$h5-lineHeight: 22.5; // 18 * 1.25
-$h5-mobile-lineHeight: 20; // 16 * 1.25
-$h5-tablet-lineHeight: calc(($h5-lineHeight + $h5-mobile-lineHeight) / 2);
-
-$h5-big: 20;
-$h5-big-mobile: 18;
-$h5-big-tablet: calc(($h5-big + $h5-big-mobile) / 2);
-$h5-big-lineHeight: 25; // 20 * 1.25
-$h5-big-mobile-lineHeight: 22.5;
-$h5-big-tablet-lineHeight: calc(($h5-big-lineHeight + $h5-big-mobile-lineHeight) / 2);
-
-$h5-mid: 18;
-$h5-mid-mobile: 16;
-$h5-mid-tablet: calc(($h5-mid + $h5-mid-mobile) / 2);
-$h5-mid-lineHeight: 22.5;
-$h5-mid-mobile-lineHeight: 20;
-$h5-mid-tablet-lineHeight: calc(($h5-mid-lineHeight + $h5-mid-mobile-lineHeight) / 2);
-
-$h5-small: 16;
-$h5-small-mobile: 14;
-$h5-small-tablet: calc(($h5-small + $h5-small-mobile) / 2);
-$h5-small-lineHeight: 20;
-$h5-small-mobile-lineHeight: 17.5;
-$h5-small-tablet-lineHeight: calc(($h5-small-lineHeight + $h5-small-mobile-lineHeight) / 2);
-
-$h5-tiny: 14;
-$h5-tiny-mobile: 12;
-$h5-tiny-tablet: calc(($h5-tiny + $h5-tiny-mobile) / 2);
-$h5-tiny-lineHeight: 17.5;
-$h5-tiny-mobile-lineHeight: 15;
-$h5-tiny-tablet-lineHeight: calc(($h5-tiny-lineHeight + $h5-tiny-mobile-lineHeight) / 2);
-// H6
-$h6: 16;
-$h6-mobile: 14;
-$h6-tablet: calc(($h6 + $h6-mobile) / 2);
-$h6-lineHeight: 20; // 16 * 1.25
-$h6-mobile-lineHeight: 17.5; // 14 * 1.25
-$h6-tablet-lineHeight: calc(($h6-lineHeight + $h6-mobile-lineHeight) / 2);
-
-$h6-big: 18;
-$h6-big-mobile: 16;
-$h6-big-tablet: calc(($h6-big + $h6-big-mobile) / 2);
-$h6-big-lineHeight: 22.5;
-$h6-big-mobile-lineHeight: 20;
-$h6-big-tablet-lineHeight: calc(($h6-big-lineHeight + $h6-big-mobile-lineHeight) / 2);
-
-$h6-mid: 16;
-$h6-mid-mobile: 14;
-$h6-mid-tablet: calc(($h6-mid + $h6-mid-mobile) / 2);
-$h6-mid-lineHeight: 20;
-$h6-mid-mobile-lineHeight: 17.5;
-$h6-mid-tablet-lineHeight: calc(($h6-mid-lineHeight + $h6-mid-mobile-lineHeight) / 2);
-
-$h6-small: 14;
-$h6-small-mobile: 12;
-$h6-small-tablet: calc(($h6-small + $h6-small-mobile) / 2);
-$h6-small-lineHeight: 17.5;
-$h6-small-mobile-lineHeight: 15;
-$h6-small-tablet-lineHeight: calc(($h6-small-lineHeight + $h6-small-mobile-lineHeight) / 2);
-
-$h6-tiny: 12;
-$h6-tiny-mobile: 10;
-$h6-tiny-tablet: calc(($h6-tiny + $h6-tiny-mobile) / 2);
-$h6-tiny-lineHeight: 15;
-$h6-tiny-mobile-lineHeight: 12.5;
-$h6-tiny-tablet-lineHeight: calc(($h6-tiny-lineHeight + $h6-tiny-mobile-lineHeight) / 2);
+$typography-map: (
+  "h1":       ( "d": 38, "m": 32, "lh": 47.5, "mlh": 40 ),
+  "h2":       ( "d": 30, "m": 26, "lh": 37.5, "mlh": 32.5 ),
+  "h2-big":   ( "d": 38, "m": 32, "lh": 47.5, "mlh": 40 ),
+  "h2-mid":   ( "d": 34, "m": 28, "lh": 42.5, "mlh": 35 ),
+  "h2-small": ( "d": 24, "m": 22, "lh": 30,   "mlh": 27.5 ),
+  "h2-tiny":  ( "d": 22, "m": 20, "lh": 27.5, "mlh": 25 ),
+  "h3":       ( "d": 24, "m": 22, "lh": 30,   "mlh": 27.5 ),
+  "h3-big":   ( "d": 30, "m": 26, "lh": 37.5, "mlh": 32.5 ),
+  "h3-mid":   ( "d": 28, "m": 24, "lh": 35,   "mlh": 30 ),
+  "h3-small": ( "d": 22, "m": 20, "lh": 27.5, "mlh": 25 ),
+  "h3-tiny":  ( "d": 20, "m": 18, "lh": 25,   "mlh": 22.5 ),
+  "h4":       ( "d": 20, "m": 18, "lh": 25,   "mlh": 22.5 ),
+  "h4-big":   ( "d": 24, "m": 22, "lh": 30,   "mlh": 27.5 ),
+  "h4-mid":   ( "d": 22, "m": 20, "lh": 27.5, "mlh": 25 ),
+  "h4-small": ( "d": 18, "m": 16, "lh": 22.5, "mlh": 20 ),
+  "h4-tiny":  ( "d": 16, "m": 16, "lh": 20,   "mlh": 20 ),
+  "h5":       ( "d": 18, "m": 16, "lh": 22.5, "mlh": 20 ),
+  "h5-big":   ( "d": 20, "m": 18, "lh": 25,   "mlh": 22.5 ),
+  "h6":       ( "d": 16, "m": 14, "lh": 20,   "mlh": 17.5 )
+);
 
 $default-font-family: 'Jost', sans-serif;
 $heading-font-family: 'Jost', sans-serif;

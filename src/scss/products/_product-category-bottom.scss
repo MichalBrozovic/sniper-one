@@ -1,0 +1,12 @@
+.category__secondDescription {
+    padding: 24px 0 32px 0;
+  h2 {
+    margin-bottom: 8px;
+  }
+  p {
+    margin-bottom: 8px;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}

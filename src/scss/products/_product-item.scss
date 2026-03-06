@@ -87,6 +87,11 @@
 
 .product {
   // --- ZÁKLADNÍ OBAL ---
+  container-type: inline-size;
+  container-name: product-card;
+  &.inactive {
+    display: none;
+  }
   .p {
     display: flex;
     flex-direction: column;
@@ -201,6 +206,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
     margin-bottom: 8px;
+    gap: 8px;
   }
 
   .stars-placeholder,
@@ -230,7 +236,7 @@
 
   .prices {
     position: relative;
-    &:has(.price-standard-wrapper) {
+    &:has(.price-standard-wrapper:not(.price-standard-wrapper-placeholder)) {
       .price-final {
         color: $color-danger;
       }
@@ -265,6 +271,9 @@
     line-height: em(22, 16);
     color: $color-font-second;
     text-decoration: line-through;
+    &-placeholder {
+      display: none;
+    }
   }
 
   .price-final {
@@ -321,5 +330,102 @@
   // --- TLAČÍTKO DO KOŠÍKU ---
   .btn-cart {
     // Odesílací tlačítko
+  }
+}
+.products-inline {
+  .product {
+    .p {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      border: 1px solid $border-color;
+      border-radius: 12px;
+    }
+    .image {
+      padding: 0;
+      margin: 0;
+      aspect-ratio: 1;
+      max-width: 90px;
+      border-radius: 4px;
+      img {
+        aspect-ratio: 1;
+        height: auto;
+        width: 100%;
+        display: block;
+      }
+    }
+    .p-in {
+      padding: 0 24px;
+      @container product-card (min-width: 740px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+    }
+    .p-in-in {
+      flex-direction: column-reverse;
+      @container product-card (min-width: 740px) {
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+      }
+    }
+    .name {
+      margin-bottom: 4px;
+      @container product-card (min-width: 740px) {
+        margin-bottom: 0;
+      }
+      span {
+      }
+    }
+    .ratings-wrapper {
+      margin-bottom: 4px;
+      @container product-card (min-width: 740px) {
+        margin-bottom: 0;
+        gap: 24px;
+        white-space: nowrap;
+        flex-wrap: nowrap;
+      }
+    }
+    .availability {
+      margin: 0;
+      span {
+      }
+    }
+    .availability-amount {
+    }
+    .p-code {
+    }
+    .p-bottom {
+      > div {
+      }
+    }
+    .prices {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 4px;
+    }
+    .extra-flags {
+      display: none;
+    }
+    .price-additional {
+    }
+    .price-save {
+      display: none;
+    }
+    .price-standard-label {
+      display: none;
+    }
+    .price-standard-wrapper {
+    }
+    .price-final {
+    }
+    a.btn {
+      flex: unset;
+    }
   }
 }

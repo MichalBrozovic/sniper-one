@@ -200,7 +200,7 @@ body.submenu-visible {
     content: "";
     background-color: $black-80;
     display: block;
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     z-index: 1009;

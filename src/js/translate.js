@@ -43,6 +43,10 @@ window.projectTranslations = {
     homepage: {
       popularProducts: "Vybírejte z nejoblíbenějších <span>produktů</span>",
     },
+    category: {
+      readMore: "Přečíst více",
+      productsTopButton: "Detail", // Tvůj nový klíč
+    },
   },
   sk: {
     cart: {
@@ -85,6 +89,10 @@ window.projectTranslations = {
     newsletter: "Novinky, tipy a slevy na váš e-mail",
     homepage: {
       popularProducts: "Vyberajte z najobľúbenejších <span>produktov</span>",
+    },
+    category: {
+      readMore: "Prečítať viac",
+      productsTopButton: "Detail",
     },
   },
 };

@@ -39,15 +39,7 @@
     position: relative;
 }
 
-.reca-number {
-    text-align: center;
-    font-size: rem($h2);
-    display: none;
 
-    @media (max-width: 767px) {
-        font-size: rem($h2-mobile);
-    }
-}
 
 .id--15 {
     .content-inner {

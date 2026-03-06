@@ -66,8 +66,37 @@
     &::after {
       background-color: $color-font-invert; // A barva šipky se změní na bílou (invert)
     }
-    @include hover{
-       background-color: $color-primary-600;
+    @include hover {
+      background-color: $color-primary-600;
+    }
+  }
+  &.secondary {
+    border: 1px solid $color-secondary;
+    &::after {
+      background-color: $color-secondary;
+    }
+    @include hover {
+      background-color: $color-secondary;
+      &::after {
+        background-color: $color-font-invert;
+      }
+    }
+  }
+  &.small {
+    width: 24px;
+    height: 24px;
+    border: 1px solid transparent;
+    background-color: unset;
+    &::after {
+      background-color: $color-secondary;
+      -webkit-mask-image: url("/assets/images/icons/arrow-right.svg");
+      mask-image: url("/assets/images/icons/arrow-right.svg");
+    }
+    @include hover {
+      background-color: transparent;
+      border-color: $color-secondary;
+      &::after {
+      }
     }
   }
 }
@@ -100,10 +129,13 @@
     }
   }
 }
-
-.swiper-slide{
+.swiper {
+  position: relative;
+  max-width: 100%;
+}
+.swiper-slide {
   height: auto;
-  .product{
+  .product {
     height: 100%;
   }
 }
