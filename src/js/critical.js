@@ -454,7 +454,90 @@ const initHomepageSwiper = () => {
 
 document.addEventListener("DOMContentLoaded", initHomepageSwiper);
 
-const handleCategory = async (reload = false) => {};
+
+
+
+
+
+// Kritická restrukturalizace horní části kategorie: obalení title a perex, vytažení obrázku a přesun top-wrapperu.
+const handleCategoryTop = () => {
+    if (window.shoptetPage !== "category") return;
+
+    const categoryTop = document.querySelector('.category-top');
+    if (!categoryTop || categoryTop.classList.contains('is-processed')) return;
+
+    const title = categoryTop.querySelector('.category-title');
+    const perex = categoryTop.querySelector('.category-perex');
+    const subcategories = categoryTop.querySelector('.subcategories');
+    const secondDesc = document.querySelector('.category__secondDescription');
+    const topWrapper = categoryTop.querySelector('.products-top-wrapper');
+
+    if (topWrapper) {
+        categoryTop.after(topWrapper);
+    }
+
+    const lang = document.documentElement.lang || 'cs';
+    const readMoreText = window.projectTranslations?.[lang]?.category?.readMore || "Přečíst více";
+
+    const container = document.createElement('div');
+    container.className = 'container';
+
+    const upperWrapper = document.createElement('div');
+    upperWrapper.className = 'category-top-upper';
+
+    if (perex) {
+        const img = perex.querySelector('img');
+        if (img) {
+            const parentP = img.closest('p');
+            upperWrapper.append(img);
+            if (parentP && !parentP.textContent.trim()) {
+                parentP.remove();
+            }
+        }
+    }
+
+    if (title) upperWrapper.prepend(title);
+    if (perex) upperWrapper.append(perex);
+
+    if (secondDesc) {
+        secondDesc.id = 'category-description-bottom';
+        const readMoreBtn = document.createElement('a');
+        readMoreBtn.className = 'read-more-link';
+        readMoreBtn.href = '#category-description-bottom';
+        readMoreBtn.innerText = readMoreText;
+        readMoreBtn.onclick = (e) => {
+            e.preventDefault();
+            secondDesc.scrollIntoView({ behavior: 'smooth' });
+        };
+        upperWrapper.append(readMoreBtn);
+    }
+
+    container.append(upperWrapper);
+    if (subcategories) container.append(subcategories);
+
+    categoryTop.innerHTML = '';
+    categoryTop.append(container);
+
+    categoryTop.classList.add('is-processed');
+};
+// Hlavní orchestrátor pro kategorii, který hlídá iniciální načtení i asynchronní změny při filtraci pomocí Shoptet eventů.
+const handleCategoryCritical = () => {
+    if (window.shoptetPage !== "category") return;
+
+    handleCategoryTop();
+
+    const events = ['shoptet.contentUpdated', 'ShoptetDOMPageContentLoaded'];
+    events.forEach(eventName => {
+        document.removeEventListener(eventName, handleCategoryTop);
+        document.addEventListener(eventName, handleCategoryTop);
+    });
+};
+
+handleCategoryCritical();
+
+
+
+
 const handleCheckedFilters = () => {};
 
 const handleProductDetail = async () => {};

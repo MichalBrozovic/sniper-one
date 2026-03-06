@@ -468,12 +468,6 @@ p.large {
   }
 }
 
-
-
-
-
-
-
 .one-column-body {
   .products-block:not(.slick-initialized),
   .products-inline.dkLabVisitedProducts:not(.slick-initialized) {
@@ -594,8 +588,6 @@ p.large {
   }
 }
 
-
-
 .dkLabVisitedProductsBox.dkLabVisitedClassic a.image > img {
   width: auto !important;
 }
@@ -609,13 +601,6 @@ p.large {
 }
 
 // CONTROLS
-
-
-
-
-
-
-
 
 .toggle-top-products {
   border: 1px solid $color-font;
@@ -644,8 +629,6 @@ p.large {
     }
   }
 }
-
-
 
 .entrance-protection-wrapper {
   height: 100vh;
@@ -882,13 +865,8 @@ table.border {
   }
 }
 
-
-
-
-
 .plus-gallery-wrap {
-  margin-top: 0.5625rem;
-  margin-bottom: 0.5625rem;
+  margin: 16px 0;
   text-align: center;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -902,9 +880,6 @@ table.border {
     justify-content: center;
   }
 }
-
-
-
 
 // SEARCH RESULTS
 .search-results-group,
@@ -1004,12 +979,6 @@ table.border {
     }
   }
 }
-
-
-
-
-
-
 
 .type-manufacturers-listing {
   .content-wrapper-in {

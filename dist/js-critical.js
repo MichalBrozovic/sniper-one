@@ -427,25 +427,88 @@ var initHomepageSwiper = function initHomepageSwiper() {
   });
 };
 document.addEventListener("DOMContentLoaded", initHomepageSwiper);
-var handleCategory = /*#__PURE__*/function () {
+
+// Kritická restrukturalizace horní části kategorie: obalení title a perex, vytažení obrázku a přesun top-wrapperu.
+var handleCategoryTop = function handleCategoryTop() {
+  var _window$projectTransl;
+  if (window.shoptetPage !== "category") return;
+  var categoryTop = document.querySelector('.category-top');
+  if (!categoryTop || categoryTop.classList.contains('is-processed')) return;
+  var title = categoryTop.querySelector('.category-title');
+  var perex = categoryTop.querySelector('.category-perex');
+  var subcategories = categoryTop.querySelector('.subcategories');
+  var secondDesc = document.querySelector('.category__secondDescription');
+  var topWrapper = categoryTop.querySelector('.products-top-wrapper');
+  if (topWrapper) {
+    categoryTop.after(topWrapper);
+  }
+  var lang = document.documentElement.lang || 'cs';
+  var readMoreText = ((_window$projectTransl = window.projectTranslations) === null || _window$projectTransl === void 0 || (_window$projectTransl = _window$projectTransl[lang]) === null || _window$projectTransl === void 0 || (_window$projectTransl = _window$projectTransl.category) === null || _window$projectTransl === void 0 ? void 0 : _window$projectTransl.readMore) || "Přečíst více";
+  var container = document.createElement('div');
+  container.className = 'container';
+  var upperWrapper = document.createElement('div');
+  upperWrapper.className = 'category-top-upper';
+  if (perex) {
+    var img = perex.querySelector('img');
+    if (img) {
+      var parentP = img.closest('p');
+      upperWrapper.append(img);
+      if (parentP && !parentP.textContent.trim()) {
+        parentP.remove();
+      }
+    }
+  }
+  if (title) upperWrapper.prepend(title);
+  if (perex) upperWrapper.append(perex);
+  if (secondDesc) {
+    secondDesc.id = 'category-description-bottom';
+    var readMoreBtn = document.createElement('a');
+    readMoreBtn.className = 'read-more-link';
+    readMoreBtn.href = '#category-description-bottom';
+    readMoreBtn.innerText = readMoreText;
+    readMoreBtn.onclick = function (e) {
+      e.preventDefault();
+      secondDesc.scrollIntoView({
+        behavior: 'smooth'
+      });
+    };
+    upperWrapper.append(readMoreBtn);
+  }
+  container.append(upperWrapper);
+  if (subcategories) container.append(subcategories);
+  categoryTop.innerHTML = '';
+  categoryTop.append(container);
+  categoryTop.classList.add('is-processed');
+};
+// Hlavní orchestrátor pro kategorii, který hlídá iniciální načtení i asynchronní změny při filtraci pomocí Shoptet eventů.
+var handleCategoryCritical = function handleCategoryCritical() {
+  if (window.shoptetPage !== "category") return;
+  handleCategoryTop();
+  var events = ['shoptet.contentUpdated', 'ShoptetDOMPageContentLoaded'];
+  events.forEach(function (eventName) {
+    document.removeEventListener(eventName, handleCategoryTop);
+    document.addEventListener(eventName, handleCategoryTop);
+  });
+};
+handleCategoryCritical();
+var handleCheckedFilters = function handleCheckedFilters() {};
+var handleProductDetail = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-    var reload,
-      _args3 = arguments;
     return _regenerator().w(function (_context3) {
       while (1) switch (_context3.n) {
         case 0:
-          reload = _args3.length > 0 && _args3[0] !== undefined ? _args3[0] : false;
-        case 1:
           return _context3.a(2);
       }
     }, _callee3);
   }));
-  return function handleCategory() {
+  return function handleProductDetail() {
     return _ref3.apply(this, arguments);
   };
 }();
-var handleCheckedFilters = function handleCheckedFilters() {};
-var handleProductDetail = /*#__PURE__*/function () {
+if (shoptetPage === "productDetail") {
+  handleProductDetail();
+}
+var handlePost = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
     return _regenerator().w(function (_context4) {
       while (1) switch (_context4.n) {
@@ -454,24 +517,8 @@ var handleProductDetail = /*#__PURE__*/function () {
       }
     }, _callee4);
   }));
-  return function handleProductDetail() {
-    return _ref4.apply(this, arguments);
-  };
-}();
-if (shoptetPage === "productDetail") {
-  handleProductDetail();
-}
-var handlePost = /*#__PURE__*/function () {
-  var _ref5 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-    return _regenerator().w(function (_context5) {
-      while (1) switch (_context5.n) {
-        case 0:
-          return _context5.a(2);
-      }
-    }, _callee5);
-  }));
   return function handlePost() {
-    return _ref5.apply(this, arguments);
+    return _ref4.apply(this, arguments);
   };
 }();
 if (document.body.classList.contains("type-post")) handlePost();

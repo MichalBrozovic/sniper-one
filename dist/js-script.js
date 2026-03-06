@@ -890,18 +890,18 @@ var initProductSwapper = /*#__PURE__*/function () {
           }
           return _context7.a(2);
         case 1:
-          sections = Array.from(document.querySelectorAll('.product-section')).slice(0, 3);
+          sections = Array.from(document.querySelectorAll(".product-section")).slice(0, 3);
           if (!(sections.length < 3)) {
             _context7.n = 2;
             break;
           }
           return _context7.a(2);
         case 2:
-          lang = document.documentElement.lang || 'cs';
+          lang = document.documentElement.lang || "cs";
           trans = ((_window$projectTransl = window.projectTranslations[lang]) === null || _window$projectTransl === void 0 ? void 0 : _window$projectTransl.homepage) || {
             popularProducts: "Nejoblíbenější produkty"
           };
-          anchor = document.querySelector(".favourite-categories, .content-wrapper .benefitBanner, .before-carousel, header");
+          anchor = document.querySelector(".favourite-categories") || document.querySelector(".content-wrapper:has(.benefitBanner)") || document.querySelector(".before-carousel") || document.querySelector("header");
           if (anchor) {
             _context7.n = 3;
             break;
@@ -918,11 +918,11 @@ var initProductSwapper = /*#__PURE__*/function () {
             if (!heading) return;
             var originalText = heading.innerText.trim();
             // Zrychlený ID generátor bez zbytečné normalizace
-            var safeId = originalText.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+            var safeId = originalText.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
             section.classList.add("swapper-content");
             if (index === 0) section.classList.add("active");
             section.id = "section-".concat(safeId);
-            heading.style.display = 'none';
+            heading.style.display = "none";
             var btn = document.createElement("button");
             btn.className = "swapper-btn ".concat(index === 0 ? "active" : "");
             btn.innerText = originalText;
@@ -937,7 +937,7 @@ var initProductSwapper = /*#__PURE__*/function () {
               });
               btn.classList.add("active");
               section.classList.add("active");
-              var sw = (_section$querySelecto = section.querySelector('.swiper')) === null || _section$querySelecto === void 0 ? void 0 : _section$querySelecto.swiper;
+              var sw = (_section$querySelecto = section.querySelector(".swiper")) === null || _section$querySelecto === void 0 ? void 0 : _section$querySelecto.swiper;
               if (sw) sw.update();
             };
             nav.append(btn);
@@ -965,18 +965,22 @@ var initProductSwapper = /*#__PURE__*/function () {
     return _ref6.apply(this, arguments);
   };
 }();
-
-// Vyhledá Welcome text a přesune ho na první dostupnou pozici dle priorit.
+// Vyhledá Welcome text, přesune ho dle priorit a upraví strukturu galerie.
 var handleWelcomeText = function handleWelcomeText() {
   var _document$querySelect;
   if (window.shoptetPage !== "homepage") return;
-  var welcome = (_document$querySelect = document.querySelector('.welcome-wrapper')) === null || _document$querySelect === void 0 ? void 0 : _document$querySelect.closest('.content-wrapper.homepage-box');
-  if (!welcome) return;
-  var lastSwapper = document.querySelectorAll('.swapper-content');
-  var target = lastSwapper.length ? lastSwapper[lastSwapper.length - 1] : document.querySelector('.product-section, .favourite-categories, .before-carousel, header');
+  var welcomeModule = (_document$querySelect = document.querySelector(".welcome-wrapper")) === null || _document$querySelect === void 0 ? void 0 : _document$querySelect.closest(".content-wrapper.homepage-box");
+  if (!welcomeModule) return;
+  var welcomeInner = welcomeModule.querySelector(".welcome");
+  var gallery = welcomeModule.querySelector(".plus-gallery-wrap");
+  if (welcomeInner && gallery) {
+    welcomeInner.after(gallery);
+  }
+  var swapperSections = document.querySelectorAll(".swapper-content");
+  var target = (swapperSections.length ? swapperSections[swapperSections.length - 1] : null) || document.querySelector(".product-section") || document.querySelector(".favourite-categories") || document.querySelector(".before-carousel") || document.querySelector("header");
   if (target) {
-    target.after(welcome);
-    welcome.classList.add('processed-welcome-section');
+    target.after(welcomeModule);
+    welcomeModule.classList.add("processed-welcome-section");
   }
 };
 

@@ -128,7 +128,7 @@
   font-style: italic;
   font-display: swap;
 }
-.btn,
+.btn, .processed-welcome-section .welcome a,
 .next-step-back,
 .rate-form-trigger,
 .cp-button,
@@ -165,6 +165,7 @@
 .btn-secondary,
 .btn-default,
 .btn.inline-block,
+.processed-welcome-section .welcome a.inline-block,
 .comment-icon {
   text-decoration: unset;
   display: inline-block;
@@ -186,10 +187,15 @@
 .btn-default:focus-visible,
 .btn-default:focus-within,
 .btn.inline-block:hover,
+.processed-welcome-section .welcome a.inline-block:hover,
 .btn.inline-block:focus,
+.processed-welcome-section .welcome a.inline-block:focus,
 .btn.inline-block:active,
+.processed-welcome-section .welcome a.inline-block:active,
 .btn.inline-block:focus-visible,
+.processed-welcome-section .welcome a.inline-block:focus-visible,
 .btn.inline-block:focus-within,
+.processed-welcome-section .welcome a.inline-block:focus-within,
 .comment-icon:hover,
 .comment-icon:focus,
 .comment-icon:active,
@@ -205,7 +211,7 @@
   text-decoration: none;
 }
 
-.btn-primary,
+.btn-primary, .processed-welcome-section .welcome a,
 .extended-banner-link,
 .rate-form-trigger,
 .btn-cart,
@@ -227,7 +233,7 @@
   font-weight: 600;
   border-radius: 4px;
 }
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:focus-visible, .btn-primary:focus-within,
+.btn-primary:hover, .processed-welcome-section .welcome a:hover, .btn-primary:focus, .processed-welcome-section .welcome a:focus, .btn-primary:active, .processed-welcome-section .welcome a:active, .btn-primary:focus-visible, .processed-welcome-section .welcome a:focus-visible, .btn-primary:focus-within, .processed-welcome-section .welcome a:focus-within,
 .extended-banner-link:hover,
 .extended-banner-link:focus,
 .extended-banner-link:active,
@@ -250,14 +256,14 @@
 .btn-conversion:focus-within {
   background-color: color-mix(in srgb, var(--color-secondary, #1563ed), #000 20%);
 }
-.btn-primary.secondary,
+.btn-primary.secondary, .processed-welcome-section .welcome a.secondary,
 .extended-banner-link.secondary,
 .rate-form-trigger.secondary,
 .btn-cart.secondary,
 .btn-conversion.secondary {
   background-color: var(--color-secondary-hover, #142d59);
 }
-.btn-primary.secondary:hover, .btn-primary.secondary:focus, .btn-primary.secondary:active, .btn-primary.secondary:focus-visible, .btn-primary.secondary:focus-within,
+.btn-primary.secondary:hover, .processed-welcome-section .welcome a.secondary:hover, .btn-primary.secondary:focus, .processed-welcome-section .welcome a.secondary:focus, .btn-primary.secondary:active, .processed-welcome-section .welcome a.secondary:active, .btn-primary.secondary:focus-visible, .processed-welcome-section .welcome a.secondary:focus-visible, .btn-primary.secondary:focus-within, .processed-welcome-section .welcome a.secondary:focus-within,
 .extended-banner-link.secondary:hover,
 .extended-banner-link.secondary:focus,
 .extended-banner-link.secondary:active,
@@ -982,8 +988,7 @@ table.border th {
   }
 }
 .plus-gallery-wrap {
-  margin-top: 0.5625rem;
-  margin-bottom: 0.5625rem;
+  margin: 16px 0;
   text-align: center;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -1961,7 +1966,7 @@ footer .custom-footer {
   mask-size: contain;
   transition: all 0.3s ease-in-out;
 }
-.user-action-login .btn {
+.user-action-login .btn, .user-action-login .processed-welcome-section .welcome a, .processed-welcome-section .welcome .user-action-login a {
   font-size: 1rem;
   line-height: 1.375em;
   padding: 12px 20px;
@@ -2117,7 +2122,7 @@ body.login-window-visible .user-action-login {
 .cart-widget .cart-widget-button {
   width: 100%;
 }
-.cart-widget .cart-widget-button .btn {
+.cart-widget .cart-widget-button .btn, .cart-widget .cart-widget-button .processed-welcome-section .welcome a, .processed-welcome-section .welcome .cart-widget .cart-widget-button a {
   width: 100%;
 }
 .cart-widget .popup-cart-summary {
@@ -2748,16 +2753,16 @@ body:not(.customer-page) #register-form input:not(.btn-login) {
   flex-wrap: wrap;
   gap: 20px;
 }
-.advanced-order .extras-wrap .btn.btn-conversion {
+.advanced-order .extras-wrap .btn.btn-conversion, .advanced-order .extras-wrap .processed-welcome-section .welcome a.btn-conversion, .processed-welcome-section .welcome .advanced-order .extras-wrap a.btn-conversion {
   font-size: 1.25rem;
   font-weight: 700;
   padding: 0.75em;
 }
-.advanced-order .extras-wrap .btn.btn-conversion::before {
+.advanced-order .extras-wrap .btn.btn-conversion::before, .advanced-order .extras-wrap .processed-welcome-section .welcome a.btn-conversion::before, .processed-welcome-section .welcome .advanced-order .extras-wrap a.btn-conversion::before {
   display: none;
 }
 @media screen and (max-width: 767px) {
-  .advanced-order .extras-wrap .btn.btn-conversion {
+  .advanced-order .extras-wrap .btn.btn-conversion, .advanced-order .extras-wrap .processed-welcome-section .welcome a.btn-conversion, .processed-welcome-section .welcome .advanced-order .extras-wrap a.btn-conversion {
     font-size: 1rem;
     padding: 0.625em;
   }
@@ -4008,19 +4013,19 @@ table.cart-table .cart-related-product {
   margin-bottom: 15px;
   background-color: #FAFAF7;
 }
-table.cart-table .cart-related-product .btn.add-to-cart-button {
+table.cart-table .cart-related-product .btn.add-to-cart-button, table.cart-table .cart-related-product .processed-welcome-section .welcome a.add-to-cart-button, .processed-welcome-section .welcome table.cart-table .cart-related-product a.add-to-cart-button {
   font-size: 0;
   width: 42px;
   height: 42px;
   border-radius: 50%;
   background-color: unset;
 }
-table.cart-table .cart-related-product .btn.add-to-cart-button::before {
+table.cart-table .cart-related-product .btn.add-to-cart-button::before, table.cart-table .cart-related-product .processed-welcome-section .welcome a.add-to-cart-button::before, .processed-welcome-section .welcome table.cart-table .cart-related-product a.add-to-cart-button::before {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
-table.cart-table .cart-related-product .cart-related-button a.btn-primary {
+table.cart-table .cart-related-product .cart-related-button a.btn-primary, table.cart-table .cart-related-product .cart-related-button .processed-welcome-section .welcome a, .processed-welcome-section .welcome table.cart-table .cart-related-product .cart-related-button a {
   font-size: 0.875rem;
   text-transform: unset;
   line-height: 1.2em;
@@ -4087,7 +4092,7 @@ table.cart-table .cart-related-button {
   justify-content: flex-end;
   white-space: nowrap;
 }
-table.cart-table .cart-related-button .btn {
+table.cart-table .cart-related-button .btn, table.cart-table .cart-related-button .processed-welcome-section .welcome a, .processed-welcome-section .welcome table.cart-table .cart-related-button a {
   padding: 0.5625em;
 }
 table.cart-table .cart-related-button .price-final {
@@ -6692,7 +6697,7 @@ table thead {
   gap: 8px;
   flex: 1;
 }
-.product .btn {
+.product .btn, .product .processed-welcome-section .welcome a, .processed-welcome-section .welcome .product a {
   flex: 1;
 }
 .stars {
@@ -7138,7 +7143,7 @@ table thead {
   font-weight: 400;
   margin-bottom: 16px;
 }
-.more-posts .container .wrapper .news-item .text .btn-primary {
+.more-posts .container .wrapper .news-item .text .btn-primary, .more-posts .container .wrapper .news-item .text .processed-welcome-section .welcome a, .processed-welcome-section .welcome .more-posts .container .wrapper .news-item .text a {
   order: 3;
   font-size: 0.875rem;
   padding: 15px 20px 14px 20px;
@@ -7272,7 +7277,7 @@ table thead {
   font-weight: 400;
   margin-bottom: 22px;
 }
-.main-club .flex-holder .left .btn {
+.main-club .flex-holder .left .btn, .main-club .flex-holder .left .processed-welcome-section .welcome a, .processed-welcome-section .welcome .main-club .flex-holder .left a {
   margin-bottom: 97px;
 }
 .main-club .flex-holder .left h3 {
@@ -7381,7 +7386,7 @@ table thead {
   color: var(--color-tertiary, #757575);
   margin: 0;
 }
-.register-benefits .flex-holder .left .btn {
+.register-benefits .flex-holder .left .btn, .register-benefits .flex-holder .left .processed-welcome-section .welcome a, .processed-welcome-section .welcome .register-benefits .flex-holder .left a {
   position: absolute;
   top: calc(100% + 30px);
   left: 0;
@@ -7504,7 +7509,7 @@ table thead {
     justify-content: flex-start;
     gap: 15px;
   }
-  .register-benefits .flex-holder .left .btn {
+  .register-benefits .flex-holder .left .btn, .register-benefits .flex-holder .left .processed-welcome-section .welcome a, .processed-welcome-section .welcome .register-benefits .flex-holder .left a {
     position: relative;
     top: unset;
     left: unset;
@@ -7530,7 +7535,7 @@ table thead {
   .main-club .flex-holder .left p {
     font-size: 1rem;
   }
-  .main-club .flex-holder .left .btn {
+  .main-club .flex-holder .left .btn, .main-club .flex-holder .left .processed-welcome-section .welcome a, .processed-welcome-section .welcome .main-club .flex-holder .left a {
     padding: 1.0625em 1.5em 1.0625em 1.5em;
     margin-bottom: 40px;
   }
@@ -7550,7 +7555,7 @@ table thead {
   .register-benefits .flex-holder {
     padding: 40px 0px 40px 0px;
   }
-  .register-benefits .flex-holder .left .btn {
+  .register-benefits .flex-holder .left .btn, .register-benefits .flex-holder .left .processed-welcome-section .welcome a, .processed-welcome-section .welcome .register-benefits .flex-holder .left a {
     padding: 1.0625em 1.5em 1.0625em 1.5em;
   }
   .register-benefits .flex-holder .reg-benefits {
@@ -8565,6 +8570,10 @@ table thead {
 .next-to-carousel-banners .extended-banner-text {
   margin-bottom: 16px;
 }
+.middle-banners-wrapper {
+  padding: 64px 0;
+}
+
 .body-banners {
   display: flex;
   flex-direction: row;
@@ -8828,6 +8837,68 @@ table thead {
 .news-item .description,
 .news-item .read-article {
   display: none;
+}
+
+.processed-welcome-section {
+  background-color: color-mix(in srgb, var(--color-secondary, #1563ed), #fff 95%);
+  padding: 90px 0;
+  margin: 64px 0;
+}
+.processed-welcome-section .welcome-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  min-height: 210px;
+}
+.processed-welcome-section .welcome {
+  width: 100%;
+  max-width: 40.5405405405%;
+}
+.processed-welcome-section .welcome h1 {
+  margin-bottom: 8px;
+}
+.processed-welcome-section .welcome p {
+  margin-bottom: 24px;
+}
+.processed-welcome-section .welcome p:last-child {
+  margin-bottom: 0;
+}
+.processed-welcome-section .plus-gallery-wrap {
+  width: 100%;
+  max-width: 47.5%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  margin: 0;
+  display: flex;
+  aspect-ratio: 703/502;
+}
+.processed-welcome-section .plus-gallery-item {
+  width: 100% !important;
+  height: auto !important;
+  position: absolute;
+}
+.processed-welcome-section .plus-gallery-item:nth-of-type(1) {
+  left: 0;
+  top: 0;
+  max-width: 35.7041251778%;
+}
+.processed-welcome-section .plus-gallery-item:nth-of-type(2) {
+  left: calc(35.7041251778% + 16px);
+  top: 19.9203187251%;
+  max-width: 34.1394025605%;
+}
+.processed-welcome-section .plus-gallery-item:nth-of-type(3) {
+  right: 0;
+  bottom: 0;
+  max-width: 61.8776671408%;
+}
+.processed-welcome-section .plus-gallery-item a,
+.processed-welcome-section .plus-gallery-item img {
+  width: 100%;
 }
 
 .latest-contribution-box {

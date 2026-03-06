@@ -847,85 +847,110 @@ const reshapeProductSections = () => {
  * Ovládá viditelnost sekcí pomocí třídy .active.
  */
 const initProductSwapper = async () => {
-    if (window.shoptetPage !== "homepage") return;
+  if (window.shoptetPage !== "homepage") return;
 
-    const sections = Array.from(document.querySelectorAll('.product-section')).slice(0, 3);
-    if (sections.length < 3) return;
+  const sections = Array.from(
+    document.querySelectorAll(".product-section"),
+  ).slice(0, 3);
+  if (sections.length < 3) return;
 
-    const lang = document.documentElement.lang || 'cs';
-    const trans = window.projectTranslations[lang]?.homepage || { popularProducts: "Nejoblíbenější produkty" };
-    
-    const anchor = document.querySelector(".favourite-categories, .content-wrapper .benefitBanner, .before-carousel, header");
-    if (!anchor) return;
+  const lang = document.documentElement.lang || "cs";
+  const trans = window.projectTranslations[lang]?.homepage || {
+    popularProducts: "Nejoblíbenější produkty",
+  };
 
-    const swapperModule = document.createElement("section");
-    swapperModule.className = "product-section-swapper is-processed";
-    
-    const nav = document.createElement("div");
-    nav.className = "product-swapper-nav";
+  const anchor =
+    document.querySelector(".favourite-categories") ||
+    document.querySelector(".content-wrapper:has(.benefitBanner)") ||
+    document.querySelector(".before-carousel") ||
+    document.querySelector("header");
+  if (!anchor) return;
 
-    const frag = document.createDocumentFragment();
+  const swapperModule = document.createElement("section");
+  swapperModule.className = "product-section-swapper is-processed";
 
-    sections.forEach((section, index) => {
-        const heading = section.querySelector(".homepage-group-title");
-        if (!heading) return;
+  const nav = document.createElement("div");
+  nav.className = "product-swapper-nav";
 
-        const originalText = heading.innerText.trim();
-        // Zrychlený ID generátor bez zbytečné normalizace
-        const safeId = originalText.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+  const frag = document.createDocumentFragment();
 
-        section.classList.add("swapper-content");
-        if (index === 0) section.classList.add("active");
-        section.id = `section-${safeId}`;
-        heading.style.display = 'none';
+  sections.forEach((section, index) => {
+    const heading = section.querySelector(".homepage-group-title");
+    if (!heading) return;
 
-        const btn = document.createElement("button");
-        btn.className = `swapper-btn ${index === 0 ? "active" : ""}`;
-        btn.innerText = originalText;
-        
-        btn.onclick = () => {
-            if (btn.classList.contains("active")) return;
-            swapperModule.querySelectorAll(".swapper-btn").forEach(b => b.classList.remove("active"));
-            sections.forEach(s => s.classList.remove("active"));
-            btn.classList.add("active");
-            section.classList.add("active");
-            const sw = section.querySelector('.swiper')?.swiper;
-            if (sw) sw.update();
-        };
+    const originalText = heading.innerText.trim();
+    // Zrychlený ID generátor bez zbytečné normalizace
+    const safeId = originalText
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-]/g, "");
 
-        nav.append(btn);
-    });
+    section.classList.add("swapper-content");
+    if (index === 0) section.classList.add("active");
+    section.id = `section-${safeId}`;
+    heading.style.display = "none";
 
-    const mainTitle = document.createElement("h2");
-    mainTitle.className = "homepage-group-title main-swapper-title";
-    mainTitle.innerHTML = trans.popularProducts;
+    const btn = document.createElement("button");
+    btn.className = `swapper-btn ${index === 0 ? "active" : ""}`;
+    btn.innerText = originalText;
 
-    const container = document.createElement("div");
-    container.className = "container";
-    container.append(mainTitle, nav);
-    swapperModule.append(container);
+    btn.onclick = () => {
+      if (btn.classList.contains("active")) return;
+      swapperModule
+        .querySelectorAll(".swapper-btn")
+        .forEach((b) => b.classList.remove("active"));
+      sections.forEach((s) => s.classList.remove("active"));
+      btn.classList.add("active");
+      section.classList.add("active");
+      const sw = section.querySelector(".swiper")?.swiper;
+      if (sw) sw.update();
+    };
 
-    // Vložení všeho najednou přes fragment šetří reflow
-    frag.append(swapperModule);
-    sections.forEach(s => frag.append(s));
-    anchor.after(frag);
+    nav.append(btn);
+  });
+
+  const mainTitle = document.createElement("h2");
+  mainTitle.className = "homepage-group-title main-swapper-title";
+  mainTitle.innerHTML = trans.popularProducts;
+
+  const container = document.createElement("div");
+  container.className = "container";
+  container.append(mainTitle, nav);
+  swapperModule.append(container);
+
+  // Vložení všeho najednou přes fragment šetří reflow
+  frag.append(swapperModule);
+  sections.forEach((s) => frag.append(s));
+  anchor.after(frag);
 };
-
-// Vyhledá Welcome text a přesune ho na první dostupnou pozici dle priorit.
+// Vyhledá Welcome text, přesune ho dle priorit a upraví strukturu galerie.
 const handleWelcomeText = () => {
-    if (window.shoptetPage !== "homepage") return;
+  if (window.shoptetPage !== "homepage") return;
 
-    const welcome = document.querySelector('.welcome-wrapper')?.closest('.content-wrapper.homepage-box');
-    if (!welcome) return;
+  const welcomeModule = document
+    .querySelector(".welcome-wrapper")
+    ?.closest(".content-wrapper.homepage-box");
+  if (!welcomeModule) return;
 
-    const lastSwapper = document.querySelectorAll('.swapper-content');
-    const target = lastSwapper.length ? lastSwapper[lastSwapper.length - 1] : 
-                   document.querySelector('.product-section, .favourite-categories, .before-carousel, header');
+  const welcomeInner = welcomeModule.querySelector(".welcome");
+  const gallery = welcomeModule.querySelector(".plus-gallery-wrap");
+  if (welcomeInner && gallery) {
+    welcomeInner.after(gallery);
+  }
+  const swapperSections = document.querySelectorAll(".swapper-content");
+  const target =
+    (swapperSections.length
+      ? swapperSections[swapperSections.length - 1]
+      : null) ||
+    document.querySelector(".product-section") ||
+    document.querySelector(".favourite-categories") ||
+    document.querySelector(".before-carousel") ||
+    document.querySelector("header");
 
-    if (target) {
-        target.after(welcome);
-        welcome.classList.add('processed-welcome-section');
-    }
+  if (target) {
+    target.after(welcomeModule);
+    welcomeModule.classList.add("processed-welcome-section");
+  }
 };
 
 /**
@@ -944,7 +969,7 @@ const handleHomePage = async () => {
     initProductSwapper();
   });
 
-    // 3. Přesun Welcome textu (teď už uvidí ty swapper sekce)
+  // 3. Přesun Welcome textu (teď už uvidí ty swapper sekce)
   await sniperBenchmark("Welcome Text Move", () => {
     handleWelcomeText();
   });
