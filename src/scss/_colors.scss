@@ -42,6 +42,8 @@ $notification: #f48f53;
 $positive: #059905;
 $info: #5a95ee;
 
+$color-stars:#E58200;
+
 // 3. DYNAMICKÉ FUNKCE (Nahrazují SASS mix za CSS color-mix)
 @function shade($color, $weight) {
   @return color-mix(in srgb, #{$color}, #000 #{$weight});

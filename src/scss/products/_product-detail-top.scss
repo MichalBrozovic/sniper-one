@@ -156,6 +156,12 @@
     gap: 8px;
   }
   .detail-parameters {
+    .variant-list {
+      th,
+      td {
+        padding: 8px 0;
+      }
+    }
     th {
       padding: 0;
     }
@@ -228,7 +234,7 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     gap: 4px 8px;
-    max-width: 200px;
+    max-width: 230px;
     &:has(.price-save) {
       .price-final {
         color: $color-danger;
@@ -275,37 +281,90 @@
   }
 }
 .social-buttons-wrapper {
+  margin-bottom: 8px;
+  .link-icons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
   .link-icon {
     color: $color-font;
-    text-decoration: underline;
     font-weight: 400;
     font-size: rem(14);
     line-height: em(20, 14);
     display: inline-flex;
+    align-items: center;
     gap: 4px;
+    text-decoration: underline;
+    @include hover {
+      text-decoration: unset;
+    }
     &.print {
-        &::before{
-            content: "";
-            @include icon-mask("/assets/images/icons/print-primary.svg", $color-secondary, 16px, 16px)
-        }
+      &::before {
+        content: "";
+        @include icon-mask(
+          "/assets/images/icons/print-primary.svg",
+          $color-secondary,
+          16px,
+          16px
+        );
+      }
     }
     &.chat {
-        &::before{
-            content: "";
-            @include icon-mask("/assets/images/icons/dotaz-primary.svg", $color-secondary, 16px, 16px)
-        }
+      &::before {
+        content: "";
+        @include icon-mask(
+          "/assets/images/icons/dotaz-primary.svg",
+          $color-secondary,
+          16px,
+          16px
+        );
+      }
     }
     &.watchdog {
-        &::before{
-            content: "";
-            @include icon-mask("/assets/images/icons/watch-primary.svg", $color-secondary, 16px, 16px)
-        }
+      &::before {
+        content: "";
+        @include icon-mask(
+          "/assets/images/icons/watch-primary.svg",
+          $color-secondary,
+          16px,
+          16px
+        );
+      }
     }
     &.share {
-        &::before{
-            content: "";
-            @include icon-mask("/assets/images/icons/share-primary.svg", $color-secondary, 16px, 16px)
-        }
+      &::before {
+        content: "";
+        @include icon-mask(
+          "/assets/images/icons/share-primary.svg",
+          $color-secondary,
+          16px,
+          16px
+        );
+      }
+    }
+  }
+}
+#manufacturerDescription {
+  border-radius: 12px;
+  border: 1px solid $border-color;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  font-size: rem(16);
+  line-height: em(22, 16);
+  p,
+  blockquote,
+  ul,
+  ol {
+    margin-bottom: 16px;
+    &:last-of-type {
+      margin: 0;
     }
   }
 }

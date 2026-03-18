@@ -215,6 +215,12 @@
 #category-header {
   border-bottom: 1px solid $border-color;
   padding: 16px 0;
+  display: flex;
+  gap: 8px 24px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
 .listSorting__controls {
   display: flex;

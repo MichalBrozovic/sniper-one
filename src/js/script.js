@@ -854,7 +854,7 @@ const initProductSwapper = async () => {
   ).slice(0, 3);
   if (sections.length < 3) return;
 
-  const lang = document.documentElement.lang || "cs";
+  const lang = window.shoptetLang || "cs";
   const trans = window.projectTranslations[lang]?.homepage || {
     popularProducts: "Nejoblíbenější produkty",
   };
@@ -1241,6 +1241,292 @@ const handleCategoryNonCritical = async () => {
 };
 
 handleCategoryNonCritical();
+
+//Related & Alternative || související a podobné
+// Funkce připraví sekce pro související a podobné produkty a deleguje jejich sestavení na modul swiperize.
+const handleRelatedAndAlternativeProducts = () => {
+  const mainContent = document.querySelector(
+    "#content-wrapper main:has(.p-detail)",
+  );
+  if (!mainContent) return;
+
+  const relatedHeader = document.querySelector(".products-related-header");
+  const relatedGrid = document.querySelector(".products-related");
+  const altGrid = document.querySelector(".products-alternative");
+  const selectorsToSwiperize = [];
+
+  if (relatedHeader && relatedGrid) {
+    const relatedSection = document.createElement("section");
+    relatedSection.className = "product-section related-section is-processed";
+
+    relatedHeader.className = "homepage-group-title";
+    relatedSection.append(relatedHeader);
+    relatedSection.append(relatedGrid);
+
+    mainContent.append(relatedSection);
+    selectorsToSwiperize.push(".related-section .products-related");
+  }
+
+  if (altGrid) {
+    const lang = window.shoptetLang || "cs";
+    const altTitleText =
+      window.projectTranslations?.[lang]?.productDetail?.alternativeProducts ||
+      "Podobné produkty";
+
+    const altSection = document.createElement("section");
+    altSection.className = "product-section alternative-section is-processed";
+
+    const altHeader = document.createElement("h2");
+    altHeader.className = "homepage-group-title";
+    altHeader.textContent = altTitleText;
+
+    altSection.append(altHeader);
+    altSection.append(altGrid);
+
+    mainContent.append(altSection);
+    selectorsToSwiperize.push(".alternative-section .products-alternative");
+  }
+
+  document.querySelector("#productsAlternative")?.remove();
+
+  if (typeof window.swiperize === "function" && selectorsToSwiperize.length) {
+    window.swiperize({
+      containers: selectorsToSwiperize,
+      slide: ".product",
+      ...SHARED_SWIPER_CONFIG,
+    });
+  }
+};
+
+// Funkce vyhledá banner s benefity a přesune jej na samotný konec hlavního obsahu produktu.
+const handleProductBenefits = () => {
+  const benefits = document.querySelector(".benefitBanner");
+  const mainContent = document.querySelector(
+    "#content-wrapper main:has(.p-detail)",
+  );
+
+  if (benefits && mainContent) {
+    mainContent.append(benefits);
+  }
+};
+
+// Funkce najde soubory ke stažení a přesune je do struktury popisu produktu s vlastním nadpisem a obalem.
+const handleProductFiles = () => {
+  const files = document.querySelector("#relatedFiles");
+  if (!files) return;
+
+  const description = document.querySelector("#description");
+  const descriptionInner = description?.querySelector(".description-inner");
+  let extendedDescription = description?.querySelector(".extended-description");
+
+  const filesWrapper = document.createElement("div");
+  filesWrapper.className = "product-files";
+
+  const title = document.createElement("h3");
+  title.textContent = "Soubory";
+
+  filesWrapper.append(title);
+  filesWrapper.append(files);
+
+  if (extendedDescription) {
+    extendedDescription.append(filesWrapper);
+  } else if (descriptionInner) {
+    extendedDescription = document.createElement("div");
+    extendedDescription.className = "extended-description";
+    extendedDescription.append(filesWrapper);
+    descriptionInner.append(extendedDescription);
+  } else {
+    files.parentNode?.insertBefore(filesWrapper, files);
+    filesWrapper.append(files);
+  }
+};
+
+// Funkce najde sekci s videi a přesune ji na konec popisu produktu, případně vytvoří chybějící strukturu popisku.
+const handleProductVideos = () => {
+  const videos = document.querySelector("#productVideos");
+  if (!videos) return;
+
+  const description = document.querySelector("#description");
+  const descriptionInner = description?.querySelector(".description-inner");
+  let extendedDescription = description?.querySelector(".extended-description");
+
+  if (extendedDescription) {
+    extendedDescription.append(videos);
+  } else if (descriptionInner) {
+    extendedDescription = document.createElement("div");
+    extendedDescription.className = "extended-description";
+    extendedDescription.append(videos);
+    descriptionInner.append(extendedDescription);
+  }
+};
+
+// Funkce extrahuje logo a text výrobce, vyčistí balast a přesune výsledek do info panelu produktu.
+const handleManufacturer = () => {
+  const manufacturer = document.querySelector("#manufacturerDescription");
+  const infoWrapper = document.querySelector(".product-top .p-info-wrapper");
+
+  if (!manufacturer || !infoWrapper) return;
+
+  const img = manufacturer.querySelector("img");
+  const textWrapper = document.createElement("div");
+  textWrapper.className = "text-wrapper";
+
+  const paragraphs = manufacturer.querySelectorAll("p");
+  paragraphs.forEach((p) => {
+    if (p.querySelector("img")) {
+      return;
+    }
+    textWrapper.append(p);
+  });
+
+  manufacturer.innerHTML = "";
+  if (img) {
+    manufacturer.append(img);
+  }
+  manufacturer.append(textWrapper);
+
+  infoWrapper.append(manufacturer);
+};
+
+// Funkce vyčistí graf hodnocení, narovná strukturu odpovědí a přidá hlavní nadpis na začátek sekce.
+const handleProductRating = () => {
+  const ratingTab = document.querySelector("#ratingTab");
+  if (!ratingTab) return;
+
+  // 1. Úprava grafu (přesun počtů za lišty)
+  const rateBlocks = ratingTab.querySelectorAll(".rate-block");
+  rateBlocks.forEach((block) => {
+    const rateCount = block.querySelector(".rate-count");
+    if (rateCount) {
+      block.after(rateCount);
+    }
+  });
+
+  // 2. Narovnání admin odpovědí v seznamu hodnocení
+  const ratingsList = ratingTab.querySelector("#ratingsList");
+  if (ratingsList) {
+    const individualRatings = ratingsList.querySelectorAll(".vote-wrap:not(.admin-response .vote-wrap)");
+    individualRatings.forEach((rating) => {
+      const adminResponse = rating.querySelector(".admin-response");
+      if (adminResponse) {
+        rating.after(adminResponse);
+      }
+    });
+  }
+
+  // 3. Generování nadpisu na začátek tabu
+  const lang = window.shoptetLang || "cs";
+  const ratingTitle = window.projectTranslations?.[lang]?.productDetail?.rating || "Hodnocení";
+  
+  const starsLabel = ratingTab.querySelector(".stars-label");
+  const countMatch = starsLabel?.textContent.match(/\d+/);
+  const count = countMatch ? countMatch[0] : 0;
+
+  const existingHeading = ratingTab.querySelector(".rating-main-title");
+  if (existingHeading) existingHeading.remove();
+
+  const heading = document.createElement("h3");
+  heading.className = "rating-main-title";
+  heading.textContent = count > 0 ? `${ratingTitle} (${count})` : ratingTitle;
+
+  ratingTab.prepend(heading);
+};
+
+// Funkce vyčistí strukturu diskuze a přidá hlavní nadpis na začátek sekce bez ohledu na to, zda již obsahuje příspěvky.
+const handleProductDiscussion = () => {
+  const discussionTab = document.querySelector("#productDiscussion");
+  if (!discussionTab) return;
+
+  const discussionList = discussionTab.querySelector("#discussionsList");
+
+  if (discussionList) {
+    const allVotes = discussionList.querySelectorAll(".vote-wrap");
+
+    allVotes.forEach((vote) => {
+      const ratingWrap = vote.querySelector(".vote-rating");
+      if (ratingWrap) {
+        const emptySpan = ratingWrap.querySelector("span:not([class])");
+        if (emptySpan) emptySpan.remove();
+      }
+
+      const replyBtn = vote.querySelector("button[data-testid='buttonAddReply']");
+      if (replyBtn) {
+        replyBtn.classList.remove("btn", "btn-sm", "btn-primary");
+      }
+
+      const nestedVotesWrap = vote.querySelector(".votes-wrap");
+      if (nestedVotesWrap) {
+        vote.after(nestedVotesWrap);
+      }
+    });
+  }
+
+  const lang = window.shoptetLang || "cs";
+  const discussionTitle = window.projectTranslations?.[lang]?.productDetail?.discussion || "Diskuze";
+  const count = discussionList ? discussionList.querySelectorAll(".vote-wrap[data-testid='wrapComment']").length : 0;
+  
+  const existingHeading = discussionTab.querySelector(".discussion-main-title");
+  if (existingHeading) existingHeading.remove();
+
+  const heading = document.createElement("h3");
+  heading.className = "discussion-main-title";
+  heading.textContent = count > 0 ? `${discussionTitle} (${count})` : discussionTitle;
+
+  discussionTab.prepend(heading);
+};
+
+// Funkce najde bezpečnostní informace GPSR a přesune je do struktury popisu produktu s vlastním nadpisem a obalem.
+const handleProductGPSR = () => {
+  const gpsr = document.querySelector("#otherInformation");
+  if (!gpsr) return;
+
+  const description = document.querySelector("#description");
+  const descriptionInner = description?.querySelector(".description-inner");
+  let extendedDescription = description?.querySelector(".extended-description");
+
+  const gpsrWrapper = document.createElement("div");
+  gpsrWrapper.className = "product-gpsr";
+
+  const title = document.createElement("h3");
+  const lang = window.shoptetLang || "cs";
+  title.textContent = window.projectTranslations?.[lang]?.productDetail?.gpsr || "Informace o výrobci";
+
+  gpsrWrapper.append(title);
+  gpsrWrapper.append(gpsr);
+
+  if (extendedDescription) {
+    extendedDescription.append(gpsrWrapper);
+  } else if (descriptionInner) {
+    extendedDescription = document.createElement("div");
+    extendedDescription.className = "extended-description";
+    extendedDescription.append(gpsrWrapper);
+    descriptionInner.append(extendedDescription);
+  } else {
+    gpsr.parentNode?.insertBefore(gpsrWrapper, gpsr);
+    gpsrWrapper.append(gpsr);
+  }
+};
+
+const handleProductDetailNonCritical = () => {
+  if (window.shoptetPage !== "productDetail") return;
+  handleRelatedAndAlternativeProducts();
+  handleProductBenefits();
+  handleProductFiles();
+  handleProductVideos();
+  handleManufacturer();
+  handleProductRating();
+  handleProductDiscussion();
+  handleProductGPSR();
+  const events = ["shoptet.contentUpdated", "shoptet.variantsUpdated"];
+  events.forEach((eventName) => {
+    document.removeEventListener(eventName, handleProductDetailNonCritical);
+    document.addEventListener(eventName, (e) => {
+      handleProductDetailNonCritical();
+    });
+  });
+};
+
+handleProductDetailNonCritical();
 
 // CART
 const handleCart = () => {};

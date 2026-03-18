@@ -36,7 +36,7 @@
 .btn-default,
 .btn.inline-block,
 .comment-icon,
-.chevron-after:not(.chevron-down-after) {
+.chevron-after:not([href="#description"]) {
   text-decoration: unset;
   // white-space: nowrap;
   color: $color-font;

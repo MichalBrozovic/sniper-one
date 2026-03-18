@@ -897,7 +897,7 @@ var initProductSwapper = /*#__PURE__*/function () {
           }
           return _context7.a(2);
         case 2:
-          lang = document.documentElement.lang || "cs";
+          lang = window.shoptetLang || "cs";
           trans = ((_window$projectTransl = window.projectTranslations[lang]) === null || _window$projectTransl === void 0 ? void 0 : _window$projectTransl.homepage) || {
             popularProducts: "Nejoblíbenější produkty"
           };
@@ -1332,6 +1332,248 @@ var _handleCategoryNonCritical = /*#__PURE__*/function () {
 }();
 _handleCategoryNonCritical();
 
+//Related & Alternative || související a podobné
+// Funkce připraví sekce pro související a podobné produkty a deleguje jejich sestavení na modul swiperize.
+var handleRelatedAndAlternativeProducts = function handleRelatedAndAlternativeProducts() {
+  var _document$querySelect2;
+  var mainContent = document.querySelector("#content-wrapper main:has(.p-detail)");
+  if (!mainContent) return;
+  var relatedHeader = document.querySelector(".products-related-header");
+  var relatedGrid = document.querySelector(".products-related");
+  var altGrid = document.querySelector(".products-alternative");
+  var selectorsToSwiperize = [];
+  if (relatedHeader && relatedGrid) {
+    var relatedSection = document.createElement("section");
+    relatedSection.className = "product-section related-section is-processed";
+    relatedHeader.className = "homepage-group-title";
+    relatedSection.append(relatedHeader);
+    relatedSection.append(relatedGrid);
+    mainContent.append(relatedSection);
+    selectorsToSwiperize.push(".related-section .products-related");
+  }
+  if (altGrid) {
+    var _window$projectTransl2;
+    var lang = window.shoptetLang || "cs";
+    var altTitleText = ((_window$projectTransl2 = window.projectTranslations) === null || _window$projectTransl2 === void 0 || (_window$projectTransl2 = _window$projectTransl2[lang]) === null || _window$projectTransl2 === void 0 || (_window$projectTransl2 = _window$projectTransl2.productDetail) === null || _window$projectTransl2 === void 0 ? void 0 : _window$projectTransl2.alternativeProducts) || "Podobné produkty";
+    var altSection = document.createElement("section");
+    altSection.className = "product-section alternative-section is-processed";
+    var altHeader = document.createElement("h2");
+    altHeader.className = "homepage-group-title";
+    altHeader.textContent = altTitleText;
+    altSection.append(altHeader);
+    altSection.append(altGrid);
+    mainContent.append(altSection);
+    selectorsToSwiperize.push(".alternative-section .products-alternative");
+  }
+  (_document$querySelect2 = document.querySelector("#productsAlternative")) === null || _document$querySelect2 === void 0 || _document$querySelect2.remove();
+  if (typeof window.swiperize === "function" && selectorsToSwiperize.length) {
+    window.swiperize(_objectSpread({
+      containers: selectorsToSwiperize,
+      slide: ".product"
+    }, SHARED_SWIPER_CONFIG));
+  }
+};
+
+// Funkce vyhledá banner s benefity a přesune jej na samotný konec hlavního obsahu produktu.
+var handleProductBenefits = function handleProductBenefits() {
+  var benefits = document.querySelector(".benefitBanner");
+  var mainContent = document.querySelector("#content-wrapper main:has(.p-detail)");
+  if (benefits && mainContent) {
+    mainContent.append(benefits);
+  }
+};
+
+// Funkce najde soubory ke stažení a přesune je do struktury popisu produktu s vlastním nadpisem a obalem.
+var handleProductFiles = function handleProductFiles() {
+  var files = document.querySelector("#relatedFiles");
+  if (!files) return;
+  var description = document.querySelector("#description");
+  var descriptionInner = description === null || description === void 0 ? void 0 : description.querySelector(".description-inner");
+  var extendedDescription = description === null || description === void 0 ? void 0 : description.querySelector(".extended-description");
+  var filesWrapper = document.createElement("div");
+  filesWrapper.className = "product-files";
+  var title = document.createElement("h3");
+  title.textContent = "Soubory";
+  filesWrapper.append(title);
+  filesWrapper.append(files);
+  if (extendedDescription) {
+    extendedDescription.append(filesWrapper);
+  } else if (descriptionInner) {
+    extendedDescription = document.createElement("div");
+    extendedDescription.className = "extended-description";
+    extendedDescription.append(filesWrapper);
+    descriptionInner.append(extendedDescription);
+  } else {
+    var _files$parentNode;
+    (_files$parentNode = files.parentNode) === null || _files$parentNode === void 0 || _files$parentNode.insertBefore(filesWrapper, files);
+    filesWrapper.append(files);
+  }
+};
+
+// Funkce najde sekci s videi a přesune ji na konec popisu produktu, případně vytvoří chybějící strukturu popisku.
+var handleProductVideos = function handleProductVideos() {
+  var videos = document.querySelector("#productVideos");
+  if (!videos) return;
+  var description = document.querySelector("#description");
+  var descriptionInner = description === null || description === void 0 ? void 0 : description.querySelector(".description-inner");
+  var extendedDescription = description === null || description === void 0 ? void 0 : description.querySelector(".extended-description");
+  if (extendedDescription) {
+    extendedDescription.append(videos);
+  } else if (descriptionInner) {
+    extendedDescription = document.createElement("div");
+    extendedDescription.className = "extended-description";
+    extendedDescription.append(videos);
+    descriptionInner.append(extendedDescription);
+  }
+};
+
+// Funkce extrahuje logo a text výrobce, vyčistí balast a přesune výsledek do info panelu produktu.
+var handleManufacturer = function handleManufacturer() {
+  var manufacturer = document.querySelector("#manufacturerDescription");
+  var infoWrapper = document.querySelector(".product-top .p-info-wrapper");
+  if (!manufacturer || !infoWrapper) return;
+  var img = manufacturer.querySelector("img");
+  var textWrapper = document.createElement("div");
+  textWrapper.className = "text-wrapper";
+  var paragraphs = manufacturer.querySelectorAll("p");
+  paragraphs.forEach(function (p) {
+    if (p.querySelector("img")) {
+      return;
+    }
+    textWrapper.append(p);
+  });
+  manufacturer.innerHTML = "";
+  if (img) {
+    manufacturer.append(img);
+  }
+  manufacturer.append(textWrapper);
+  infoWrapper.append(manufacturer);
+};
+
+// Funkce vyčistí graf hodnocení, narovná strukturu odpovědí a přidá hlavní nadpis na začátek sekce.
+var handleProductRating = function handleProductRating() {
+  var _window$projectTransl3;
+  var ratingTab = document.querySelector("#ratingTab");
+  if (!ratingTab) return;
+
+  // 1. Úprava grafu (přesun počtů za lišty)
+  var rateBlocks = ratingTab.querySelectorAll(".rate-block");
+  rateBlocks.forEach(function (block) {
+    var rateCount = block.querySelector(".rate-count");
+    if (rateCount) {
+      block.after(rateCount);
+    }
+  });
+
+  // 2. Narovnání admin odpovědí v seznamu hodnocení
+  var ratingsList = ratingTab.querySelector("#ratingsList");
+  if (ratingsList) {
+    var individualRatings = ratingsList.querySelectorAll(".vote-wrap:not(.admin-response .vote-wrap)");
+    individualRatings.forEach(function (rating) {
+      var adminResponse = rating.querySelector(".admin-response");
+      if (adminResponse) {
+        rating.after(adminResponse);
+      }
+    });
+  }
+
+  // 3. Generování nadpisu na začátek tabu
+  var lang = window.shoptetLang || "cs";
+  var ratingTitle = ((_window$projectTransl3 = window.projectTranslations) === null || _window$projectTransl3 === void 0 || (_window$projectTransl3 = _window$projectTransl3[lang]) === null || _window$projectTransl3 === void 0 || (_window$projectTransl3 = _window$projectTransl3.productDetail) === null || _window$projectTransl3 === void 0 ? void 0 : _window$projectTransl3.rating) || "Hodnocení";
+  var starsLabel = ratingTab.querySelector(".stars-label");
+  var countMatch = starsLabel === null || starsLabel === void 0 ? void 0 : starsLabel.textContent.match(/\d+/);
+  var count = countMatch ? countMatch[0] : 0;
+  var existingHeading = ratingTab.querySelector(".rating-main-title");
+  if (existingHeading) existingHeading.remove();
+  var heading = document.createElement("h3");
+  heading.className = "rating-main-title";
+  heading.textContent = count > 0 ? "".concat(ratingTitle, " (").concat(count, ")") : ratingTitle;
+  ratingTab.prepend(heading);
+};
+
+// Funkce vyčistí strukturu diskuze a přidá hlavní nadpis na začátek sekce bez ohledu na to, zda již obsahuje příspěvky.
+var handleProductDiscussion = function handleProductDiscussion() {
+  var _window$projectTransl4;
+  var discussionTab = document.querySelector("#productDiscussion");
+  if (!discussionTab) return;
+  var discussionList = discussionTab.querySelector("#discussionsList");
+  if (discussionList) {
+    var allVotes = discussionList.querySelectorAll(".vote-wrap");
+    allVotes.forEach(function (vote) {
+      var ratingWrap = vote.querySelector(".vote-rating");
+      if (ratingWrap) {
+        var emptySpan = ratingWrap.querySelector("span:not([class])");
+        if (emptySpan) emptySpan.remove();
+      }
+      var replyBtn = vote.querySelector("button[data-testid='buttonAddReply']");
+      if (replyBtn) {
+        replyBtn.classList.remove("btn", "btn-sm", "btn-primary");
+      }
+      var nestedVotesWrap = vote.querySelector(".votes-wrap");
+      if (nestedVotesWrap) {
+        vote.after(nestedVotesWrap);
+      }
+    });
+  }
+  var lang = window.shoptetLang || "cs";
+  var discussionTitle = ((_window$projectTransl4 = window.projectTranslations) === null || _window$projectTransl4 === void 0 || (_window$projectTransl4 = _window$projectTransl4[lang]) === null || _window$projectTransl4 === void 0 || (_window$projectTransl4 = _window$projectTransl4.productDetail) === null || _window$projectTransl4 === void 0 ? void 0 : _window$projectTransl4.discussion) || "Diskuze";
+  var count = discussionList ? discussionList.querySelectorAll(".vote-wrap[data-testid='wrapComment']").length : 0;
+  var existingHeading = discussionTab.querySelector(".discussion-main-title");
+  if (existingHeading) existingHeading.remove();
+  var heading = document.createElement("h3");
+  heading.className = "discussion-main-title";
+  heading.textContent = count > 0 ? "".concat(discussionTitle, " (").concat(count, ")") : discussionTitle;
+  discussionTab.prepend(heading);
+};
+
+// Funkce najde bezpečnostní informace GPSR a přesune je do struktury popisu produktu s vlastním nadpisem a obalem.
+var handleProductGPSR = function handleProductGPSR() {
+  var _window$projectTransl5;
+  var gpsr = document.querySelector("#otherInformation");
+  if (!gpsr) return;
+  var description = document.querySelector("#description");
+  var descriptionInner = description === null || description === void 0 ? void 0 : description.querySelector(".description-inner");
+  var extendedDescription = description === null || description === void 0 ? void 0 : description.querySelector(".extended-description");
+  var gpsrWrapper = document.createElement("div");
+  gpsrWrapper.className = "product-gpsr";
+  var title = document.createElement("h3");
+  var lang = window.shoptetLang || "cs";
+  title.textContent = ((_window$projectTransl5 = window.projectTranslations) === null || _window$projectTransl5 === void 0 || (_window$projectTransl5 = _window$projectTransl5[lang]) === null || _window$projectTransl5 === void 0 || (_window$projectTransl5 = _window$projectTransl5.productDetail) === null || _window$projectTransl5 === void 0 ? void 0 : _window$projectTransl5.gpsr) || "Informace o výrobci";
+  gpsrWrapper.append(title);
+  gpsrWrapper.append(gpsr);
+  if (extendedDescription) {
+    extendedDescription.append(gpsrWrapper);
+  } else if (descriptionInner) {
+    extendedDescription = document.createElement("div");
+    extendedDescription.className = "extended-description";
+    extendedDescription.append(gpsrWrapper);
+    descriptionInner.append(extendedDescription);
+  } else {
+    var _gpsr$parentNode;
+    (_gpsr$parentNode = gpsr.parentNode) === null || _gpsr$parentNode === void 0 || _gpsr$parentNode.insertBefore(gpsrWrapper, gpsr);
+    gpsrWrapper.append(gpsr);
+  }
+};
+var _handleProductDetailNonCritical = function handleProductDetailNonCritical() {
+  if (window.shoptetPage !== "productDetail") return;
+  handleRelatedAndAlternativeProducts();
+  handleProductBenefits();
+  handleProductFiles();
+  handleProductVideos();
+  handleManufacturer();
+  handleProductRating();
+  handleProductDiscussion();
+  handleProductGPSR();
+  var events = ["shoptet.contentUpdated", "shoptet.variantsUpdated"];
+  events.forEach(function (eventName) {
+    document.removeEventListener(eventName, _handleProductDetailNonCritical);
+    document.addEventListener(eventName, function (e) {
+      _handleProductDetailNonCritical();
+    });
+  });
+};
+_handleProductDetailNonCritical();
+
 // CART
 var handleCart = function handleCart() {};
 if (document.body.classList.contains("ordering-process")) {
@@ -1480,9 +1722,9 @@ var handleFooterLower = function handleFooterLower() {
 
 // Refaktorovaná horní sekce patičky (Pro verze): využití moderních DOM API a ES6+
 var handleFooterUpper = function handleFooterUpper() {
-  var _window$projectTransl2, _document$querySelect2, _document$querySelect3;
+  var _window$projectTransl6, _document$querySelect3, _document$querySelect4;
   var lang = window.shoptetLang || "cs";
-  var translations = (_window$projectTransl2 = window.projectTranslations) === null || _window$projectTransl2 === void 0 ? void 0 : _window$projectTransl2[lang];
+  var translations = (_window$projectTransl6 = window.projectTranslations) === null || _window$projectTransl6 === void 0 ? void 0 : _window$projectTransl6[lang];
   var footer = document.querySelector("footer");
   if (!footer || !translations) return;
 
@@ -1503,7 +1745,7 @@ var handleFooterUpper = function handleFooterUpper() {
   var detailsBlock = flexHolder.querySelector(".footer-contact-details");
 
   // 3. Klonování telefonu s využitím optional chaining
-  var phone = (_document$querySelect2 = document.querySelector(".project-phone")) === null || _document$querySelect2 === void 0 ? void 0 : _document$querySelect2.cloneNode(true);
+  var phone = (_document$querySelect3 = document.querySelector(".project-phone")) === null || _document$querySelect3 === void 0 ? void 0 : _document$querySelect3.cloneNode(true);
   if (phone) {
     var hours = phone.querySelector(".project-opening-hours");
     if (hours && window.projectOpeningHours) hours.textContent = window.projectOpeningHours;
@@ -1511,7 +1753,7 @@ var handleFooterUpper = function handleFooterUpper() {
   }
 
   // 4. Klonování e-mailu a bezpečné vložení textu
-  var email = (_document$querySelect3 = document.querySelector(".project-email")) === null || _document$querySelect3 === void 0 ? void 0 : _document$querySelect3.cloneNode(true);
+  var email = (_document$querySelect4 = document.querySelector(".project-email")) === null || _document$querySelect4 === void 0 ? void 0 : _document$querySelect4.cloneNode(true);
   if (email) {
     email.insertAdjacentHTML("beforeend", "<small class=\"email-subtext\">".concat(translations.emilSubText, "</small>"));
     detailsBlock.append(email);
@@ -1562,8 +1804,8 @@ var handleFooterBottom = function handleFooterBottom() {
 
 // Přemění Instagram wrapper na sekci, dynamicky vytáhne link i handle a přesune před patičku
 var handleInstagram = function handleInstagram() {
-  var _window$projectTransl3, _section$querySelecto2;
-  var translations = (_window$projectTransl3 = window.projectTranslations) === null || _window$projectTransl3 === void 0 ? void 0 : _window$projectTransl3[window.shoptetLang || "cs"];
+  var _window$projectTransl7, _section$querySelecto2;
+  var translations = (_window$projectTransl7 = window.projectTranslations) === null || _window$projectTransl7 === void 0 ? void 0 : _window$projectTransl7[window.shoptetLang || "cs"];
   var oldWrapper = document.querySelector(".custom-footer__instagram");
   var footer = document.querySelector("footer");
   if (!oldWrapper || !translations) return;
@@ -1587,8 +1829,8 @@ var handleInstagram = function handleInstagram() {
 
 // Přemění newsletter na sekci, obalí obsah, zarovná a ostyluje tlačítko a přesune před patičku
 var handleNewsletter = function handleNewsletter() {
-  var _window$projectTransl4;
-  var translations = (_window$projectTransl4 = window.projectTranslations) === null || _window$projectTransl4 === void 0 ? void 0 : _window$projectTransl4[window.shoptetLang || "cs"];
+  var _window$projectTransl8;
+  var translations = (_window$projectTransl8 = window.projectTranslations) === null || _window$projectTransl8 === void 0 ? void 0 : _window$projectTransl8[window.shoptetLang || "cs"];
   var oldNewsletter = document.querySelector(".custom-footer__newsletter");
   var footer = document.querySelector("footer");
   if (!oldNewsletter || !translations) return;

@@ -85,11 +85,12 @@
   }
 }
 
+
 .product {
   // --- ZÁKLADNÍ OBAL ---
   container-type: inline-size;
   container-name: product-card;
-  &.inactive {
+  &.inactive:not(.swiper-slide) {
     display: none;
   }
   .p {
