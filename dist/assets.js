@@ -372,6 +372,16 @@ module.exports = __webpack_require__.p + "assets/account-primary.svg";
 
 /***/ },
 
+/***/ "./assets/images/icons/arrow-answare.svg"
+/*!***********************************************!*\
+  !*** ./assets/images/icons/arrow-answare.svg ***!
+  \***********************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/arrow-answare.svg";
+
+/***/ },
+
 /***/ "./assets/images/icons/arrow-down-primary.svg"
 /*!****************************************************!*\
   !*** ./assets/images/icons/arrow-down-primary.svg ***!
@@ -775,6 +785,7 @@ module.exports = __webpack_require__.p + "assets/youtube.svg";
 /******/ 	__webpack_require__("./assets/images/icons/arrow-right-swiper-primary.svg");
 /******/ 	__webpack_require__("./assets/images/icons/arrow-left.svg");
 /******/ 	__webpack_require__("./assets/images/icons/arrow-down-primary.svg");
+/******/ 	__webpack_require__("./assets/images/icons/arrow-answare.svg");
 /******/ 	__webpack_require__("./assets/images/icons/account-primary.svg");
 /******/ 	__webpack_require__("./assets/fonts/jost/Jost-ThinItalic.woff2");
 /******/ 	__webpack_require__("./assets/fonts/jost/Jost-ThinItalic.woff");

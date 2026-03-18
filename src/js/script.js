@@ -1323,7 +1323,8 @@ const handleProductFiles = () => {
   filesWrapper.className = "product-files";
 
   const title = document.createElement("h3");
-  title.textContent = "Soubory";
+  const titleText = window.projectTranslations?.[lang]?.productDetail?.files || "Soubory";
+  title.textContent = titleText;
 
   filesWrapper.append(title);
   filesWrapper.append(files);

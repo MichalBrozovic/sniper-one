@@ -6006,6 +6006,8 @@ table.cart-table .cart-related-button .price-final {
   margin: 0;
 }
 .slider-wrapper .slider-header span {
+  min-width: 62px;
+  white-space: nowrap;
   font-size: inherit;
   font-weight: inherit;
   font-style: inherit;

@@ -45,7 +45,15 @@ window.projectTranslations = {
     },
     category: {
       readMore: "Přečíst více",
-      productsTopButton: "Detail", // Tvůj nový klíč
+      productsTopButton: "Detail",
+    },
+    productDetail: {
+      alternativeProducts: "Podobné produkty",
+      files: "Soubory",
+      videos: "Videa",
+      rating: "Hodnocení",
+      discussion: "Diskuze",
+      gpsr: "Informace o výrobci",
     },
   },
   sk: {
@@ -66,7 +74,7 @@ window.projectTranslations = {
     blog: {
       moreArticles: "Ďalšie články",
     },
-    emilSubText: "Napište kdykoliv",
+    emilSubText: "Napíšte kedykoľvek",
     patickaLogo: "/user/documents/upload/sniper-one/photos/logo-white.svg",
     heureka: {
       img: "/user/documents/upload/sniper-one/photos/heureka.svg",
@@ -74,25 +82,33 @@ window.projectTranslations = {
     },
     contactPerson: {
       img: "/user/documents/upload/sniper-one/photos/contact-person.png",
-      title: "Potřebujete poradit?",
+      title: "Potrebujete poradiť?",
     },
     instagram: {
       name: "@SniperOne",
       link: "https://www.instagram.com/sniperdesign_cz/",
-      text: "Sledujte nás na instagramu",
+      text: "Sledujte nás na instagrame",
     },
     facebook: {
       name: "@SniperOne",
       link: "https://www.instagram.com/sniperdesign_cz/",
-      text: "Najdete nás také na:",
+      text: "Nájdete nás tiež na:",
     },
-    newsletter: "Novinky, tipy a slevy na váš e-mail",
+    newsletter: "Novinky, tipy a zľavy na váš e-mail",
     homepage: {
       popularProducts: "Vyberajte z najobľúbenejších <span>produktov</span>",
     },
     category: {
       readMore: "Prečítať viac",
       productsTopButton: "Detail",
+    },
+    productDetail: {
+      alternativeProducts: "Podobné produkty",
+      files: "Súbory",
+      videos: "Videá",
+      rating: "Hodnotenie",
+      discussion: "Diskusia",
+      gpsr: "Informácie o výrobcovi",
     },
   },
 };

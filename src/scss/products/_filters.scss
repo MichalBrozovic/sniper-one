@@ -169,6 +169,8 @@
     font-weight: 400;
     margin: 0;
     span {
+      min-width: 62px;
+      white-space: nowrap;
       @include inherit();
     }
   }
