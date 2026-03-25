@@ -482,6 +482,16 @@ module.exports = __webpack_require__.p + "assets/facebook.svg";
 
 /***/ },
 
+/***/ "./assets/images/icons/filters.svg"
+/*!*****************************************!*\
+  !*** ./assets/images/icons/filters.svg ***!
+  \*****************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/filters.svg";
+
+/***/ },
+
 /***/ "./assets/images/icons/hamburger.svg"
 /*!*******************************************!*\
   !*** ./assets/images/icons/hamburger.svg ***!
@@ -808,6 +818,7 @@ module.exports = __webpack_require__.p + "assets/youtube.svg";
 /******/ 	__webpack_require__("./assets/images/icons/instagram-white.svg");
 /******/ 	__webpack_require__("./assets/images/icons/home-primary.svg");
 /******/ 	__webpack_require__("./assets/images/icons/hamburger.svg");
+/******/ 	__webpack_require__("./assets/images/icons/filters.svg");
 /******/ 	__webpack_require__("./assets/images/icons/facebook.svg");
 /******/ 	__webpack_require__("./assets/images/icons/dotaz-primary.svg");
 /******/ 	__webpack_require__("./assets/images/icons/check.svg");

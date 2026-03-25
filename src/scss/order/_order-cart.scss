@@ -1,33 +1,36 @@
 .cart-table {
   width: 100%;
-
   padding: 24px 0;
   display: flex;
+
   tbody {
     width: 100%;
   }
+
   tr {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding: 16px 0 16px 0;
+    padding: 16px 0;
     border-bottom: 1px solid $border-color;
     font-size: rem(16);
     line-height: em(22, 14);
+
     &:first-child {
       padding: 0 0 16px 0;
     }
-    &.removeable {
-    }
+
     a {
       text-decoration: unset;
     }
+
     .show-related {
       font-size: rem(13);
       line-height: em(14, 13);
       color: $color-accent;
       margin-top: 8px;
+
       &::after {
         content: "";
         @include icon-mask(
@@ -40,52 +43,117 @@
         margin-left: 4px;
       }
     }
+
     td {
       display: flex;
       justify-content: center;
     }
+
     .cart-p-image {
       flex: 0 0 90px;
-      a {
-        display: flex;
-      }
+      a { display: flex; }
       img {
         aspect-ratio: 1;
         height: auto;
       }
     }
+
     .p-name {
       flex: 0 1 375px;
       flex-direction: column;
+      align-items: flex-start;
     }
+
     .p-availability {
       flex: 1 1 100px;
     }
+
     .p-quantity {
       flex: 0 0 100px;
     }
+
     .p-price {
       flex: 1 1 120px;
       font-weight: 400;
-      strong {
-        font-weight: 400;
-      }
+      strong { font-weight: 400; }
     }
+
     .p-total {
       flex: 0 0 150px;
       justify-content: flex-end;
       gap: 32px;
-      form {
-      }
       .inline {
         display: inline-flex;
         align-items: center;
       }
     }
+
     .availability-amount {
       display: none;
     }
+
+    // Mobilní verze pod 880px
+    @media (max-width: 880px) {
+      flex-wrap: wrap;
+      position: relative;
+      padding: 20px 0;
+      gap: 8px;
+
+      .p-label {
+        display: none; // Skryje popisky "Počet", "Součet" atd.
+      }
+
+      .cart-p-image {
+        flex: 0 0 70px;
+        order: 1;
+      }
+
+      .p-name {
+        flex: 1 1 calc(100% - 100px);
+        order: 2;
+        padding-right: 30px; // Místo pro křížek
+      }
+
+      .p-availability {
+        flex: 1 1 100%;
+        order: 3;
+        justify-content: flex-start;
+        margin-left: 78px; // Zarovnání pod text jména
+        margin-top: -10px;
+        font-size: rem(13);
+        max-width: 100%;
+      }
+
+      .p-quantity {
+        flex: 0 0 auto;
+        order: 4;
+        margin-left: 78px;
+        justify-content: flex-start;
+      }
+
+      .p-price {
+        display: none; // Na mobilu většinou stačí jen celková cena řádku
+      }
+
+      .p-total {
+        flex: 1 0 auto;
+        order: 5;
+        justify-content: flex-end;
+        align-self: center;
+
+        strong {
+          font-size: rem(18);
+        }
+
+        .inline {
+          position: absolute;
+          top: 16px;
+          right: 0;
+        }
+      }
+    }
   }
+
   .related {
     display: none;
     td {
@@ -97,18 +165,20 @@
       display: flex;
     }
   }
+
   .cart-related-product {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     flex-wrap: nowrap;
-    padding: 16px 24px 16px 24px;
+    padding: 16px 24px;
     margin-left: 82px;
     background-color: $color-primary-050;
     margin-bottom: 4px;
     position: relative;
     gap: 16px;
+
     &::before {
       content: "";
       @include icon-mask(
@@ -121,13 +191,33 @@
       top: 8px;
       left: -32px;
     }
-    &:first-child {
-      margin-top: 4px;
-    }
-    &:last-child {
-      margin-bottom: 0;
+
+    &:first-child { margin-top: 4px; }
+    &:last-child { margin-bottom: 0; }
+
+    @media (max-width: 880px) {
+      margin-left: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 12px;
+      
+      &::before { display: none; }
+
+      .cart-related-info {
+        flex: 1 1 100%;
+        width: 100%;
+        gap: 12px;
+      }
+
+      .cart-related-button {
+        flex: 1 1 100%;
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 8px;
+      }
     }
   }
+
   .cart-related-info {
     display: flex;
     flex-direction: row;
@@ -140,6 +230,7 @@
       margin-left: auto;
     }
   }
+
   .cart-related-img {
     display: flex;
     align-items: center;
@@ -150,6 +241,7 @@
       height: auto;
     }
   }
+
   .cart-related-button {
     display: flex;
     align-items: center;

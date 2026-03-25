@@ -3,9 +3,11 @@
     display: none;
   }
 }
+
 // Navigace v popisu produktu
 .shp-tabs-row {
   position: relative;
+
   &::before {
     content: "";
     display: block;
@@ -19,10 +21,12 @@
     z-index: -1;
     height: 100%;
   }
+
   .hidden-links,
   .navigation-btn {
     display: none !important;
   }
+
   ul {
     display: flex;
     flex-direction: row;
@@ -32,8 +36,10 @@
     white-space: nowrap;
     overflow: auto;
     padding: 24px 0;
+
     li {
       display: flex;
+
       a {
         font-size: rem(16);
         line-height: em(22, 16);
@@ -43,14 +49,13 @@
         display: inline-flex;
         gap: 4px;
         align-items: center;
+
         &::after {
           content: "";
-          @include icon-mask(
-            "/assets/images/icons/arrow-down-primary.svg",
+          @include icon-mask("/assets/images/icons/arrow-down-primary.svg",
             $color-secondary,
             20px,
-            20px
-          );
+            20px);
         }
       }
     }
@@ -61,6 +66,7 @@
 #description {
   padding: 40px 0;
 }
+
 .description-inner {
   display: flex;
   flex-direction: row;
@@ -69,9 +75,11 @@
   flex-wrap: wrap;
   gap: 40px;
 }
+
 .basic-description {
   flex: 1 1 600px;
   line-height: em(22, 16);
+
   h1 {
     display: none !important;
     visibility: hidden !important;
@@ -79,48 +87,59 @@
     width: 0 !important;
     height: 0 !important;
   }
+
   h2 {
     margin-bottom: 24px;
   }
+
   h3,
   h4,
   h5,
   h6 {
     margin-bottom: 16px;
   }
-  h4 {
-  }
-  h5 {
-  }
-  h6 {
-  }
+
+  h4 {}
+
+  h5 {}
+
+  h6 {}
+
   p,
   blockquote,
   ol,
   ul {
     margin-bottom: 16px;
+
     &:last-child {
       margin-bottom: 0;
     }
   }
+
   img {
     display: block;
     margin-bottom: 16px;
+    height: auto;
+
     &:last-child {
       margin-bottom: 0;
     }
   }
+
   ul,
   ol {
     padding-left: 20px;
+
     li {
       margin-bottom: 8px;
+
       &:last-of-type {
         margin-bottom: 0;
       }
     }
   }
 }
+
 .extended-description {
   flex: 0 1 600px;
 
@@ -131,17 +150,21 @@
     margin-bottom: 16px;
   }
 }
+
 #description .detail-parameters {
   width: 100%;
   margin-bottom: 24px;
+
   &:last-child {
     margin-bottom: 0;
   }
+
   tr {
     &:nth-of-type(even) {
       background-color: $color-primary-050;
     }
   }
+
   th,
   td {
     font-size: rem(16);
@@ -149,23 +172,29 @@
     font-weight: 400;
     padding: 9px 16px;
   }
-  th {
-  }
+
+  th {}
+
   td {
     font-weight: 700;
   }
+
   a {
     color: $color-primary;
   }
 }
+
 .product-files {
   margin-bottom: 24px;
+
   &:last-child {
     margin-bottom: 0;
   }
 }
+
 #relatedFiles {
   list-style: none;
+
   li {
     list-style: none;
     font-size: rem(16);
@@ -177,6 +206,7 @@
     justify-content: flex-start;
     flex-wrap: nowrap;
     gap: 4px;
+
     a {
       @include inherit();
     }
@@ -185,34 +215,41 @@
 
 #productVideos {
   margin-bottom: 24px;
+
   &:last-child {
     margin-bottom: 0;
   }
+
   iframe {
     aspect-ratio: 16 /9;
     width: 100%;
     height: auto;
     border-radius: 12px;
     margin-bottom: 24px;
+
     &:last-child {
       margin-bottom: 0;
     }
   }
 }
+
 //Hodnocení detail produktu || reviews product detail
 #ratingTab {
   .rating-main-title {
     margin-bottom: 24px;
   }
+
   [data-testid="textCommentNotice"] {
     display: none;
   }
 }
+
 #ratingWrapper {
   background-color: $color-primary-050;
   padding: 32px 24px;
   border-radius: 10px;
   margin-bottom: 24px;
+
   .rate-wrap {
     display: flex;
     flex-direction: row;
@@ -221,7 +258,11 @@
     flex-wrap: nowrap;
     gap: 40px;
 
-    > div {
+    @media (max-width:767px) {
+      flex-direction: column;
+    }
+
+    >div {
       max-width: 424px;
       width: 100%;
       display: flex;
@@ -229,9 +270,14 @@
       align-items: center;
       flex-wrap: nowrap;
       justify-content: center;
+      gap: 24px;
+      &.col-xs-12 {
+        gap: 0;
+      }
     }
   }
 }
+
 .rate-average-wrap {
   .rate-average-inner {
     display: flex;
@@ -241,11 +287,13 @@
     flex-wrap: wrap;
     gap: 8px;
   }
+
   .rate-average {
     font-size: rem(38);
     line-height: em(48, 38);
     font-weight: 700;
   }
+
   .rate-star-wrap {
     display: flex;
     flex-direction: row;
@@ -254,6 +302,7 @@
     flex-wrap: wrap;
     gap: 8px;
   }
+
   .star {
     &::before {
       width: 24px;
@@ -261,12 +310,14 @@
     }
   }
 }
+
 .rate-list {
   display: flex;
   flex-direction: row;
   align-items: center;
   flex-wrap: nowrap;
   width: 100%;
+
   .rate-block {
     flex-grow: 1;
     background-color: $color-font-invert;
@@ -274,6 +325,7 @@
     border-radius: 40px;
     position: relative;
     margin: 0 12px;
+
     .rate-bar {
       background-color: $color-stars;
       height: 10px;
@@ -284,19 +336,20 @@
       top: 0;
     }
   }
+
   .rate-star {
     .star {
       &::before {
-        filter: brightness(0) saturate(100%) invert(14%) sepia(54%)
-          saturate(1549%) hue-rotate(191deg) brightness(94%) contrast(94%);
+        filter: brightness(0) saturate(100%) invert(14%) sepia(54%) saturate(1549%) hue-rotate(191deg) brightness(94%) contrast(94%);
       }
     }
   }
+
   .rate-value {
     min-width: 10px;
   }
-  .star {
-  }
+
+  .star {}
 }
 
 #ratingsList {
@@ -304,14 +357,13 @@
     &.admin-response {
       .vote-wrap {
         padding-left: 52px;
+
         &::before {
           content: "";
-          @include icon-mask(
-            "/assets/images/icons/arrow-answare.svg",
+          @include icon-mask("/assets/images/icons/arrow-answare.svg",
             $color-font,
             20px,
-            20px
-          );
+            20px);
           position: absolute;
           top: 8px;
           left: 24px;
@@ -319,6 +371,7 @@
       }
     }
   }
+
   .vote-wrap {
     display: flex;
     flex-direction: row;
@@ -330,25 +383,31 @@
     border-bottom: 1px solid $border-color;
     margin-bottom: 24px;
     position: relative;
+
     &:has(+ .admin-response) {
       border-bottom: unset;
       margin-bottom: 0;
       padding-bottom: 8px;
     }
+
     .vote-header {
       display: inline-flex;
       min-width: 190px;
       max-width: 190px;
     }
+
     .vote-pic {
       display: none;
+
       img {
         display: none;
       }
     }
+
     .vote-initials {
       display: none;
     }
+
     .vote-summary {
       display: flex;
       flex-direction: column;
@@ -356,6 +415,7 @@
       justify-content: flex-start;
       flex-wrap: nowrap;
     }
+
     .vote-name {
       font-size: rem(18);
       line-height: em(25, 18);
@@ -366,6 +426,7 @@
       align-items: flex-start;
       justify-content: flex-start;
     }
+
     .vote-rating {
       display: flex;
       flex-direction: row;
@@ -373,48 +434,56 @@
       justify-content: flex-start;
       flex-wrap: wrap;
       gap: 8px;
+
       .star {
         &::before {
           width: 18px;
           height: 18px;
         }
       }
+
       .vote-delimeter {
         display: none;
       }
     }
   }
 }
+
 #productDiscussion {
   padding: 40px 0;
+
   .discussion-main-title {
     margin-bottom: 24px;
   }
+
   .discussion-form-trigger {
     margin-bottom: 24px;
   }
+
   [data-testid="textCommentNotice"] {
     display: none;
   }
 }
+
 #discussion-form.visible {
   margin-bottom: 24px;
 }
+
 #discussionsList {
   padding-top: 16px;
   border-top: 1px solid $border-color;
+
   .votes-wrap {
     &.discussion {
       .vote-wrap {
         padding-left: 52px;
+
         &::before {
           content: "";
-          @include icon-mask(
-            "/assets/images/icons/arrow-answare.svg",
+          @include icon-mask("/assets/images/icons/arrow-answare.svg",
             $color-font,
             20px,
-            20px
-          );
+            20px);
           position: absolute;
           top: 8px;
           left: 24px;
@@ -422,6 +491,7 @@
       }
     }
   }
+
   .vote-wrap {
     display: flex;
     flex-direction: column;
@@ -432,29 +502,36 @@
     border-bottom: 1px solid $border-color;
     margin-bottom: 24px;
     position: relative;
+
     &:has(+ .discussion) {
       border-bottom: unset;
       margin-bottom: 0;
       padding-bottom: 8px;
     }
+
     .vote-title {
       font-size: rem(20);
       line-height: em(28, 20);
       margin-bottom: 2px;
       font-weight: 600;
     }
+
     .vote-header {
       display: inline-flex;
     }
+
     .vote-pic {
       display: none;
+
       img {
         display: none;
       }
     }
+
     .vote-initials {
       display: none;
     }
+
     .vote-summary {
       display: flex;
       flex-direction: column;
@@ -462,12 +539,14 @@
       justify-content: flex-start;
       flex-wrap: nowrap;
     }
+
     .vote-time {
       font-size: rem(14);
       line-height: em(20, 14);
       font-weight: 400;
       color: $color-font-second;
     }
+
     .vote-name {
       font-size: rem(16);
       line-height: em(22, 16);
@@ -478,6 +557,7 @@
       align-items: flex-start;
       justify-content: flex-start;
     }
+
     .add-comment {
       color: $color-primary;
       font-size: rem(16);
@@ -486,6 +566,7 @@
     }
   }
 }
+
 .row-header-label-colon {
   display: none;
 }
@@ -561,6 +642,7 @@
         object-fit: contain;
       }
     }
+
     .variant-name {
       display: none;
     }
@@ -610,6 +692,7 @@
         margin-bottom: 0; // Add this line
         margin: -10px;
       }
+
       .variant-name {
         display: block;
         text-align: left;

@@ -3,9 +3,11 @@ body.ordering-process main {
   margin: 0 auto;
   opacity: 0;
   margin-bottom: 40px;
+
   @media (height > 1000px) {
     min-height: 60vh;
   }
+
   &.is-processed {
     opacity: 1;
   }
@@ -23,6 +25,7 @@ body.ordering-process main {
 
   list-style: none;
   counter-reset: cart-steps;
+
   &::before {
     content: "";
     display: block;
@@ -36,6 +39,7 @@ body.ordering-process main {
     max-width: calc(100vw - var(--scrollbar-width));
     background-color: $color-primary-050;
   }
+
   li {
     counter-increment: cart-steps;
     display: inline-flex;
@@ -44,12 +48,15 @@ body.ordering-process main {
     font-size: rem(16);
     line-height: em(22, 16);
     color: $color-font;
+
     &.active {
       color: $color-primary;
       font-weight: 600;
+
       a,
       strong {
         pointer-events: none;
+
         &::before {
           background-color: $color-primary;
           border-color: $color-primary;
@@ -57,6 +64,7 @@ body.ordering-process main {
         }
       }
     }
+
     &:nth-of-type(1),
     &:nth-of-type(2) {
       &::after {
@@ -66,8 +74,13 @@ body.ordering-process main {
         background-color: $border-color;
         display: block;
         margin-left: 40px;
+
+        @media (max-width:880px) {
+          display: none;
+        }
       }
     }
+
     a,
     strong {
       @include trans(0.3s);
@@ -98,7 +111,13 @@ body.ordering-process main {
         justify-content: center;
         text-align: center;
       }
+
+      @media (max-width:767px) {
+        flex-direction: column;
+        text-align: center;
+      }
     }
+
     a {
       @include hover {
         &::before {
@@ -106,6 +125,7 @@ body.ordering-process main {
         }
       }
     }
+
     // Vlastní číslo bez tečky
   }
 }
