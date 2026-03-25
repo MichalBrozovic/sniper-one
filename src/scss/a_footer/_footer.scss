@@ -1,9 +1,11 @@
 footer {
   background-color: $footer-bg;
   color: $color-font-invert;
+
   a {
     color: $color-font-invert;
   }
+
   .footer-rows,
   .custom-footer__newsletter,
   .custom-footer__instagram,
@@ -21,47 +23,48 @@ footer {
     flex-wrap: nowrap;
     gap: 8px;
   }
+
   a {
     display: flex;
     flex-direction: column;
+
     &::before {
       content: "";
     }
+
     &.instagram {
       &::before {
-        @include icon-mask(
-          "/assets/images/icons/instagram.svg",
+        @include icon-mask("/assets/images/icons/instagram.svg",
           $color-font-invert,
           32px,
-          32px
-        );
+          32px);
       }
     }
+
     &.facebook {
       &::before {
-        @include icon-mask(
-          "/assets/images/icons/facebook.svg",
+        @include icon-mask("/assets/images/icons/facebook.svg",
           $color-font-invert,
           32px,
-          32px
-        );
+          32px);
       }
     }
+
     &.youtube {
       &::before {
-        @include icon-mask(
-          "/assets/images/icons/youtube.svg",
+        @include icon-mask("/assets/images/icons/youtube.svg",
           $color-font-invert,
           32px,
-          32px
-        );
+          32px);
       }
     }
   }
 }
+
 .footer-upper {
   border-bottom: 1px solid $color-secondary-400;
   padding: 32px 0;
+
   .flex-holder {
     display: flex;
     flex-direction: row;
@@ -69,7 +72,14 @@ footer {
     justify-content: space-between;
     align-items: center;
     gap: 56px;
+
+    @media (max-width:767px) {
+      gap: 24px;
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
+
   .footer-contact-person {
     display: flex;
     flex-direction: row;
@@ -78,10 +88,16 @@ footer {
     flex-wrap: nowrap;
     gap: 16px;
   }
+
   .footer-contact-details {
     display: flex;
     flex-direction: row;
     gap: 24px;
+
+    @media (max-width:767px) {
+      flex-direction: column;
+    }
+
     .project-phone,
     .project-email {
       flex-direction: column;
@@ -94,12 +110,14 @@ footer {
       font-size: rem(16);
       line-height: em(22, 16);
       gap: 0;
+
       &::before {
         position: absolute;
         top: 50%;
         left: 0;
         transform: translateY(-50%);
       }
+
       small {
         font-size: rem(14);
         line-height: em(20, 14);
@@ -109,29 +127,32 @@ footer {
 
     .project-phone {
       &::before {
-        @include icon-mask(
-          "/assets/images/icons/phone-white.svg",
+        @include icon-mask("/assets/images/icons/phone-white.svg",
           $color-font-invert,
           24px,
-          24px
-        );
+          24px);
       }
     }
+
     .project-email {
       &::before {
-        @include icon-mask(
-          "/assets/images/icons/mail-white.svg",
+        @include icon-mask("/assets/images/icons/mail-white.svg",
           $color-font-invert,
           24px,
-          24px
-        );
+          24px);
       }
     }
   }
+
   .socials-footer {
     margin-left: auto;
+
+    @media (max-width:767px) {
+      margin-left: unset;
+    }
   }
 }
+
 .footer-middle {
   .flex-holder {
     display: flex;
@@ -143,6 +164,7 @@ footer {
     border-bottom: 1px solid $color-secondary-400;
     padding: 32px 0;
   }
+
   .logo-footer,
   .block {
     width: 100%;
@@ -153,20 +175,23 @@ footer {
     justify-content: flex-start;
     flex-wrap: nowrap;
   }
-  .block {
-  }
+
+  .block {}
+
   h2 {
     font-size: rem(24);
     line-height: em(30, 24);
     margin-bottom: 16px;
     color: $color-primary-200;
   }
+
   ul {
     padding: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
     gap: 8px;
+
     li {
       list-style: none;
       padding: 0;
@@ -174,9 +199,11 @@ footer {
       display: inline-flex;
       font-size: rem(16);
       line-height: em(20, 16);
+
       a {
         @include inherit();
         text-decoration: unset;
+
         @include hover {
           text-decoration: underline;
         }
@@ -184,6 +211,7 @@ footer {
     }
   }
 }
+
 .footer-lower {
   .flex-holder {
     display: flex;
@@ -195,6 +223,7 @@ footer {
     border-bottom: 1px solid $color-secondary-400;
     padding: 32px 0;
   }
+
   .block {
     display: flex;
     flex-direction: row;
@@ -203,13 +232,15 @@ footer {
     gap: 16px;
     flex-wrap: wrap;
   }
+
   h2 {
     font-size: rem(16);
     line-height: em(22, 16);
   }
-  img {
-  }
+
+  img {}
 }
+
 .footer-bottom {
   .footer-bottom-flex {
     display: flex;
@@ -220,6 +251,7 @@ footer {
     gap: 12px;
     padding: 32px 0;
   }
+
   .footer-bottom-right {
     display: flex;
     flex-direction: row;

@@ -482,6 +482,16 @@ module.exports = __webpack_require__.p + "assets/facebook.svg";
 
 /***/ },
 
+/***/ "./assets/images/icons/hamburger.svg"
+/*!*******************************************!*\
+  !*** ./assets/images/icons/hamburger.svg ***!
+  \*******************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/hamburger.svg";
+
+/***/ },
+
 /***/ "./assets/images/icons/home-primary.svg"
 /*!**********************************************!*\
   !*** ./assets/images/icons/home-primary.svg ***!
@@ -539,6 +549,16 @@ module.exports = __webpack_require__.p + "assets/mail-white.svg";
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/minus.svg";
+
+/***/ },
+
+/***/ "./assets/images/icons/payment-select.svg"
+/*!************************************************!*\
+  !*** ./assets/images/icons/payment-select.svg ***!
+  \************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/payment-select.svg";
 
 /***/ },
 
@@ -619,6 +639,16 @@ module.exports = __webpack_require__.p + "assets/share-primary.svg";
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/shipping-black.svg";
+
+/***/ },
+
+/***/ "./assets/images/icons/shipping-select.svg"
+/*!*************************************************!*\
+  !*** ./assets/images/icons/shipping-select.svg ***!
+  \*************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/shipping-select.svg";
 
 /***/ },
 
@@ -761,6 +791,7 @@ module.exports = __webpack_require__.p + "assets/youtube.svg";
 /******/ 	__webpack_require__("./assets/images/icons/star-on.svg");
 /******/ 	__webpack_require__("./assets/images/icons/star-off.svg");
 /******/ 	__webpack_require__("./assets/images/icons/star-half.svg");
+/******/ 	__webpack_require__("./assets/images/icons/shipping-select.svg");
 /******/ 	__webpack_require__("./assets/images/icons/shipping-black.svg");
 /******/ 	__webpack_require__("./assets/images/icons/share-primary.svg");
 /******/ 	__webpack_require__("./assets/images/icons/search-primary.svg");
@@ -769,12 +800,14 @@ module.exports = __webpack_require__.p + "assets/youtube.svg";
 /******/ 	__webpack_require__("./assets/images/icons/plus.svg");
 /******/ 	__webpack_require__("./assets/images/icons/phone-white.svg");
 /******/ 	__webpack_require__("./assets/images/icons/phone-primary.svg");
+/******/ 	__webpack_require__("./assets/images/icons/payment-select.svg");
 /******/ 	__webpack_require__("./assets/images/icons/minus.svg");
 /******/ 	__webpack_require__("./assets/images/icons/mail-white.svg");
 /******/ 	__webpack_require__("./assets/images/icons/mail-primary.svg");
 /******/ 	__webpack_require__("./assets/images/icons/instagram.svg");
 /******/ 	__webpack_require__("./assets/images/icons/instagram-white.svg");
 /******/ 	__webpack_require__("./assets/images/icons/home-primary.svg");
+/******/ 	__webpack_require__("./assets/images/icons/hamburger.svg");
 /******/ 	__webpack_require__("./assets/images/icons/facebook.svg");
 /******/ 	__webpack_require__("./assets/images/icons/dotaz-primary.svg");
 /******/ 	__webpack_require__("./assets/images/icons/check.svg");

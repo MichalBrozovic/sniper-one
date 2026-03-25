@@ -30,7 +30,7 @@
     padding: 121px 0 20px 0;
     position: relative;
 
-   
+
 
     @media screen and (max-width: 1000px) {
         padding: 70px 0 20px 0;
@@ -760,7 +760,7 @@
 
 #discountCouponCode {
     padding-left: 40px;
-   // background: url(../img/icon/procenta-2.png) no-repeat 10px center;
+    // background: url(../img/icon/procenta-2.png) no-repeat 10px center;
     background-color: $color-page-bg;
     // border: unset;
 }
@@ -963,7 +963,7 @@
 
     &>div {
         height: 100%;
-        background-color:$color-primary;
+        background-color: $color-primary;
     }
 }
 
@@ -1139,7 +1139,7 @@ table.cart-table {
     // &::before {
     //     content: 'Nákupní košík'; //jazyk
     //     display: block;
-   
+
     //     font-family: $heading-font-family;
     //     border-bottom: 1px solid $color-font-100;
     //     padding-bottom: 10px;

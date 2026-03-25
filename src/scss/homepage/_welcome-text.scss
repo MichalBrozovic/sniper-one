@@ -25,6 +25,10 @@
     justify-content: space-between;
     position: relative;
     min-height: 210px;
+    @media (max-width:767px) {
+      flex-direction: column-reverse;
+      gap: 32px;
+    }
   }
 
   .welcome {
@@ -47,6 +51,10 @@
         margin-bottom: 0;
       }
     }
+
+    @media (max-width:767px) {
+      max-width: 100%;
+    }
   }
 
   .plus-gallery-wrap {
@@ -59,6 +67,14 @@
     margin: 0;
     display: flex;
     aspect-ratio: 703 / 502;
+
+    @media (max-width:767px) {
+      max-width: 100%;
+      position: relative;
+      right: unset;
+      top: unset;
+      transform: unset;
+    }
   }
 
   .plus-gallery-item {

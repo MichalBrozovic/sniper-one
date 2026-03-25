@@ -147,43 +147,38 @@ links2.forEach((link) => {
   }
 });
 
+let lastScrollTop = 0;
+const delta = 5; // Minimální rozdíl v pixelech pro spuštění animace
+
 function fixedHeader() {
-  let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  const header2 = document.querySelector(".user-action-cart");
-  const login = document.querySelector(".user-action-login");
+  const currentScroll =
+    window.pageYOffset || document.documentElement.scrollTop;
   const header = document.querySelector("#header");
+  const cart = document.querySelector(".user-action-cart");
+  const login = document.querySelector(".user-action-login");
 
-  if (scrollTop > 45) {
-    if (header) {
-      header.classList.add("sticky");
-    }
-    if (header2) {
-      header2.classList.add("sticky");
-    }
-    if (login) {
-    }
-    login.classList.add("sticky");
+  // 1. LOGIKA PRO STICKY (Fixace po odscrollování 45px)
+  const isSticky = currentScroll > 45;
+  if (header) header.classList.toggle("sticky", isSticky);
+  if (cart) cart.classList.toggle("sticky", isSticky);
+  if (login) login.classList.toggle("sticky", isSticky);
 
-    // header.classList.remove('scroll-up')
-    // header.classList.add('scroll-down')
-  } else {
-    // header.classList.remove('scroll-down')
-    // header.classList.add('scroll-up')
+  // 2. LOGIKA PRO HIDE/SHOW (Podle směru scrollu)
+  // Ignorujeme malé pohyby (delta)
+  if (Math.abs(lastScrollTop - currentScroll) <= delta) return;
 
-    if (header) {
-      header.classList.remove("sticky");
-    }
-    if (header2) {
-      header2.classList.remove("sticky");
-    }
-    if (login) {
-    }
-    login.classList.remove("sticky");
-  }
+  // Pokud jedeme dolů a jsme už pod hranicí headeru, přidáme 'hide'
+  const isScrollingDown = currentScroll > lastScrollTop && currentScroll > 100;
+
+  if (header) header.classList.toggle("hide", isScrollingDown);
+  if (cart) cart.classList.toggle("hide", isScrollingDown);
+  if (login) login.classList.toggle("hide", isScrollingDown);
+
+  lastScrollTop = currentScroll;
 }
 
 document.addEventListener("DOMContentLoaded", fixedHeader);
-window.addEventListener("scroll", fixedHeader);
+window.addEventListener("scroll", fixedHeader, { passive: true });
 
 // language menu + currency menu
 // přidá aktuální vlajku + upravuje přidání tříd po kliknutí kvůli lepšímu css
@@ -874,7 +869,10 @@ const handleBestSellingProducts = () => {
  * ZPRACOVÁNÍ FILTRŮ
  */
 
-// Funkce přeskládá prvky cenového slideru tak, aby samotný slider ležel v DOMu mezi minimální a maximální cenou.
+// Pomocná proměnná pro udržení stavu mobilních filtrů mimo cyklus funkcí (přežije AJAX reload)
+let filtersAreOpen = false;
+
+// Funkce přeskládá prvky cenového slideru: FROM -> SLIDER -> TO
 const wrapPriceSliderInner = (sliderWrapper) => {
   const header = sliderWrapper.querySelector(".slider-header");
   const content = sliderWrapper.querySelector(".slider-content");
@@ -885,20 +883,15 @@ const wrapPriceSliderInner = (sliderWrapper) => {
     const innerContainer = document.createElement("div");
     innerContainer.className = "slider-inner-container";
 
-    // Vložíme kontejner před hlavičku
     header.before(innerContainer);
-
-    // Přeskládáme to do innerContaineru: FROM -> SLIDER -> TO
     innerContainer.append(from);
     innerContainer.append(content);
     innerContainer.append(to);
-
-    // Původní prázdný header můžeme smazat, už v něm nic není
     header.remove();
   }
 };
 
-// Funkce rozděluje filtry do dvou skupin podle typu, aby umožnila specifický layout (např. boční panel).
+// Funkce rozděluje filtry do skupin (vlevo: cena + logické, vpravo: parametry)
 const splitFiltersToGroups = (filters) => {
   const leftWrapper = document.createElement("div");
   leftWrapper.className = "filters-left";
@@ -916,17 +909,108 @@ const splitFiltersToGroups = (filters) => {
   if (priceForm) leftWrapper.append(priceForm);
   if (booleanSection) leftWrapper.append(booleanSection);
 
-  for (let i = 0; i < otherSections.length; i++) {
-    rightWrapper.append(otherSections[i]);
-  }
+  otherSections.forEach((section) => rightWrapper.append(section));
 
   filters.innerHTML = "";
   filters.append(leftWrapper, rightWrapper);
 };
 
-// Funkce spouští proces restrukturalizace filtrů a označuje je jako zpracované.
+// Funkce pro správu mobilního zobrazení filtrů (tlačítko, overlay, close)
+const handleCategoryMobile = () => {
+  const isMobile = window.innerWidth < 1024;
+  const filtersWrapper = document.querySelector("#filters-wrapper");
+
+  if (window.shoptetPage !== "category" || !filtersWrapper) return;
+
+  // Pokud nejsme na mobilu, ujistíme se, že je vše zavřené a čisté
+  if (!isMobile) {
+    document.body.classList.remove("filters-mobile-visible");
+    filtersWrapper.classList.remove("active");
+    filtersAreOpen = false;
+    return;
+  }
+
+  // 1. Zpětná aplikace stavu po AJAXu (pokud byly filtry otevřené, zůstanou)
+  if (filtersAreOpen) {
+    filtersWrapper.classList.add("active");
+    document.body.classList.add("filters-mobile-visible");
+  }
+
+  // 2. Generování otevíracího tlačítka "Filtrace"
+  if (!document.querySelector(".btn-filter-open")) {
+    const openBtn = document.createElement("button");
+    const lang = window.shoptetLang || "cs";
+    const btnText =
+      window.projectTranslations?.[lang]?.category?.filterTitle || "Filtrace";
+
+    openBtn.className = "btn btn-primary btn-filter-open";
+    openBtn.type = "button";
+    openBtn.textContent = btnText;
+
+    filtersWrapper.before(openBtn);
+
+    openBtn.addEventListener("click", () => {
+      filtersAreOpen = true;
+      filtersWrapper.classList.add("active");
+      document.body.classList.add("filters-mobile-visible");
+    });
+  }
+
+  // 3. Generování zavíracího tlačítka a backdropu
+  if (!filtersWrapper.querySelector(".filters-close")) {
+    const closeBtn = document.createElement("button");
+    closeBtn.className = "close black filters-close";
+    closeBtn.type = "button";
+    closeBtn.setAttribute("aria-label", "Zavřít filtry");
+    closeBtn.innerHTML = '<span class="close-icon"></span>';
+
+    filtersWrapper.prepend(closeBtn);
+
+    const closeFilters = () => {
+      filtersAreOpen = false;
+      filtersWrapper.classList.remove("active");
+      document.body.classList.remove("filters-mobile-visible");
+    };
+
+    closeBtn.addEventListener("click", closeFilters);
+
+    // 4. Kliknutí mimo (včetně kliknutí na body::before / overlay)
+    // Použijeme window jako nosič flagu, nebo document.documentElement.dataset
+    if (!document.documentElement.dataset.filterListenerAdded) {
+      document.addEventListener("click", (e) => {
+        const currentWrapper = document.querySelector("#filters-wrapper");
+        const openBtn = document.querySelector(".btn-filter-open");
+
+        if (!currentWrapper || !currentWrapper.classList.contains("active"))
+          return;
+
+        // Detekce kliku na pozadí (pseudo-elementy na body/html) nebo mimo wrapper
+        const isClickOnBackground =
+          e.target === document.body || e.target === document.documentElement;
+        const isClickInsideFilters = currentWrapper.contains(e.target);
+        const isClickOnOpenBtn = openBtn && openBtn.contains(e.target);
+
+        if (
+          (isClickOnBackground || !isClickInsideFilters) &&
+          !isClickOnOpenBtn
+        ) {
+          filtersAreOpen = false;
+          currentWrapper.classList.remove("active");
+          document.body.classList.remove("filters-mobile-visible");
+        }
+      });
+      // Uložíme si informaci o listeneru na kořenový element <html>
+      document.documentElement.dataset.filterListenerAdded = "true";
+    }
+  }
+};
+
+// Hlavní orchestrátor filtrů
 const handleCategoryFilters = () => {
   if (window.shoptetPage !== "category") return;
+
+  // Mobilní část se spouští vždy (kvůli kontrole stavu/tříd)
+  handleCategoryMobile();
 
   const filters = document.querySelector("#filters");
   if (!filters || filters.classList.contains("filters-processed")) return;
@@ -938,6 +1022,18 @@ const handleCategoryFilters = () => {
     filters.classList.add("filters-processed");
   }
 };
+
+/**
+ * EVENT LISTENERY
+ */
+
+// Spouštíme při načtení stránky a po každém Shoptet AJAXu
+document.addEventListener("DOMContentLoaded", handleCategoryFilters);
+document.addEventListener("ShoptetDOMPageContentLoaded", handleCategoryFilters);
+document.addEventListener("ShoptetDOMContentLoaded", handleCategoryFilters);
+
+// Hlídání změny velikosti okna
+window.addEventListener("resize", handleCategoryMobile);
 
 /**
  * HLAVNÍ ORCHESTRÁTOR

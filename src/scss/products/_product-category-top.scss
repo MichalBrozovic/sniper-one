@@ -7,23 +7,24 @@
   background-color: $color-primary-050;
   padding: 24px 0;
   opacity: 0;
-  &.is-processed{
+
+  &.is-processed {
     opacity: 1;
   }
 }
+
 .category-top-upper {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    position: relative;
-    margin-bottom: 24px;
-  &:has(img) {
-    .category-perex {
-      max-width: 880px;
-    }
-  }
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  position: relative;
+  margin-bottom: 24px;
+gap: 40px;
+.category-top-upper--content{
+  flex: 1 1 500px;
+}
   img {
     // position: absolute;
     // top: 50%;
@@ -33,28 +34,35 @@
     height: auto;
     object-fit: cover;
     width: unset;
-    max-width: 500px;
+   flex: 0 1 500px;
     border-radius: 12px;
   }
+
   h1 {
     display: flex;
     flex-direction: column;
-    .pagination-appendix{
+
+    .pagination-appendix {
       font-size: rem(20);
       line-height: em(26, 20);
     }
   }
+
   a {
     color: $color-primary;
   }
+
   .category-perex {
     line-height: emMM(22.4, 16);
+
     &:has(+ a),
     &:has(+ p) {
       margin-bottom: 8px;
     }
+
     p {
       margin-bottom: 32px;
+
       &:has(+ a),
       &:has(+ p) {
         margin-bottom: 24px;
@@ -64,6 +72,7 @@
         margin-bottom: 0;
       }
     }
+
     a {
       color: $color-primary;
     }
@@ -75,11 +84,13 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
   gap: 1rem;
+
   li {
     list-style: none;
     padding: 0;
     margin: 0;
   }
+
   a {
     display: flex;
     flex-direction: row;
@@ -92,15 +103,18 @@
     color: $color-font;
     @include trans(0.3s);
     text-decoration: unset;
+
     @include hover {
       color: $color-primary;
     }
   }
+
   .image {
     aspect-ratio: 1;
     width: 100%;
     max-width: 50px;
     display: flex;
+
     img {
       aspect-ratio: 1;
       height: auto;
@@ -108,6 +122,7 @@
       display: block;
     }
   }
+
   .text {
     font-size: rem(16);
     line-height: em(22, 16);
@@ -118,13 +133,16 @@
 //productsTop || nejprodávanjěší produkty
 .products-top-wrapper {
   padding: 32px 0;
+
   h2 {
     margin-bottom: 16px;
     @extend h4;
+
     &:after {
       content: ":";
     }
   }
+
   .button-wrapper {
     display: flex;
     align-items: center;
@@ -133,8 +151,9 @@
     gap: 16px;
   }
 }
-.toggle-top-products {
-}
+
+.toggle-top-products {}
+
 .products-top {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(359px, 1fr));

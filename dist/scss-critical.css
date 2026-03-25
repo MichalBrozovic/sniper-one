@@ -953,12 +953,13 @@ html * {
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   position: relative;
   margin-bottom: 24px;
+  gap: 40px;
 }
-.category-top-upper:has(img) .category-perex {
-  max-width: 880px;
+.category-top-upper .category-top-upper--content {
+  flex: 1 1 500px;
 }
 .category-top-upper img {
   max-height: 100%;
@@ -966,7 +967,7 @@ html * {
   -o-object-fit: cover;
      object-fit: cover;
   width: unset;
-  max-width: 500px;
+  flex: 0 1 500px;
   border-radius: 12px;
 }
 .category-top-upper h1 {
@@ -1079,17 +1080,18 @@ html * {
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   padding: 24px 0 32px 0;
+  gap: 40px;
 }
 .product-top .col-xs-12:has(.p-detail-info) {
   display: none;
 }
 
 .p-image-wrapper {
-  width: 100%;
-  max-width: 54.7297297297%;
+  flex: 1 1 600px;
   position: relative;
+  max-width: 100%;
 }
 .p-image-wrapper .flags {
   z-index: 10;
@@ -1151,7 +1153,7 @@ html * {
 
 .p-info-wrapper {
   width: 100%;
-  max-width: 42.5675675676%;
+  flex: 0 1 630px;
   display: flex;
   flex-direction: column;
 }
@@ -2479,85 +2481,8 @@ body.mobile #category-header form input[type=radio]:checked + label:hover {
   display: none;
 }
 
-body.mobile .filters {
-  display: none;
-}
-body.mobile .filters.visible {
-  display: flex;
-  flex-direction: column;
-  padding-top: 40px;
-}
-body.mobile .filters .slider-content {
-  order: -1;
-  width: 100%;
-}
-body.mobile .filters .filter-sections .filter-section form .advanced-filters-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-body.mobile .filters .filter-sections .filter-section form .advanced-filters-wrapper:empty {
-  display: none;
-}
-body.mobile .filters .filter-sections .filter-section form input[disabled=disabled] {
-  cursor: auto;
-}
-body.mobile .filters .filter-sections .filter-section form label.disabled {
-  cursor: auto;
-}
-body.mobile .filters .filter-sections .filter-section form .advanced-parameter {
-  display: none;
-}
-body.mobile .filters .filter-sections .filter-section form .no-display {
-  display: inline-block;
-}
-
 .slider-content {
   width: 100% !important;
-}
-
-aside {
-  background-color: color-mix(in srgb, var(--color-body-background, #fff), #fff 5%);
-  z-index: 20;
-  position: relative;
-  width: 100%;
-  max-width: 294px;
-  padding: 16px;
-  margin-top: 21px;
-}
-aside.new-one {
-  display: block;
-  order: -2;
-}
-aside .sidebar-inner .box-bg-variant .filters-wrapper .filters .slider-wrapper .slider-header .slider-content {
-  order: -1;
-  width: 100%;
-}
-aside .sidebar-inner .box-bg-variant .filters-wrapper .filters .filter-sections .filter-section form .advanced-filters-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-aside .sidebar-inner .box-bg-variant .filters-wrapper .filters .filter-sections .filter-section form .advanced-filters-wrapper:empty {
-  display: none;
-}
-aside .sidebar-inner .box-bg-variant .filters-wrapper .filters .filter-sections .filter-section form input[disabled=disabled] {
-  cursor: auto;
-}
-aside .sidebar-inner .box-bg-variant .filters-wrapper .filters .filter-sections .filter-section form label.disabled {
-  cursor: auto;
-}
-aside .sidebar-inner .box-bg-variant .filters-wrapper .filters .filter-sections .filter-section form .advanced-parameter {
-  display: none;
-}
-aside .sidebar-inner .box-bg-variant .filters-wrapper .filters .filter-sections .filter-section form .no-display {
-  display: inline-block;
 }
 
 .empty-content-404 {
@@ -3186,6 +3111,11 @@ body.spinner-visible .overlay {
 }
 #header.sticky {
   box-shadow: 0px 3px 16px 5px rgba(0, 0, 0, 0.16);
+}
+@media (max-width: 767px) {
+  #header.hide {
+    transform: translateY(-46px);
+  }
 }
 
 .top-navigation-bar {
@@ -3952,6 +3882,15 @@ body.submenu-visible::before {
   font-weight: 600;
   line-height: 1.375em;
   text-align: center;
+}
+@media (max-width: 767px) {
+  .site-msg .text {
+    padding: 6px 28px 6px 0;
+    font-size: 0.875rem;
+  }
+  .site-msg .close {
+    right: 1rem;
+  }
 }
 
 /*# sourceMappingURL=scss-critical.css.map*/

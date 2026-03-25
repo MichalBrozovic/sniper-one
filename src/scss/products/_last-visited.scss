@@ -26,10 +26,29 @@
         background-color: $color-font-invert;
       }
     }
+
+    @media (max-width:767px) {
+      width: 24px;
+      height: 34px;
+      background-color: $color-primary;
+      border-color: $color-primary;
+
+      border-radius: 4px 0 0 4px;
+
+      &::after {
+        background-color: $color-font-invert;
+        width: 16px;
+        height: 16px;
+      }
+    }
   }
 
   .swiper-button-prev {
     left: -56px;
+
+    @media (max-width:767px) {
+      border-radius: 0px 4px 4px 0;
+    }
   }
 
   .swiper-button-next {

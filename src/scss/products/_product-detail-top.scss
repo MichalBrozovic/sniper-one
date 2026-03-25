@@ -9,16 +9,17 @@
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   padding: 24px 0 32px 0;
+  gap: 40px;
   .col-xs-12:has(.p-detail-info) {
     display: none;
   }
 }
 .p-image-wrapper {
-  width: 100%;
-  max-width: calc((810 / 1480) * 100%);
+  flex: 1 1 600px;
   position: relative;
+  max-width: 100%;
   .flags {
     z-index: 10;
     top: 0.5rem;
@@ -78,7 +79,7 @@
 
 .p-info-wrapper {
   width: 100%;
-  max-width: calc((630 / 1480) * 100%);
+  flex: 0 1 630px;
   display: flex;
   flex-direction: column;
 }
