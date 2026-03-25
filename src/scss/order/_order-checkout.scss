@@ -1,0 +1,121 @@
+// FLAGS + PHONES
+.country-flag,
+.phone-combined-input select {
+    display: none;
+}
+
+.phone-combined-input {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 8px;
+
+}
+
+.country-flags.active .country-flag,
+.country-flag.selected {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.country-flag {
+    .shp-flag {
+        max-width: 40px;
+        max-height: 27px;
+    }
+}
+
+.country-flags:not(.active) .country-flag.selected {
+    .shp-flag-name {
+        display: none;
+    }
+}
+
+.country-flags {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+
+    &::after {
+        content: "";
+        @include icon-mask("/assets/images/icons/arrow-down-primary.svg", $color-secondary, 16px, 16px);
+    }
+
+    &.active {
+        height: auto;
+        border-right: none;
+        z-index: 2;
+
+        &::before {
+            display: none;
+        }
+    }
+
+    &.active {
+        .country-flags-inner {
+            max-height: 500px;
+            overflow-y: auto;
+            background-color: $color-page-bg;
+        }
+    }
+
+    .country-flag.selected {
+        &::before {
+            // content: url(../img/template-default/icon/dropdown-arrow.svg);
+            line-height: 0;
+            margin-right: 6px;
+        }
+    }
+}
+
+.country-flags.active {
+    left: 0;
+
+    .country-flags-inner {
+        padding: 10px;
+        box-shadow: 0 0 5px rgba(#000, 0.15);
+    }
+
+    .country-flag.selected::before {
+        display: none;
+    }
+}
+
+#checkoutContent {}
+
+.co-contact-information {
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid $border-color;
+    margin-bottom: 24px;
+
+    .form-group {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        flex-wrap: wrap;
+
+        label {
+            flex: 0 1 200px;
+        }
+
+        input {
+            flex: 0 1 300px;
+        }
+    }
+}
+
+.co-billing-address {
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid $border-color;
+    margin-bottom: 24px;
+}
+.consents-first{
+    text-align: center;
+}

@@ -1,0 +1,20 @@
+#newsWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 0 0 32px 0;
+
+    .news-item {
+        flex: 1 1 calc((100% - 32px) / 3);
+        min-width: 300px;
+    }
+}
+
+body.type-posts-listing{
+    .sectionDescription{
+        padding: 40px 0;
+    }
+}

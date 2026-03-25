@@ -1,0 +1,112 @@
+.order-summary {
+  .checkout-box {
+    display: none;
+  }
+}
+
+.order-summary {
+  .order-summary-inner {
+    padding: 24px;
+    border-radius: 12px;
+    background-color: $color-primary-050;
+  }
+  h4 {
+    margin: 0;
+    padding-bottom: 16px;
+    border-bottom: 1px solid $border-color;
+  }
+  .cart-items {
+  }
+  .cart-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 24px 0;
+    border-bottom: 1px solid $border-color;
+
+    a {
+      text-decoration: unset;
+    }
+    .recap-img-wrapper {
+      flex: 0 0 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      img {
+        border-radius: 4px;
+        aspect-ratio: 1;
+        width: 40px;
+        height: auto;
+      }
+    }
+
+    .main-link-variant {
+      font-size: rem(13);
+      line-height: em(13, 13);
+      color: $color-accent;
+      display: block;
+    }
+    .cart-item-name {
+      flex: 1;
+      a {
+      }
+    }
+    .cart-item-amount {
+      flex: 0 0 45px;
+      span {
+      }
+    }
+    .cart-item-price {
+      flex: 0 0 80px;
+    }
+  }
+  .order-summary-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    &.helper {
+      padding: 24px 0 16px 0;
+    }
+    &.price{
+         padding: 24px 0 0px 0;
+    }
+  }
+  #shipping-billing-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid $border-color;
+  }
+  .recapitulation-single {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .price-wrapper {
+    width: 100%;
+  }
+  .price-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    .price-label {
+      &::after {
+        content: ":";
+      }
+    }
+  }
+}

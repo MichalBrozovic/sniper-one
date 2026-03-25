@@ -453,10 +453,22 @@ const parseBenderContent = async (selector, devMode = false) => {
       }
 
       wrapper.remove();
-      const targets = [
-        ".content-wrapper:has(.benefitBanner)",
-        ".before-carousel",
-      ];
+
+      // Definujeme cíle pro přesun. Pokud jsme na mobilu, prioritizujeme .benefitBanner
+      const isMobile = document.body.classList.contains("mobile");
+      const targets = isMobile
+        ? [
+            ".benefitBanner",
+            ".content-wrapper:has(.benefitBanner)",
+            ".before-carousel",
+          ]
+        : [
+            ".content-wrapper:has(.benefitBanner)",
+            ".benefitBanner",
+            ".before-carousel",
+          ];
+
+      // Funkce moveElement se pokusí vložit sekci za první nalezený target ze seznamu
       moveElement(section, targets);
 
       continue;
@@ -582,7 +594,9 @@ initFavouriteCategoriesSwiper();
 // middle banners HP
 const unwrapBanners = () => {
   if (window.shoptetPage !== "homepage") return;
-  const container = document.querySelector(".middle-banners-wrapper");
+  const container =
+    document.querySelector(".middle-banners-wrapper") ||
+    document.querySelector(".body-banners");
   if (!container) return;
   const wrappers = container.querySelectorAll(
     '.body-banners > [class*="col-sm-"]',
@@ -800,10 +814,11 @@ const SHARED_SWIPER_CONFIG = {
     slidesPerView: 1.2,
     spaceBetween: 16,
     watchSlidesProgress: true,
+    breakpointsBase: "container",
     breakpoints: {
       560: { slidesPerView: 2, spaceBetween: 16 },
       768: { slidesPerView: 3, spaceBetween: 16 },
-      1024: { slidesPerView: 4, spaceBetween: 16 },
+      1124: { slidesPerView: 4, spaceBetween: 16 },
     },
     on: {
       init: (swiper) => swiperize.setLastVisibleSlide(swiper),
@@ -859,11 +874,18 @@ const initProductSwapper = async () => {
     popularProducts: "Nejoblíbenější produkty",
   };
 
-  const anchor =
-    document.querySelector(".favourite-categories") ||
-    document.querySelector(".content-wrapper:has(.benefitBanner)") ||
-    document.querySelector(".before-carousel") ||
-    document.querySelector("header");
+  // Definujeme kotvu (anchor) dynamicky podle zařízení
+  const isMobile = document.body.classList.contains("mobile");
+
+  const anchor = isMobile
+    ? document.querySelector(".favourite-categories") ||
+      document.querySelector(".benefitBanner") ||
+      document.querySelector(".banners-row") ||
+      document.querySelector("header")
+    : document.querySelector(".favourite-categories") ||
+      document.querySelector(".content-wrapper:has(.benefitBanner)") ||
+      document.querySelector(".before-carousel") ||
+      document.querySelector("header");
   if (!anchor) return;
 
   const swapperModule = document.createElement("section");
@@ -938,14 +960,19 @@ const handleWelcomeText = () => {
     welcomeInner.after(gallery);
   }
   const swapperSections = document.querySelectorAll(".swapper-content");
-  const target =
-    (swapperSections.length
-      ? swapperSections[swapperSections.length - 1]
-      : null) ||
-    document.querySelector(".product-section") ||
-    document.querySelector(".favourite-categories") ||
-    document.querySelector(".before-carousel") ||
-    document.querySelector("header");
+  const isMobile = document.body.classList.contains("mobile");
+
+const target = (swapperSections.length ? swapperSections[swapperSections.length - 1] : null) || 
+  (isMobile 
+    ? (document.querySelector(".product-section") || 
+       document.querySelector(".favourite-categories") || 
+       document.querySelector(".banners-row") || 
+       document.querySelector("header"))
+    : (document.querySelector(".product-section") || 
+       document.querySelector(".favourite-categories") || 
+       document.querySelector(".before-carousel") || 
+       document.querySelector("header"))
+  );
 
   if (target) {
     target.after(welcomeModule);
@@ -1268,10 +1295,9 @@ const handleRelatedAndAlternativeProducts = () => {
   }
 
   if (altGrid) {
-    const lang = window.shoptetLang || "cs";
     const altTitleText =
-      window.projectTranslations?.[lang]?.productDetail?.alternativeProducts ||
-      "Podobné produkty";
+      window.projectTranslations?.[window.shoptetLang]?.productDetail
+        ?.alternativeProducts || "Podobné produkty";
 
     const altSection = document.createElement("section");
     altSection.className = "product-section alternative-section is-processed";
@@ -1323,8 +1349,9 @@ const handleProductFiles = () => {
   filesWrapper.className = "product-files";
 
   const title = document.createElement("h3");
-  const titleText = window.projectTranslations?.[lang]?.productDetail?.files || "Soubory";
-  title.textContent = titleText;
+  title.textContent =
+    window.projectTranslations?.[window.shoptetLang]?.productDetail?.gpsr ||
+    "Informace o výrobci";
 
   filesWrapper.append(title);
   filesWrapper.append(files);
@@ -1389,24 +1416,39 @@ const handleManufacturer = () => {
   infoWrapper.append(manufacturer);
 };
 
-// Funkce vyčistí graf hodnocení, narovná strukturu odpovědí a přidá hlavní nadpis na začátek sekce.
+// Funkce narovná strukturu grafu hodnocení (univerzální pro detail i samostatnou stránku)
+const handleRatingGraph = (container = document) => {
+  const rateLists = container.querySelectorAll(".rate-list");
+  if (rateLists.length === 0) return;
+
+  rateLists.forEach((list) => {
+    const rateBlock = list.querySelector(".rate-block");
+    // Hledáme rate-count kdekoli uvnitř .rate-list (může být sourozenec i potomek baru)
+    const rateCount = list.querySelector(".rate-count");
+
+    if (rateBlock && rateCount) {
+      // Pokud je count schovaný uvnitř baru, vyndáme ho ven a dáme ho za rate-block
+      rateBlock.after(rateCount);
+    }
+  });
+};
+if (document.querySelector("#ratingWrapper")) {
+  handleRatingGraph();
+}
+// Funkce vyčistí tab hodnocení, narovná odpovědi a přidá hlavní nadpis
 const handleProductRating = () => {
   const ratingTab = document.querySelector("#ratingTab");
   if (!ratingTab) return;
 
-  // 1. Úprava grafu (přesun počtů za lišty)
-  const rateBlocks = ratingTab.querySelectorAll(".rate-block");
-  rateBlocks.forEach((block) => {
-    const rateCount = block.querySelector(".rate-count");
-    if (rateCount) {
-      block.after(rateCount);
-    }
-  });
+  // 1. Voláme samostatnou funkci pro graf
+  handleRatingGraph(ratingTab);
 
   // 2. Narovnání admin odpovědí v seznamu hodnocení
   const ratingsList = ratingTab.querySelector("#ratingsList");
   if (ratingsList) {
-    const individualRatings = ratingsList.querySelectorAll(".vote-wrap:not(.admin-response .vote-wrap)");
+    const individualRatings = ratingsList.querySelectorAll(
+      ".vote-wrap:not(.admin-response .vote-wrap)",
+    );
     individualRatings.forEach((rating) => {
       const adminResponse = rating.querySelector(".admin-response");
       if (adminResponse) {
@@ -1417,8 +1459,9 @@ const handleProductRating = () => {
 
   // 3. Generování nadpisu na začátek tabu
   const lang = window.shoptetLang || "cs";
-  const ratingTitle = window.projectTranslations?.[lang]?.productDetail?.rating || "Hodnocení";
-  
+  const ratingTitle =
+    window.projectTranslations?.[lang]?.productDetail?.rating || "Hodnocení";
+
   const starsLabel = ratingTab.querySelector(".stars-label");
   const countMatch = starsLabel?.textContent.match(/\d+/);
   const count = countMatch ? countMatch[0] : 0;
@@ -1450,7 +1493,9 @@ const handleProductDiscussion = () => {
         if (emptySpan) emptySpan.remove();
       }
 
-      const replyBtn = vote.querySelector("button[data-testid='buttonAddReply']");
+      const replyBtn = vote.querySelector(
+        "button[data-testid='buttonAddReply']",
+      );
       if (replyBtn) {
         replyBtn.classList.remove("btn", "btn-sm", "btn-primary");
       }
@@ -1463,15 +1508,20 @@ const handleProductDiscussion = () => {
   }
 
   const lang = window.shoptetLang || "cs";
-  const discussionTitle = window.projectTranslations?.[lang]?.productDetail?.discussion || "Diskuze";
-  const count = discussionList ? discussionList.querySelectorAll(".vote-wrap[data-testid='wrapComment']").length : 0;
-  
+  const discussionTitle =
+    window.projectTranslations?.[lang]?.productDetail?.discussion || "Diskuze";
+  const count = discussionList
+    ? discussionList.querySelectorAll(".vote-wrap[data-testid='wrapComment']")
+        .length
+    : 0;
+
   const existingHeading = discussionTab.querySelector(".discussion-main-title");
   if (existingHeading) existingHeading.remove();
 
   const heading = document.createElement("h3");
   heading.className = "discussion-main-title";
-  heading.textContent = count > 0 ? `${discussionTitle} (${count})` : discussionTitle;
+  heading.textContent =
+    count > 0 ? `${discussionTitle} (${count})` : discussionTitle;
 
   discussionTab.prepend(heading);
 };
@@ -1490,7 +1540,9 @@ const handleProductGPSR = () => {
 
   const title = document.createElement("h3");
   const lang = window.shoptetLang || "cs";
-  title.textContent = window.projectTranslations?.[lang]?.productDetail?.gpsr || "Informace o výrobci";
+  title.textContent =
+    window.projectTranslations?.[lang]?.productDetail?.gpsr ||
+    "Informace o výrobci";
 
   gpsrWrapper.append(title);
   gpsrWrapper.append(gpsr);
@@ -1528,13 +1580,6 @@ const handleProductDetailNonCritical = () => {
 };
 
 handleProductDetailNonCritical();
-
-// CART
-const handleCart = () => {};
-if (document.body.classList.contains("ordering-process")) {
-  handleCart();
-  document.addEventListener("ShoptetDOMCartContentLoaded", handleCart);
-}
 
 // Vytvoří střední část patičky s logy a rozdělenou navigací (bloky samostatně)
 const handleFooterMiddle = () => {
@@ -1881,8 +1926,10 @@ const handleFooter = async () => {
   handleFooterLower();
   handleFooterBottom();
 
-  handleInstagram();
-  handleNewsletter();
+  if (!document.body.classList.contains("ordering-process")) {
+    handleInstagram();
+    handleNewsletter();
+  }
 };
 handleFooter();
 
@@ -1892,6 +1939,280 @@ on("click", ".shp-tab-link", function (e) {
     smoothScrollTo(target, 200);
   }
 });
+
+//Košík / nákupní proces
+
+// Funkce zajistí vložení patičky do košíku a kompletní reinicializaci všech skriptů, které ji formátují.
+const handleCartFooter = async () => {
+  const contentWrapper = document.querySelector("#content-wrapper");
+  if (!contentWrapper || document.querySelector(".cart-custom-footer")) return;
+
+  const cachedFooter = sessionStorage.getItem("project_footer_html");
+
+  if (cachedFooter) {
+    const footerContainer = document.createElement("div");
+    footerContainer.className = "cart-custom-footer";
+    footerContainer.innerHTML = cachedFooter;
+    contentWrapper.after(footerContainer);
+
+    // U cache předpokládáme, že už je Benderem zpracovaná, ale handleFooter pustíme pro eventy
+    if (typeof handleFooter === "function") {
+      await handleFooter();
+    }
+  } else {
+    try {
+      const response = await fetch("/");
+      const html = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+      const mainFooter = doc.querySelector("footer");
+
+      if (mainFooter) {
+        const footerContainer = document.createElement("div");
+        footerContainer.className = "cart-custom-footer";
+        footerContainer.append(mainFooter);
+        contentWrapper.after(footerContainer);
+
+        // 1. Nejdříve musíme pustit Bendera, aby rozparsoval texty v bannerech na HTML
+        if (typeof parseBenderContent === "function") {
+          // Cílíme na divy uvnitř vložené patičky v košíku
+          await parseBenderContent(
+            ".cart-custom-footer .custom-footer > div",
+            false,
+          );
+        }
+
+        // 2. Poté pustíme tvůj handleFooter, který učeše zbytek
+        if (typeof handleFooter === "function") {
+          await handleFooter();
+        }
+      }
+    } catch (error) {
+      console.error("Chyba při dotažení patičky pro košík:", error);
+    }
+  }
+};
+
+// Funkce sjednotí patičku košíku, rekapitulaci ceny a přidá interaktivní přepínač pro slevový kupon.
+const handleCartBottom = () => {
+  const cartWrapper = document.querySelector("#cart-wrapper");
+  if (!cartWrapper) return;
+
+  const cartSummary = cartWrapper.querySelector(".cart-content .cart-summary");
+  const sidebarSummary = document.querySelector(
+    ".sidebar-in-cart .summary-wrapper",
+  );
+
+  // 1. Logika pro slevový kupon (Checkbox toggle)
+  const discountCoupon = cartWrapper.querySelector(".discount-coupon");
+  if (
+    discountCoupon &&
+    !discountCoupon.querySelector(".coupon-toggle-wrapper")
+  ) {
+    const couponForm = discountCoupon.querySelector("form");
+    const couponTitle =
+      window.projectTranslations?.[window.shoptetLang]?.cart?.discountCoupon ||
+      "Mám slevový kupón";
+
+    const toggleWrapper = document.createElement("div");
+    toggleWrapper.className = "coupon-toggle-wrapper";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.id = "coupon-toggle-checkbox";
+    checkbox.className = "coupon-toggle-checkbox";
+
+    const label = document.createElement("label");
+    label.htmlFor = "coupon-toggle-checkbox";
+    label.className = "coupon-toggle-label";
+    label.textContent = couponTitle;
+
+    toggleWrapper.append(checkbox, label);
+    discountCoupon.prepend(toggleWrapper);
+
+    checkbox.addEventListener("change", () => {
+      if (couponForm) {
+        couponForm.classList.toggle("active", checkbox.checked);
+      }
+    });
+  }
+
+  // 2. Sjednocení do .cart-bottom
+  if (cartSummary) {
+    if (!document.querySelector(".cart-bottom")) {
+      const cartBottom = document.createElement("div");
+      cartBottom.className = "cart-bottom";
+      cartSummary.before(cartBottom);
+      cartBottom.append(cartSummary);
+    }
+
+    const cartBottom = document.querySelector(".cart-bottom");
+
+    if (sidebarSummary && cartBottom) {
+      const priceWrapper = sidebarSummary.querySelector(".price-wrapper");
+      if (priceWrapper) {
+        const labels = priceWrapper.querySelectorAll(".price-label");
+        labels.forEach((label) => {
+          if (label.parentElement.classList.contains("price-row")) return;
+
+          const row = document.createElement("div");
+          row.className = "price-row";
+          if (label.classList.contains("price-primary")) {
+            row.classList.add("price-row--primary");
+          }
+
+          const price = label.nextElementSibling;
+          if (
+            price &&
+            (price.tagName === "STRONG" || price.classList.contains("price"))
+          ) {
+            label.before(row);
+            row.append(label, price);
+          }
+        });
+      }
+      cartBottom.append(sidebarSummary);
+    }
+  }
+};
+
+// Funkce zajistí, že v pokladně (krok 2 a 3) bude hlavička s kroky přes celou šířku nad oběma sloupci.
+const handleCartHeader = () => {
+  const checkoutContent = document.querySelector("#checkoutContent");
+  const checkoutSidebar = document.querySelector("#checkoutSidebar");
+  const cartHeader = document.querySelector(".cart-header");
+  const main = document.querySelector("body.ordering-process main");
+
+  if (checkoutContent && checkoutSidebar && cartHeader && main) {
+    main.prepend(cartHeader);
+  }
+};
+
+// Funkce pro správu náhledů produktů a úklid cenových řádků v rekapitulaci.
+const handleCartSummaryThumbnails = async () => {
+  const isFirstStep = document.body.classList.contains("in-kosik");
+  const summaryBox = document.querySelector(".order-summary");
+
+  const getImgUrl = (row) => {
+    const img = row.querySelector(".cart-p-image img");
+    if (!img) return null;
+    return img.getAttribute("data-src") || img.getAttribute("src");
+  };
+
+  // --- 1. FÁZE: SBĚR DAT (v prvním kroku) ---
+  if (isFirstStep) {
+    const rows = document.querySelectorAll(".cart-table tr.removeable");
+    if (rows.length > 0) {
+      const imagesMap = {};
+      rows.forEach((row) => {
+        const link = row.querySelector(".p-name a")?.getAttribute("href");
+        const imgSrc = getImgUrl(row);
+        if (link && imgSrc) imagesMap[link] = imgSrc;
+      });
+      sessionStorage.setItem("project_cart_images", JSON.stringify(imagesMap));
+    }
+  }
+
+  // --- 2. FÁZE: VÝPIS DAT A ÚKLID CEN (v summary) ---
+  if (summaryBox) {
+    // A. Logika pro obrázky
+    let imagesMap = JSON.parse(
+      sessionStorage.getItem("project_cart_images") || "{}",
+    );
+
+    if (Object.keys(imagesMap).length === 0) {
+      try {
+        const response = await fetch("/kosik/");
+        const text = await response.text();
+        const doc = new DOMParser().parseFromString(text, "text/html");
+        const rows = doc.querySelectorAll(".cart-table tr.removeable");
+
+        if (rows.length > 0) {
+          rows.forEach((row) => {
+            const link = row.querySelector(".p-name a")?.getAttribute("href");
+            const imgSrc = getImgUrl(row);
+            if (link && imgSrc) imagesMap[link] = imgSrc;
+          });
+          sessionStorage.setItem(
+            "project_cart_images",
+            JSON.stringify(imagesMap),
+          );
+        }
+      } catch (err) {
+        console.error("Bender Error: Fetch náhledů selhal.", err);
+      }
+    }
+
+    const summaryItems = summaryBox.querySelectorAll(".cart-items .cart-item");
+    summaryItems.forEach((item) => {
+      if (item.querySelector(".recap-img-wrapper")) return;
+      const link = item
+        .querySelector(".cart-item-name a")
+        ?.getAttribute("href");
+      const imageUrl = imagesMap[link];
+
+      if (imageUrl) {
+        const imgWrapper = document.createElement("div");
+        imgWrapper.className = "recap-img-wrapper";
+        const img = document.createElement("img");
+        img.src = imageUrl;
+        img.alt = "Produkt";
+        img.removeAttribute("loading");
+        imgWrapper.append(img);
+        item.prepend(imgWrapper);
+      }
+    });
+
+    // B. Logika pro obalení cenových řádků (price-row)
+    const priceWrapper = summaryBox.querySelector(".price-wrapper");
+    if (priceWrapper) {
+      const labels = priceWrapper.querySelectorAll(".price-label");
+      labels.forEach((label) => {
+        // Pokud už je label obalený v price-row, neřešíme
+        if (label.parentElement.classList.contains("price-row")) return;
+
+        const row = document.createElement("div");
+        row.className = "price-row";
+        if (label.classList.contains("price-primary")) {
+          row.classList.add("price-row--primary");
+        }
+
+        // Cena je hned další element (strong)
+        const price = label.nextElementSibling;
+        if (
+          price &&
+          (price.tagName === "STRONG" || price.classList.contains("price"))
+        ) {
+          label.before(row);
+          row.append(label, price);
+        }
+      });
+    }
+  }
+};
+
+// Hlavní orchestrátor pro košík a objednávkový proces.
+const handleCartNonCritical = async () => {
+  if (!document.body.classList.contains("ordering-process")) return;
+
+  // 1. Nejdřív vyřešíme patičku
+  await handleCartFooter();
+  handleCartBottom();
+  handleCartHeader();
+  handleCartSummaryThumbnails();
+  // 2. Tady pak budou další funkce košíku (např. dárky, doprava atd.)
+  // handleCartGifts();
+  const main = document.querySelector("body.ordering-process main");
+  main.classList.add("is-processed");
+
+  const events = ["ShoptetDOMCartContentLoaded", "shoptet.contentUpdated"];
+  events.forEach((eventName) => {
+    document.removeEventListener(eventName, handleCartNonCritical);
+    document.addEventListener(eventName, handleCartNonCritical);
+  });
+};
+
+handleCartNonCritical();
 
 // Modul pro zobrazení naposledy prohlížených produktů.
 // Na kategorii se vkládá před benefity, jinak před Instagram/Footer.
@@ -2137,8 +2458,16 @@ const RecentlyViewed = (() => {
 
     if (window.Swiper) {
       new Swiper(".swiper-last-visited", {
-        slidesPerView: 1,
-        spaceBetween: 20,
+        slidesPerView: 1.2,
+        spaceBetween: 16,
+        watchSlidesProgress: true,
+        breakpointsBase: "container",
+        breakpoints: {
+          560: { slidesPerView: 2, spaceBetween: 16 },
+          768: { slidesPerView: 3, spaceBetween: 16 },
+          1124: { slidesPerView: 4, spaceBetween: 16 },
+        },
+
         navigation: {
           nextEl: ".last-visited .swiper-button-next",
           prevEl: ".last-visited .swiper-button-prev",
@@ -2146,10 +2475,6 @@ const RecentlyViewed = (() => {
         pagination: {
           el: ".last-visited .swiper-pagination",
           clickable: true,
-        },
-        breakpoints: {
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 4, spaceBetween: 30 },
         },
       });
     }

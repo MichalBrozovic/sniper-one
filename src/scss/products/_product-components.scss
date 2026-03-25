@@ -85,6 +85,9 @@
     aspect-ratio: 1;
     font-weight: 400;
     min-width: 60px;
+    &.no-display{
+      display: none;
+    }
     .price-save {
       font-weight: 600;
       font-size: rem(16);

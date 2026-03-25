@@ -55,6 +55,9 @@ window.projectTranslations = {
       discussion: "Diskuze",
       gpsr: "Informace o výrobci",
     },
+    cart: {
+      discountCoupon: "Mám slevový kupón",
+    },
   },
   sk: {
     cart: {
@@ -109,6 +112,9 @@ window.projectTranslations = {
       rating: "Hodnotenie",
       discussion: "Diskusia",
       gpsr: "Informácie o výrobcovi",
+    },
+    cart: {
+      discountCoupon: "Mám slevový kupón",
     },
   },
 };

@@ -15,7 +15,7 @@ label {
   // font-weight: 700;
 }
 
-input[type="checkbox"] + label {
+input[type="checkbox"]+label {
   position: relative;
   padding-left: 24px;
   display: inline-block;
@@ -42,7 +42,7 @@ input[type="checkbox"] + label {
   }
 }
 
-input[type="checkbox"]:checked + label {
+input[type="checkbox"]:checked+label {
   &::before {
     background-color: $color-primary;
     // border-color: $color-accent;
@@ -54,47 +54,48 @@ input[type="checkbox"]:checked + label {
     line-height: 0;
     left: 1px;
     top: 4px;
-    @include icon-mask(
-      "/assets/images/icons/check.svg",
+    @include icon-mask("/assets/images/icons/check.svg",
       $color-font-invert,
       14px,
-      14px
-    );
+      14px);
     position: absolute;
   }
 }
 
-input[type="radio"] + label {
-  padding-left: 44px;
+input[type="radio"]+label {
+  padding-left: 32px;
   position: relative;
   display: inline-block;
   font-size: rem(16);
   line-height: em(22, 16);
+
   &::before {
     content: "";
     display: inline-block;
-    width: 16px;
-    height: 16px;
-    border: 1px solid $color-font-200;
+    width: 21px;
+    height: 21px;
+    border: 1px solid $border-color;
     background-color: $color-page-bg;
     border-radius: 50%;
     position: absolute;
+    top: 50%;
     left: 0;
-    top: 0;
+    transform: translateY(-50%);
   }
 }
 
-input[type="radio"]:checked + label {
+input[type="radio"]:checked+label {
   &::after {
     content: "";
     display: inline-block;
-    width: 15px;
-    height: 15px;
+    width: 13px;
+    height: 13px;
     border-radius: 50%;
-    background-color: $color-accent;
+    background-color: $color-primary;
     position: absolute;
-    left: 0px;
-    top: 1px;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 }
 
@@ -111,7 +112,7 @@ select {
   line-height: em(22, 16);
   width: 100%;
   color: $color-font;
-  background-color: transparent;
+  background-color: $color-font-invert;
   font-family: $default-font-family;
   padding: 10.5px 15px 10.5px 15px;
   border-radius: 4px;
@@ -149,8 +150,7 @@ input[type="email"] {
     // color: $black-30;
   }
 
-  &:focus {
-  }
+  &:focus {}
 }
 
 input[type="submit"] {
@@ -167,6 +167,7 @@ input[type="submit"] {
   flex-direction: column;
   gap: 10px;
   margin-top: 15px;
+  position: relative;
 
   &:last-child {
     margin-bottom: 0;
@@ -174,7 +175,7 @@ input[type="submit"] {
 
   &.company-shopping {
     #company-shopping {
-      & + label {
+      &+label {
         &::before {
           // border-radius: 50%;
         }
@@ -183,7 +184,7 @@ input[type="submit"] {
   }
 
   #another-shipping {
-    & + label {
+    &+label {
       &::before {
         // border-radius: 50%;
       }
@@ -287,3 +288,13 @@ body:not(.customer-page) {
 
 //     }
 // }
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url(/assets/images/icons/arrow-down-primary.svg) no-repeat right 10px center;
+
+  &:focus {
+    background-image: url(/assets/images/icons/arrow-left.svg);
+  }
+}

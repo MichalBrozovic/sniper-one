@@ -1,6 +1,19 @@
-.middle-banners-wrapper{
+.middle-banners-wrapper {
   padding: 64px 0;
+
+  @media (max-width:1124px) {
+    padding: 48px 0;
+  }
+
+  @media (max-width:992px) {
+    padding: 36px 0;
+  }
+
+  @media (max-width:767px) {
+    padding: 28px 0;
+  }
 }
+
 .body-banners {
   display: flex;
   flex-direction: row;
@@ -9,6 +22,7 @@
   flex-wrap: wrap;
   container-type: inline-size;
   container-name: banner-grid;
+
   .banner-wrapper {
     display: flex;
     flex-direction: column;
@@ -18,6 +32,7 @@
     // flex-basis: 415px (ideální šířka, při které se láme)
 
     max-width: 100%;
+
     // @container banner-grid (min-width: 846px) {
     //   width: calc(50% - 8px); // 8px je polovina gapu (16px / 2)
     // }
@@ -27,7 +42,8 @@
       }
     }
   }
-   a {
+
+  a {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -55,9 +71,13 @@
       }
     }
   }
+
   img {
+    min-width: 100%;
+    object-fit: cover;
     border-radius: 12px;
   }
+
   .extended-banner-texts {
     display: flex;
     flex-direction: column;
@@ -70,12 +90,54 @@
     width: 100%;
     color: $color-font-invert;
   }
+
   .extended-banner-title {
     margin-bottom: 8px;
   }
+
   .extended-banner-text {
     margin-bottom: 16px;
   }
-  .extended-banner-link {
+
+  .extended-banner-link {}
+}
+
+body.mobile {
+  .body-banners  {
+
+    .banner-wrapper {
+      &:nth-of-type(2) {
+        .extended-banner-texts {}
+      }
+    }
+
+    a {
+
+      img {
+        position: relative;
+        top: unset;
+        left: unset;
+        transform: unset;
+      }
+
+      @include hover {
+        .extended-banner-link {}
+      }
+    }
+
+    img {}
+
+    .extended-banner-texts {
+      position: absolute;
+      top: 0;
+      left: 0;
+      max-width: 100%;
+    }
+
+    .extended-banner-title {}
+
+    .extended-banner-text {}
+
+    .extended-banner-link {}
   }
 }

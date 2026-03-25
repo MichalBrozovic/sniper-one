@@ -1,12 +1,15 @@
 .favourite-categories {
   padding: 32px 0;
+
   h2 {
     text-align: center;
     margin-bottom: 24px;
   }
+
   .swiper-slide {
     display: flex;
   }
+
   a {
     @include trans(0.3s);
     display: flex;
@@ -17,18 +20,22 @@
     background-color: $color-primary-050;
     border-radius: 12px;
     overflow: hidden;
+    width: 100%;
 
     @include hover {
       background-color: $color-primary-100;
+
       h3 {
         color: $color-primary;
       }
     }
   }
+
   img {
     max-width: 100%;
     object-fit: contain;
   }
+
   h3 {
     font-size: rem(18);
     line-height: em(25, 18);

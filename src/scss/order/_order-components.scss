@@ -1,0 +1,117 @@
+body.ordering-process main {
+  max-width: 1280px;
+  margin: 0 auto;
+  opacity: 0;
+  margin-bottom: 40px;
+  @media (height > 1000px) {
+    min-height: 60vh;
+  }
+  &.is-processed {
+    opacity: 1;
+  }
+}
+
+.cart-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 40px;
+  align-items: center;
+  flex-wrap: nowrap;
+  position: relative;
+  padding: 26px 0;
+
+  list-style: none;
+  counter-reset: cart-steps;
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    width: 100vw;
+    height: 100%;
+    max-width: calc(100vw - var(--scrollbar-width));
+    background-color: $color-primary-050;
+  }
+  li {
+    counter-increment: cart-steps;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: rem(16);
+    line-height: em(22, 16);
+    color: $color-font;
+    &.active {
+      color: $color-primary;
+      font-weight: 600;
+      a,
+      strong {
+        pointer-events: none;
+        &::before {
+          background-color: $color-primary;
+          border-color: $color-primary;
+          color: $color-font-invert;
+        }
+      }
+    }
+    &:nth-of-type(1),
+    &:nth-of-type(2) {
+      &::after {
+        content: "";
+        width: 40px;
+        height: 1px;
+        background-color: $border-color;
+        display: block;
+        margin-left: 40px;
+      }
+    }
+    a,
+    strong {
+      @include trans(0.3s);
+      @include inherit();
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: nowrap;
+      position: relative;
+      text-decoration: unset;
+
+      &::before {
+        @include trans(0.3s);
+        content: counter(cart-steps);
+        font-weight: 700;
+        font-size: rem(18);
+        line-height: em(18, 18);
+        color: $color-font;
+        border: 1px solid $border-color;
+        background-color: $color-font-invert;
+        border-radius: 50%;
+        width: 48px;
+        aspect-ratio: 1;
+        padding: 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+    }
+    a {
+      @include hover {
+        &::before {
+          background-color: $border-color;
+        }
+      }
+    }
+    // Vlastní číslo bez tečky
+  }
+}
+
+.sidebar-in-cart {
+  .checkout-box-wrapper {
+    display: none;
+  }
+}

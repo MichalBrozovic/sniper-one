@@ -94,19 +94,24 @@
   line-height: em(20, 14);
   font-weight: 600;
   border-radius: 4px;
+
   @include hover {
     background-color: $color-primary-600;
   }
+
   &.secondary {
     background-color: $color-secondary;
+
     @include hover {
       background-color: $color-secondary-600;
     }
   }
+
   // @media (max-width: 767px) {
   //     padding: em(5) em(10)em(10) em(10);
   // }
 }
+
 .btn-tertiary {
   background-color: $color-page-bg;
   color: $color-font;
@@ -115,5 +120,38 @@
   &:focus {
     background-color: $color-font;
     color: $color-page-bg;
+  }
+}
+
+#submit-order {
+  font-size: rem(16);
+  line-height: em(22, 16);
+  padding: 12px 38px;
+}
+
+.next-step-forward {
+  font-size: rem(16);
+  line-height: em(22, 16);
+  padding: 12px 38px;
+
+  span {
+    @include inherit();
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+
+    &::after {
+      content: "";
+      @include icon-mask("/assets/images/icons/arrow-right.svg", $color-font-invert, 16px, 16px);
+    }
+  }
+}
+
+.continue-shopping,
+.next-step-back {
+  text-decoration: underline;
+
+  @include hover {
+    text-decoration: unset;
   }
 }

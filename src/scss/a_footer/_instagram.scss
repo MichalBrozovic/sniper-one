@@ -10,16 +10,28 @@
   justify-content: flex-start;
   gap: 24px;
   border-top: 1px solid $border-color;
+
+  h3 {
+    display: none;
+  }
+
   .instagram-follow-btn {
     display: none;
   }
 }
+
 .instagram-widget {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 8px;
+
+  @media (max-width:880px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   a {
     @include trans(0.3s);
     display: flex;
@@ -31,28 +43,49 @@
     aspect-ratio: 1;
     width: 100%;
     max-width: calc(100 / 6);
+
     @include hover {
       img {
         transform: scale(1.06);
       }
     }
+
     img {
       @include trans(0.3s);
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
+
+    @media (max-width:880px) {
+      max-width: 100%;
+
+      &:nth-of-type(5),
+      &:nth-of-type(6),
+      &:nth-of-type(7),
+      &:nth-of-type(8),
+      &:nth-of-type(9),
+      &:nth-of-type(10),
+      &:nth-of-type(11),
+      &:nth-of-type(12) {
+        display: none;
+      }
+    }
+
   }
 }
+
 .instagram-header-flex {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+
   &::before,
   &::after {
     display: none;
   }
+
   .left {
     a {
       position: relative;
@@ -62,6 +95,7 @@
       align-items: flex-start;
       padding-left: 40px;
       text-decoration: unset;
+
       &::before {
         content: "";
         display: block;
@@ -69,14 +103,13 @@
         left: 4px;
         top: 50%;
         transform: translateY(-50%);
-        @include icon-mask(
-          "/assets/images/icons/instagram-white.svg",
+        @include icon-mask("/assets/images/icons/instagram-white.svg",
           $color-page-bg,
           24px,
-          24px
-        );
+          24px);
         z-index: 5;
       }
+
       &::after {
         content: "";
         left: 0;
@@ -91,27 +124,35 @@
         border-radius: 50%;
       }
     }
+
     h4 {
       font-size: rem(20);
       line-height: em(25, 20);
       color: $color-font;
       margin: 0;
+
       span {
         @include inherit();
       }
     }
+
     small {
       font-size: rem(16);
       line-height: em(22, 16);
       color: $color-primary;
     }
   }
+
   .right {
     display: flex;
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
     gap: 8px;
+
+    @media (max-width:880px) {
+      display: none;
+    }
 
     span {
       font-size: rem(16);
@@ -120,19 +161,19 @@
       margin: 0;
       font-weight: 600;
     }
+
     a {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+
       &::before {
         content: "";
-        @include icon-mask(
-          "/assets/images/icons/facebook.svg",
+        @include icon-mask("/assets/images/icons/facebook.svg",
           $color-secondary,
           32px,
-          32px
-        );
+          32px);
       }
     }
   }

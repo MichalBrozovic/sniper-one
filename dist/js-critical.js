@@ -326,6 +326,124 @@ var userCartHandle = function userCartHandle() {
     }
   }
 };
+
+// Funkce přesune mobilní nástroje (hledání, login, menu) do hlavního kontejneru navigace.
+var moveResponsiveTools = function moveResponsiveTools() {
+  var tools = document.querySelector(".responsive-tools");
+  var target = document.querySelector("header .navigation-buttons");
+  if (tools && target) {
+    var searchIcon = tools.querySelector('[data-target="search"]');
+    var loginIcon = tools.querySelector('[data-target="login"]');
+    var navIcon = tools.querySelector('[data-target="navigation"]');
+    if (navIcon) target.prepend(navIcon);
+    if (loginIcon) target.prepend(loginIcon);
+    if (searchIcon) target.prepend(searchIcon);
+    if (tools.children.length === 0) {
+      tools.remove();
+    }
+  }
+};
+// Funkce pro správu navigace na mobilu, včetně fixace menu a zavíracího tlačítka.
+var relocateNavigationForMobile = function relocateNavigationForMobile() {
+  var isMobileWidth = window.innerWidth < 1024;
+  var nav = document.getElementById("navigation");
+  var navIn = nav === null || nav === void 0 ? void 0 : nav.querySelector(".navigation-in");
+  var header = document.querySelector("header");
+  var topBar = document.querySelector(".top-navigation-bar");
+  if (!nav || !navIn || !header) return;
+
+  // 1. GENEROVÁNÍ CLOSE BUTTONU (pokud ještě neexistuje)
+
+  if (isMobileWidth) {
+    if (!nav.querySelector(".close")) {
+      var closeBtn = document.createElement("button");
+      var lang = window.shoptetLang || "cs";
+      var closeLabel = lang === "sk" ? "Zatvoriť navigáciu" : "Zavřít navigaci";
+      closeBtn.classList.add("close", "black");
+      closeBtn.type = "button";
+      closeBtn.setAttribute("aria-label", closeLabel);
+      closeBtn.innerHTML = "<span class=\"close-icon\"></span>"; // Ikona se doladí v CSS
+
+      // Tlačítko dáváme do navIn nebo přímo do nav, podle toho, kde ho chceš mít fixnuté
+      nav.prepend(closeBtn);
+      closeBtn.addEventListener("click", function () {
+        document.body.classList.remove("navigation-window-visible");
+      });
+    }
+    if (header.contains(nav)) header.after(nav);
+    if (topBar) {
+      var contacts = topBar.querySelector(".top-navigation-contacts");
+      var topMenu = topBar.querySelector(".top-navigation-menu");
+      var languages = topBar.querySelector(".top-navigation-tools--language");
+
+      // Stopnutí probublávání kliknutí u Jazyků/Měny, aby nezavíraly body třídu
+      if (languages && !languages.dataset.initDone) {
+        var dropdowns = languages.querySelectorAll(".js-languagesMenu__box");
+        dropdowns.forEach(function (box) {
+          // 1. Shoptet ignorace
+          var originalTarget = box.getAttribute("data-target");
+          if (originalTarget) {
+            box.setAttribute("data-bender-target", originalTarget);
+            box.removeAttribute("data-target");
+          }
+
+          // 2. Opravený event listener
+          box.addEventListener("click", function (e) {
+            // Zjistíme, jestli uživatel klikl na odkaz (nebo cokoli uvnitř odkazu)
+            var isClickOnLink = e.target.closest("a");
+            if (isClickOnLink) {
+              // Pokud je to odkaz, nebudeme stopovat propagaci, aby se stránka mohla reloadnout
+              // Ale zavřeme box pro vizuální čistotu (nepovinné)
+              box.classList.remove("open");
+              return;
+            }
+
+            // Pokud to NENÍ odkaz (takže klik na label/header), uděláme toggle
+            e.preventDefault();
+            e.stopPropagation();
+            var isOpen = box.classList.contains("open");
+
+            // Zavřeme ostatní
+            dropdowns.forEach(function (other) {
+              var _other$querySelector;
+              other.classList.remove("open");
+              (_other$querySelector = other.querySelector(".languagesMenu__list")) === null || _other$querySelector === void 0 || _other$querySelector.classList.remove("open");
+            });
+
+            // Toggle aktuálního
+            if (!isOpen) {
+              var _box$querySelector;
+              box.classList.add("open");
+              (_box$querySelector = box.querySelector(".languagesMenu__list")) === null || _box$querySelector === void 0 || _box$querySelector.classList.add("open");
+            }
+
+            // Vždy držíme navigaci otevřenou
+            document.body.classList.add("navigation-window-visible");
+          });
+        });
+        languages.dataset.initDone = "true";
+      }
+      if (languages) navIn.prepend(languages);
+      if (topMenu) navIn.prepend(topMenu);
+      if (contacts) navIn.prepend(contacts);
+    }
+  } else {
+    // Desktop: Vrácení prvků zpět
+    var navPlace = header.querySelector(".header-inner") || header;
+    if (!header.contains(nav)) navPlace.appendChild(nav);
+    if (topBar) {
+      var container = topBar.querySelector(".container");
+      var _contacts = navIn.querySelector(".top-navigation-contacts");
+      var _topMenu = navIn.querySelector(".top-navigation-menu");
+      var _languages = navIn.querySelector(".top-navigation-tools--language");
+      if (container) {
+        if (_contacts) container.appendChild(_contacts);
+        if (_topMenu) container.appendChild(_topMenu);
+        if (_languages) container.appendChild(_languages);
+      }
+    }
+  }
+};
 var handleHeader = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
     return _regenerator().w(function (_context2) {
@@ -338,6 +456,8 @@ var handleHeader = /*#__PURE__*/function () {
           menuLevelTwoRefactoring();
           moveLoginButton();
           userCartHandle();
+          moveResponsiveTools();
+          relocateNavigationForMobile();
         case 1:
           return _context2.a(2);
       }
@@ -350,6 +470,7 @@ var handleHeader = /*#__PURE__*/function () {
 handleHeader();
 document.addEventListener("ShoptetDOMPageContentLoaded", handleHeader);
 document.addEventListener("ShoptetDOMContentLoaded", handleHeader);
+window.addEventListener("resize", relocateNavigationForMobile);
 var initHomepageSwiper = function initHomepageSwiper() {
   var $carousel = document.querySelector("#carousel");
   var $inner = document.querySelector(".carousel-inner");
@@ -411,11 +532,11 @@ var initHomepageSwiper = function initHomepageSwiper() {
       }
     },
     breakpoints: {
-      768: {
+      600: {
         slidesPerView: 2,
         spaceBetween: 14
       },
-      1024: {
+      992: {
         slidesPerView: 3,
         spaceBetween: 16
       },
@@ -725,15 +846,26 @@ var handleBestSellingProducts = function handleBestSellingProducts() {
  * ZPRACOVÁNÍ FILTRŮ
  */
 
-// Funkce obaluje vnitřní prvky cenového slideru do kontejneru pro lepší vizuální kontrolu.
+// Funkce přeskládá prvky cenového slideru tak, aby samotný slider ležel v DOMu mezi minimální a maximální cenou.
 var wrapPriceSliderInner = function wrapPriceSliderInner(sliderWrapper) {
   var header = sliderWrapper.querySelector(".slider-header");
   var content = sliderWrapper.querySelector(".slider-content");
-  if (header && content) {
+  var from = header === null || header === void 0 ? void 0 : header.querySelector(".from");
+  var to = header === null || header === void 0 ? void 0 : header.querySelector(".to");
+  if (header && content && from && to) {
     var innerContainer = document.createElement("div");
     innerContainer.className = "slider-inner-container";
+
+    // Vložíme kontejner před hlavičku
     header.before(innerContainer);
-    innerContainer.append(header, content);
+
+    // Přeskládáme to do innerContaineru: FROM -> SLIDER -> TO
+    innerContainer.append(from);
+    innerContainer.append(content);
+    innerContainer.append(to);
+
+    // Původní prázdný header můžeme smazat, už v něm nic není
+    header.remove();
   }
 };
 
@@ -909,39 +1041,50 @@ var handleAddToCartWrapper = function handleAddToCartWrapper() {
   // --- 1. Přesun a úprava ceny (Výpočet slevy) ---
   if (finalPriceWrapper) {
     cartWrapper.append(finalPriceWrapper);
-    var standardPriceEl = cartWrapper.querySelector(".price-standard");
-    var finalPriceEl = cartWrapper.querySelector(".price-final-holder");
     var priceSaveEl = cartWrapper.querySelector(".price-save");
-    if (standardPriceEl && finalPriceEl && priceSaveEl && !priceSaveEl.querySelector(".save-amount-text")) {
-      var extractValue = function extractValue(el) {
-        var clone = el.cloneNode(true);
-        var unit = clone.querySelector(".pr-list-unit");
-        if (unit) unit.remove();
-        var rawText = clone.textContent.replace(/\s/g, "").replace(/\u00A0/g, "");
-        var match = rawText.match(/[\d,]+/);
-        return match ? parseFloat(match[0].replace(",", ".")) : 0;
-      };
-      var standardPrice = extractValue(standardPriceEl);
-      var finalPrice = extractValue(finalPriceEl);
-      if (standardPrice > finalPrice) {
-        var _window$dataLayer2;
-        var savedAmount = standardPrice - finalPrice;
-        var cInfo = ((_window$dataLayer2 = window.dataLayer) === null || _window$dataLayer2 === void 0 || (_window$dataLayer2 = _window$dataLayer2[0]) === null || _window$dataLayer2 === void 0 || (_window$dataLayer2 = _window$dataLayer2.shoptet) === null || _window$dataLayer2 === void 0 ? void 0 : _window$dataLayer2.currencyInfo) || {
-          decimalSeparator: ",",
-          thousandSeparator: " ",
-          symbol: "Kč",
-          symbolLeft: 0,
-          priceDecimalPlaces: 2
+
+    // Najdeme aktivní slevu od Shoptetu
+    var activeSaveVariant = priceSaveEl === null || priceSaveEl === void 0 ? void 0 : priceSaveEl.querySelector(".parameter-dependent:not(.no-display):not(.noDisplay)");
+    var isSaveEmpty = (activeSaveVariant === null || activeSaveVariant === void 0 ? void 0 : activeSaveVariant.classList.contains("empty")) || (activeSaveVariant === null || activeSaveVariant === void 0 ? void 0 : activeSaveVariant.textContent.trim()) === "-" || (activeSaveVariant === null || activeSaveVariant === void 0 ? void 0 : activeSaveVariant.textContent.trim()) === "–";
+
+    // Pokud je aktivní varianta slevy prázdná, odstraníme náš výpočet a končíme
+    if (isSaveEmpty) {
+      var _priceSaveEl$querySel;
+      (_priceSaveEl$querySel = priceSaveEl.querySelector(".save-amount-text")) === null || _priceSaveEl$querySel === void 0 || _priceSaveEl$querySel.remove();
+    } else {
+      var standardPriceEl = cartWrapper.querySelector(".price-standard .parameter-dependent:not(.no-display):not(.noDisplay):not(.empty)");
+      var finalPriceEl = cartWrapper.querySelector(".price-final-holder:not(.no-display):not(.noDisplay)");
+      if (standardPriceEl && finalPriceEl && priceSaveEl && !priceSaveEl.querySelector(".save-amount-text")) {
+        var extractValue = function extractValue(el) {
+          var clone = el.cloneNode(true);
+          var unit = clone.querySelector(".pr-list-unit");
+          if (unit) unit.remove();
+          var rawText = clone.textContent.replace(/od/g, "").replace(/\s/g, "").replace(/\u00A0/g, "");
+          var match = rawText.match(/[\d,]+/);
+          return match ? parseFloat(match[0].replace(",", ".")) : 0;
         };
-        var formattedNum = parseFloat(savedAmount.toFixed(cInfo.priceDecimalPlaces)).toString();
-        var parts = formattedNum.split(".");
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, cInfo.thousandSeparator);
-        var formattedSave = parts.join(cInfo.decimalSeparator);
-        var saveTextString = cInfo.symbolLeft ? "".concat(cInfo.symbol, " ").concat(formattedSave) : "".concat(formattedSave, " ").concat(cInfo.symbol);
-        var saveText = document.createElement("span");
-        saveText.className = "save-amount-text";
-        saveText.textContent = " (".concat(saveTextString, ")");
-        priceSaveEl.append(saveText);
+        var standardPrice = extractValue(standardPriceEl);
+        var finalPrice = extractValue(finalPriceEl);
+        if (standardPrice > 0 && finalPrice > 0 && standardPrice > finalPrice) {
+          var _window$dataLayer2;
+          var savedAmount = standardPrice - finalPrice;
+          var cInfo = ((_window$dataLayer2 = window.dataLayer) === null || _window$dataLayer2 === void 0 || (_window$dataLayer2 = _window$dataLayer2[0]) === null || _window$dataLayer2 === void 0 || (_window$dataLayer2 = _window$dataLayer2.shoptet) === null || _window$dataLayer2 === void 0 ? void 0 : _window$dataLayer2.currencyInfo) || {
+            decimalSeparator: ",",
+            thousandSeparator: " ",
+            symbol: "Kč",
+            symbolLeft: 0,
+            priceDecimalPlaces: 2
+          };
+          var formattedNum = parseFloat(savedAmount.toFixed(cInfo.priceDecimalPlaces)).toString();
+          var parts = formattedNum.split(".");
+          parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, cInfo.thousandSeparator);
+          var formattedSave = parts.join(cInfo.decimalSeparator);
+          var saveTextString = cInfo.symbolLeft ? "".concat(cInfo.symbol, " ").concat(formattedSave) : "".concat(formattedSave, " ").concat(cInfo.symbol);
+          var saveText = document.createElement("span");
+          saveText.className = "save-amount-text";
+          saveText.textContent = " (".concat(saveTextString, ")");
+          priceSaveEl.append(saveText);
+        }
       }
     }
   }
@@ -950,26 +1093,30 @@ var handleAddToCartWrapper = function handleAddToCartWrapper() {
   if (addToCartBlock) {
     cartWrapper.append(addToCartBlock);
     var addToCartButton = addToCartBlock.querySelector(".add-to-cart-button");
-    if (addToCartButton && window.shoptet && window.shoptet.messages && window.shoptet.messages['toCart']) {
-      addToCartButton.textContent = window.shoptet.messages['toCart'];
+    if (addToCartButton && window.shoptet && window.shoptet.messages && window.shoptet.messages["toCart"]) {
+      addToCartButton.textContent = window.shoptet.messages["toCart"];
     }
   }
 };
 
 // Funkce sjednotí informace o dostupnosti a doručení do jednoho bloku
-// a obarví čas doručení stejnou barvou, jakou má hlavní štítek dostupnosti.
+// a obarví čas doručení i počty kusů stejnou barvou, jakou má hlavní štítek dostupnosti.
 var handleAvailabilityProductTop = function handleAvailabilityProductTop() {
   var infoWrapper = document.querySelector(".p-info-wrapper");
   if (!infoWrapper) return;
   var availabilityValue = infoWrapper.querySelector(".availability-value");
   var availabilityLabel = infoWrapper.querySelector(".availability-label");
-  var availabilityAmount = infoWrapper.querySelector(".availability-amount");
+  var availabilityAmounts = infoWrapper.querySelectorAll(".availability-amount");
   var deliveryTimeLabel = infoWrapper.querySelector(".delivery-time-label");
   var deliveryTime = infoWrapper.querySelector(".delivery-time");
   if (!availabilityValue) return;
   var statusColor = availabilityLabel ? availabilityLabel.style.color : "";
-  if (availabilityAmount && statusColor) {
-    availabilityAmount.style.color = statusColor;
+
+  // Projdeme všechny nalezené elementy s počtem kusů a obarvíme je
+  if (availabilityAmounts.length > 0 && statusColor) {
+    availabilityAmounts.forEach(function (amount) {
+      amount.style.color = statusColor;
+    });
   }
   if (deliveryTimeLabel) {
     if (statusColor) deliveryTimeLabel.style.color = statusColor;

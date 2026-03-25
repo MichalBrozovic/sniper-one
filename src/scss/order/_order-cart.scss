@@ -1,0 +1,229 @@
+.cart-table {
+  width: 100%;
+
+  padding: 24px 0;
+  display: flex;
+  tbody {
+    width: 100%;
+  }
+  tr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 0 16px 0;
+    border-bottom: 1px solid $border-color;
+    font-size: rem(16);
+    line-height: em(22, 14);
+    &:first-child {
+      padding: 0 0 16px 0;
+    }
+    &.removeable {
+    }
+    a {
+      text-decoration: unset;
+    }
+    .show-related {
+      font-size: rem(13);
+      line-height: em(14, 13);
+      color: $color-accent;
+      margin-top: 8px;
+      &::after {
+        content: "";
+        @include icon-mask(
+          "/assets/images/icons/arrow-down-primary.svg",
+          $color-secondary,
+          14px,
+          14px
+        );
+        vertical-align: middle;
+        margin-left: 4px;
+      }
+    }
+    td {
+      display: flex;
+      justify-content: center;
+    }
+    .cart-p-image {
+      flex: 0 0 90px;
+      a {
+        display: flex;
+      }
+      img {
+        aspect-ratio: 1;
+        height: auto;
+      }
+    }
+    .p-name {
+      flex: 0 1 375px;
+      flex-direction: column;
+    }
+    .p-availability {
+      flex: 1 1 100px;
+    }
+    .p-quantity {
+      flex: 0 0 100px;
+    }
+    .p-price {
+      flex: 1 1 120px;
+      font-weight: 400;
+      strong {
+        font-weight: 400;
+      }
+    }
+    .p-total {
+      flex: 0 0 150px;
+      justify-content: flex-end;
+      gap: 32px;
+      form {
+      }
+      .inline {
+        display: inline-flex;
+        align-items: center;
+      }
+    }
+    .availability-amount {
+      display: none;
+    }
+  }
+  .related {
+    display: none;
+    td {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    &.visible {
+      display: flex;
+    }
+  }
+  .cart-related-product {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding: 16px 24px 16px 24px;
+    margin-left: 82px;
+    background-color: $color-primary-050;
+    margin-bottom: 4px;
+    position: relative;
+    gap: 16px;
+    &::before {
+      content: "";
+      @include icon-mask(
+        "/assets/images/icons/arrow-answare.svg",
+        $color-font,
+        20px,
+        20px
+      );
+      position: absolute;
+      top: 8px;
+      left: -32px;
+    }
+    &:first-child {
+      margin-top: 4px;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .cart-related-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 32px;
+    flex: 1 1 550px;
+    .cart-related-availability {
+      margin-left: auto;
+    }
+  }
+  .cart-related-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      aspect-ratio: 1;
+      max-width: 60px;
+      height: auto;
+    }
+  }
+  .cart-related-button {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex: 0 1 170px;
+  }
+}
+
+.cart-bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin-top: 24px;
+
+  .summary-wrapper {
+    flex: 0 1 390px;
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+  .price-row {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .price-label {
+    display: none;
+    &.price-primary {
+      display: inline-block;
+    }
+  }
+  .price {
+    color: $color-font-second;
+    font-weight: 400;
+    margin-left: auto;
+    &.price-primary {
+      font-size: rem(24);
+      line-height: em(30, 24);
+      color: $color-font;
+      font-weight: 700;
+    }
+  }
+
+  .next-step {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 16px;
+  }
+  .delivery {
+  }
+  .cart-summary{
+    h4{
+        display: none;
+    }
+  }
+}
+.discount-coupon {
+  margin-bottom: 24px;
+  .coupon-toggle-wrapper {
+    margin-bottom: 8px;
+  }
+  form {
+    gap: 8px;
+    display: none;
+    &.active {
+      display: flex;
+    }
+  }
+}

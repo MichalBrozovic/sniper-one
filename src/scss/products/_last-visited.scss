@@ -1,31 +1,48 @@
-.last-visited{
-    padding: 48px 0 32px 0;
-    h2{
-        text-align: center;
-        margin-bottom: 32px;
-    }
+.last-visited {
+  padding: 48px 0 32px 0;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 32px;
+  }
 }
 
 .swiper-helper {
   position: relative;
+
   .swiper-button-prev,
   .swiper-button-next {
     right: -56px;
     border: 1px solid $color-secondary;
-    &::after{
-        background-color: $color-secondary;
+
+    &::after {
+      background-color: $color-secondary;
     }
+
     @include hover {
-        background-color: $color-secondary;
-        &::after{
-            background-color: $color-font-invert;
-        }
+      background-color: $color-secondary;
+
+      &::after {
+        background-color: $color-font-invert;
+      }
     }
   }
+
   .swiper-button-prev {
     left: -56px;
   }
+
   .swiper-button-next {
     right: -56px;
+  }
+
+  @media (max-width:1600px) {
+    .swiper-button-prev {
+      left: -1rem;
+    }
+
+    .swiper-button-next {
+      right: -1rem;
+    }
   }
 }

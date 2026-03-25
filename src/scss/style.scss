@@ -19,10 +19,6 @@
 @import 'basics/colorbox';
 
 
-@import 'order/advanced-order';
-@import 'order/cart';
-@import 'order/thank-you';
-
 @import 'products/product-item';
 @import 'products/product-components';
 @import 'products/product-list';
@@ -48,6 +44,24 @@
 @import 'homepage/custom-sections';
 @import 'homepage/blog-posts';
 @import 'homepage/welcome-text';
+
+
+@import 'order/advanced-order';
+
+@import 'order/order-cart';
+@import 'order/order-delivery';
+@import 'order/order-shippment';
+@import 'order/order-summary';
+@import 'order/order-components';
+@import 'order/order-checkout';
+
+@import 'order/thank-you';
+
+
+@import 'blog/blog-list';
+@import 'blog/blog-detail';
+@import 'contacts/page-contacts';
+
 // HIDES
 .latest-contribution-box {
     display: none;

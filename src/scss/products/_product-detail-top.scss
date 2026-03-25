@@ -120,6 +120,14 @@
       margin-left: 4px;
       font-weight: 600;
     }
+    &:has(
+      .delivery-time .parameter-dependent.default-variant:not(.no-display)
+    ) {
+      .delivery-time-label,
+      .delivery-time {
+        display: none;
+      }
+    }
   }
   .p-short-description {
     order: -4;
@@ -146,6 +154,9 @@
     color: $color-font-second;
     font-weight: 400;
     margin-left: auto;
+    &:has(.default-variant:not(.no-display)){
+      display: none;
+    }
   }
   .stars-wrapper {
     display: flex;
@@ -203,12 +214,18 @@
     font-weight: 600;
     font-size: rem(14);
     line-height: em(20, 14);
+    &:has(.parameter-dependent.empty:not(.no-display)) {
+      display: none;
+    }
   }
   .price-standard {
     font-weight: 400;
     color: $color-font-second;
     font-size: rem(18);
     line-height: em(25, 18);
+    &:has(.parameter-dependent.empty:not(.no-display)) {
+      display: none;
+    }
   }
   .price-additional {
     // Cena bez DPH
@@ -234,8 +251,8 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     gap: 4px 8px;
-    max-width: 230px;
-    &:has(.price-save) {
+    max-width: 260px;
+    &:has(.price-save .parameter-dependent:not(.empty):not(.no-display)) {
       .price-final {
         color: $color-danger;
       }
