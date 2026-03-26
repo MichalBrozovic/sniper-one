@@ -2,720 +2,504 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./assets/fonts/jost/Jost-Black.woff"
-/*!*******************************************!*\
-  !*** ./assets/fonts/jost/Jost-Black.woff ***!
-  \*******************************************/
+/***/ 1295
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-Black.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-Black.woff2"
-/*!********************************************!*\
-  !*** ./assets/fonts/jost/Jost-Black.woff2 ***!
-  \********************************************/
+/***/ 8031
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-Black.woff2";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-BlackItalic.woff"
-/*!*************************************************!*\
-  !*** ./assets/fonts/jost/Jost-BlackItalic.woff ***!
-  \*************************************************/
+/***/ 6955
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-BlackItalic.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-BlackItalic.woff2"
-/*!**************************************************!*\
-  !*** ./assets/fonts/jost/Jost-BlackItalic.woff2 ***!
-  \**************************************************/
+/***/ 2003
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-BlackItalic.woff2";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-Bold.woff"
-/*!******************************************!*\
-  !*** ./assets/fonts/jost/Jost-Bold.woff ***!
-  \******************************************/
+/***/ 9439
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-Bold.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-Bold.woff2"
-/*!*******************************************!*\
-  !*** ./assets/fonts/jost/Jost-Bold.woff2 ***!
-  \*******************************************/
+/***/ 6767
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-Bold.woff2";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-BoldItalic.woff"
-/*!************************************************!*\
-  !*** ./assets/fonts/jost/Jost-BoldItalic.woff ***!
-  \************************************************/
+/***/ 7083
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-BoldItalic.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-BoldItalic.woff2"
-/*!*************************************************!*\
-  !*** ./assets/fonts/jost/Jost-BoldItalic.woff2 ***!
-  \*************************************************/
+/***/ 2771
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-BoldItalic.woff2";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-ExtraBold.woff"
-/*!***********************************************!*\
-  !*** ./assets/fonts/jost/Jost-ExtraBold.woff ***!
-  \***********************************************/
+/***/ 9745
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-ExtraBold.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-ExtraBold.woff2"
-/*!************************************************!*\
-  !*** ./assets/fonts/jost/Jost-ExtraBold.woff2 ***!
-  \************************************************/
+/***/ 5137
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-ExtraBold.woff2";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-ExtraBoldItalic.woff"
-/*!*****************************************************!*\
-  !*** ./assets/fonts/jost/Jost-ExtraBoldItalic.woff ***!
-  \*****************************************************/
+/***/ 5513
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-ExtraBoldItalic.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-ExtraBoldItalic.woff2"
-/*!******************************************************!*\
-  !*** ./assets/fonts/jost/Jost-ExtraBoldItalic.woff2 ***!
-  \******************************************************/
+/***/ 4713
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-ExtraBoldItalic.woff2";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-ExtraLight.woff"
-/*!************************************************!*\
-  !*** ./assets/fonts/jost/Jost-ExtraLight.woff ***!
-  \************************************************/
+/***/ 1778
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-ExtraLight.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-ExtraLight.woff2"
-/*!*************************************************!*\
-  !*** ./assets/fonts/jost/Jost-ExtraLight.woff2 ***!
-  \*************************************************/
+/***/ 7924
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-ExtraLight.woff2";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-ExtraLightItalic.woff"
-/*!******************************************************!*\
-  !*** ./assets/fonts/jost/Jost-ExtraLightItalic.woff ***!
-  \******************************************************/
+/***/ 9342
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-ExtraLightItalic.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-ExtraLightItalic.woff2"
-/*!*******************************************************!*\
-  !*** ./assets/fonts/jost/Jost-ExtraLightItalic.woff2 ***!
-  \*******************************************************/
+/***/ 5464
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-ExtraLightItalic.woff2";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-Italic.woff"
-/*!********************************************!*\
-  !*** ./assets/fonts/jost/Jost-Italic.woff ***!
-  \********************************************/
+/***/ 2380
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-Italic.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-Italic.woff2"
-/*!*********************************************!*\
-  !*** ./assets/fonts/jost/Jost-Italic.woff2 ***!
-  \*********************************************/
+/***/ 5414
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-Italic.woff2";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-Light.woff"
-/*!*******************************************!*\
-  !*** ./assets/fonts/jost/Jost-Light.woff ***!
-  \*******************************************/
+/***/ 2808
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-Light.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-Light.woff2"
-/*!********************************************!*\
-  !*** ./assets/fonts/jost/Jost-Light.woff2 ***!
-  \********************************************/
+/***/ 7898
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-Light.woff2";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-LightItalic.woff"
-/*!*************************************************!*\
-  !*** ./assets/fonts/jost/Jost-LightItalic.woff ***!
-  \*************************************************/
+/***/ 8392
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-LightItalic.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-LightItalic.woff2"
-/*!**************************************************!*\
-  !*** ./assets/fonts/jost/Jost-LightItalic.woff2 ***!
-  \**************************************************/
+/***/ 9450
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-LightItalic.woff2";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-Medium.woff"
-/*!********************************************!*\
-  !*** ./assets/fonts/jost/Jost-Medium.woff ***!
-  \********************************************/
+/***/ 2851
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-Medium.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-Medium.woff2"
-/*!*********************************************!*\
-  !*** ./assets/fonts/jost/Jost-Medium.woff2 ***!
-  \*********************************************/
+/***/ 4907
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-Medium.woff2";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-MediumItalic.woff"
-/*!**************************************************!*\
-  !*** ./assets/fonts/jost/Jost-MediumItalic.woff ***!
-  \**************************************************/
+/***/ 4831
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-MediumItalic.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-MediumItalic.woff2"
-/*!***************************************************!*\
-  !*** ./assets/fonts/jost/Jost-MediumItalic.woff2 ***!
-  \***************************************************/
+/***/ 1455
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-MediumItalic.woff2";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-Regular.woff"
-/*!*********************************************!*\
-  !*** ./assets/fonts/jost/Jost-Regular.woff ***!
-  \*********************************************/
+/***/ 7328
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-Regular.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-Regular.woff2"
-/*!**********************************************!*\
-  !*** ./assets/fonts/jost/Jost-Regular.woff2 ***!
-  \**********************************************/
+/***/ 3506
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-Regular.woff2";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-SemiBold.woff"
-/*!**********************************************!*\
-  !*** ./assets/fonts/jost/Jost-SemiBold.woff ***!
-  \**********************************************/
+/***/ 2129
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-SemiBold.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-SemiBold.woff2"
-/*!***********************************************!*\
-  !*** ./assets/fonts/jost/Jost-SemiBold.woff2 ***!
-  \***********************************************/
+/***/ 1969
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-SemiBold.woff2";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-SemiBoldItalic.woff"
-/*!****************************************************!*\
-  !*** ./assets/fonts/jost/Jost-SemiBoldItalic.woff ***!
-  \****************************************************/
+/***/ 8057
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-SemiBoldItalic.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-SemiBoldItalic.woff2"
-/*!*****************************************************!*\
-  !*** ./assets/fonts/jost/Jost-SemiBoldItalic.woff2 ***!
-  \*****************************************************/
+/***/ 6713
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-SemiBoldItalic.woff2";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-Thin.woff"
-/*!******************************************!*\
-  !*** ./assets/fonts/jost/Jost-Thin.woff ***!
-  \******************************************/
+/***/ 927
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-Thin.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-Thin.woff2"
-/*!*******************************************!*\
-  !*** ./assets/fonts/jost/Jost-Thin.woff2 ***!
-  \*******************************************/
+/***/ 911
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-Thin.woff2";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-ThinItalic.woff"
-/*!************************************************!*\
-  !*** ./assets/fonts/jost/Jost-ThinItalic.woff ***!
-  \************************************************/
+/***/ 9355
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-ThinItalic.woff";
 
 /***/ },
 
-/***/ "./assets/fonts/jost/Jost-ThinItalic.woff2"
-/*!*************************************************!*\
-  !*** ./assets/fonts/jost/Jost-ThinItalic.woff2 ***!
-  \*************************************************/
+/***/ 4915
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/Jost-ThinItalic.woff2";
 
 /***/ },
 
-/***/ "./assets/images/icons/account-primary.svg"
-/*!*************************************************!*\
-  !*** ./assets/images/icons/account-primary.svg ***!
-  \*************************************************/
+/***/ 2715
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/account-primary.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/arrow-answare.svg"
-/*!***********************************************!*\
-  !*** ./assets/images/icons/arrow-answare.svg ***!
-  \***********************************************/
+/***/ 1924
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/arrow-answare.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/arrow-down-primary.svg"
-/*!****************************************************!*\
-  !*** ./assets/images/icons/arrow-down-primary.svg ***!
-  \****************************************************/
+/***/ 8416
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/arrow-down-primary.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/arrow-left.svg"
-/*!********************************************!*\
-  !*** ./assets/images/icons/arrow-left.svg ***!
-  \********************************************/
+/***/ 1118
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/arrow-left.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/arrow-right-swiper-primary.svg"
-/*!************************************************************!*\
-  !*** ./assets/images/icons/arrow-right-swiper-primary.svg ***!
-  \************************************************************/
+/***/ 7659
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/arrow-right-swiper-primary.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/arrow-right.svg"
-/*!*********************************************!*\
-  !*** ./assets/images/icons/arrow-right.svg ***!
-  \*********************************************/
+/***/ 6269
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/arrow-right.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/calendar-off.svg"
-/*!**********************************************!*\
-  !*** ./assets/images/icons/calendar-off.svg ***!
-  \**********************************************/
+/***/ 2743
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/calendar-off.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/cart-primary.svg"
-/*!**********************************************!*\
-  !*** ./assets/images/icons/cart-primary.svg ***!
-  \**********************************************/
+/***/ 5422
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/cart-primary.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/category-icon.svg"
-/*!***********************************************!*\
-  !*** ./assets/images/icons/category-icon.svg ***!
-  \***********************************************/
+/***/ 4973
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/category-icon.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/check.svg"
-/*!***************************************!*\
-  !*** ./assets/images/icons/check.svg ***!
-  \***************************************/
+/***/ 9091
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/check.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/dotaz-primary.svg"
-/*!***********************************************!*\
-  !*** ./assets/images/icons/dotaz-primary.svg ***!
-  \***********************************************/
+/***/ 422
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/dotaz-primary.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/facebook.svg"
-/*!******************************************!*\
-  !*** ./assets/images/icons/facebook.svg ***!
-  \******************************************/
+/***/ 1310
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/facebook.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/filters.svg"
-/*!*****************************************!*\
-  !*** ./assets/images/icons/filters.svg ***!
-  \*****************************************/
+/***/ 8386
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/filters.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/hamburger.svg"
-/*!*******************************************!*\
-  !*** ./assets/images/icons/hamburger.svg ***!
-  \*******************************************/
+/***/ 9210
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/hamburger.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/home-primary.svg"
-/*!**********************************************!*\
-  !*** ./assets/images/icons/home-primary.svg ***!
-  \**********************************************/
+/***/ 5089
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/home-primary.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/instagram-white.svg"
-/*!*************************************************!*\
-  !*** ./assets/images/icons/instagram-white.svg ***!
-  \*************************************************/
+/***/ 7107
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/instagram-white.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/instagram.svg"
-/*!*******************************************!*\
-  !*** ./assets/images/icons/instagram.svg ***!
-  \*******************************************/
+/***/ 5459
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/instagram.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/mail-primary.svg"
-/*!**********************************************!*\
-  !*** ./assets/images/icons/mail-primary.svg ***!
-  \**********************************************/
+/***/ 6725
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/mail-primary.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/mail-white.svg"
-/*!********************************************!*\
-  !*** ./assets/images/icons/mail-white.svg ***!
-  \********************************************/
+/***/ 1840
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/mail-white.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/minus.svg"
-/*!***************************************!*\
-  !*** ./assets/images/icons/minus.svg ***!
-  \***************************************/
+/***/ 7495
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/minus.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/payment-select.svg"
-/*!************************************************!*\
-  !*** ./assets/images/icons/payment-select.svg ***!
-  \************************************************/
+/***/ 4926
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/payment-select.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/phone-primary.svg"
-/*!***********************************************!*\
-  !*** ./assets/images/icons/phone-primary.svg ***!
-  \***********************************************/
+/***/ 8786
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/phone-primary.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/phone-white.svg"
-/*!*********************************************!*\
-  !*** ./assets/images/icons/phone-white.svg ***!
-  \*********************************************/
+/***/ 3087
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/phone-white.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/plus.svg"
-/*!**************************************!*\
-  !*** ./assets/images/icons/plus.svg ***!
-  \**************************************/
+/***/ 7017
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/plus.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/post-icon.svg"
-/*!*******************************************!*\
-  !*** ./assets/images/icons/post-icon.svg ***!
-  \*******************************************/
+/***/ 8423
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/post-icon.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/print-primary.svg"
-/*!***********************************************!*\
-  !*** ./assets/images/icons/print-primary.svg ***!
-  \***********************************************/
+/***/ 8391
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/print-primary.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/search-primary.svg"
-/*!************************************************!*\
-  !*** ./assets/images/icons/search-primary.svg ***!
-  \************************************************/
+/***/ 2624
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/search-primary.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/share-primary.svg"
-/*!***********************************************!*\
-  !*** ./assets/images/icons/share-primary.svg ***!
-  \***********************************************/
+/***/ 9543
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/share-primary.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/shipping-black.svg"
-/*!************************************************!*\
-  !*** ./assets/images/icons/shipping-black.svg ***!
-  \************************************************/
+/***/ 6757
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/shipping-black.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/shipping-select.svg"
-/*!*************************************************!*\
-  !*** ./assets/images/icons/shipping-select.svg ***!
-  \*************************************************/
+/***/ 4460
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/shipping-select.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/star-half.svg"
-/*!*******************************************!*\
-  !*** ./assets/images/icons/star-half.svg ***!
-  \*******************************************/
+/***/ 1197
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/star-half.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/star-off.svg"
-/*!******************************************!*\
-  !*** ./assets/images/icons/star-off.svg ***!
-  \******************************************/
+/***/ 3789
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/star-off.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/star-on.svg"
-/*!*****************************************!*\
-  !*** ./assets/images/icons/star-on.svg ***!
-  \*****************************************/
+/***/ 3577
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/star-on.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/ul-check.svg"
-/*!******************************************!*\
-  !*** ./assets/images/icons/ul-check.svg ***!
-  \******************************************/
+/***/ 6681
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/ul-check.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/watch-primary.svg"
-/*!***********************************************!*\
-  !*** ./assets/images/icons/watch-primary.svg ***!
-  \***********************************************/
+/***/ 1559
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/watch-primary.svg";
 
 /***/ },
 
-/***/ "./assets/images/icons/youtube.svg"
-/*!*****************************************!*\
-  !*** ./assets/images/icons/youtube.svg ***!
-  \*****************************************/
+/***/ 5044
 (module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/youtube.svg";
@@ -733,12 +517,6 @@ module.exports = __webpack_require__.p + "assets/youtube.svg";
 /******/ 		var cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Check if module exists (development only)
-/******/ 		if (__webpack_modules__[moduleId] === undefined) {
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
@@ -795,79 +573,78 @@ module.exports = __webpack_require__.p + "assets/youtube.svg";
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	__webpack_require__("./assets/images/icons/youtube.svg");
-/******/ 	__webpack_require__("./assets/images/icons/watch-primary.svg");
-/******/ 	__webpack_require__("./assets/images/icons/ul-check.svg");
-/******/ 	__webpack_require__("./assets/images/icons/star-on.svg");
-/******/ 	__webpack_require__("./assets/images/icons/star-off.svg");
-/******/ 	__webpack_require__("./assets/images/icons/star-half.svg");
-/******/ 	__webpack_require__("./assets/images/icons/shipping-select.svg");
-/******/ 	__webpack_require__("./assets/images/icons/shipping-black.svg");
-/******/ 	__webpack_require__("./assets/images/icons/share-primary.svg");
-/******/ 	__webpack_require__("./assets/images/icons/search-primary.svg");
-/******/ 	__webpack_require__("./assets/images/icons/print-primary.svg");
-/******/ 	__webpack_require__("./assets/images/icons/post-icon.svg");
-/******/ 	__webpack_require__("./assets/images/icons/plus.svg");
-/******/ 	__webpack_require__("./assets/images/icons/phone-white.svg");
-/******/ 	__webpack_require__("./assets/images/icons/phone-primary.svg");
-/******/ 	__webpack_require__("./assets/images/icons/payment-select.svg");
-/******/ 	__webpack_require__("./assets/images/icons/minus.svg");
-/******/ 	__webpack_require__("./assets/images/icons/mail-white.svg");
-/******/ 	__webpack_require__("./assets/images/icons/mail-primary.svg");
-/******/ 	__webpack_require__("./assets/images/icons/instagram.svg");
-/******/ 	__webpack_require__("./assets/images/icons/instagram-white.svg");
-/******/ 	__webpack_require__("./assets/images/icons/home-primary.svg");
-/******/ 	__webpack_require__("./assets/images/icons/hamburger.svg");
-/******/ 	__webpack_require__("./assets/images/icons/filters.svg");
-/******/ 	__webpack_require__("./assets/images/icons/facebook.svg");
-/******/ 	__webpack_require__("./assets/images/icons/dotaz-primary.svg");
-/******/ 	__webpack_require__("./assets/images/icons/check.svg");
-/******/ 	__webpack_require__("./assets/images/icons/category-icon.svg");
-/******/ 	__webpack_require__("./assets/images/icons/cart-primary.svg");
-/******/ 	__webpack_require__("./assets/images/icons/calendar-off.svg");
-/******/ 	__webpack_require__("./assets/images/icons/arrow-right.svg");
-/******/ 	__webpack_require__("./assets/images/icons/arrow-right-swiper-primary.svg");
-/******/ 	__webpack_require__("./assets/images/icons/arrow-left.svg");
-/******/ 	__webpack_require__("./assets/images/icons/arrow-down-primary.svg");
-/******/ 	__webpack_require__("./assets/images/icons/arrow-answare.svg");
-/******/ 	__webpack_require__("./assets/images/icons/account-primary.svg");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-ThinItalic.woff2");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-ThinItalic.woff");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-Thin.woff2");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-Thin.woff");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-SemiBoldItalic.woff2");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-SemiBoldItalic.woff");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-SemiBold.woff2");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-SemiBold.woff");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-Regular.woff2");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-Regular.woff");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-MediumItalic.woff2");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-MediumItalic.woff");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-Medium.woff2");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-Medium.woff");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-LightItalic.woff2");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-LightItalic.woff");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-Light.woff2");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-Light.woff");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-Italic.woff2");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-Italic.woff");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-ExtraLightItalic.woff2");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-ExtraLightItalic.woff");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-ExtraLight.woff2");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-ExtraLight.woff");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-ExtraBoldItalic.woff2");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-ExtraBoldItalic.woff");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-ExtraBold.woff2");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-ExtraBold.woff");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-BoldItalic.woff2");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-BoldItalic.woff");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-Bold.woff2");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-Bold.woff");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-BlackItalic.woff2");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-BlackItalic.woff");
-/******/ 	__webpack_require__("./assets/fonts/jost/Jost-Black.woff2");
-/******/ 	var __webpack_exports__ = __webpack_require__("./assets/fonts/jost/Jost-Black.woff");
+/******/ 	__webpack_require__(5044);
+/******/ 	__webpack_require__(1559);
+/******/ 	__webpack_require__(6681);
+/******/ 	__webpack_require__(3577);
+/******/ 	__webpack_require__(3789);
+/******/ 	__webpack_require__(1197);
+/******/ 	__webpack_require__(4460);
+/******/ 	__webpack_require__(6757);
+/******/ 	__webpack_require__(9543);
+/******/ 	__webpack_require__(2624);
+/******/ 	__webpack_require__(8391);
+/******/ 	__webpack_require__(8423);
+/******/ 	__webpack_require__(7017);
+/******/ 	__webpack_require__(3087);
+/******/ 	__webpack_require__(8786);
+/******/ 	__webpack_require__(4926);
+/******/ 	__webpack_require__(7495);
+/******/ 	__webpack_require__(1840);
+/******/ 	__webpack_require__(6725);
+/******/ 	__webpack_require__(5459);
+/******/ 	__webpack_require__(7107);
+/******/ 	__webpack_require__(5089);
+/******/ 	__webpack_require__(9210);
+/******/ 	__webpack_require__(8386);
+/******/ 	__webpack_require__(1310);
+/******/ 	__webpack_require__(422);
+/******/ 	__webpack_require__(9091);
+/******/ 	__webpack_require__(4973);
+/******/ 	__webpack_require__(5422);
+/******/ 	__webpack_require__(2743);
+/******/ 	__webpack_require__(6269);
+/******/ 	__webpack_require__(7659);
+/******/ 	__webpack_require__(1118);
+/******/ 	__webpack_require__(8416);
+/******/ 	__webpack_require__(1924);
+/******/ 	__webpack_require__(2715);
+/******/ 	__webpack_require__(4915);
+/******/ 	__webpack_require__(9355);
+/******/ 	__webpack_require__(911);
+/******/ 	__webpack_require__(927);
+/******/ 	__webpack_require__(6713);
+/******/ 	__webpack_require__(8057);
+/******/ 	__webpack_require__(1969);
+/******/ 	__webpack_require__(2129);
+/******/ 	__webpack_require__(3506);
+/******/ 	__webpack_require__(7328);
+/******/ 	__webpack_require__(1455);
+/******/ 	__webpack_require__(4831);
+/******/ 	__webpack_require__(4907);
+/******/ 	__webpack_require__(2851);
+/******/ 	__webpack_require__(9450);
+/******/ 	__webpack_require__(8392);
+/******/ 	__webpack_require__(7898);
+/******/ 	__webpack_require__(2808);
+/******/ 	__webpack_require__(5414);
+/******/ 	__webpack_require__(2380);
+/******/ 	__webpack_require__(5464);
+/******/ 	__webpack_require__(9342);
+/******/ 	__webpack_require__(7924);
+/******/ 	__webpack_require__(1778);
+/******/ 	__webpack_require__(4713);
+/******/ 	__webpack_require__(5513);
+/******/ 	__webpack_require__(5137);
+/******/ 	__webpack_require__(9745);
+/******/ 	__webpack_require__(2771);
+/******/ 	__webpack_require__(7083);
+/******/ 	__webpack_require__(6767);
+/******/ 	__webpack_require__(9439);
+/******/ 	__webpack_require__(2003);
+/******/ 	__webpack_require__(6955);
+/******/ 	__webpack_require__(8031);
+/******/ 	var __webpack_exports__ = __webpack_require__(1295);
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=assets.js.map
