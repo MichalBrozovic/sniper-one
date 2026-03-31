@@ -532,14 +532,6 @@ body.mobile {
   }
 }
 
-.cart-empty {
-  text-align: center;
-}
-
-
-
-
-
 // PAGE
 .has-page-header {
   .breadcrumbs-wrapper {
@@ -1078,6 +1070,18 @@ padding: 40px 0;
     width: 100%;
     max-width: 100%;
     aspect-ratio: 16/9;
+  }
+}
+body.type-post,
+body.type-posts-listing,
+body.type-product,
+body.type-category,
+body.id-1{
+  aside{
+    display: none !important;
+  }
+  .latest-contribution-wrapper{
+    display: none !important
   }
 }
 

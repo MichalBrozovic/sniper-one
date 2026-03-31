@@ -130,6 +130,88 @@ syncShoptetBodyColor();
 document.addEventListener("DOMContentLoaded", setHeaderTopHeight);
 window.addEventListener("resize", setHeaderTopHeight);
 
+// Upravený výpočet dostupné šířky pro splitMenu.
+// Pro vyhledávání (.search) počítáme s fixní rezervou 250px místo aktuální šířky.
+const splitMenu = () => {
+  const menuWrapper = document.querySelector("#navigation .navigation-in");
+  const menuHelper = document.querySelector(".menu-helper");
+  const headerTop = document.querySelector(".header-top");
+
+  if (!menuWrapper || !menuHelper || !headerTop) return;
+
+  window.requestAnimationFrame(() => {
+    const menuItems = menuWrapper.querySelectorAll(
+      ".menu-level-1 > li:not(.appended-category)",
+    );
+
+    const headerStyle = window.getComputedStyle(headerTop);
+    const gap = parseFloat(headerStyle.gap) || 0;
+
+    const siteName = headerTop.querySelector(".site-name-wrapper");
+    const navButtons = headerTop.querySelector(".navigation-buttons");
+
+    // 1. SPOČÍTÁME ZABRANÉ MÍSTO
+    // U search počítáme fixně 250px, u ostatních reálnou šířku
+    const siteNameWidth = siteName?.offsetWidth || 0;
+    const navButtonsWidth = navButtons?.offsetWidth || 0;
+    const helperWidth = menuHelper.offsetWidth || 80;
+    const searchFixedWidth = 150; // Tvoje fixní rezerva pro vyhledávání
+
+    const occupiedWidth =
+      siteNameWidth + navButtonsWidth + helperWidth + searchFixedWidth;
+
+    // 2. MEZERY (GAPY)
+    // Počítáme 4 mezery (mezi logem, hledáním, navigací, helperem a tlačítky)
+    const totalGapsWidth = 4 * gap;
+
+    // 3. REÁLNÁ DOSTUPNÁ ŠÍŘE
+    const containerWidth =
+      headerTop.clientWidth -
+      parseFloat(headerStyle.paddingLeft) -
+      parseFloat(headerStyle.paddingRight);
+    const availableWidth =
+      containerWidth - occupiedWidth - totalGapsWidth + 100;
+
+    menuItems.forEach((item) => {
+      const offsetRight = item.offsetLeft + item.offsetWidth;
+
+      if (offsetRight > availableWidth) {
+        item.classList.add("splitted");
+        const itemInHelper =
+          item.id === "nav-manufacturers"
+            ? menuHelper.querySelector("#nav-manufacturers")
+            : menuHelper.querySelector(`.${item.classList[0]}`);
+
+        if (itemInHelper) itemInHelper.classList.remove("splitted");
+      } else {
+        item.classList.remove("splitted");
+        const itemInHelper =
+          item.id === "nav-manufacturers"
+            ? menuHelper.querySelector("#nav-manufacturers")
+            : menuHelper.querySelector(`.${item.classList[0]}`);
+
+        if (itemInHelper) itemInHelper.classList.add("splitted");
+      }
+    });
+
+    const itemsToDisplayInHelper = menuHelper.querySelector(
+      ".menu-level-1 > li:not(.splitted):not(.appended-category)",
+    );
+    if (itemsToDisplayInHelper) {
+      menuHelper.classList.remove("empty");
+      menuWrapper.classList.remove("fitted");
+    } else {
+      menuHelper.classList.add("empty");
+      menuWrapper.classList.add("fitted");
+    }
+  });
+};
+
+// Přepsání Shoptet funkce
+if (window.shoptet?.menu) {
+  shoptet.menu.splitMenu = splitMenu;
+}
+
 const currentPath = window.location.pathname;
 const links = document.querySelectorAll(".menu-level-1 li a");
 links.forEach((link) => {
@@ -271,18 +353,33 @@ const removeMenuCommas = () => {
   });
 };
 
+// Funkce přesune navigaci za logo a menu-helper za navigaci (1024px+).
+// Zároveň nastaví anglické accessibility atributy pro ovládání klávesnicí.
 const moveNavigation = () => {
   const nav = document.getElementById("navigation");
+  const menuHelper = document.querySelector(".menu-helper");
   const siteNameWrapper = document.querySelector(
     ".header-top .site-name-wrapper",
   );
   const headerTop = document.querySelector(".header-top");
 
   if (nav && siteNameWrapper && headerTop) {
-    // Kontrola, zda už navigace není na správném místě (hned za site-name-wrapper)
     if (siteNameWrapper.nextElementSibling !== nav) {
-      // Metoda after() vloží element přesně za vybraný prvek
       siteNameWrapper.after(nav);
+    }
+
+    if (menuHelper) {
+      // Nastavení přístupnosti v angličtině
+      menuHelper.setAttribute("tabindex", "0");
+      menuHelper.setAttribute("role", "button");
+      menuHelper.setAttribute("aria-haspopup", "true");
+      menuHelper.setAttribute("aria-expanded", "false");
+      menuHelper.setAttribute("aria-label", "Show more categories");
+
+      // Přesun za navigaci jen na desktopu (1024px a víc)
+      if (window.innerWidth >= 1024 && nav.nextElementSibling !== menuHelper) {
+        nav.after(menuHelper);
+      }
     }
   }
 };
@@ -491,12 +588,19 @@ const handleHeader = async () => {
   userCartHandle();
   moveResponsiveTools();
   relocateNavigationForMobile();
+  setTimeout(() => {
+    const headerTop = document.querySelector(".header-top");
+    if (headerTop) {
+      headerTop.classList.add("is-processed");
+    }
+  }, 1);
 };
 handleHeader();
 document.addEventListener("ShoptetDOMPageContentLoaded", handleHeader);
 document.addEventListener("ShoptetDOMContentLoaded", handleHeader);
 window.addEventListener("resize", relocateNavigationForMobile);
 
+// Funkce transformuje Shoptet karusel na Swiper a dynamicky nastavuje breakpointy podle počtu slidů.
 const initHomepageSwiper = () => {
   const $carousel = document.querySelector("#carousel");
   const $inner = document.querySelector(".carousel-inner");
@@ -504,7 +608,8 @@ const initHomepageSwiper = () => {
   if (!$carousel || !$inner) return;
 
   const $items = $carousel.querySelectorAll(".item");
-  if ($items.length === 0) return;
+  const itemCount = $items.length;
+  if (itemCount === 0) return;
 
   // 1. ZABIJEME SHOPTET LOGIKU
   $carousel.removeAttribute("data-ride");
@@ -525,7 +630,6 @@ const initHomepageSwiper = () => {
   // 3. VYČISTÍME A VLOŽÍME NOVOU NAVIGACI
   $carousel.querySelectorAll(".carousel-control").forEach((el) => el.remove());
 
-  // Vložíme šipky DOVNITŘ swiperu
   if (!$carousel.querySelector(".swiper-button-prev")) {
     $carousel.insertAdjacentHTML(
       "beforeend",
@@ -536,7 +640,6 @@ const initHomepageSwiper = () => {
     );
   }
 
-  // Vložíme paginaci ZA swiper (jako sourozenec)
   let $pagination = $carousel.nextElementSibling;
   if (!$pagination || !$pagination.classList.contains("swiper-pagination")) {
     $carousel.insertAdjacentHTML(
@@ -546,14 +649,33 @@ const initHomepageSwiper = () => {
     $pagination = $carousel.nextElementSibling;
   }
 
-  // 4. INICIALIZACE SWIPERU
+  // 4. DYNAMICKÁ KONFIGURACE BREAKPOINTŮ
+  const customBreakpoints = {};
+
+  // Pokud jsou alespoň 2 položky, přidáme breakpoint pro tablety
+  if (itemCount >= 2) {
+    customBreakpoints[600] = { slidesPerView: 2, spaceBetween: 14 };
+  }
+
+  // Pokud jsou alespoň 3 položky, přidáme breakpoint pro menší desktopy
+  if (itemCount >= 3) {
+    customBreakpoints[992] = { slidesPerView: 3, spaceBetween: 16 };
+  }
+
+  // Pokud jsou 4 a více položek, aktivujeme plný grid
+  if (itemCount >= 4) {
+    customBreakpoints[1360] = { slidesPerView: 4, spaceBetween: 16 };
+  }
+
+  // 5. INICIALIZACE SWIPERU
   new window.Swiper("#carousel", {
-    grabCursor: true,
+    grabCursor: itemCount > 1, // Cursor jen pokud je co posouvat
     watchSlidesProgress: true,
     speed: 600,
     breakpointsBase: "container",
-    slidesPerView: 1.1,
+    slidesPerView: itemCount > 1 ? 1.1 : 1, // Na mobilu 1.1 jen pokud je víc slidů
     spaceBetween: 12,
+    enabled: itemCount > 1, // Vypne Swiper úplně, pokud je jen 1 slide
 
     navigation: {
       nextEl: ".swiper-button-next",
@@ -561,10 +683,9 @@ const initHomepageSwiper = () => {
     },
 
     pagination: {
-      el: $pagination, // Použijeme referenci na element za swiperem
+      el: $pagination,
       clickable: true,
       renderBullet: function (index, className) {
-        // Vygeneruje button místo divu
         return (
           '<button class="' +
           className +
@@ -575,12 +696,16 @@ const initHomepageSwiper = () => {
       },
     },
 
-    breakpoints: {
-      600: { slidesPerView: 2, spaceBetween: 14 },
-      992: { slidesPerView: 3, spaceBetween: 16 },
-      1360: { slidesPerView: 4, spaceBetween: 16 },
-    },
+    breakpoints: customBreakpoints,
   });
+
+  // Pokud je jen jedna položka, schováme šipky a paginaci
+  if (itemCount <= 1) {
+    $carousel
+      .querySelectorAll(".swiper-button-prev, .swiper-button-next")
+      .forEach((el) => (el.style.display = "none"));
+    if ($pagination) $pagination.style.display = "none";
+  }
 };
 
 document.addEventListener("DOMContentLoaded", initHomepageSwiper);

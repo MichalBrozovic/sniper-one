@@ -83,66 +83,7 @@ function smoothScrollTo(target, offset = -150, duration = 700) {
     });
   }
 }
-const splitMenu = () => {
-  const menuWrapper = document.querySelector("#navigation .navigation-in");
-  const menuHelper = document.querySelector(".menu-helper");
 
-  if (!menuWrapper || !menuHelper) return;
-
-  // requestAnimationFrame je pro výpočty layoutu lepší než setTimeout
-  window.requestAnimationFrame(() => {
-    const menuItems = menuWrapper.querySelectorAll(
-      ".menu-level-1 > li:not(.appended-category)",
-    );
-    const menuWrapperStyle = window.getComputedStyle(menuWrapper);
-    const availableWidth =
-      menuWrapper.clientWidth - parseFloat(menuWrapperStyle.paddingRight);
-
-    let hasVisibleInHelper = false;
-
-    menuItems.forEach((item) => {
-      const offsetRight = item.offsetLeft + item.offsetWidth;
-
-      // Najdeme odpovídající položku v helperu (priorita ID, pak třída)
-      const itemInHelper =
-        item.id === "nav-manufacturers"
-          ? menuHelper.querySelector("#nav-manufacturers")
-          : menuHelper.querySelector(`.${item.classList[0]}`);
-
-      if (offsetRight > availableWidth) {
-        // Položka se nevejde -> schovat v hlavním menu, ukázat v helperu
-        item.classList.add("splitted");
-        if (itemInHelper) {
-          itemInHelper.classList.remove("splitted");
-          hasVisibleInHelper = true; // Máme co zobrazit v "Více..."
-        }
-      } else {
-        // Položka se vejde -> ukázat v hlavním menu, schovat v helperu
-        item.classList.remove("splitted");
-        if (itemInHelper) itemInHelper.classList.add("splitted");
-      }
-    });
-
-    // Finální přepnutí stavu "Více..." (menuHelper)
-    // Kontrolujeme, jestli v helperu zbyla aspoň jedna položka, co není .splitted
-    const itemsToDisplayInHelper = menuHelper.querySelector(
-      ".menu-level-1 > li:not(.splitted):not(.appended-category)",
-    );
-
-    if (itemsToDisplayInHelper) {
-      menuHelper.classList.remove("empty");
-      menuWrapper.classList.remove("fitted");
-    } else {
-      menuHelper.classList.add("empty");
-      menuWrapper.classList.add("fitted");
-    }
-  });
-};
-
-// Přepsání Shoptet funkce
-if (window.shoptet?.menu) {
-  shoptet.menu.splitMenu = splitMenu;
-}
 
 // úprava user cart, aby zde byla celková cena + cena za jednotlivé položky
 const cartWidgetRefactoring = () => {
@@ -456,17 +397,33 @@ const parseBenderContent = async (selector, devMode = false) => {
 
       // Definujeme cíle pro přesun. Pokud jsme na mobilu, prioritizujeme .benefitBanner
       const isMobile = document.body.classList.contains("mobile");
-      const targets = isMobile
-        ? [
-            ".benefitBanner",
-            ".content-wrapper:has(.benefitBanner)",
-            ".before-carousel",
-          ]
-        : [
-            ".content-wrapper:has(.benefitBanner)",
-            ".benefitBanner",
-            ".before-carousel",
-          ];
+      const isMultipleColumns = document.body.classList.contains(
+        "multiple-columns-body",
+      );
+
+      let targets;
+
+      if (isMultipleColumns) {
+        // Targety specificky pro více sloupců
+        targets = [
+          ".benefitBanner",
+          ".content-wrapper:has(.benefitBanner)",
+          ".before-carousel",
+        ];
+      } else {
+        // Klasický switch mezi mobilem a desktopem
+        targets = isMobile
+          ? [
+              ".benefitBanner",
+              ".content-wrapper:has(.benefitBanner)",
+              ".before-carousel",
+            ]
+          : [
+              ".content-wrapper:has(.benefitBanner)",
+              ".benefitBanner",
+              ".before-carousel",
+            ];
+      }
 
       // Funkce moveElement se pokusí vložit sekci za první nalezený target ze seznamu
       moveElement(section, targets);
@@ -796,7 +753,6 @@ const initProducts = () => {
 
   products.forEach((product) => {
     product.classList.add("is-processed");
-    if (typeof handleFlags === "function") handleFlags(product);
     if (typeof handleTextLayout === "function") handleTextLayout(product);
   });
 };
@@ -831,6 +787,7 @@ const SHARED_SWIPER_CONFIG = {
  * Restrukturalizuje produktové sekce na úvodní straně: obalí nadpis a produkty do
  * struktury section > .container a nahradí jimi původní elementy na jejich místě.
  */
+
 const reshapeProductSections = () => {
   if (window.shoptetPage !== "homepage") return;
 
@@ -840,17 +797,27 @@ const reshapeProductSections = () => {
     const sectionId = heading.className.match(
       /homepage-products-heading-(\d+)/,
     )?.[1];
+
     const productEl = document.querySelector(`.homepage-products-${sectionId}`);
 
     if (productEl && sectionId) {
+      // 1. Vyčištění tříd: pryč s inline, sem s blockem
+      if (productEl.classList.contains("products-inline")) {
+        productEl.classList.remove("products-inline");
+      }
+      if (!productEl.classList.contains("products-block")) {
+        productEl.classList.add("products-block");
+      }
+
+      // 2. Vytvoření nového layoutu
       const section = document.createElement("section");
       section.className = `product-section product-section-${sectionId} is-processed`;
 
       const container = document.createElement("div");
       container.className = "container";
 
+      // Přesuneme elementy do nového obalu
       heading.replaceWith(section);
-
       container.append(heading, productEl);
       section.append(container);
     }
@@ -945,40 +912,71 @@ const initProductSwapper = async () => {
   sections.forEach((s) => frag.append(s));
   anchor.after(frag);
 };
-// Vyhledá Welcome text, přesune ho dle priorit a upraví strukturu galerie.
+// Funkce restrukturalizuje Welcome text a galerii na homepage do standardního kontejneru.
 const handleWelcomeText = () => {
   if (window.shoptetPage !== "homepage") return;
 
-  const welcomeModule = document
-    .querySelector(".welcome-wrapper")
-    ?.closest(".content-wrapper.homepage-box");
-  if (!welcomeModule) return;
+  const welcomeModule = document.querySelector(".homepage-box.welcome-wrapper");
+  if (!welcomeModule || welcomeModule.classList.contains("is-processed"))
+    return;
 
   const welcomeInner = welcomeModule.querySelector(".welcome");
   const gallery = welcomeModule.querySelector(".plus-gallery-wrap");
-  if (welcomeInner && gallery) {
-    welcomeInner.after(gallery);
+
+  if (welcomeInner) {
+    // 1. PŘESTAVBA STRUKTURY
+    const wrapperIn = document.createElement("div");
+    wrapperIn.className = "content-wrapper-in";
+
+    const container = document.createElement("div");
+    container.className = "container";
+
+    const innerWrapper = document.createElement("div");
+    innerWrapper.className = "welcome-wrapper";
+
+    // Vložíme welcome a galerii jako sourozence
+    innerWrapper.append(welcomeInner);
+    if (gallery) {
+      innerWrapper.append(gallery);
+    }
+
+    container.append(innerWrapper);
+    wrapperIn.append(container);
+
+    welcomeModule.innerHTML = "";
+    welcomeModule.append(wrapperIn);
+
+    welcomeModule.classList.add(
+      "content-wrapper",
+      "processed-welcome-section",
+      "is-processed",
+    );
   }
+
+  // 2. PŘESUN NA POZICI
   const swapperSections = document.querySelectorAll(".swapper-content");
   const isMobile = document.body.classList.contains("mobile");
 
-  const target =
-    (swapperSections.length
-      ? swapperSections[swapperSections.length - 1]
-      : null) ||
-    (isMobile
-      ? document.querySelector(".product-section") ||
-        document.querySelector(".favourite-categories") ||
-        document.querySelector(".banners-row") ||
-        document.querySelector("header")
-      : document.querySelector(".product-section") ||
-        document.querySelector(".favourite-categories") ||
-        document.querySelector(".before-carousel") ||
-        document.querySelector("header"));
+  let target = null;
 
-  if (target) {
+  if (swapperSections.length) {
+    target = swapperSections[swapperSections.length - 1];
+  } else if (isMobile) {
+    target =
+      document.querySelector(".product-section") ||
+      document.querySelector(".favourite-categories") ||
+      document.querySelector(".banners-row") ||
+      document.querySelector("header");
+  } else {
+    target =
+      document.querySelector(".product-section") ||
+      document.querySelector(".favourite-categories") ||
+      document.querySelector(".before-carousel") ||
+      document.querySelector("header");
+  }
+
+  if (target && welcomeModule) {
     target.after(welcomeModule);
-    welcomeModule.classList.add("processed-welcome-section");
   }
 };
 
@@ -2215,7 +2213,6 @@ const handleCartNonCritical = async () => {
 };
 
 handleCartNonCritical();
-
 
 // Funkce pro úpravu děkovací stránky po objednávce.
 // Seskupuje nadpis a číslo objednávky do jednoho společného obalu.

@@ -319,3 +319,67 @@
     }
   }
 }
+.cart-empty {
+  padding: rem(80) 0;
+  text-align: center;
+
+  // Skrytí nevyžádaných sekcí (search a boční panel s kontaktem)
+  .col-md-4,
+  .col-md-6:has(.search) {
+    display: none;
+  }
+
+  // Roztáhneme zbývající sloupec na střed
+  .col-md-6:has(ul) {
+    width: 100%;
+    max-width: rem(600);
+    margin: 0 auto;
+    float: none; // Shoptet float fix
+  }
+
+  .cart-heading {
+    @include apply-typography("h1");
+    margin-bottom: rem(40);
+  }
+
+  h3 {
+    @include apply-typography("h4-mid");
+    margin-bottom: rem(24);
+    color: $color-font-second;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(rem(200), 1fr));
+    gap: rem(12);
+
+    li {
+      a {
+        display: block;
+        padding: rem(16);
+        background: $color-page-bg-secondary;
+        border: 1px solid $border-primary;
+        border-radius: $border-radius-default;
+        color: $color-font;
+        text-decoration: none;
+        font-weight: 500;
+        @include trans(0.2s);
+
+        @include hover {
+          border-color: $color-primary;
+          color: $color-primary;
+          background: $white;
+        }
+      }
+    }
+  }
+}
+
+// Mobile fix
+@media (max-width: 767px) {
+  .cart-empty ul {
+    grid-template-columns: 1fr;
+  }
+}
