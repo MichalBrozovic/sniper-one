@@ -1,5 +1,8 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
+/*!**************************!*\
+  !*** ./src/js/script.js ***!
+  \**************************/
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 var _window$shoptet;
 function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
@@ -2211,6 +2214,28 @@ var _handleCartNonCritical = /*#__PURE__*/function () {
 }();
 _handleCartNonCritical();
 
+// Funkce pro úpravu děkovací stránky po objednávce.
+// Seskupuje nadpis a číslo objednávky do jednoho společného obalu.
+var handleThyPage = function handleThyPage() {
+  if (window.shoptetPage !== "thankYou") return;
+  var heading = document.querySelector(".order-summary-heading");
+  var orderNumber = document.querySelector(".reca-number");
+  if (heading && orderNumber) {
+    var holder = document.createElement("div");
+    holder.className = "thy-order-title-holder";
+
+    // Vložíme holder přesně tam, kde byl původně nadpis
+    heading.before(holder);
+
+    // Přesuneme oba elementy dovnitř holderu
+    holder.append(heading);
+    holder.append(orderNumber);
+  }
+};
+document.addEventListener("DOMContentLoaded", function () {
+  handleThyPage();
+});
+
 // Modul pro zobrazení naposledy prohlížených produktů.
 // Na kategorii se vkládá před benefity, jinak před Instagram/Footer.
 var RecentlyViewed = function () {
@@ -2452,6 +2477,11 @@ var RecentlyViewed = function () {
   };
   return {
     run: function run() {
+      var excludedPages = ["id-29", "id--51", "id--7", "id--8", "id--12", "id--13", "id--18", "id--57", "id--43", "id--61", "id--62", "id--63", "id--64", "id--44", "id--45", "id--46"];
+      var isExcluded = excludedPages.some(function (cls) {
+        return document.body.classList.contains(cls);
+      });
+      if (isExcluded) return;
       trackProduct();
       var defer = window.requestIdleCallback || function (cb) {
         return setTimeout(cb, 200);
@@ -2462,6 +2492,8 @@ var RecentlyViewed = function () {
     }
   };
 }();
+
+// Spouštění zůstává stejné
 if (document.readyState === "complete") {
   RecentlyViewed.run();
 } else {
@@ -2469,3 +2501,4 @@ if (document.readyState === "complete") {
 }
 /******/ })()
 ;
+//# sourceMappingURL=js-script.js.map

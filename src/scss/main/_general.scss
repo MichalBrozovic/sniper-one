@@ -239,6 +239,7 @@ p.large {
 }
 
 .one-column-body {
+
   .products-block:not(.slick-initialized),
   .products-inline.dkLabVisitedProducts:not(.slick-initialized) {
     @media (min-width: 1380px) {
@@ -257,7 +258,7 @@ p.large {
 // }
 
 
-.dkLabVisitedProductsBox.dkLabVisitedClassic a.image > img {
+.dkLabVisitedProductsBox.dkLabVisitedClassic a.image>img {
   width: auto !important;
 }
 
@@ -403,7 +404,7 @@ p.large {
     }
 
     &.msg-info {
-      background-color: $color-accent;
+      background-color: $color-secondary-050
     }
 
     &.msg-warning {
@@ -428,18 +429,18 @@ p.large {
   color: $color-accent;
 }
 
-.admin-logged .overall-wrapper {
-  padding-top: 30px;
-}
+
 
 .admin-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  background-color: grey;
+  background-color: $color-primary-050;
+  font-weight: 400;
+  position: relative;
+  z-index: 1012;
 
-  font-weight: 300;
+  @media (max-width:992px) {
+    display: none;
+  }
 
   a {
     color: inherit;
@@ -457,28 +458,31 @@ p.large {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    white-space: nowrap;
+
 
     li {
       padding: 6px;
     }
+
   }
 
-  #bar-menu > li {
+  #bar-menu>li {
     position: relative;
     cursor: pointer;
 
-    & > ul {
+    &>ul {
       display: none;
       position: absolute;
       top: 100%;
       left: 0;
-      background-color: grey;
+      background-color: $color-primary-050;
       padding: 10px;
       white-space: nowrap;
       z-index: 10005;
     }
 
-    &.hover > ul {
+    &.hover>ul {
       display: flex;
       flex-direction: column;
     }
@@ -668,14 +672,12 @@ table.border {
           min-width: 136px;
           margin: 0;
 
-          img {
-          }
+          img {}
         }
       }
 
       @media screen and (max-width: 480px) and (min-width: 0px) {
-        h4 {
-        }
+        h4 {}
 
         a {
           max-width: calc(50% - 5px);
@@ -683,8 +685,7 @@ table.border {
           min-width: 136px;
           margin: 0;
 
-          img {
-          }
+          img {}
         }
       }
     }
@@ -790,8 +791,7 @@ table.border {
         margin-bottom: 0px;
         border-bottom: unset;
 
-        a {
-        }
+        a {}
       }
     }
   }
@@ -800,18 +800,15 @@ table.border {
     li {
       gap: 20px;
 
-      &:last-of-type {
-      }
+      &:last-of-type {}
 
       h2 {
-        &::after {
-        }
+        &::after {}
       }
 
       ul {
         li {
-          a {
-          }
+          a {}
         }
       }
     }
@@ -819,8 +816,68 @@ table.border {
 }
 
 
-body.in-hodnoceni-obchodu {
-  h1{
+body.id--51 {
+  h1 {
     margin-top: 40px;
+  }
+}
+
+body.id--7,
+body.id--8,
+body.id--4 {
+  aside {
+    display: none;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  #content-wrapper {
+    main {
+      padding: 70px 0;
+
+      .content-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-wrap: nowrap;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        margin-bottom: 40px;
+      }
+
+      .btn-primary {
+        font-size: rem(18);
+        padding: 12px 18px;
+        border: unset;
+      }
+    }
+  }
+}
+
+#register-form {
+  .co-box {
+    margin-bottom: 24px;
+  }
+}
+
+body.id--12,
+body.id--13,
+body.id--18,
+body.id--57,
+body.id--43,
+body.id--61,
+body.id--62,
+body.id--63,
+body.id--64,
+body.id--44,
+body.id--45,
+body.id--46 {
+  #content-wrapper {
+    padding: 70px 0;
   }
 }

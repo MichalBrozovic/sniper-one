@@ -1,5 +1,8 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
+/*!*****************************!*\
+  !*** ./src/js/translate.js ***!
+  \*****************************/
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
@@ -113,3 +116,4 @@ window.projectTranslations = {
 };
 /******/ })()
 ;
+//# sourceMappingURL=js-translate.js.map

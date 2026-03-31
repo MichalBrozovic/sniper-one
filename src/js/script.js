@@ -962,17 +962,19 @@ const handleWelcomeText = () => {
   const swapperSections = document.querySelectorAll(".swapper-content");
   const isMobile = document.body.classList.contains("mobile");
 
-const target = (swapperSections.length ? swapperSections[swapperSections.length - 1] : null) || 
-  (isMobile 
-    ? (document.querySelector(".product-section") || 
-       document.querySelector(".favourite-categories") || 
-       document.querySelector(".banners-row") || 
-       document.querySelector("header"))
-    : (document.querySelector(".product-section") || 
-       document.querySelector(".favourite-categories") || 
-       document.querySelector(".before-carousel") || 
-       document.querySelector("header"))
-  );
+  const target =
+    (swapperSections.length
+      ? swapperSections[swapperSections.length - 1]
+      : null) ||
+    (isMobile
+      ? document.querySelector(".product-section") ||
+        document.querySelector(".favourite-categories") ||
+        document.querySelector(".banners-row") ||
+        document.querySelector("header")
+      : document.querySelector(".product-section") ||
+        document.querySelector(".favourite-categories") ||
+        document.querySelector(".before-carousel") ||
+        document.querySelector("header"));
 
   if (target) {
     target.after(welcomeModule);
@@ -2214,6 +2216,31 @@ const handleCartNonCritical = async () => {
 
 handleCartNonCritical();
 
+
+// Funkce pro úpravu děkovací stránky po objednávce.
+// Seskupuje nadpis a číslo objednávky do jednoho společného obalu.
+const handleThyPage = () => {
+  if (window.shoptetPage !== "thankYou") return;
+
+  const heading = document.querySelector(".order-summary-heading");
+  const orderNumber = document.querySelector(".reca-number");
+
+  if (heading && orderNumber) {
+    const holder = document.createElement("div");
+    holder.className = "thy-order-title-holder";
+
+    // Vložíme holder přesně tam, kde byl původně nadpis
+    heading.before(holder);
+
+    // Přesuneme oba elementy dovnitř holderu
+    holder.append(heading);
+    holder.append(orderNumber);
+  }
+};
+document.addEventListener("DOMContentLoaded", () => {
+  handleThyPage();
+});
+
 // Modul pro zobrazení naposledy prohlížených produktů.
 // Na kategorii se vkládá před benefity, jinak před Instagram/Footer.
 const RecentlyViewed = (() => {
@@ -2482,6 +2509,30 @@ const RecentlyViewed = (() => {
 
   return {
     run: () => {
+      const excludedPages = [
+        "id-29",
+        "id--51",
+        "id--7",
+        "id--8",
+        "id--12",
+        "id--13",
+        "id--18",
+        "id--57",
+        "id--43",
+        "id--61",
+        "id--62",
+        "id--63",
+        "id--64",
+        "id--44",
+        "id--45",
+        "id--46",
+      ];
+      const isExcluded = excludedPages.some((cls) =>
+        document.body.classList.contains(cls),
+      );
+
+      if (isExcluded) return;
+
       trackProduct();
       const defer = window.requestIdleCallback || ((cb) => setTimeout(cb, 200));
       defer(() => {
@@ -2491,6 +2542,7 @@ const RecentlyViewed = (() => {
   };
 })();
 
+// Spouštění zůstává stejné
 if (document.readyState === "complete") {
   RecentlyViewed.run();
 } else {
