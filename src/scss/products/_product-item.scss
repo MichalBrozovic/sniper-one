@@ -90,6 +90,7 @@
   // --- ZÁKLADNÍ OBAL ---
   container-type: inline-size;
   container-name: product-card;
+  background-color: $color-font-invert;
   &.inactive:not(.swiper-slide) {
     display: none;
   }

@@ -727,7 +727,8 @@ const getCategoryCacheKey = () => {
   return `perex_${pageId}`;
 };
 
-// Funkce stáhne první stranu kategorie, najde v ní perex a sestaví "upperWrapper" s odděleným obsahem a obrázkem.
+// Stáhne data kategorie přes fetch, vyextrahuje perex a nadpis.
+// Sestaví nový obal, přičemž obrázek bere striktně jen ze samotného perexu.
 const fetchAndBuildCategoryTop = async (categoryTop) => {
   try {
     const baseUrl = getCategoryBaseUrl();
@@ -753,9 +754,7 @@ const fetchAndBuildCategoryTop = async (categoryTop) => {
       const contentDiv = document.createElement("div");
       contentDiv.className = "category-top-upper--content";
 
-      const img =
-        fetchedPerex.querySelector("img") ||
-        doc.querySelector(".category-top img");
+      const img = fetchedPerex.querySelector("img");
       if (img) {
         const newImg = img.cloneNode(true);
         upperWrapper.append(newImg);
@@ -783,7 +782,8 @@ const fetchAndBuildCategoryTop = async (categoryTop) => {
   return null;
 };
 
-// Funkce zajišťuje dostupnost dat o kategorii z DOMu, Cache, nebo přes Fetch a spouští renderování.
+// Řídí zobrazení hlavičky kategorie pomocí cache nebo fetch.
+// Zabraňuje nechtěnému použití malých náhledů obrázků z podkategorií.
 const handleCategoryTop = async () => {
   if (window.shoptetPage !== "category") return;
 
@@ -806,8 +806,7 @@ const handleCategoryTop = async () => {
     const contentDiv = document.createElement("div");
     contentDiv.className = "category-top-upper--content";
 
-    const img =
-      currentPerex.querySelector("img") || categoryTop.querySelector("img");
+    const img = currentPerex.querySelector("img");
     if (img) {
       const newImg = img.cloneNode(true);
       upperWrapper.append(newImg);

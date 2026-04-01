@@ -15,6 +15,9 @@ $border-primary: var(--color-tertiary-hover, #d0d5de); // Barva šablony 4
 
 $color-accent: #4b4b4b;
 $color-danger: #AD1C1C;
+$color-success: #1C8F27;
+$color-warning: #D98300;
+$color-info: #1563ed;
 
 // POZADÍ (napojení na body styl Shoptetu)
 $color-page-bg: var(--color-body-background, #fff);
@@ -34,20 +37,21 @@ $flag-action: #ff502b;
 $flag-new: #b489fa;
 $flag-bestseller: #3fdea3;
 $flag-discount: #AD1C1C;
-$flag-custom1: #059905;
+$flag-custom1: #1C8F27;
 $flag-gift: #4486b6;
 
 $alert: #f5dede;
 $notification: #f48f53;
-$positive: #059905;
+$positive: #1C8F27;
 $info: #5a95ee;
 
-$color-stars:#E58200;
+$color-stars: #E58200;
 
 // 3. DYNAMICKÉ FUNKCE (Nahrazují SASS mix za CSS color-mix)
 @function shade($color, $weight) {
   @return color-mix(in srgb, #{$color}, #000 #{$weight});
 }
+
 @function tint($color, $weight) {
   @return color-mix(in srgb, #{$color}, #fff #{$weight});
 }
@@ -101,6 +105,43 @@ $color-danger-300: tint($color-danger, 40%);
 $color-danger-200: tint($color-danger, 60%);
 $color-danger-100: tint($color-danger, 75%);
 $color-danger-050: tint($color-danger, 90%);
+
+// Success Paleta
+$color-success-900: shade($color-success, 80%);
+$color-success-800: shade($color-success, 60%);
+$color-success-700: shade($color-success, 40%);
+$color-success-600: shade($color-success, 20%);
+$color-success-500: $color-success;
+$color-success-400: tint($color-success, 20%);
+$color-success-300: tint($color-success, 40%);
+$color-success-200: tint($color-success, 60%);
+$color-success-100: tint($color-success, 75%);
+$color-success-050: tint($color-success, 90%);
+
+// Warning Paleta
+$color-warning-900: shade($color-warning, 80%);
+$color-warning-800: shade($color-warning, 60%);
+$color-warning-700: shade($color-warning, 40%);
+$color-warning-600: shade($color-warning, 20%);
+$color-warning-500: $color-warning;
+$color-warning-400: tint($color-warning, 20%);
+$color-warning-300: tint($color-warning, 40%);
+$color-warning-200: tint($color-warning, 60%);
+$color-warning-100: tint($color-warning, 75%);
+$color-warning-050: tint($color-warning, 90%);
+
+// Success Paleta
+$color-info-900: shade($color-info, 80%);
+$color-info-800: shade($color-info, 60%);
+$color-info-700: shade($color-info, 40%);
+$color-info-600: shade($color-info, 20%);
+$color-info-500: $color-info;
+$color-info-400: tint($color-info, 20%);
+$color-info-300: tint($color-info, 40%);
+$color-info-200: tint($color-info, 60%);
+$color-info-100: tint($color-info, 75%);
+$color-info-050: tint($color-info, 90%);
+
 
 $flag-custom1-100: tint($flag-custom1, 75%);
 

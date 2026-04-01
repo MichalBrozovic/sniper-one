@@ -276,7 +276,7 @@ body.submenu-visible {
     }
   }
 
-  &:has(li:not(.splitted)) {
+  &:has(> ul.menu-level-1 > li:not(.splitted)) {
     display: flex;
 
     @media (max-width:1023px) {
@@ -754,7 +754,8 @@ body.submenu-visible {
 //   }
 // }
 
-.top-nav-button-login {
+.top-nav-button-login,
+.navigation-buttons a[data-target="login"] {
   display: flex;
   flex-direction: column;
   padding: 4px;

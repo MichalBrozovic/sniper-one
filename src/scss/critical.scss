@@ -697,7 +697,8 @@ body.mobile {
   display: flex;
   flex-direction: column;
   align-items: center;
-padding: 40px 0;
+  padding: 40px 0;
+
   h2 {
     margin-top: 0;
     margin-bottom: 20px;
@@ -1072,15 +1073,18 @@ padding: 40px 0;
     aspect-ratio: 16/9;
   }
 }
+
 body.type-post,
 body.type-posts-listing,
 body.type-product,
 body.type-category,
-body.id-1{
-  aside{
+body.id-1,
+body.id--3 {
+  aside {
     display: none !important;
   }
-  .latest-contribution-wrapper{
+
+  .latest-contribution-wrapper {
     display: none !important
   }
 }

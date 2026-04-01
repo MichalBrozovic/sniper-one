@@ -2523,6 +2523,8 @@ const RecentlyViewed = (() => {
         "id--44",
         "id--45",
         "id--46",
+        "id--2",
+        "id--3",
       ];
       const isExcluded = excludedPages.some((cls) =>
         document.body.classList.contains(cls),

@@ -9,6 +9,14 @@
 
     #checkoutContent {
         flex: 1 1 600px;
+
+        .site-msg-custom {
+            padding: 8px 16px;
+            border-radius: 12px;
+            background-color: $color-secondary;
+            color: $color-font-invert;
+            font-size: rem(18);
+        }
     }
 
     #checkoutSidebar {
@@ -54,7 +62,8 @@
             flex-direction: row;
             align-items: center;
             white-space: nowrap;
-            label{
+
+            label {
                 flex: 0 0 120px;
             }
         }
