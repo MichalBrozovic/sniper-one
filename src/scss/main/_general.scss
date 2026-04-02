@@ -394,21 +394,42 @@ p.large {
   .msg {
     padding: 20px $container-padding;
     color: $color-page-bg;
+    font-weight: 600;
 
     &.msg-success {
-      background-color: rgb(18, 104, 18);
+      background-color: $color-success-050;
+      color: $color-success;
+
+      a {
+        color: inherit;
+      }
     }
 
     &.msg-error {
-      background-color: rgb(203, 74, 74);
+      background-color: $color-danger-050;
+      color: $color-danger;
+
+      a {
+        color: inherit;
+      }
     }
 
     &.msg-info {
-      background-color: $color-secondary-050
+      background-color: $color-info-050;
+      color: $color-info;
+
+      a {
+        color: inherit;
+      }
     }
 
     &.msg-warning {
-      background-color: orange;
+      background-color: $color-warning-050;
+      color: $color-warning;
+
+      a {
+        color: inherit;
+      }
     }
 
     a {
@@ -591,8 +612,8 @@ table.border {
   .sidebar {
     flex-basis: 365px;
     padding: 30px 20px;
-    background-color: $color-page-bg;
-    border: 1px solid $color-font-100;
+    background-color: $color-primary-050;
+    border-radius: 12px;
     // border-radius: 5px;
 
     ul {
@@ -883,215 +904,366 @@ body.id--3 {
   }
 }
 
-body.id--12,
-body.id--18,
-body.id--43 {
-  .table-mobile-enriched {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: rem(24);
-    font-size: rem(14);
-    color: $color-font;
-    border-radius: rem(8);
-    overflow: hidden;
-    box-shadow: 0 rem(2) rem(8) $black-10;
+.table-mobile-enriched {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: rem(24);
+  font-size: rem(14);
+  color: $color-font;
+  border-radius: rem(8);
+  overflow: hidden;
+  box-shadow: 0 rem(2) rem(8) $black-10;
 
-    th,
-    td {
-      padding: rem(16);
-      text-align: left;
-      border-bottom: rem(1) solid $border-primary;
-      vertical-align: middle;
+  th,
+  td {
+    padding: rem(16);
+    text-align: left;
+    border-bottom: rem(1) solid $border-primary;
+    vertical-align: middle;
+  }
+
+  thead {
+    background-color: $color-primary-050;
+
+    th {
+      font-weight: 600;
+      color: $color-font;
+      border-bottom: rem(2) solid $color-primary-200;
+      white-space: nowrap;
     }
+  }
 
-    thead {
-      background-color: $color-primary-050;
-
-      th {
-        font-weight: 600;
-        color: $color-font;
-        border-bottom: rem(2) solid $color-primary-200;
-        white-space: nowrap;
-      }
-    }
-
-    tbody {
-      tr {
-        background-color: $white;
-        transition: background-color 0.2s ease-in-out;
-
-        &:hover {
-          background-color: $color-primary-050;
-        }
-
-        &:last-child {
-          td {
-            border-bottom: none;
-          }
-        }
-      }
-    }
-
-    a {
-      color: $color-primary;
-      text-decoration: none;
-      transition: color 0.2s ease-in-out;
+  tbody {
+    tr {
+      background-color: $white;
+      transition: background-color 0.2s ease-in-out;
 
       &:hover {
-        color: $color-secondary;
-        text-decoration: underline;
+        background-color: $color-primary-050;
       }
-    }
-
-    .cell--price {
-      strong {
-        font-size: rem(16);
-        color: $color-font;
-      }
-    }
-
-    .client-table-heading {
-      display: none;
-      font-size: rem(12);
-      color: $color-font-second;
-      margin-bottom: rem(4);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: rem(0.5);
-    }
-
-    @media (max-width: 767px) {
-      box-shadow: none;
-      background: transparent;
-
-      thead {
-        display: none;
-      }
-
-      tbody {
-        display: block;
-
-        tr {
-          display: block;
-          background-color: $white;
-          border-radius: rem(8);
-          padding: rem(16);
-          margin-bottom: rem(16);
-          box-shadow: 0 rem(2) rem(8) $black-10;
-          border: rem(1) solid $border-primary;
-
-          &:hover {
-            background-color: $white;
-          }
-        }
-
-        td {
-          display: flex;
-          flex-direction: column;
-          padding: rem(8) 0;
-          border-bottom: rem(1) dashed $border-primary;
-          text-align: right;
-
-          &:last-child,
-          &:empty {
-            border-bottom: none;
-            padding-bottom: 0;
-          }
-
-          &:first-child {
-            padding-top: 0;
-          }
-
-          .client-table-heading {
-            display: block;
-            text-align: left;
-          }
-        }
-      }
-    }
-  }
-
-  .status {
-    display: inline-block;
-    padding: rem(4) rem(12);
-    border-radius: rem(16);
-    font-size: rem(12);
-    font-weight: 600;
-
-    &.status-1,
-    &.status-4 {
-      background-color: $color-danger-050;
-      color: $color-danger;
-    }
-
-    &.status-2 {
-      background-color: $color-warning-050;
-      color: $color-warning;
-    }
-
-    &.status-3 {
-      background-color: $color-success-050;
-      color: $color-success;
-    }
-  }
-}
-
-body.id--44 {
-  table{
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-bottom: rem(24);
-    background-color: $white;
-    border-radius: rem(8);
-    box-shadow: 0 0 0 rem(1) $border-primary;
-    overflow: hidden;
-
-    tr {
 
       &:last-child {
         td {
           border-bottom: none;
-          background-color: $color-primary-050;
+        }
+      }
 
-          &:first-child {
-            color: $color-primary;
-            font-weight: 600;
+      &.row-summary {
+        background-color: $color-page-bg-secondary;
+
+        &:hover {
+          background-color: $color-page-bg-secondary;
+        }
+
+        td {
+          padding: rem(24) rem(16);
+        }
+
+        .list-summary {
+          margin: 0 0 0 auto;
+          max-width: rem(400);
+          display: grid;
+          grid-template-columns: 1fr auto;
+          gap: rem(12) rem(24);
+          align-items: center;
+
+          dt {
+            margin: 0;
+            color: $color-font-second;
+            font-weight: 400;
+            text-align: right;
           }
 
-          strong {
-            color: $color-primary;
-            font-size: rem(16);
+          dd {
+            margin: 0;
+            color: $color-font;
+            font-weight: 600;
+            text-align: right;
+
+            strong {
+              font-size: rem(20);
+              color: $color-primary;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  a:not(.btn) {
+    color: $color-primary;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+      color: $color-secondary;
+      text-decoration: underline;
+    }
+  }
+
+  .cell--price {
+    strong {
+      font-size: rem(16);
+      color: $color-font;
+    }
+  }
+
+  .client-table-heading {
+    display: none;
+    font-size: rem(12);
+    color: $color-font-second;
+    margin-bottom: rem(4);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: rem(0.5);
+  }
+
+  .cell--actions,
+  .text-center {
+    width: 1%;
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  .btn-xs {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: rem(12);
+    padding: rem(6) rem(12);
+    border-radius: rem(4);
+    font-weight: 600;
+    color: $color-font;
+    background-color: $white;
+    border: rem(1) solid $border-primary;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $color-primary;
+      color: $color-primary;
+      background-color: $color-primary-050;
+      text-decoration: none;
+    }
+
+    &[data-confirm],
+    &.btn-primary {
+      color: $color-danger;
+      background-color: $color-danger-050;
+      border-color: transparent;
+
+      &:hover {
+        border-color: $color-danger;
+        color: $white;
+        background-color: $color-danger;
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    box-shadow: none;
+    background: transparent;
+
+    thead {
+      display: none;
+    }
+
+    tbody {
+      display: block;
+
+      tr {
+        display: block;
+        background-color: $white;
+        border-radius: rem(8);
+        padding: rem(16);
+        margin-bottom: rem(16);
+        box-shadow: 0 rem(2) rem(8) $black-10;
+        border: rem(1) solid $border-primary;
+
+        &:hover {
+          background-color: $white;
+        }
+
+        &.row-summary {
+          background-color: $color-primary-050;
+          border-color: $color-primary-200;
+
+          td {
+            padding: 0;
+            border: none;
+            text-align: left;
+          }
+
+          .list-summary {
+            width: 100%;
+            max-width: 100%;
+            grid-template-columns: 1fr auto;
+            gap: rem(12) rem(16);
+
+            dt {
+              text-align: left;
+              color: $color-font;
+            }
           }
         }
       }
 
-      &:not(:last-child):hover {
-        td {
-          background-color: color-mix(in srgb, #{$color-primary-050}, #fff 50%);
+      td {
+        display: flex;
+        flex-direction: column;
+        padding: rem(8) 0;
+        border-bottom: rem(1) dashed $border-primary;
+        text-align: right;
+
+        &:last-child,
+        &:empty {
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+
+        &:first-child {
+          padding-top: 0;
+        }
+
+        .client-table-heading {
+          display: block;
+          text-align: left;
         }
       }
     }
 
-    td {
-      padding: rem(12) rem(16);
-      border-bottom: rem(1) solid $border-primary;
-      vertical-align: middle;
-      font-size: rem(14);
-      transition: background-color 0.2s ease-in-out;
+    .cell--actions,
+    .text-center {
+      width: auto;
 
-      &:first-child {
-        color: $color-font-second;
-        width: 50%;
+      .btn-xs {
+        min-width: rem(140);
       }
+    }
+  }
+}
 
-      &:last-child {
-        color: $color-font;
-        text-align: right;
+.table-md-50 {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: rem(24);
+  background-color: $white;
+  border-radius: rem(8);
+  box-shadow: 0 0 0 rem(1) $border-primary;
+  overflow: hidden;
 
-        strong {
+  tr {
+    &:last-child {
+      td {
+        border-bottom: none;
+        background-color: $color-primary-050;
+
+        &:first-child {
+          color: $color-primary;
           font-weight: 600;
         }
+
+        strong {
+          color: $color-primary;
+          font-size: rem(16);
+        }
+      }
+    }
+
+    &:not(:last-child):hover {
+      td {
+        background-color: color-mix(in srgb, #{$color-primary-050}, #fff 50%);
+      }
+    }
+  }
+
+  td {
+    padding: rem(12) rem(16);
+    border-bottom: rem(1) solid $border-primary;
+    vertical-align: middle;
+    font-size: rem(14);
+    transition: background-color 0.2s ease-in-out;
+
+    &:first-child {
+      color: $color-font-second;
+      width: 50%;
+    }
+
+    &:last-child {
+      color: $color-font;
+      text-align: right;
+
+      strong {
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.status {
+  display: inline-block;
+  padding: rem(4) rem(12);
+  border-radius: rem(16);
+  font-size: rem(12);
+  font-weight: 600;
+
+  &.status-1,
+  &.status-4 {
+    background-color: $color-danger-050;
+    color: $color-danger;
+  }
+
+  &.status-2 {
+    background-color: $color-warning-050;
+    color: $color-warning;
+  }
+
+  &.status-3 {
+    background-color: $color-success-050;
+    color: $color-success;
+  }
+}
+
+body.id--18 {
+  .content-inner {
+    h2 {
+      margin-top: rem(40);
+      margin-bottom: rem(16);
+    }
+
+    h4 {
+      margin-top: 0;
+      margin-bottom: rem(12);
+    }
+
+    h2+div:not(.row) {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: rem(16);
+      margin-bottom: rem(32);
+      padding-bottom: rem(24);
+      border-bottom: rem(1) solid $border-primary;
+
+      p {
+        margin: 0;
+        line-height: 1.5;
+      }
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: rem(32);
+      margin-bottom: rem(40);
+
+      .col-sm-12.col-md-6 {
+        flex: 1 1 calc(50% - #{rem(16)});
+        min-width: rem(280);
+        margin: 0;
+        line-height: 1.6;
       }
     }
   }
