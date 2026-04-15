@@ -15,7 +15,7 @@
 @import "products/product-detail-top";
 
 .container {
-  &:not(.active) {
+  .container:not(.active) {
     padding: 0 !important;
   }
 }
