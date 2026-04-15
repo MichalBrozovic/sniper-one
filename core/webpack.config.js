@@ -6,6 +6,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 import RemoveEmptyScriptsPlugin from 'webpack-remove-empty-scripts'
 import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
 import fs from 'fs'
 import autoprefixer from 'autoprefixer'
 
@@ -68,6 +69,13 @@ export default (env) => {
             usedExports: true,
             minimize: isProduction,
             minimizer: [
+                new TerserPlugin({
+                    terserOptions: {
+                        compress: {
+                            drop_console: true,
+                        },
+                    },
+                }),
                 new CssMinimizerPlugin(), 
                 new ImageMinimizerPlugin({
                     minimizer: {

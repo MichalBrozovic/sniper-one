@@ -15,7 +15,7 @@
 @import "products/product-detail-top";
 
 .container {
-  .container:not(.active) {
+  &:not(.active) {
     padding: 0 !important;
   }
 }
@@ -35,15 +35,11 @@ body {
   overflow-x: hidden;
 }
 
-
 a {
   color: $color-font;
   transition: all 0.15s ease-in-out;
 }
 
-/** @format */
-
-// Společný základ pro všechny nadpisové prvky
 h1,
 h2,
 h3,
@@ -68,13 +64,9 @@ h6,
   }
 }
 
-
-
-// Automatické generování stylů z mapy
 @each $key, $value in $typography-map {
   @if str-length($key)==2 {
 
-    // Generuje základní tagy a třídy (h1, .h1 atd.)
     #{$key},
     .#{$key} {
       @include apply-typography($key);
@@ -82,7 +74,6 @@ h6,
   }
 
   @else {
-    // Generuje modifikátory (h2.mid, .h2.mid atd.)
     $tag: str-slice($key, 1, 2);
     $modifier: str-slice($key, 4);
 
@@ -93,16 +84,12 @@ h6,
   }
 }
 
-// Mapování Shoptet specifických selektorů na existující styly v mapě
 .homepage-group-title,
 .extended-banner-title,
 .custom-footer__newsletter h4 {
   @include apply-typography("h2");
 }
 
-
-
-// Styl pro podtržení nadpisů (použití: h2.underline)
 .underline {
   padding-bottom: 8px;
 
@@ -124,16 +111,14 @@ h3.underline::after {
   width: 60px;
 }
 
-.container {
-  @include container();
-}
-
 .overall-wrapper {
   min-height: 100vh;
 
-  // @media (max-width: 767px) {
-  //     overflow: hidden;
-  // }
+  iframe {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 16/9;
+  }
 }
 
 #additionalInformation {
@@ -171,28 +156,7 @@ h3.underline::after {
   display: none;
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
-
-button {
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 0;
-}
-
 table {
-  border-collapse: collapse;
 
   th,
   td {
@@ -243,21 +207,11 @@ table {
 
 .site-name-wrapper {
   flex-shrink: 0;
-  // margin-left: 10px;
 
   @media (max-width: 1100px) {
     margin-left: 0px;
   }
 }
-
-// .type-manufacturer-detail {
-//   .filter-section-boolean,
-//   .filter-section-button,
-//   .filter-section-count,
-//   .filter-count {
-//     display: block;
-//   }
-// }
 
 .carousel-thumbnails {
   @include container();
@@ -293,9 +247,7 @@ table {
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(54deg,
-          rgba(0, 0, 0, 0.4) 9.56%,
-          rgba(0, 0, 0, 0) 62.68%);
+      background: linear-gradient(54deg, rgba(0, 0, 0, 0.4) 9.56%, rgba(0, 0, 0, 0) 62.68%);
     }
 
     &.active {
@@ -380,13 +332,11 @@ table {
     transform: translateY(-50%);
     width: 37px;
     height: 37px;
-    //background-image: url(../img/icon/hearth.svg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
   }
 }
-
 
 .blog-title-holder {
   display: flex;
@@ -485,9 +435,6 @@ table {
     }
 
     @media (max-width: 900px) {
-      // overflow-x: scroll;
-      // white-space: nowrap;
-      // flex-direction: row;
       width: 100%;
       gap: 15px 25px;
     }
@@ -532,12 +479,8 @@ body.mobile {
   }
 }
 
-// PAGE
 .has-page-header {
   .breadcrumbs-wrapper {
-    // position: absolute;
-    // left: 50%;
-    // transform: translateX(-50%);
     z-index: 2;
   }
 
@@ -546,20 +489,6 @@ body.mobile {
     padding: 5px;
     background-color: rgba(#fff, 0.1);
     margin-left: -5px;
-  }
-}
-
-.type-page {
-  .page-header {
-    .container {
-      &>* {
-        max-width: 520px;
-      }
-    }
-  }
-
-  .body-banners {
-    overflow: hidden;
   }
 }
 
@@ -650,29 +579,6 @@ body.mobile {
   }
 }
 
-// .type-page,
-// .type-post {
-//     #content article p {
-//         color: $color-font-800;
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .btn-holder-filter {
   display: flex;
   flex-direction: column;
@@ -686,12 +592,9 @@ body.mobile {
   display: none;
 }
 
-
-
 .slider-content {
   width: 100% !important;
 }
-
 
 .empty-content-404 {
   display: flex;
@@ -704,8 +607,6 @@ body.mobile {
     margin-bottom: 20px;
   }
 }
-
-
 
 .fvDoplnek {
   display: none;
@@ -757,9 +658,7 @@ body.mobile {
 
           .header {
             span {
-              &:first-of-type {
-                display: none;
-              }
+              display: none;
             }
 
             .price {
@@ -784,17 +683,15 @@ body.mobile {
                 }
               }
             }
-
-            input {}
           }
+        }
 
-          p {
-            width: 100% !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            font-size: rem(10);
-            color: $color-font-second;
-          }
+        p {
+          width: 100% !important;
+          padding: 0 !important;
+          margin: 0 !important;
+          font-size: rem(10);
+          color: $color-font-second;
         }
 
         .btn-secondary {
@@ -811,12 +708,9 @@ body.mobile {
   }
 }
 
-
-
 .dkLabFavouriteProductDiv {
   .dkLabFavProductSpan {
     &::before {
-      //content: url(../img/icon/favourites-small.svg) !important;
       margin: 0 !important;
       position: relative !important;
       top: unset !important;
@@ -848,7 +742,6 @@ body.mobile {
 
     &::before {
       content: "";
-      //background-image: url(../img/icon/favourites.svg);
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
@@ -909,7 +802,6 @@ body.mobile {
     height: 60px;
     order: 6;
     display: flex;
-    position: relative;
     font-size: rem(14);
     line-height: 1.2em;
     color: $black;
@@ -927,11 +819,8 @@ body.mobile {
       height: 35px;
       display: block;
       position: absolute;
-      //background: url(../img/icon/favourites-contrast.svg) center center no-repeat;
       background-size: cover;
     }
-
-    span {}
   }
 
   @media screen and (max-width: 1280px) and (min-width: 0px) {
@@ -985,7 +874,6 @@ body.mobile {
       height: 33px !important;
       display: block;
       position: absolute;
-      //background: url(../img/icon/arrow-product.svg) center center no-repeat !important;
       background-size: cover;
     }
 
@@ -1000,15 +888,6 @@ body.mobile {
         transform: translate(-50%, -50%) rotate(-180deg) !important;
       }
     }
-
-    &:hover {}
-  }
-}
-
-.id--7 {
-  aside {
-    position: relative !important;
-    top: unset !important;
   }
 }
 
@@ -1044,50 +923,11 @@ body.mobile {
     color: $color-font;
     text-decoration: underline;
     font-weight: 700;
-    display: none;
-  }
-
-  // .dropdown-menu {
-  //     display: none;
-  //     position: absolute;
-  //     top: 100%;
-  //     left: 50%;
-  //     transform: translateX(-50%);
-  //     z-index: 1000;
-  //     background-color: $color-page-bg;
-  //     padding: 3px !important;
-
-  //     a {
-  //         font-size: rem(14);
-  //         line-height: 1.2em;
-  //         color: $color-font;
-  //         text-decoration: underline;
-  //     }
-  // }
-}
-
-.overall-wrapper {
-  iframe {
-    width: 100%;
-    max-width: 100%;
-    aspect-ratio: 16/9;
   }
 }
 
-body.type-post,
-body.type-posts-listing,
-body.type-product,
-body.type-category,
-body.id-1,
-body.id--3 {
-  aside {
-    display: none !important;
-  }
 
-  .latest-contribution-wrapper {
-    display: none !important
-  }
-}
+
 
 @import "basics/loader";
 @import "basics/cookies";

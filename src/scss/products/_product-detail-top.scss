@@ -54,7 +54,7 @@
       height: 34px;
       background-color: $color-primary;
       border-color: $color-primary;
-      right: 0rem;
+      right: -1rem;
       border-radius: 4px 0 0 4px;
 
       &::after {
@@ -68,16 +68,16 @@
   .swiper-button-prev {
     @media (max-width:767px) {
       border-radius: 0px 4px 4px 0;
-      left: 0rem;
+      left: -1rem;
     }
   }
 
   .swiper-button-next {}
 
   @media (max-width:767px) {
-    position: relative;
-    width: 100vw;
-    max-width: calc(100vw - var(--scrollbar-width));
+    // position: relative;
+    // width: 100vw;
+    // max-width: calc(100vw - var(--scrollbar-width));
   }
 }
 

@@ -52,6 +52,10 @@
         flex-direction: row;
         flex-wrap: wrap;
         gap: 24px;
+
+        @media (max-width:767px) {
+            gap: 0px;
+        }
     }
 
     .col-sm-6 {

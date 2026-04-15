@@ -7,6 +7,11 @@
   container-type: inline-size;
   container-name: banner-grid;
   padding: 32px 0;
+
+  @media (max-width: 767px) {
+    padding: 20px 0;
+  }
+
   .footer-banner {
     display: flex;
     flex-direction: column;
@@ -16,6 +21,7 @@
     // flex-basis: 415px (ideální šířka, při které se láme)
 
     max-width: 100%;
+
     // @container banner-grid (min-width: 846px) {
     //   width: calc(50% - 8px); // 8px je polovina gapu (16px / 2)
     // }
@@ -25,8 +31,9 @@
       }
     }
   }
-  &:not(:has(a)) {
-  }
+
+  &:not(:has(a)) {}
+
   a {
     display: flex;
     flex-direction: column;
@@ -55,11 +62,13 @@
       }
     }
   }
+
   img {
     border-radius: 12px;
     object-fit: cover;
     min-width: 100%;
   }
+
   .extended-banner-texts {
     display: flex;
     flex-direction: column;
@@ -72,19 +81,21 @@
     width: 100%;
     color: $color-font-invert;
   }
+
   .extended-banner-title {
     margin-bottom: 8px;
   }
+
   .extended-banner-text {
     margin-bottom: 16px;
   }
-  .extended-banner-link {
-  }
+
+  .extended-banner-link {}
 }
 
 
 body.mobile {
-  .footer-banners   {
+  .footer-banners {
 
     .banner-wrapper {
       &:nth-of-type(2) {

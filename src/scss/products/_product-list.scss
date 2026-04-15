@@ -3,18 +3,28 @@
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem 1rem;
 }
+
 .product-section,
 .product-section-swapper {
   padding: 40px 0;
 
   .homepage-group-title {
     text-align: center;
-    text-align: center;
     margin-bottom: 32px;
   }
+
+  @media (max-width:767px) {
+    padding: 20px 0;
+
+    .homepage-group-title {
+      margin-bottom: 20px;
+    }
+  }
 }
+
 .product-section-swapper {
   padding: 32px 0 24px 0;
+
   .product-swapper-nav {
     display: flex;
     flex-direction: row;
@@ -23,6 +33,7 @@
     flex-wrap: nowrap;
     gap: 8px;
     position: relative;
+
     &::before {
       content: "";
       left: 0;
@@ -35,6 +46,7 @@
       z-index: 0;
     }
   }
+
   .swapper-btn {
     padding: 5px 16px;
     border-radius: 4px 4px 0 0;
@@ -42,13 +54,16 @@
     position: relative;
     z-index: 2;
     background-color: $color-page-bg;
+
     &.active {
       border-bottom-color: $color-page-bg;
       font-weight: 600;
+
       @include hover {
         background-color: $color-page-bg;
       }
     }
+
     @include hover {
       background-color: $color-primary-050;
     }
@@ -61,9 +76,11 @@
   visibility: hidden;
   @include trans(1s);
   padding: 0 0 24px 0;
+
   &:not(.active) {
     padding: 0;
   }
+
   &.active {
     display: block;
     opacity: 1;

@@ -16,15 +16,7 @@ const sniperBenchmark = async (name, fn) => {
 };
 
 // window.addEventListener('load', () => document.body.classList.add('hideSpinner'))
-const debounce = (func, delay) => {
-  let debounceTimer;
-  return function () {
-    const context = this;
-    const args = arguments;
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => func.apply(context, args), delay);
-  };
-};
+// debounce odstraněn - nepoužívá se
 
 // -- Split menu -- //
 function moveElement(elementOrSelector, targetSelectors) {
@@ -84,8 +76,10 @@ function smoothScrollTo(target, offset = -150, duration = 700) {
   }
 }
 
-
-// úprava user cart, aby zde byla celková cena + cena za jednotlivé položky
+/**
+ * cartWidgetRefactoring
+ * Úprava zobrazení produktů a ošetření chování košíku (zastavení nechtěného zavírání).
+ */
 const cartWidgetRefactoring = () => {
   const shoptetData = dataLayer[0]?.shoptet;
   if (!shoptetData) return;
@@ -93,9 +87,10 @@ const cartWidgetRefactoring = () => {
   const currencyLabel = shoptetData.currencyInfo.symbol;
   const cartItems = document.querySelectorAll(".cart-widget-product");
 
+  // 1. Úprava cen u produktů
+  const itemsToUpdate = [];
   cartItems.forEach((product) => {
     if (product.querySelector(".cart-widget-product-price")) return;
-
     const productPrice = product.querySelector(
       'span[data-testid="cartWidgetProductPrice"]',
     );
@@ -103,14 +98,16 @@ const cartWidgetRefactoring = () => {
     const productUnit =
       product.querySelector(".cart-widget-product-unit")?.textContent.trim() ||
       "ks";
-
     if (productPrice) {
+      itemsToUpdate.push({ product, productPrice, productSKU, productUnit });
+    }
+  });
+
+  itemsToUpdate.forEach(
+    ({ product, productPrice, productSKU, productUnit }) => {
       const priceWrapper = document.createElement("div");
       priceWrapper.classList.add("cart-widget-product-price");
-
       priceWrapper.appendChild(productPrice);
-      product.appendChild(priceWrapper);
-
       if (productSKU) {
         const itemData = shoptetData.cart.find(
           (item) => item.code === productSKU,
@@ -123,78 +120,113 @@ const cartWidgetRefactoring = () => {
           priceWrapper.appendChild(singlePrice);
         }
       }
-    }
-  });
+      product.appendChild(priceWrapper);
+    },
+  );
+
+  // 2. Souhrn košíku
   const cartProductsWrapper = document.querySelector(".cart-widget-products");
   if (cartProductsWrapper && !document.querySelector(".popup-cart-summary")) {
     const cartInfo = shoptetData.cartInfo.getNoBillingShippingPrice;
     const summary = document.createElement("div");
     summary.classList.add("popup-cart-summary");
-
     const priceVAT = cartInfo.withVat.toLocaleString("cs-CZ");
     const priceNoVAT = Math.round(cartInfo.withoutVat).toLocaleString("cs-CZ");
-
     const currentLang = window.shoptetLang || "cs";
     const langData =
       window.projectTranslations[currentLang] ||
       window.projectTranslations["cs"];
-    const texts = langData.cart; // Přístup do sekce cart
+    const texts = langData.cart;
 
     summary.innerHTML = `
-            <div class="popup-cart-summary-item with_vat">
-                <strong class="popup-cart-summary-item-label">${texts.totalProducts}:</strong>
-                <strong class="popup-cart-summary-item-value">${priceVAT} ${currencyLabel}</strong>
-            </div>
-            <div class="popup-cart-summary-item without_vat">
-                <span class="popup-cart-summary-item-label">${texts.totalWithoutVat}:</span>
-                <span class="popup-cart-summary-item-value">${priceNoVAT} ${currencyLabel}</span>
-            </div>
-        `;
+      <div class="popup-cart-summary-item with_vat">
+        <strong class="popup-cart-summary-item-label">${texts.totalProducts}:</strong>
+        <strong class="popup-cart-summary-item-value">${priceVAT} ${currencyLabel}</strong>
+      </div>
+      <div class="popup-cart-summary-item without_vat">
+        <span class="popup-cart-summary-item-label">${texts.totalWithoutVat}:</span>
+        <span class="popup-cart-summary-item-value">${priceNoVAT} ${currencyLabel}</span>
+      </div>`;
     cartProductsWrapper.after(summary);
   }
 
+  // 3. Doprava zdarma
   const shippingWidget = document.querySelector(".cart-free-shipping");
   if (shippingWidget) {
     const leftToFree = shoptetData.cartInfo.leftToFreeShipping.priceLeft;
     const totalForFree =
       leftToFree + shoptetData.cartInfo.getNoBillingShippingPrice.withVat;
-
     if (leftToFree > 0 && !shippingWidget.querySelector(".price-range")) {
       const range = document.createElement("div");
       range.classList.add("price-range");
       const bar = document.createElement("div");
-
       const percent = Math.min(100, 100 - (100 * leftToFree) / totalForFree);
       bar.style.width = `${percent}%`;
-
       range.appendChild(bar);
       shippingWidget.appendChild(range);
     }
-
     shippingWidget.querySelectorAll("strong").forEach((strong) => {
-      if (strong.innerText.includes("ZDARMA")) {
+      if (strong.innerText.includes("ZDARMA"))
         strong.classList.add("free-shipping-strong");
-      }
     });
   }
 
-  if (window.innerWidth < 768) {
-    const cartWidget = document.querySelector(".cart-widget");
-    if (cartWidget && !cartWidget.querySelector(".close")) {
+  // 4. FIX LOGIKY ZAVÍRÁNÍ (Mobile i Desktop)
+  const cartWidget = document.querySelector(".cart-widget");
+  if (cartWidget) {
+    // Zastavení bublání z celého widgetu – nepustí kliknutí na ten obalový odkaz <a>
+    cartWidget.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+
+    // Mobilní křížek
+    if (window.innerWidth < 768 && !cartWidget.querySelector(".close")) {
       const closeBtn = document.createElement("div");
-      closeBtn.classList.add("close");
+      closeBtn.classList.add("close", "black");
       cartWidget.prepend(closeBtn);
 
-      closeBtn.addEventListener("click", () => {
+      closeBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         document.body.classList.remove("cart-window-visible");
         cartWidget.setAttribute("aria-hidden", "true");
       });
     }
+
+    // Tlačítko "Pokračovat" – musíme zajistit, aby udělalo redirect a nic jiného
+    const continueBtn = document.getElementById("continue-order-button");
+    if (continueBtn) {
+      continueBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        // Pokud by Shoptet stále blokoval redirect, odkomentuj řádek níže:
+        // window.location.href = continueBtn.href;
+      });
+    }
   }
+
+  // 5. Kliknutí MIMO košík (zavření)
+  // Použijeme jednorázový handler, aby se to nekupilo
+  const closeOutside = (e) => {
+    if (
+      cartWidget &&
+      !cartWidget.contains(e.target) &&
+      document.body.classList.contains("cart-window-visible")
+    ) {
+      document.body.classList.remove("cart-window-visible");
+      cartWidget.setAttribute("aria-hidden", "true");
+    }
+  };
+
+  // Přidáme na document, aby to fungovalo globálně
+  document.removeEventListener("click", closeOutside);
+  document.addEventListener("click", closeOutside);
 };
 
 document.addEventListener("ShoptetDOMCartContentLoaded", cartWidgetRefactoring);
-
+/**
+ * loginWidgetRefactoring
+ * Odstrukturuje defaultní login widget popup a přidává uživatelské benefity v B2C/B2B podání.
+ */
 const loginWidgetRefactoring = () => {
   const popupInner = document.querySelector("#login .popup-widget-inner");
   if (!popupInner || popupInner.querySelector(".login-part")) return;
@@ -319,9 +351,9 @@ const parseBenderContent = async (selector, devMode = false) => {
       const blocksRaw = textWithoutClass.split(/##([^#]+)##/g);
 
       const section = document.createElement("section");
-      section.className = "favourite-categories";
+      section.classList.add("favourite-categories");
       const container = document.createElement("div");
-      container.className = "container";
+      container.classList.add("container", "active");
       section.appendChild(container);
 
       for (let j = 1; j < blocksRaw.length; j += 2) {
@@ -334,14 +366,25 @@ const parseBenderContent = async (selector, devMode = false) => {
           container.appendChild(h2);
         }
 
+        const swiperHelper = document.createElement("div");
+        swiperHelper.className = "swiper-helper";
+
         const swiperDiv = document.createElement("div");
         swiperDiv.className = "swiper swiper-favourite-categories";
-        // Pagination je odsud pryč
-        swiperDiv.innerHTML = `
-      <div class="swiper-wrapper"></div>
-      <button class="swiper-button-prev primary" aria-label="Prev category"><div class="sr-only">Next category</div></button>
-      <button class="swiper-button-next primary" aria-label="Next category"><div class="sr-only">Prev category</div></button>
-    `;
+        swiperDiv.style.width = "100%";
+        swiperDiv.style.overflow = "hidden";
+
+        swiperDiv.innerHTML = `<div class="swiper-wrapper"></div>`;
+        swiperHelper.appendChild(swiperDiv);
+
+        swiperHelper.insertAdjacentHTML(
+          "beforeend",
+          `
+      <button class="swiper-button-prev" aria-label="Prev category"><div class="sr-only">Next category</div></button>
+      <button class="swiper-button-next" aria-label="Next category"><div class="sr-only">Prev category</div></button>
+        `,
+        );
+
         const swiperWrapper = swiperDiv.querySelector(".swiper-wrapper");
 
         const items = contentText.match(/#([^#]+)#/g);
@@ -385,7 +428,7 @@ const parseBenderContent = async (selector, devMode = false) => {
           });
         }
 
-        container.appendChild(swiperDiv);
+        container.appendChild(swiperHelper);
 
         // VYTVOŘENÍ PAGINACE VNĚ SWIPERU
         const paginationDiv = document.createElement("div");
@@ -516,7 +559,7 @@ const initFavouriteCategoriesSwiper = () => {
 
   new window.Swiper(selector, {
     slidesPerView: 2.2,
-    spaceBetween: 12,
+    spaceBetween: 16,
     speed: 600,
     grabCursor: true,
     watchSlidesProgress: true,
@@ -539,8 +582,8 @@ const initFavouriteCategoriesSwiper = () => {
 
     // Breakpointy přesně podle tvého zadání
     breakpoints: {
-      768: { slidesPerView: 3, spaceBetween: 14 },
-      880: { slidesPerView: 4, spaceBetween: 14 },
+      768: { slidesPerView: 3, spaceBetween: 16 },
+      880: { slidesPerView: 4, spaceBetween: 16 },
       1024: { slidesPerView: 5, spaceBetween: 16 },
       1200: { slidesPerView: 6, spaceBetween: 16 },
       1360: { slidesPerView: 7, spaceBetween: 16 },
@@ -693,24 +736,24 @@ const handleTextLayout = (product) => {
     : null;
   const submitBtn = form ? form.querySelector("button[type='submit']") : null;
   const prListUnit = product.querySelector(".pr-list-unit");
-  // 1. Kód do hodnocení
+
   if (pCode && ratingsWrapper) ratingsWrapper.append(pCode);
 
-  // 2. Popis za název
   if (pDesc && nameLink) nameLink.after(pDesc);
 
-  // 3. Dostupnost za popis/název
-  if (availability) {
-    if (pDesc) pDesc.after(availability);
-    else if (nameLink) nameLink.after(availability);
+  if (pricesWrapper && availability) {
+    const pricesAvailWrapper = document.createElement("div");
+    pricesAvailWrapper.className = "prices-availability-wrapper";
+
+    pricesWrapper.before(pricesAvailWrapper);
+    pricesAvailWrapper.append(availability);
+    pricesAvailWrapper.append(pricesWrapper);
   }
 
-  // 4. Přesun "od" a přeškrtnuté ceny
   if (priceStandard && pricesWrapper) {
     const oldPriceWrapper = document.createElement("div");
     oldPriceWrapper.className = "price-standard-wrapper";
 
-    // Zkontrolujeme textový uzel těsně před cenou (hledáme "od")
     const prevNode = priceStandard.previousSibling;
     if (
       prevNode &&
@@ -720,17 +763,12 @@ const handleTextLayout = (product) => {
       oldPriceWrapper.append(prevNode);
     }
 
-    // Přesuneme samotnou přeškrtnutou cenu
     oldPriceWrapper.append(priceStandard);
 
-    // Vložíme nad finální cenu
     if (priceFinal) priceFinal.before(oldPriceWrapper);
     else pricesWrapper.append(oldPriceWrapper);
-
-    // Zbytek štítku (tj. "až -15 %") záměrně necháváme na původním místě
   }
 
-  // 5. Formulář a množství
   if (form) {
     if (hiddenAmountInput) hiddenAmountInput.remove();
 
@@ -739,8 +777,8 @@ const handleTextLayout = (product) => {
     if (submitBtn) submitBtn.before(quantityWrapper);
     else form.append(quantityWrapper);
   }
+
   if (prListUnit) {
-    // Odstraní jak HTML entitu, tak fyzický znak pevné mezery
     prListUnit.innerHTML = prListUnit.innerHTML.replace(/&nbsp;|\u00A0/g, "");
   }
 };
@@ -788,39 +826,51 @@ const SHARED_SWIPER_CONFIG = {
  * struktury section > .container a nahradí jimi původní elementy na jejich místě.
  */
 
+/**
+ * reshapeProductSections
+ * Obalí titulky a bloky produktů na domovské stránce do bezpečné sémantické <section>.
+ * Využívá "Batched DOM" úpravy pro redukci Layout Thrashingu (fáze čtení oddělena od zápisu).
+ */
 const reshapeProductSections = () => {
   if (window.shoptetPage !== "homepage") return;
 
   const headings = document.querySelectorAll(".homepage-group-title");
 
+  // 1. Fáze čtení: sesbíráme všechny uzly
+  const targets = [];
   headings.forEach((heading) => {
     const sectionId = heading.className.match(
       /homepage-products-heading-(\d+)/,
     )?.[1];
-
-    const productEl = document.querySelector(`.homepage-products-${sectionId}`);
-
-    if (productEl && sectionId) {
-      // 1. Vyčištění tříd: pryč s inline, sem s blockem
-      if (productEl.classList.contains("products-inline")) {
-        productEl.classList.remove("products-inline");
-      }
-      if (!productEl.classList.contains("products-block")) {
-        productEl.classList.add("products-block");
-      }
-
-      // 2. Vytvoření nového layoutu
-      const section = document.createElement("section");
-      section.className = `product-section product-section-${sectionId} is-processed`;
-
-      const container = document.createElement("div");
-      container.className = "container";
-
-      // Přesuneme elementy do nového obalu
-      heading.replaceWith(section);
-      container.append(heading, productEl);
-      section.append(container);
+    if (sectionId) {
+      const productEl = document.querySelector(
+        `.homepage-products-${sectionId}`,
+      );
+      if (productEl) targets.push({ heading, productEl, sectionId });
     }
+  });
+
+  // 2. Fáze zápisu: upravíme DOM bez prokládání čtením
+  targets.forEach(({ heading, productEl, sectionId }) => {
+    // Vyčištění tříd
+    if (productEl.classList.contains("products-inline")) {
+      productEl.classList.remove("products-inline");
+    }
+    if (!productEl.classList.contains("products-block")) {
+      productEl.classList.add("products-block");
+    }
+
+    // Vytvoření nového layoutu
+    const section = document.createElement("section");
+    section.className = `product-section product-section-${sectionId} is-processed`;
+
+    const container = document.createElement("div");
+    container.className = "container";
+
+    // Přesun do paměti a následný append
+    heading.replaceWith(section);
+    container.append(heading, productEl);
+    section.append(container);
   });
 };
 
@@ -982,6 +1032,11 @@ const handleWelcomeText = () => {
 
 /**
  * Hlavní orchestrátor
+ */
+/**
+ * handleHomePage
+ * Centrální orchestrátor pro načítání Homepage prvků.
+ * Spouští bezpečně reshaping bloků a logiku sliderů měřenou benchmarkem.
  */
 const handleHomePage = async () => {
   if (window.shoptetPage !== "homepage") return;
@@ -1324,7 +1379,11 @@ const handleRelatedAndAlternativeProducts = () => {
   }
 };
 
-// Funkce vyhledá banner s benefity a přesune jej na samotný konec hlavního obsahu produktu.
+/**
+ * handleProductBenefits
+ * Přesune banner s benefity nakonec obsahu produktu pod detailní popisy.
+ * Využívá requestAnimationFrame pro render optimizaci a zamezení CLS (posunu textu).
+ */
 const handleProductBenefits = () => {
   const benefits = document.querySelector(".benefitBanner");
   const mainContent = document.querySelector(
@@ -1332,11 +1391,14 @@ const handleProductBenefits = () => {
   );
 
   if (benefits && mainContent) {
-    mainContent.append(benefits);
+    requestAnimationFrame(() => mainContent.append(benefits));
   }
 };
 
-// Funkce najde soubory ke stažení a přesune je do struktury popisu produktu s vlastním nadpisem a obalem.
+/**
+ * handleProductFiles
+ * Najde soubory ke stažení a přesune je do struktury popisu produktu s vlastním nadpisem a obalem.
+ */
 const handleProductFiles = () => {
   const files = document.querySelector("#relatedFiles");
   if (!files) return;
@@ -1356,20 +1418,25 @@ const handleProductFiles = () => {
   filesWrapper.append(title);
   filesWrapper.append(files);
 
-  if (extendedDescription) {
-    extendedDescription.append(filesWrapper);
-  } else if (descriptionInner) {
-    extendedDescription = document.createElement("div");
-    extendedDescription.className = "extended-description";
-    extendedDescription.append(filesWrapper);
-    descriptionInner.append(extendedDescription);
-  } else {
-    files.parentNode?.insertBefore(filesWrapper, files);
-    filesWrapper.append(files);
-  }
+  requestAnimationFrame(() => {
+    if (extendedDescription) {
+      extendedDescription.append(filesWrapper);
+    } else if (descriptionInner) {
+      extendedDescription = document.createElement("div");
+      extendedDescription.className = "extended-description";
+      extendedDescription.append(filesWrapper);
+      descriptionInner.append(extendedDescription);
+    } else {
+      files.parentNode?.insertBefore(filesWrapper, files);
+      filesWrapper.append(files);
+    }
+  });
 };
 
-// Funkce najde sekci s videi a přesune ji na konec popisu produktu, případně vytvoří chybějící strukturu popisku.
+/**
+ * handleProductVideos
+ * Najde sekci s videem a přesune ji na konec popisu produktu.
+ */
 const handleProductVideos = () => {
   const videos = document.querySelector("#productVideos");
   if (!videos) return;
@@ -1378,14 +1445,16 @@ const handleProductVideos = () => {
   const descriptionInner = description?.querySelector(".description-inner");
   let extendedDescription = description?.querySelector(".extended-description");
 
-  if (extendedDescription) {
-    extendedDescription.append(videos);
-  } else if (descriptionInner) {
-    extendedDescription = document.createElement("div");
-    extendedDescription.className = "extended-description";
-    extendedDescription.append(videos);
-    descriptionInner.append(extendedDescription);
-  }
+  requestAnimationFrame(() => {
+    if (extendedDescription) {
+      extendedDescription.append(videos);
+    } else if (descriptionInner) {
+      extendedDescription = document.createElement("div");
+      extendedDescription.className = "extended-description";
+      extendedDescription.append(videos);
+      descriptionInner.append(extendedDescription);
+    }
+  });
 };
 
 // Funkce extrahuje logo a text výrobce, vyčistí balast a přesune výsledek do info panelu produktu.
@@ -1582,20 +1651,23 @@ const handleProductDetailNonCritical = () => {
 handleProductDetailNonCritical();
 
 // Vytvoří střední část patičky s logy a rozdělenou navigací (bloky samostatně)
+/**
+ * handleFooterMiddle
+ * Přeskládává obsah prostřední patičky, zejména logo a Heureka certifikát.
+ * Vkládá modifikované elementy do DOMu až nakonec pro optimalizaci renderování.
+ */
 const handleFooterMiddle = () => {
   const currentLang = window.shoptetLang || "cs";
   const translations = window.projectTranslations[currentLang];
   const footerBottom = document.querySelector(".footer-bottom");
-  const footerNav = document.querySelector(".footer-nav"); // Hledáme obecněji
+  const footerNav = document.querySelector(".footer-nav");
 
   if (!footerBottom || !translations) return;
 
-  let footerMiddle = document.querySelector(".footer-middle");
-  if (!footerMiddle) {
-    footerMiddle = document.createElement("div");
-    footerMiddle.className = "footer-middle";
-    footerBottom.parentNode.insertBefore(footerMiddle, footerBottom);
-  }
+  const isNew = !document.querySelector(".footer-middle");
+  const footerMiddle =
+    document.querySelector(".footer-middle") || document.createElement("div");
+  if (isNew) footerMiddle.className = "footer-middle";
 
   let container = footerMiddle.querySelector(".container");
   if (!container) {
@@ -1650,9 +1722,17 @@ const handleFooterMiddle = () => {
       flexHolder.appendChild(clonedBlock);
     });
   }
+
+  // Až nyní vložíme celou složenou strukturu do DOMu (pokud je nově vytvořená)
+  if (isNew) {
+    footerBottom.parentNode.insertBefore(footerMiddle, footerBottom);
+  }
 };
 
-// Přebuduje textová data z Shoptet banneru do strukturovaného seznamu odkazů na sociální sítě
+/**
+ * reshapeSocials
+ * Přebuduje textová data z Shoptet banneru do strukturovaného seznamu odkazů na sociální sítě.
+ */
 const reshapeSocials = () => {
   const wrapper = document.querySelector(".socials-footer");
   const dataSpan = wrapper?.querySelector("span[data-ec-promo-id]");
@@ -1680,7 +1760,11 @@ const reshapeSocials = () => {
   }
 };
 
-// Přesune platební a dopravní bloky do footer-lower a vyčistí HTML strukturu
+/**
+ * handleFooterLower
+ * Přesune platební a dopravní bloky do footer-lower a vyčistí HTML strukturu.
+ * Omezuje the Layout Thrashing tím, že dom-append běží jako poslední operace.
+ */
 const handleFooterLower = () => {
   const footer = document.querySelector("footer");
   if (!footer) return;
@@ -1690,19 +1774,10 @@ const handleFooterLower = () => {
   const payment = document.querySelector(".footer-payment");
   const shipping = document.querySelector(".footer-shipping");
 
-  let footerLower = document.querySelector(".footer-lower");
-  if (!footerLower) {
-    footerLower = document.createElement("div");
-    footerLower.className = "footer-lower";
-
-    if (footerMiddle) {
-      footerMiddle.after(footerLower);
-    } else if (footerBottom) {
-      footer.insertBefore(footerLower, footerBottom);
-    } else {
-      footer.appendChild(footerLower);
-    }
-  }
+  const isNew = !document.querySelector(".footer-lower");
+  const footerLower =
+    document.querySelector(".footer-lower") || document.createElement("div");
+  if (isNew) footerLower.className = "footer-lower";
 
   let container = footerLower.querySelector(".container");
   if (!container) {
@@ -1732,6 +1807,16 @@ const handleFooterLower = () => {
 
   injectCleanBlock(payment);
   injectCleanBlock(shipping);
+
+  if (isNew) {
+    if (footerMiddle) {
+      footerMiddle.after(footerLower);
+    } else if (footerBottom) {
+      footer.insertBefore(footerLower, footerBottom);
+    } else {
+      footer.appendChild(footerLower);
+    }
+  }
 };
 
 // Refaktorovaná horní sekce patičky (Pro verze): využití moderních DOM API a ES6+
@@ -2280,7 +2365,17 @@ const RecentlyViewed = (() => {
 
     if (refs.pCode && refs.ratings) refs.ratings.append(refs.pCode);
     if (refs.pDesc && refs.name) refs.name.after(refs.pDesc);
-    if (refs.avail) (refs.pDesc || refs.name)?.after(refs.avail);
+
+    // Obalí ceny a dostupnost do společného divu
+    if (refs.pricesWrapper && refs.avail) {
+      const pricesAvailWrapper = document.createElement("div");
+      pricesAvailWrapper.className = "prices-availability-wrapper";
+      refs.pricesWrapper.before(pricesAvailWrapper);
+      pricesAvailWrapper.append(refs.avail);
+      pricesAvailWrapper.append(refs.pricesWrapper);
+    } else if (refs.avail) {
+      (refs.pDesc || refs.name)?.after(refs.avail);
+    }
 
     const priceStd = refs.flagDiscount
       ? $(".price-standard", refs.flagDiscount)
@@ -2397,13 +2492,11 @@ const RecentlyViewed = (() => {
     const instagramBlock = $(".custom-footer__instagram");
     const footer = $("footer");
 
-    // Definujeme sekce v pořadí, v jakém mají jít za sebou
     const benefitsSection = $(".section-benefits");
     const secondDescription = $(".section-second-description");
 
     let targetElement = instagramBlock || footer;
 
-    // Na kategorii chceme být až pod benefity nebo pod popisem
     if (window.shoptetPage === "category") {
       if (secondDescription) {
         targetElement = secondDescription;
@@ -2541,7 +2634,6 @@ const RecentlyViewed = (() => {
   };
 })();
 
-// Spouštění zůstává stejné
 if (document.readyState === "complete") {
   RecentlyViewed.run();
 } else {

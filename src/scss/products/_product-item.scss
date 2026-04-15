@@ -6,12 +6,10 @@
 
   &::before {
     content: "";
-    @include icon-mask(
-      "/assets/images/icons/cart-primary.svg",
+    @include icon-mask("/assets/images/icons/cart-primary.svg",
       $color-font-invert,
       16px,
-      16px
-    );
+      16px);
   }
 }
 
@@ -34,9 +32,11 @@
     border: 1px solid $border-primary;
     position: relative;
   }
+
   label {
     display: flex;
   }
+
   .increase,
   .decrease {
     padding: 10px 7px;
@@ -49,8 +49,8 @@
     flex-wrap: nowrap;
     background-color: transparent;
     border: 1px solid $border-primary;
-    @include hover {
-    }
+
+    @include hover {}
   }
 
   .decrease {
@@ -58,29 +58,28 @@
     border-right: unset;
     border-radius: 4px 0 0 4px;
     background-color: $color-page-bg;
+
     &::before {
       content: "";
-      @include icon-mask(
-        "/assets/images/icons/minus.svg",
+      @include icon-mask("/assets/images/icons/minus.svg",
         $color-font,
         16px,
-        16px
-      );
+        16px);
     }
   }
+
   .increase {
     order: 1;
     border-left: unset;
     border-radius: 0 4px 4px 0;
     background-color: $color-page-bg;
+
     &::before {
       content: "";
-      @include icon-mask(
-        "/assets/images/icons/plus.svg",
+      @include icon-mask("/assets/images/icons/plus.svg",
         $color-font,
         16px,
-        16px
-      );
+        16px);
     }
   }
 }
@@ -91,9 +90,11 @@
   container-type: inline-size;
   container-name: product-card;
   background-color: $color-font-invert;
+
   &.inactive:not(.swiper-slide) {
     display: none;
   }
+
   .p {
     display: flex;
     flex-direction: column;
@@ -101,15 +102,18 @@
     align-items: center;
     height: 100%;
   }
+
   a {
     @include trans(0.3s);
     text-decoration: unset;
+
     @include hover {
       .name {
         color: $color-primary;
       }
     }
   }
+
   // --- OBRÁZEK A ŠTÍTKY ---
   .image {
     display: flex;
@@ -126,6 +130,7 @@
     border-radius: 12px;
     overflow: hidden;
     margin-bottom: 8px;
+
     img {
       width: 100%;
       height: 100%;
@@ -138,8 +143,8 @@
     // Samotný obrázek
   }
 
-  .flags-default {
-  }
+  .flags-default {}
+
   .flags-extra {
     position: absolute;
     display: flex;
@@ -149,6 +154,7 @@
     align-items: center;
     justify-content: center;
   }
+
   .flag {
     // Jednotlivý štítek
   }
@@ -176,6 +182,7 @@
     line-height: em(25, 18);
     margin-bottom: 8px;
     font-weight: 600;
+
     span {
       @include inherit();
     }
@@ -191,8 +198,11 @@
 
   .availability {
     // Skladovost
-    margin-top: auto;
-    margin-bottom: 8px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 4px;
   }
 
   .availability-amount {
@@ -225,7 +235,7 @@
 
   // --- SPODNÍ ČÁST (CENY A KOŠÍK) ---
   .p-bottom {
-    > div {
+    >div {
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -236,13 +246,25 @@
     }
   }
 
+  .prices-availability-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
   .prices {
     position: relative;
+    flex: 1;
+
     &:has(.price-standard-wrapper:not(.price-standard-wrapper-placeholder)) {
       .price-final {
         color: $color-danger;
       }
     }
+
     @include hover {
       .price-additional {
         display: inline-block;
@@ -273,6 +295,7 @@
     line-height: em(22, 16);
     color: $color-font-second;
     text-decoration: line-through;
+
     &-placeholder {
       display: none;
     }
@@ -299,6 +322,7 @@
     flex: 1;
     justify-content: flex-end;
   }
+
   form {
     display: flex;
     flex-direction: row;
@@ -308,9 +332,11 @@
     gap: 8px;
     flex: 1;
   }
+
   .btn {
     flex: 1;
   }
+
   .pr-action {
     // Samotný formulář přidání do košíku
   }
@@ -333,10 +359,12 @@
   .btn-cart {
     // Odesílací tlačítko
   }
-  .secondary-to-cart-btn{
+
+  .secondary-to-cart-btn {
     display: none;
   }
 }
+
 .products-inline {
   .product {
     .p {
@@ -347,12 +375,14 @@
       border: 1px solid $border-color;
       border-radius: 12px;
     }
+
     .image {
       padding: 0;
       margin: 0;
       aspect-ratio: 1;
       max-width: 90px;
       border-radius: 4px;
+
       img {
         aspect-ratio: 1;
         height: auto;
@@ -360,8 +390,10 @@
         display: block;
       }
     }
+
     .p-in {
       padding: 0 24px;
+
       @container product-card (min-width: 740px) {
         flex-direction: row;
         align-items: center;
@@ -369,8 +401,10 @@
         gap: 24px;
       }
     }
+
     .p-in-in {
       flex-direction: column-reverse;
+
       @container product-card (min-width: 740px) {
         flex-direction: row-reverse;
         justify-content: space-between;
@@ -378,16 +412,20 @@
         gap: 24px;
       }
     }
+
     .name {
       margin-bottom: 4px;
+
       @container product-card (min-width: 740px) {
         margin-bottom: 0;
       }
-      span {
-      }
+
+      span {}
     }
+
     .ratings-wrapper {
       margin-bottom: 4px;
+
       @container product-card (min-width: 740px) {
         margin-bottom: 0;
         gap: 24px;
@@ -395,40 +433,46 @@
         flex-wrap: nowrap;
       }
     }
+
     .availability {
       margin: 0;
-      span {
-      }
+
+      span {}
     }
-    .availability-amount {
-    }
-    .p-code {
-    }
+
+    .availability-amount {}
+
+    .p-code {}
+
     .p-bottom {
-      > div {
-      }
+      >div {}
     }
+
     .prices {
       display: flex;
       flex-direction: row;
       align-items: center;
       gap: 4px;
     }
+
     .extra-flags {
       display: none;
     }
-    .price-additional {
-    }
+
+    .price-additional {}
+
     .price-save {
       display: none;
     }
+
     .price-standard-label {
       display: none;
     }
-    .price-standard-wrapper {
-    }
-    .price-final {
-    }
+
+    .price-standard-wrapper {}
+
+    .price-final {}
+
     a.btn {
       flex: unset;
     }

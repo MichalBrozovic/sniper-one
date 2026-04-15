@@ -229,22 +229,22 @@
             text-align: center;
         }
     }
-}
 
-.id--12,
-.customer-page {
-    .content-inner {
-        @media screen and (max-width: 1440px) {
-            overflow-x: auto;
-        }
-
-        table {
-
-            thead,
-            tbody {
-                width: max-content;
-                white-space: nowrap;
+    .page-header {
+        .container {
+            &>* {
+                max-width: 520px;
             }
+        }
+    }
+
+    .body-banners {
+        overflow: hidden;
+    }
+
+    article {
+        header {
+            margin-top: 40px;
         }
     }
 }

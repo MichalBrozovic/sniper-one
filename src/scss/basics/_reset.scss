@@ -199,10 +199,13 @@ section {
 }
 
 button {
-  background-color: unset;
-  padding: unset;
+  background-color: transparent;
+  padding: 0;
   outline: unset;
-  border: unset;
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+  font-size: 1rem;
 }
 .src-only,
 .sr-only,

@@ -20,7 +20,6 @@
   }
 }
 
-// header-top || headertop || header top || navigation top
 .top-navigation-bar {
   border-bottom: 1px solid $border-color;
   padding: 7px 0;
@@ -34,7 +33,6 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: nowrap;
-
     white-space: nowrap;
     gap: 24px;
 
@@ -50,7 +48,6 @@
   }
 }
 
-// header top menu || topheader menu || header-top menu
 .top-navigation-menu {
   margin-left: auto;
 
@@ -83,8 +80,6 @@
     @media (max-width:1224px) {
       gap: 16px;
     }
-
-
   }
 }
 
@@ -95,6 +90,7 @@
   justify-content: flex-start;
   flex-wrap: nowrap;
   gap: 24px;
+  order: -1;
 
   >strong {
     display: none;
@@ -111,7 +107,6 @@
   }
 }
 
-//Jazyky + měny || languages + currency
 .languagesMenu {
   position: relative;
   opacity: 0;
@@ -131,8 +126,6 @@
 
   &__box {
     position: relative;
-
-    &.open {}
   }
 
   &__header {
@@ -203,7 +196,6 @@
       line-height: em(16, 14);
       color: $color-font;
       padding-top: 2px;
-
       gap: 0px;
 
       li {
@@ -244,8 +236,6 @@
   }
 }
 
-//Navigace || navigation
-//navigation vissible, otevřená navigace
 body.submenu-visible {
   &::before {
     content: "";
@@ -272,7 +262,6 @@ body.submenu-visible {
 
     ul {
       display: flex;
-
     }
   }
 
@@ -310,8 +299,6 @@ body.submenu-visible {
       left: 50%;
       transform: translate(-50%, -50%);
     }
-
-    @include hover {}
   }
 
   ul {
@@ -349,7 +336,6 @@ body.submenu-visible {
 #navigation {
   display: none;
   opacity: 0;
-  // flex: 1;
 
   .navigationActions {
     display: none;
@@ -367,12 +353,15 @@ body.submenu-visible {
       gap: 24px;
     }
 
-
     li {
       display: flex;
 
       &.splitted {
         display: none;
+
+        @media (max-width:1023px) {
+          display: flex;
+        }
       }
 
       >a {
@@ -410,7 +399,6 @@ body.submenu-visible {
         background-color: $color-primary-050;
         width: 100%;
         padding: 24px 0 32px 0;
-
         gap: 16px;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 
@@ -486,6 +474,10 @@ body.submenu-visible {
     }
   }
 
+  .close {
+    display: none;
+  }
+
   @media (max-width:1023px) {
     @include trans(0.5s);
     top: 0px;
@@ -513,6 +505,7 @@ body.submenu-visible {
       top: 59px;
       transform: unset;
       right: 37px;
+      display: flex;
     }
 
     .navigation-in {
@@ -553,7 +546,6 @@ body.submenu-visible {
         line-height: em(16, 14);
         color: $color-font;
         padding-top: 2px;
-
         gap: 0px;
 
         li {
@@ -574,7 +566,6 @@ body.submenu-visible {
       align-items: flex-start;
 
       li {
-
         >a {
           font-size: rem(16);
           padding: 0;
@@ -582,42 +573,18 @@ body.submenu-visible {
           @include hover {
             color: $color-primary;
           }
-
-        }
-
-        ul {
-
-          &::before,
-          &::after {}
-
-          &::before {}
-
-          &::after {}
-
-          li {
-
-            a {
-
-              &::before {}
-
-              @include hover {}
-
-              img {}
-            }
-          }
-
-          ul,
-          .menu-level-3 {}
-        }
-
-        &.exp {
-          >a {
-            &::after {}
-          }
-
-          ul {}
         }
       }
+    }
+  }
+
+  @media (max-width:767px) {
+    padding: 70px 44px 80px 24px;
+    max-width: 254px;
+
+    .close {
+      right: 21px;
+      top: 48px;
     }
   }
 }
@@ -717,11 +684,6 @@ body.submenu-visible {
     &::before {
       @include icon-mask("/assets/images/icons/search-primary.svg", $color-secondary, 24px, 24px);
     }
-
-    // @media (max-width: 880px) {
-    //   display: flex;
-
-    // }
   }
 
   &[data-target="login"]:not(.top-nav-button) {
@@ -744,15 +706,6 @@ body.submenu-visible {
     }
   }
 }
-
-// body.search-window-visible {
-//   .toggle-window {
-
-//     &[data-target="search"] {
-//       background-color: $color-primary-050;
-//     }
-//   }
-// }
 
 .top-nav-button-login,
 .navigation-buttons a[data-target="login"] {
@@ -830,16 +783,6 @@ body.submenu-visible {
   }
 }
 
-// body.search-window-visible {
-//   .search {
-//     display: flex;
-//     position: absolute;
-//     top: 100%;
-//     width: 100%;
-//     padding-bottom: 8px;
-//   }
-// }
-
 .search {
   display: none;
   flex: 0 1 400px;
@@ -914,8 +857,6 @@ body.submenu-visible {
     font-weight: 600;
     line-height: em(22, 16);
     text-align: center;
-
-
   }
 
   @media (max-width:767px) {

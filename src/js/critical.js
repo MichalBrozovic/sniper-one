@@ -94,7 +94,7 @@ if (document.readyState === "loading") {
 } else {
   setScrollbarWidth();
 }
-window.addEventListener("resize", setScrollbarWidth);
+window.addEventListener("resize", debounce(setScrollbarWidth, 150));
 document.addEventListener("shoptet.content.updated", setScrollbarWidth);
 
 // Funkce pro nastavení výšky headeru jako CSS proměnné
@@ -128,7 +128,7 @@ syncShoptetBodyColor();
 
 // Zavolejte funkci při načtení stránky
 document.addEventListener("DOMContentLoaded", setHeaderTopHeight);
-window.addEventListener("resize", setHeaderTopHeight);
+window.addEventListener("resize", debounce(setHeaderTopHeight, 150));
 
 // Upravený výpočet dostupné šířky pro splitMenu.
 // Pro vyhledávání (.search) počítáme s fixní rezervou 250px místo aktuální šířky.
@@ -231,32 +231,40 @@ links2.forEach((link) => {
 
 let lastScrollTop = 0;
 const delta = 5; // Minimální rozdíl v pixelech pro spuštění animace
+let ticking = false;
 
 function fixedHeader() {
   const currentScroll =
     window.pageYOffset || document.documentElement.scrollTop;
-  const header = document.querySelector("#header");
-  const cart = document.querySelector(".user-action-cart");
-  const login = document.querySelector(".user-action-login");
 
-  // 1. LOGIKA PRO STICKY (Fixace po odscrollování 45px)
-  const isSticky = currentScroll > 45;
-  if (header) header.classList.toggle("sticky", isSticky);
-  if (cart) cart.classList.toggle("sticky", isSticky);
-  if (login) login.classList.toggle("sticky", isSticky);
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      const header = document.querySelector("#header");
+      const cart = document.querySelector(".user-action-cart");
+      const login = document.querySelector(".user-action-login");
 
-  // 2. LOGIKA PRO HIDE/SHOW (Podle směru scrollu)
-  // Ignorujeme malé pohyby (delta)
-  if (Math.abs(lastScrollTop - currentScroll) <= delta) return;
+      // 1. LOGIKA PRO STICKY (Fixace po odscrollování 45px)
+      const isSticky = currentScroll > 45;
+      if (header) header.classList.toggle("sticky", isSticky);
+      if (cart) cart.classList.toggle("sticky", isSticky);
+      if (login) login.classList.toggle("sticky", isSticky);
 
-  // Pokud jedeme dolů a jsme už pod hranicí headeru, přidáme 'hide'
-  const isScrollingDown = currentScroll > lastScrollTop && currentScroll > 100;
+      // 2. LOGIKA PRO HIDE/SHOW (Podle směru scrollu)
+      if (Math.abs(lastScrollTop - currentScroll) > delta) {
+        // Pokud jedeme dolů a jsme už pod hranicí headeru, přidáme 'hide'
+        const isScrollingDown =
+          currentScroll > lastScrollTop && currentScroll > 100;
 
-  if (header) header.classList.toggle("hide", isScrollingDown);
-  if (cart) cart.classList.toggle("hide", isScrollingDown);
-  if (login) login.classList.toggle("hide", isScrollingDown);
+        if (header) header.classList.toggle("hide", isScrollingDown);
+        if (cart) cart.classList.toggle("hide", isScrollingDown);
+        if (login) login.classList.toggle("hide", isScrollingDown);
 
-  lastScrollTop = currentScroll;
+        lastScrollTop = currentScroll;
+      }
+      ticking = false;
+    });
+    ticking = true;
+  }
 }
 
 document.addEventListener("DOMContentLoaded", fixedHeader);
@@ -354,31 +362,38 @@ const removeMenuCommas = () => {
 };
 
 // Funkce přesune navigaci za logo a menu-helper za navigaci (1024px+).
-// Zároveň nastaví anglické accessibility atributy pro ovládání klávesnicí.
+// Zároveň nastaví anglické accessibility atributy a zachová funkcionalitu pro mobilní zobrazení, aby nedocházelo k tug-of-war s relocateNavigationForMobile.
 const moveNavigation = () => {
   const nav = document.getElementById("navigation");
   const menuHelper = document.querySelector(".menu-helper");
   const siteNameWrapper = document.querySelector(
     ".header-top .site-name-wrapper",
   );
-  const headerTop = document.querySelector(".header-top");
 
-  if (nav && siteNameWrapper && headerTop) {
-    if (siteNameWrapper.nextElementSibling !== nav) {
-      siteNameWrapper.after(nav);
-    }
-
-    if (menuHelper) {
-      // Nastavení přístupnosti v angličtině
+  if (nav && siteNameWrapper) {
+    if (menuHelper && !menuHelper.hasAttribute("role")) {
+      // Nastavení přístupnosti v angličtině (provede se jen jednou)
       menuHelper.setAttribute("tabindex", "0");
       menuHelper.setAttribute("role", "button");
       menuHelper.setAttribute("aria-haspopup", "true");
       menuHelper.setAttribute("aria-expanded", "false");
       menuHelper.setAttribute("aria-label", "Show more categories");
+    }
 
-      // Přesun za navigaci jen na desktopu (1024px a víc)
-      if (window.innerWidth >= 1024 && nav.nextElementSibling !== menuHelper) {
+    if (window.innerWidth >= 1024) {
+      // Desktop: Navigace umístěna za site-name a menuHelper hned za navigaci
+      if (siteNameWrapper.nextElementSibling !== nav) {
+        siteNameWrapper.after(nav);
+      }
+      if (menuHelper && nav.nextElementSibling !== menuHelper) {
         nav.after(menuHelper);
+      }
+    } else {
+      // Mobile: O navigaci se stará relocateNavigationForMobile,
+      // ale menuHelper musíme vrátit zpět do .navigation-in pokud si ho shoptet vyžádá.
+      const navIn = nav.querySelector(".navigation-in");
+      if (menuHelper && navIn && navIn.lastElementChild !== menuHelper) {
+        navIn.appendChild(menuHelper);
       }
     }
   }
@@ -435,10 +450,30 @@ const userCartHandle = () => {
   );
 
   if (cartWidget && cartButton) {
-    if (!cartButton.contains(cartWidget)) {
-      cartButton.appendChild(cartWidget);
+    // 1. Zkontrolujeme, jestli už náhodou tlačítko není obalené (abychom nevytvářeli obaly donekonečna)
+    let wrapper = cartButton.parentElement;
+    if (!wrapper.classList.contains("cart-wrapper-relative")) {
+      // 2. Vytvoříme nový obalovací div
+      wrapper = document.createElement("div");
+      wrapper.className = "cart-wrapper-relative";
+
+      // 3. Nastavíme mu position relative (a doporučuji i inline-block, aby nerozhodil layout hlavičky)
+      wrapper.style.position = "relative";
+      wrapper.style.display = "inline-block"; // volitelné, uprav podle potřeby svého CSS
+
+      // 4. Vložíme nový obal přesně na to místo v DOMu, kde teď je tlačítko košíku
+      cartButton.parentNode.insertBefore(wrapper, cartButton);
+
+      // 5. Přesuneme samotné tlačítko (odkaz) dovnitř obalu
+      wrapper.appendChild(cartButton);
+    }
+
+    // 6. Ujistíme se, že widget je uvnitř tohoto nového obalu jako SOUROZENEC tlačítka
+    if (!wrapper.contains(cartWidget)) {
+      wrapper.appendChild(cartWidget);
     }
   } else if (cartWidget && !cartButton) {
+    // Fallback: Pokud tlačítko neexistuje, hodíme widget jen do navigace (původní logika)
     const navButtons = document.querySelector("#header .navigation-buttons");
     if (navButtons && !navButtons.contains(cartWidget)) {
       navButtons.appendChild(cartWidget);
@@ -571,8 +606,9 @@ const relocateNavigationForMobile = () => {
       const languages = navIn.querySelector(".top-navigation-tools--language");
 
       if (container) {
-        if (contacts) container.appendChild(contacts);
+        // Vrácení prvků do top bar kontejneru přesně v původním pořadí Shoptetu
         if (topMenu) container.appendChild(topMenu);
+        if (contacts) container.appendChild(contacts);
         if (languages) container.appendChild(languages);
       }
     }
@@ -588,17 +624,24 @@ const handleHeader = async () => {
   userCartHandle();
   moveResponsiveTools();
   relocateNavigationForMobile();
+
   setTimeout(() => {
     const headerTop = document.querySelector(".header-top");
     if (headerTop) {
       headerTop.classList.add("is-processed");
     }
-  }, 1);
+
+    // Na závěr layout úprav na resize musíme přepočítat helper pro kolize
+    if (typeof window.shoptet?.menu?.splitMenu === "function") {
+      window.shoptet.menu.splitMenu();
+    }
+  }, 10);
 };
+
 handleHeader();
 document.addEventListener("ShoptetDOMPageContentLoaded", handleHeader);
 document.addEventListener("ShoptetDOMContentLoaded", handleHeader);
-window.addEventListener("resize", relocateNavigationForMobile);
+window.addEventListener("resize", debounce(handleHeader, 150));
 
 // Funkce transformuje Shoptet karusel na Swiper a dynamicky nastavuje breakpointy podle počtu slidů.
 const initHomepageSwiper = () => {
@@ -1051,13 +1094,31 @@ const handleCategoryMobile = () => {
     document.body.classList.remove("filters-mobile-visible");
     filtersWrapper.classList.remove("active");
     filtersAreOpen = false;
+
+    // Záchrana pro resize zpět na desktop:
+    // Odstraníme fyzicky mobilní ovládací tlačítka, jestliže byla na mobilu vytvořena
+    const openBtn = document.querySelector(".btn-filter-open");
+    if (openBtn) openBtn.remove();
+
+    const closeBtn = filtersWrapper.querySelector(".filters-close");
+    if (closeBtn) closeBtn.remove();
+
     return;
   }
 
   // 1. Zpětná aplikace stavu po AJAXu (pokud byly filtry otevřené, zůstanou)
   if (filtersAreOpen) {
+    // 1. Vypneme bezprostředně transition, abychom zamezili CSS animaci přes obrazovku
+    filtersWrapper.style.transition = "none";
+
     filtersWrapper.classList.add("active");
     document.body.classList.add("filters-mobile-visible");
+
+    // 2. Vynutíme okamžité překreslení prohlížeče v aktuálním snímku (synchronní reflow)
+    void filtersWrapper.offsetHeight;
+
+    // 3. Po aplikování stavu obnovíme CSS pro budoucí zavírání / otevírání
+    filtersWrapper.style.transition = "";
   }
 
   // 2. Generování otevíracího tlačítka "Filtrace"
@@ -1155,6 +1216,7 @@ const handleCategoryFilters = () => {
 document.addEventListener("DOMContentLoaded", handleCategoryFilters);
 document.addEventListener("ShoptetDOMPageContentLoaded", handleCategoryFilters);
 document.addEventListener("ShoptetDOMContentLoaded", handleCategoryFilters);
+window.addEventListener("resize", debounce(handleCategoryFilters, 150));
 
 // Hlídání změny velikosti okna
 window.addEventListener("resize", handleCategoryMobile);

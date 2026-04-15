@@ -64,7 +64,11 @@
   }
 
   .category-perex {
-    line-height: emMM(22.4, 16);
+    line-height: em(22.4, 16);
+
+    &.empty-content-category {
+      display: none;
+    }
 
     &:has(+ a),
     &:has(+ p) {

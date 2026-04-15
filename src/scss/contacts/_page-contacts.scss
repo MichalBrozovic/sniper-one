@@ -1,5 +1,5 @@
 .id-29 {
-    
+
     main header {
         max-width: 800px;
         margin: 0 auto;
@@ -18,7 +18,11 @@
 
     #formContact {
         max-width: 800px;
-        margin: 0 auto;
+        margin: 0 auto 40px auto;
         width: 100%;
+
+        .btn-primary {
+            border: unset;
+        }
     }
 }

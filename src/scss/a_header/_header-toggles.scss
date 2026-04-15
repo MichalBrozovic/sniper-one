@@ -528,5 +528,9 @@ body.login-window-visible {
 body.cart-window-visible {
   .cart-widget {
     display: flex;
+
+    .close {
+      display: none !important;
+    }
   }
 }
