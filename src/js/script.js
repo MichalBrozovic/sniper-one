@@ -557,8 +557,13 @@ const initFavouriteCategoriesSwiper = () => {
   console.log(el);
   if (!el) return;
 
+  if (!window.Swiper) {
+    setTimeout(initFavouriteCategoriesSwiper, 100);
+    return;
+  }
+
   new window.Swiper(selector, {
-    slidesPerView: 2.2,
+    slidesPerView: 2,
     spaceBetween: 16,
     speed: 600,
     grabCursor: true,
@@ -588,6 +593,19 @@ const initFavouriteCategoriesSwiper = () => {
       1200: { slidesPerView: 6, spaceBetween: 16 },
       1360: { slidesPerView: 7, spaceBetween: 16 },
     },
+    
+    // Ruční hlídání "zamčeného" stavu (kdy není co scrollovat)
+    on: {
+      init: function() {
+        this.el.classList.toggle('is-locked', this.isLocked);
+      },
+      lock: function() {
+        this.el.classList.add('is-locked');
+      },
+      unlock: function() {
+        this.el.classList.remove('is-locked');
+      }
+    }
   });
 };
 initFavouriteCategoriesSwiper();
@@ -941,8 +959,23 @@ const initProductSwapper = async () => {
       sections.forEach((s) => s.classList.remove("active"));
       btn.classList.add("active");
       section.classList.add("active");
+
+      // Pokud swiper ještě nebyl inicializován (např. kvůli display: none), zkusíme to teď
+      const id = section.className.match(/product-section-(\d+)/)?.[1];
+      const selector = `.homepage-products-${id}`;
+      const productsEl = section.querySelector(selector);
+
+      if (productsEl && !productsEl.classList.contains("swiperized")) {
+        if (typeof window.swiperize.init === "function") {
+          window.swiperize.init(selector);
+        }
+      }
+
       const sw = section.querySelector(".swiper")?.swiper;
-      if (sw) sw.update();
+      if (sw) {
+        // Krátký delay kvůli transition-delay v CSS
+        setTimeout(() => sw.update(), 100);
+      }
     };
 
     nav.append(btn);
@@ -1062,22 +1095,33 @@ const handleHomePage = async () => {
 
     const selectors = Array.from(sections).map((s) => {
       const id = s.className.match(/product-section-(\d+)/)?.[1];
-      return `.product-section-${id} .homepage-products-${id}`;
+      return `.homepage-products-${id}`;
     });
 
     if (selectors.length) {
       await sniperBenchmark("Swiperize Init", () => {
-        swiperize({
+        window.swiperize({
           containers: selectors,
           slide: ".product",
           ...SHARED_SWIPER_CONFIG,
+        });
+
+        // Agresivní start pro viditelné sekce (zejména první tab)
+        selectors.forEach((sel) => {
+          const el = document.querySelector(sel);
+          if (el && el.offsetParent !== null) {
+            if (typeof window.swiperize.init === "function") {
+              window.swiperize.init(sel);
+            }
+          }
         });
       });
     }
   }
 };
 
-handleHomePage();
+// 4. Spuštění s mírným delayem kvůli stabilitě v Shoptetu
+setTimeout(handleHomePage, 100);
 
 //Category || kategorie
 

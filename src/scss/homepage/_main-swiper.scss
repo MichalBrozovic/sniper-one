@@ -52,6 +52,18 @@
       color: $color-font-invert;
       flex: 0 1 400px;
       width: 100%;
+
+      &::before {
+        content: "";
+        width: 100%;
+        aspect-ratio: 358 / 21;
+        display: block;
+        background: url(/assets/images/icons/main-swiper-visual.svg) no-repeat center center;
+        background-size: contain;
+        position: absolute;
+        left: 0;
+        bottom: calc(100% - 1px);
+      }
     }
 
     // Společné styly pro vnitřek (nadpisy, bublina)
@@ -85,6 +97,10 @@
 
     .extended-banner-text {
       margin-bottom: 8px;
+    }
+
+    .extended-banner-link {
+      margin-top: auto;
     }
 
     // UNIFIKACE: Všechno kromě :only-child, NEBO všechno na mobilu

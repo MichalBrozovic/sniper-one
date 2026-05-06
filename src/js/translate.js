@@ -27,7 +27,7 @@ window.projectTranslations = {
       href: "/",
     },
     contactPerson: {
-      img: "/user/documents/upload/sniper-one/photos/contact-person.png",
+      img: "/user/documents/upload/sniper-one/photos/sniper-logo.png",
       title: "Potřebujete poradit?",
     },
     instagram: {
@@ -83,7 +83,7 @@ window.projectTranslations = {
       href: "/",
     },
     contactPerson: {
-      img: "/user/documents/upload/sniper-one/photos/contact-person.png",
+      img: "/user/documents/upload/sniper-one/photos/sniper-logo.png",
       title: "Potrebujete poradiť?",
     },
     instagram: {
@@ -139,7 +139,7 @@ window.projectTranslations = {
       href: "/",
     },
     contactPerson: {
-      img: "/user/documents/upload/sniper-one/photos/contact-person.png",
+      img: "/user/documents/upload/sniper-one/photos/sniper-logo.png",
       title: "Brauchen Sie Hilfe?",
     },
     instagram: {
@@ -195,7 +195,7 @@ window.projectTranslations = {
       href: "/",
     },
     contactPerson: {
-      img: "/user/documents/upload/sniper-one/photos/contact-person.png",
+      img: "/user/documents/upload/sniper-one/photos/sniper-logo.png",
       title: "Need help?",
     },
     instagram: {
@@ -251,7 +251,7 @@ window.projectTranslations = {
       href: "/",
     },
     contactPerson: {
-      img: "/user/documents/upload/sniper-one/photos/contact-person.png",
+      img: "/user/documents/upload/sniper-one/photos/sniper-logo.png",
       title: "Potrzebujesz porady?",
     },
     instagram: {
@@ -308,7 +308,7 @@ window.projectTranslations = {
       href: "/",
     },
     contactPerson: {
-      img: "/user/documents/upload/sniper-one/photos/contact-person.png",
+      img: "/user/documents/upload/sniper-one/photos/sniper-logo.png",
       title: "Segítségre van szüksége?",
     },
     instagram: {

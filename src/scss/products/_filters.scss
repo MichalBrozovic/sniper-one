@@ -89,6 +89,7 @@ body.filters-mobile-visible {
   gap: 24px;
   padding-top: 12px;
   max-width: 420px;
+  width: 100%;
 }
 
 .filters-right {
@@ -130,10 +131,19 @@ body.filters-mobile-visible {
   }
 }
 
+.filters-unveil-button-wrapper {
+  display: none !important;
+}
+
 .filter-section:not(.filter-section-boolean) {
   display: flex;
   flex: 1 1 200px;
   position: relative;
+  max-width: 400px;
+
+  &.filter-section-button {
+    display: none;
+  }
 
   @media (max-width:1023px) {
     flex: unset;

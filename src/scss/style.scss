@@ -38,9 +38,7 @@
 @import 'sections/custom-pages';
 @import 'sections/usp';
 
-@import 'homepage/banners-top';
-@import 'homepage/banners-middle';
-@import 'homepage/banners-bottom';
+@import 'homepage/homepage-banners';
 @import 'homepage/custom-sections';
 @import 'homepage/blog-posts';
 @import 'homepage/welcome-text';
@@ -245,6 +243,14 @@
     article {
         header {
             margin-top: 40px;
+        }
+    }
+
+    .pageArticleDetail {
+        padding-bottom: 50px;
+
+        p {
+            margin-bottom: 1rem;
         }
     }
 }

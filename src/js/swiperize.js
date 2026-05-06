@@ -84,6 +84,12 @@ window.swiperize = ({ containers, slide, customOptions = {}, swiperOptions = {} 
     if (customOptions.infinity) currentSwiperOptions.loop = true;
 
     // 5. START
+    if (typeof Swiper === 'undefined') {
+      console.warn(`[SNIPER] Swiper is not defined. Retrying in 100ms for ${selector}`);
+      setTimeout(() => initializeSwiper(selector, slideClass), 100);
+      return;
+    }
+
     const swiperInstance = new Swiper(swiperRoot, currentSwiperOptions);
     window.sniperSwipers[selector] = swiperInstance;
 
@@ -134,6 +140,17 @@ window.swiperize = ({ containers, slide, customOptions = {}, swiperOptions = {} 
         }, fallbackTimeout);
       }
     });
+  };
+
+  window.swiperize.init = (selector) => {
+    const index = containerArray.indexOf(selector);
+    if (index !== -1) {
+      const sClass = slideArray[Math.min(index, slideArray.length - 1)];
+      initializeSwiper(selector, sClass);
+    } else {
+      // Pokud selektor není v původním poli, zkusíme najít aspoň nějaký slideClass
+      initializeSwiper(selector, slideArray[0] || '.product');
+    }
   };
 
   run();

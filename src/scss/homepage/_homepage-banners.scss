@@ -1,4 +1,6 @@
-.next-to-carousel-banners {
+.next-to-carousel-banners,
+.body-banners,
+.footer-banners {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -6,15 +8,16 @@
   flex-wrap: wrap;
   container-type: inline-size;
   container-name: banner-grid;
-  padding-top: 32px;
+  align-items: stretch;
 
-  .banner-wrapper {
+  .banner-wrapper,
+  .footer-banner {
     display: flex;
     flex-direction: column;
     flex: 1 1 415px;
     max-width: 100%;
 
-    @media (max-width:1023px) {
+    @media (max-width: 1023px) {
       flex: 1 1 315px;
     }
 
@@ -35,6 +38,7 @@
     border-radius: 12px;
     overflow: hidden;
     text-decoration: unset;
+    height: 100%;
 
     img {
       width: unset;
@@ -84,17 +88,50 @@
   .extended-banner-link {}
 }
 
-body.mobile {
-  .next-to-carousel-banners {
+// Sekce specifické výšky/paddingy
+.middle-banners-wrapper {
+  padding: 64px 0;
 
-    .banner-wrapper {
+  @media (max-width: 1124px) {
+    padding: 48px 0;
+  }
+
+  @media (max-width: 992px) {
+    padding: 36px 0;
+  }
+
+  @media (max-width: 767px) {
+    padding: 28px 0;
+  }
+}
+
+.footer-banners {
+  padding: 32px 0;
+
+  @media (max-width: 767px) {
+    padding: 20px 0;
+  }
+}
+
+.next-to-carousel-banners {
+  padding-top: 32px;
+}
+
+// Mobilní přepsání (společné)
+body.mobile {
+
+  .next-to-carousel-banners,
+  .body-banners,
+  .footer-banners {
+
+    .banner-wrapper,
+    .footer-banner {
       &:nth-of-type(2) {
         .extended-banner-texts {}
       }
     }
 
     a {
-
       img {
         position: relative;
         top: unset;

@@ -78,7 +78,30 @@ const debounce = (func, delay) => {
 // Funkce pro získání šířky scrollbaru
 
 function getScrollbarWidth() {
-  return window.innerWidth - document.documentElement.clientWidth;
+  // Na mobilních zařízeních vynutíme 0, aby se předešlo chybám při loadu (55px overlay atd.)
+  if (window.innerWidth <= 767) {
+    return 0;
+  }
+
+  // Vytvoříme pomocný element pro přesné měření systémového scrollbaru
+  const outer = document.createElement("div");
+  outer.style.visibility = "hidden";
+  outer.style.overflow = "scroll";
+  outer.style.msOverflowStyle = "scrollbar";
+  outer.style.width = "100px";
+  outer.style.position = "absolute";
+  outer.style.top = "-9999px";
+  
+  // Musíme počkat, až bude body dostupné
+  if (!document.body) return 0;
+  
+  document.body.appendChild(outer);
+  const widthNoScroll = outer.offsetWidth;
+  const widthWithScroll = outer.clientWidth;
+  const scrollbarWidth = widthNoScroll - widthWithScroll;
+  outer.parentNode.removeChild(outer);
+
+  return scrollbarWidth;
 }
 
 function setScrollbarWidth() {
@@ -274,6 +297,8 @@ window.addEventListener("scroll", fixedHeader, { passive: true });
 // přidá aktuální vlajku + upravuje přidání tříd po kliknutí kvůli lepšímu css
 const syncLanguageMenu = async () => {
   const langMenu = document.querySelector(".languagesMenu");
+  if (!langMenu) return;
+
   const langBoxSelector = '.languagesMenu__box[data-target="language"]';
   const sourceButton = document.getElementById("topNavigationDropdown");
   const targetHeader = document.querySelector(
@@ -298,11 +323,17 @@ const syncLanguageMenu = async () => {
       });
 
       targetHeader.prepend(activeFlag.cloneNode(true));
-      sourceButton.style.display = "none";
     }
+
+    // Vždy schováme původní Shoptet dropdown, pokud máme náš header
+    sourceButton.style.display = "none";
   }
 
-  if (window.languageMenuInitialized) return;
+  if (window.languageMenuInitialized) {
+    // I když je inicializováno, ujistíme se, že má třídu js-loaded (např. po AJAXu)
+    langMenu.classList.add("js-loaded");
+    return;
+  }
 
   document.addEventListener("click", (e) => {
     // Kliknutí na header nebo cokoliv v něm
@@ -328,8 +359,8 @@ const syncLanguageMenu = async () => {
         });
     }
   });
-  langMenu.classList.add("js-loaded");
 
+  langMenu.classList.add("js-loaded");
   window.languageMenuInitialized = true;
 };
 
@@ -711,6 +742,11 @@ const initHomepageSwiper = () => {
   }
 
   // 5. INICIALIZACE SWIPERU
+  if (!window.Swiper) {
+    setTimeout(handleBanners, 100);
+    return;
+  }
+
   new window.Swiper("#carousel", {
     grabCursor: itemCount > 1, // Cursor jen pokud je co posouvat
     watchSlidesProgress: true,
@@ -1312,6 +1348,11 @@ const handleProductGallery = () => {
   }
 
   wrapper.innerHTML = galleryHtml;
+
+  if (!window.Swiper) {
+    setTimeout(handleProductGallery, 100);
+    return;
+  }
 
   if (window.Swiper) {
     let swiperOptions = {
