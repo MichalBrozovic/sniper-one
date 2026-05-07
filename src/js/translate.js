@@ -21,7 +21,7 @@ window.projectTranslations = {
       moreArticles: "Další články",
     },
     emilSubText: "Napište kdykoliv",
-    patickaLogo: "/user/documents/upload/sniper-one/photos/logo-white.svg",
+    patickaLogo: "/user/documents/upload/sniper-one/photos/logo-footer.svg",
     heureka: {
       img: "/user/documents/upload/sniper-one/photos/heureka.svg",
       href: "/",
@@ -77,7 +77,7 @@ window.projectTranslations = {
       moreArticles: "Ďalšie články",
     },
     emilSubText: "Napíšte kedykoľvek",
-    patickaLogo: "/user/documents/upload/sniper-one/photos/logo-white.svg",
+    patickaLogo: "/user/documents/upload/sniper-one/photos/logo-footer.svg",
     heureka: {
       img: "/user/documents/upload/sniper-one/photos/heureka.svg",
       href: "/",
@@ -133,7 +133,7 @@ window.projectTranslations = {
       moreArticles: "Weitere Artikel",
     },
     emilSubText: "Schreiben Sie uns jederzeit",
-    patickaLogo: "/user/documents/upload/sniper-one/photos/logo-white.svg",
+    patickaLogo: "/user/documents/upload/sniper-one/photos/logo-footer.svg",
     heureka: {
       img: "/user/documents/upload/sniper-one/photos/heureka.svg",
       href: "/",
@@ -189,7 +189,7 @@ window.projectTranslations = {
       moreArticles: "More articles",
     },
     emilSubText: "Write us anytime",
-    patickaLogo: "/user/documents/upload/sniper-one/photos/logo-white.svg",
+    patickaLogo: "/user/documents/upload/sniper-one/photos/logo-footer.svg",
     heureka: {
       img: "/user/documents/upload/sniper-one/photos/heureka.svg",
       href: "/",
@@ -245,7 +245,7 @@ window.projectTranslations = {
       moreArticles: "Więcej artykułów",
     },
     emilSubText: "Napisz w każdej chwili",
-    patickaLogo: "/user/documents/upload/sniper-one/photos/logo-white.svg",
+    patickaLogo: "/user/documents/upload/sniper-one/photos/logo-footer.svg",
     heureka: {
       img: "/user/documents/upload/sniper-one/photos/heureka.svg",
       href: "/",
@@ -302,7 +302,7 @@ window.projectTranslations = {
       moreArticles: "További cikkek",
     },
     emilSubText: "Írjon bármikor",
-    patickaLogo: "/user/documents/upload/sniper-one/photos/logo-white.svg",
+    patickaLogo: "/user/documents/upload/sniper-one/photos/logo-footer.svg",
     heureka: {
       img: "/user/documents/upload/sniper-one/photos/heureka.svg",
       href: "/",

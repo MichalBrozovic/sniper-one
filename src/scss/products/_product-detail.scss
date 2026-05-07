@@ -235,6 +235,26 @@
 
 //Hodnocení detail produktu || reviews product detail
 #ratingTab {
+  h2 {
+    font-size: rem(24);
+    line-height: em(32, 24);
+
+    @media (max-width:1023px) {
+      font-size: rem(22);
+      line-height: em(29, 22);
+    }
+
+    @media (max-width:767px) {
+      font-size: rem(20);
+      line-height: em(27.5, 20);
+    }
+
+  }
+
+  #rate-form {
+    margin-top: 40px;
+  }
+
   .rating-main-title {
     margin-bottom: 24px;
   }
@@ -270,7 +290,7 @@
       align-items: center;
       flex-wrap: nowrap;
       justify-content: center;
-      gap: 24px;
+      gap: 0px;
 
       &.col-xs-12 {
         gap: 12px;
@@ -474,6 +494,24 @@
 #productDiscussion {
   padding: 40px 0;
 
+
+
+  h2 {
+    font-size: rem(24);
+    line-height: em(32, 24);
+
+    @media (max-width:1023px) {
+      font-size: rem(22);
+      line-height: em(29, 22);
+    }
+
+    @media (max-width:767px) {
+      font-size: rem(20);
+      line-height: em(27.5, 20);
+    }
+
+  }
+
   @media (max-width:767px) {
     padding: 20px 0;
   }
@@ -537,6 +575,17 @@
 
     &:last-of-type {
       margin: 0;
+    }
+
+    .vote-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+
+      br {
+        display: none;
+      }
     }
 
     .vote-title {

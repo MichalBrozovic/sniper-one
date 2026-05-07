@@ -593,19 +593,19 @@ const initFavouriteCategoriesSwiper = () => {
       1200: { slidesPerView: 6, spaceBetween: 16 },
       1360: { slidesPerView: 7, spaceBetween: 16 },
     },
-    
+
     // Ruční hlídání "zamčeného" stavu (kdy není co scrollovat)
     on: {
-      init: function() {
-        this.el.classList.toggle('is-locked', this.isLocked);
+      init: function () {
+        this.el.classList.toggle("is-locked", this.isLocked);
       },
-      lock: function() {
-        this.el.classList.add('is-locked');
+      lock: function () {
+        this.el.classList.add("is-locked");
       },
-      unlock: function() {
-        this.el.classList.remove('is-locked');
-      }
-    }
+      unlock: function () {
+        this.el.classList.remove("is-locked");
+      },
+    },
   });
 };
 initFavouriteCategoriesSwiper();
@@ -1570,23 +1570,23 @@ const handleProductRating = () => {
     });
   }
 
-  // 3. Generování nadpisu na začátek tabu
-  const lang = window.shoptetLang || "cs";
-  const ratingTitle =
-    window.projectTranslations?.[lang]?.productDetail?.rating || "Hodnocení";
+  // // 3. Generování nadpisu na začátek tabu
+  // const lang = window.shoptetLang || "cs";
+  // const ratingTitle =
+  //   window.projectTranslations?.[lang]?.productDetail?.rating || "Hodnocení";
 
-  const starsLabel = ratingTab.querySelector(".stars-label");
-  const countMatch = starsLabel?.textContent.match(/\d+/);
-  const count = countMatch ? countMatch[0] : 0;
+  // const starsLabel = ratingTab.querySelector(".stars-label");
+  // const countMatch = starsLabel?.textContent.match(/\d+/);
+  // const count = countMatch ? countMatch[0] : 0;
 
-  const existingHeading = ratingTab.querySelector(".rating-main-title");
-  if (existingHeading) existingHeading.remove();
+  // const existingHeading = ratingTab.querySelector(".rating-main-title");
+  // if (existingHeading) existingHeading.remove();
 
-  const heading = document.createElement("h3");
-  heading.className = "rating-main-title";
-  heading.textContent = count > 0 ? `${ratingTitle} (${count})` : ratingTitle;
+  // const heading = document.createElement("h3");
+  // heading.className = "rating-main-title";
+  // heading.textContent = count > 0 ? `${ratingTitle} (${count})` : ratingTitle;
 
-  ratingTab.prepend(heading);
+  // ratingTab.prepend(heading);
 };
 
 // Funkce vyčistí strukturu diskuze a přidá hlavní nadpis na začátek sekce bez ohledu na to, zda již obsahuje příspěvky.
@@ -1620,23 +1620,23 @@ const handleProductDiscussion = () => {
     });
   }
 
-  const lang = window.shoptetLang || "cs";
-  const discussionTitle =
-    window.projectTranslations?.[lang]?.productDetail?.discussion || "Diskuze";
-  const count = discussionList
-    ? discussionList.querySelectorAll(".vote-wrap[data-testid='wrapComment']")
-        .length
-    : 0;
+  // const lang = window.shoptetLang || "cs";
+  // const discussionTitle =
+  //   window.projectTranslations?.[lang]?.productDetail?.discussion || "Diskuze";
+  // const count = discussionList
+  //   ? discussionList.querySelectorAll(".vote-wrap[data-testid='wrapComment']")
+  //       .length
+  //   : 0;
 
-  const existingHeading = discussionTab.querySelector(".discussion-main-title");
-  if (existingHeading) existingHeading.remove();
+  // const existingHeading = discussionTab.querySelector(".discussion-main-title");
+  // if (existingHeading) existingHeading.remove();
 
-  const heading = document.createElement("h3");
-  heading.className = "discussion-main-title";
-  heading.textContent =
-    count > 0 ? `${discussionTitle} (${count})` : discussionTitle;
+  // const heading = document.createElement("h3");
+  // heading.className = "discussion-main-title";
+  // heading.textContent =
+  //   count > 0 ? `${discussionTitle} (${count})` : discussionTitle;
 
-  discussionTab.prepend(heading);
+  // discussionTab.prepend(heading);
 };
 
 // Funkce najde bezpečnostní informace GPSR a přesune je do struktury popisu produktu s vlastním nadpisem a obalem.

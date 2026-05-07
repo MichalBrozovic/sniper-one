@@ -25,6 +25,13 @@
     border-radius: 12px;
     overflow: hidden;
 
+    &:nth-of-type(2),
+    &.has-video {
+      .extended-banner-texts {
+        background: linear-gradient(to top, $color-secondary 0%, transparent 100%);
+      }
+    }
+
     a {
       display: flex;
       width: 100%;
@@ -35,11 +42,13 @@
       flex-wrap: nowrap;
     }
 
-    img {
+    img,
+    video,
+    iframe {
       object-fit: cover;
       flex: 1 1 400px;
       width: 100%;
-
+      height: 100%;
     }
 
     // Textový box - desktop default pro :only-child
@@ -53,17 +62,17 @@
       flex: 0 1 400px;
       width: 100%;
 
-      &::before {
-        content: "";
-        width: 100%;
-        aspect-ratio: 358 / 21;
-        display: block;
-        background: url(/assets/images/icons/main-swiper-visual.svg) no-repeat center center;
-        background-size: contain;
-        position: absolute;
-        left: 0;
-        bottom: calc(100% - 1px);
-      }
+      // &::before {
+      //   content: "";
+      //   width: 100%;
+      //   aspect-ratio: 358 / 21;
+      //   display: block;
+      //   background: url(/assets/images/icons/main-swiper-visual.svg) no-repeat center center;
+      //   background-size: contain;
+      //   position: absolute;
+      //   left: 0;
+      //   bottom: calc(100% - 1px);
+      // }
     }
 
     // Společné styly pro vnitřek (nadpisy, bublina)

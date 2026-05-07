@@ -91,10 +91,10 @@ function getScrollbarWidth() {
   outer.style.width = "100px";
   outer.style.position = "absolute";
   outer.style.top = "-9999px";
-  
+
   // Musíme počkat, až bude body dostupné
   if (!document.body) return 0;
-  
+
   document.body.appendChild(outer);
   const widthNoScroll = outer.offsetWidth;
   const widthWithScroll = outer.clientWidth;
@@ -699,6 +699,46 @@ const initHomepageSwiper = () => {
     el.classList.remove("item", "active");
     el.classList.add("swiper-slide");
     el.removeAttribute("style");
+
+    // ZPRACOVÁNÍ VIDEA: Pokud slide obsahuje odkaz na video (např. v popisku)
+    const $videoSource = Array.from(el.querySelectorAll("span, a, div")).find(
+      (item) => {
+        const text = item.textContent.trim();
+        return text.match(/\.(mp4|webm|mov|ogg)$/i);
+      },
+    );
+
+    if ($videoSource) {
+      el.classList.add("has-video");
+      const url = $videoSource.textContent.trim();
+      const extension = url.split(".").pop().toLowerCase();
+      const type =
+        extension === "mov" ? "video/quicktime" : `video/${extension}`;
+
+      const $img = el.querySelector("img");
+      if ($img) {
+        // Pokud tam je obrázek, nahradíme ho (zachováme zbytek slidu jako texty, buttony atd.)
+        const $video = document.createElement("video");
+        $video.muted = true;
+        $video.autoplay = true;
+        $video.loop = true;
+        $video.setAttribute("playsinline", "");
+        $video.innerHTML = `<source src="${url}" type="${type}">`;
+        $img.replaceWith($video);
+      } else {
+        // Fallback pro případy bez obrázku
+        el.insertAdjacentHTML(
+          "afterbegin",
+          `
+          <video muted autoplay loop playsinline>
+            <source src="${url}" type="${type}">
+          </video>
+        `,
+        );
+      }
+      // Vyčistíme text s odkazem, aby nebyl vidět v popisku
+      $videoSource.textContent = "";
+    }
   });
 
   // 3. VYČISTÍME A VLOŽÍME NOVOU NAVIGACI
@@ -743,7 +783,7 @@ const initHomepageSwiper = () => {
 
   // 5. INICIALIZACE SWIPERU
   if (!window.Swiper) {
-    setTimeout(handleBanners, 100);
+    setTimeout(initHomepageSwiper, 100);
     return;
   }
 

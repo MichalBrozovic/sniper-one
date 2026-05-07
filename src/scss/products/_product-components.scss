@@ -1,4 +1,5 @@
-.stars {
+.stars,
+.rating-stars-wrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -6,9 +7,24 @@
   flex-wrap: nowrap;
   gap: 4px;
 }
-.star {
+
+.rating-star {
+  &::before {
+    background-image: url(/assets/images/icons/star-off.svg);
+  }
+
+  &.full {
+    &::before {
+      background-image: url(/assets/images/icons/star-on.svg);
+    }
+  }
+}
+
+.star,
+.rating-star {
   display: inline-block;
   display: flex;
+
   &::before {
     content: "";
     width: 14px;
@@ -19,16 +35,19 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
+
   &.star-on {
     &::before {
       background-image: url(/assets/images/icons/star-on.svg);
     }
   }
+
   &.star-off {
     &::before {
       background-image: url(/assets/images/icons/star-off.svg);
     }
   }
+
   &.star-half {
     &::before {
       background-image: url(/assets/images/icons/star-half.svg);
@@ -47,6 +66,7 @@
   position: absolute;
   gap: 4px;
 }
+
 .flag {
   font-size: rem(14);
   line-height: em(20, 14);
@@ -56,22 +76,27 @@
   justify-content: center;
   border-radius: 50px;
   font-weight: 600;
+
   &.flag-action {
     color: $color-danger;
     background-color: $color-danger-100;
   }
+
   &.flag-new {
     color: $color-primary;
     background-color: $color-primary-100;
   }
+
   &.flag-tip {
     color: $color-secondary;
     background-color: $color-secondary-100;
   }
+
   &.flag-custom1 {
     color: $flag-custom1;
     background-color: $flag-custom1-100;
   }
+
   &.flag-discount {
     flex-direction: column;
     align-items: center;
@@ -85,9 +110,11 @@
     aspect-ratio: 1;
     font-weight: 400;
     min-width: 60px;
-    &.no-display{
+
+    &.no-display {
       display: none;
     }
+
     .price-save {
       font-weight: 600;
       font-size: rem(16);

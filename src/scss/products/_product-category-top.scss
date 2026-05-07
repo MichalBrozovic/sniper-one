@@ -168,7 +168,28 @@
   }
 }
 
-.toggle-top-products {}
+.toggle-top-products {
+  gap: 8px !important;
+  padding: 8px 11px 8px 15px !important;
+
+  @include hover {
+    &::after {
+      background-color: $color-font-invert;
+    }
+  }
+
+  &[aria-expanded="true"] {
+    &::after {
+      transform: rotate(180deg);
+    }
+  }
+
+  &::after {
+    content: "";
+    @include icon-mask("/assets/images/icons/arrow-down-primary.svg", $color-secondary, 16px, 16px);
+    display: block;
+  }
+}
 
 .products-top {
   display: grid;

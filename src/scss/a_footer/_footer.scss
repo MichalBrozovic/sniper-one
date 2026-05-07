@@ -169,7 +169,7 @@ footer {
   .flex-holder {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 24px;
     flex-wrap: wrap;
 
