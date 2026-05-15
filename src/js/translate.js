@@ -1,4 +1,4 @@
-window.projectOpeningHours = "Po-Pá 8:00 – 16:30";
+window.projectOpeningHours = "Po - Pá 8:00 – 16:30 h";
 
 window.projectTranslations = {
   cs: {

@@ -6,10 +6,12 @@
 
   &::before {
     content: "";
-    @include icon-mask("/assets/images/icons/cart-primary.svg",
+    @include icon-mask(
+      "/assets/images/icons/cart-primary.svg",
       $color-font-invert,
       16px,
-      16px);
+      16px
+    );
   }
 }
 
@@ -53,7 +55,8 @@
     border: 1px solid $border-primary;
     color: $color-font;
 
-    @include hover {}
+    @include hover {
+    }
   }
 
   .decrease {
@@ -64,10 +67,12 @@
 
     &::before {
       content: "";
-      @include icon-mask("/assets/images/icons/minus.svg",
+      @include icon-mask(
+        "/assets/images/icons/minus.svg",
         $color-font,
         16px,
-        16px);
+        16px
+      );
     }
   }
 
@@ -79,14 +84,15 @@
 
     &::before {
       content: "";
-      @include icon-mask("/assets/images/icons/plus.svg",
+      @include icon-mask(
+        "/assets/images/icons/plus.svg",
         $color-font,
         16px,
-        16px);
+        16px
+      );
     }
   }
 }
-
 
 .product {
   // --- ZÁKLADNÍ OBAL ---
@@ -145,10 +151,15 @@
   }
 
   .swap-image {
-    // Samotný obrázek
+    transition: opacity 0.2s ease-in-out;
+
+    &.is-swapping {
+      opacity: 0;
+    }
   }
 
-  .flags-default {}
+  .flags-default {
+  }
 
   .flags-extra {
     position: absolute;
@@ -240,7 +251,7 @@
 
   // --- SPODNÍ ČÁST (CENY A KOŠÍK) ---
   .p-bottom {
-    >div {
+    > div {
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -272,7 +283,9 @@
 
     @include hover {
       .price-additional {
-        display: inline-block;
+        opacity: 1;
+        visibility: visible;
+        transition-delay: 0.1s;
       }
     }
   }
@@ -282,7 +295,6 @@
     font-size: rem(13);
     line-height: em(16, 13);
     color: $color-font;
-    display: none;
     background-color: $color-font-invert;
     position: absolute;
     font-weight: 600;
@@ -293,6 +305,14 @@
     border-radius: 4px;
     padding: 6px 8px;
     white-space: nowrap;
+
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.2s ease,
+      visibility 0.2s ease;
+    transition-delay: 0s;
+    pointer-events: none;
   }
 
   .price-standard-wrapper {
@@ -394,6 +414,10 @@
         width: 100%;
         display: block;
       }
+
+      @media (max-width: 767px) {
+        max-width: 60px;
+      }
     }
 
     .p-in {
@@ -429,7 +453,8 @@
         line-height: em(22, 16);
       }
 
-      span {}
+      span {
+      }
     }
 
     .ratings-wrapper {
@@ -446,15 +471,19 @@
     .availability {
       margin: 0;
 
-      span {}
+      span {
+      }
     }
 
-    .availability-amount {}
+    .availability-amount {
+    }
 
-    .p-code {}
+    .p-code {
+    }
 
     .p-bottom {
-      >div {}
+      > div {
+      }
     }
 
     .prices {
@@ -468,7 +497,8 @@
       display: none;
     }
 
-    .price-additional {}
+    .price-additional {
+    }
 
     .price-save {
       display: none;
@@ -478,9 +508,11 @@
       display: none;
     }
 
-    .price-standard-wrapper {}
+    .price-standard-wrapper {
+    }
 
-    .price-final {}
+    .price-final {
+    }
 
     a.btn {
       flex: unset;

@@ -3,7 +3,12 @@
 
   &::before {
     content: "";
-    @include icon-mask("/assets/images/icons/filters.svg", $color-font-invert, 16px, 16px)
+    @include icon-mask(
+      "/assets/images/icons/filters.svg",
+      $color-font-invert,
+      16px,
+      16px
+    );
   }
 }
 
@@ -47,7 +52,7 @@ body.filters-mobile-visible {
     z-index: -1;
   }
 
-  @media (max-width:1023px) {
+  @media (max-width: 1023px) {
     @include trans(0.4s);
     position: fixed;
     left: -200vw;
@@ -101,7 +106,7 @@ body.filters-mobile-visible {
   gap: 16px;
   flex: 1;
 
-  @media (max-width:1023px) {
+  @media (max-width: 1023px) {
     flex-direction: column;
   }
 }
@@ -145,7 +150,7 @@ body.filters-mobile-visible {
     display: none;
   }
 
-  @media (max-width:1023px) {
+  @media (max-width: 1023px) {
     flex: unset;
     width: 100%;
     max-width: 100%;
@@ -158,7 +163,9 @@ body.filters-mobile-visible {
   @include hover {
     &:has(form) {
       form {
-        display: flex;
+        opacity: 1;
+        visibility: visible;
+        transition-delay: 0.1s;
       }
     }
   }
@@ -167,10 +174,16 @@ body.filters-mobile-visible {
     position: absolute;
     left: 0;
     top: 100%;
-    display: none;
     width: 100%;
     z-index: 1;
     padding-top: 4px;
+
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.2s ease,
+      visibility 0.2s ease;
+    transition-delay: 0s;
 
     fieldset {
       color: $color-font;
@@ -206,10 +219,12 @@ body.filters-mobile-visible {
 
     &::after {
       content: "";
-      @include icon-mask("/assets/images/icons/arrow-down-primary.svg",
+      @include icon-mask(
+        "/assets/images/icons/arrow-down-primary.svg",
         $color-secondary,
         16px,
-        16px);
+        16px
+      );
     }
   }
 }
@@ -235,7 +250,7 @@ body.filters-mobile-visible {
   justify-content: flex-start;
 
   // Header s hodnotami "Od - Do"
-  @media (max-width:1023px) {
+  @media (max-width: 1023px) {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -250,7 +265,7 @@ body.filters-mobile-visible {
     flex: 1;
     gap: 16px;
 
-    @media (max-width:1023px) {
+    @media (max-width: 1023px) {
       width: 100%;
     }
 

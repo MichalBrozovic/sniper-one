@@ -2495,7 +2495,10 @@ const RecentlyViewed = (() => {
     const now = Date.now();
     const stale = history.filter(
       (i) =>
-        now - i.lastVisit > CONFIG.revalidateMs && i.url !== location.pathname,
+        (now - i.lastVisit > CONFIG.revalidateMs ||
+          !i.imgSrc ||
+          i.imgSrc.includes("no-image")) &&
+        i.url !== location.pathname,
     );
 
     if (!stale.length) return;
@@ -2510,6 +2513,10 @@ const RecentlyViewed = (() => {
         Object.assign(item, {
           price,
           unit,
+          imgSrc:
+            $(".p-main-image img", doc)?.src ||
+            $(".p-image img", doc)?.src ||
+            item.imgSrc,
           priceVat: $(".price-additional", doc)?.innerHTML.trim() || "",
           availabilityText: $(".availability-label", doc)?.innerText.trim(),
           availabilityColor: $(".availability-label", doc)?.style.color,

@@ -14,7 +14,7 @@
   }
 
   &.hide {
-    @media (max-width:767px) {
+    @media (max-width: 767px) {
       transform: translateY(-46px);
     }
   }
@@ -43,7 +43,7 @@
     }
   }
 
-  @media (max-width:1023px) {
+  @media (max-width: 1023px) {
     display: none;
   }
 }
@@ -51,7 +51,7 @@
 .top-navigation-menu {
   margin-left: auto;
 
-  @media (max-width:1023px) {
+  @media (max-width: 1023px) {
     margin-left: 0;
   }
 
@@ -77,7 +77,7 @@
       }
     }
 
-    @media (max-width:1224px) {
+    @media (max-width: 1224px) {
       gap: 16px;
     }
   }
@@ -92,11 +92,11 @@
   gap: 24px;
   order: -1;
 
-  >strong {
+  > strong {
     display: none;
   }
 
-  @media (max-width:1124px) {
+  @media (max-width: 1124px) {
     display: none;
   }
 }
@@ -153,10 +153,12 @@
     }
 
     .caret {
-      @include icon-mask("/assets/images/icons/arrow-down-primary.svg",
+      @include icon-mask(
+        "/assets/images/icons/arrow-down-primary.svg",
         $color-secondary,
         16px,
-        16px);
+        16px
+      );
     }
 
     &.open {
@@ -256,7 +258,7 @@ body.submenu-visible {
   z-index: 2;
 
   @include hover {
-    >span {
+    > span {
       background-color: $color-primary-050;
     }
 
@@ -268,7 +270,7 @@ body.submenu-visible {
   &:has(> ul.menu-level-1 > li:not(.splitted)) {
     display: flex;
 
-    @media (max-width:1023px) {
+    @media (max-width: 1023px) {
       display: none !important;
     }
   }
@@ -277,7 +279,7 @@ body.submenu-visible {
     display: none;
   }
 
-  >span {
+  > span {
     font-size: 0;
     display: flex;
     flex-direction: column;
@@ -293,7 +295,12 @@ body.submenu-visible {
 
     &::before {
       content: "";
-      @include icon-mask("/assets/images/icons/hamburger.svg", $color-secondary, 24px, 24px);
+      @include icon-mask(
+        "/assets/images/icons/hamburger.svg",
+        $color-secondary,
+        24px,
+        24px
+      );
       position: absolute;
       top: 50%;
       left: 50%;
@@ -349,7 +356,7 @@ body.submenu-visible {
     flex-wrap: nowrap;
     gap: 48px;
 
-    @media (max-width:1224px) {
+    @media (max-width: 1224px) {
       gap: 24px;
     }
 
@@ -359,18 +366,18 @@ body.submenu-visible {
       &.splitted {
         display: none;
 
-        @media (max-width:1023px) {
+        @media (max-width: 1023px) {
           display: flex;
         }
       }
 
-      >a {
+      > a {
         @include trans(0.3s);
         font-size: rem(18);
         line-height: em(25, 18);
         color: $color-font;
         font-weight: 600;
-        @include underline-mid($color-primary-600, 3px, 0px);
+        @include underline-mid($color-primary-600, 3px, 28px);
         display: inline-flex;
         flex-direction: row;
         align-items: center;
@@ -383,10 +390,12 @@ body.submenu-visible {
 
         &:not(:only-child)::after {
           content: "";
-          @include icon-mask("/assets/images/icons/arrow-down-primary.svg",
+          @include icon-mask(
+            "/assets/images/icons/arrow-down-primary.svg",
             $color-secondary,
             20px,
-            20px);
+            20px
+          );
         }
       }
 
@@ -460,7 +469,7 @@ body.submenu-visible {
       }
 
       &.exp {
-        >a {
+        > a {
           &::after {
             transform: rotate(180deg);
           }
@@ -478,7 +487,7 @@ body.submenu-visible {
     display: none;
   }
 
-  @media (max-width:1023px) {
+  @media (max-width: 1023px) {
     @include trans(0.5s);
     top: 0px;
     transform: unset;
@@ -566,10 +575,12 @@ body.submenu-visible {
       align-items: flex-start;
 
       li {
-        >a {
+        > a {
           font-size: rem(16);
           padding: 0;
-
+          &::before {
+            bottom: 0;
+          }
           @include hover {
             color: $color-primary;
           }
@@ -578,7 +589,7 @@ body.submenu-visible {
     }
   }
 
-  @media (max-width:767px) {
+  @media (max-width: 767px) {
     padding: 70px 44px 80px 24px;
     max-width: 254px;
 
@@ -589,8 +600,9 @@ body.submenu-visible {
   }
 }
 
-@media (max-width:1023px) {
+@media (max-width: 1023px) {
   body.navigation-window-visible {
+    overflow: hidden;
     &::before {
       content: "";
       background-color: $black-80;
@@ -639,7 +651,7 @@ body.submenu-visible {
     }
   }
 
-  @media (max-width:1023px) {
+  @media (max-width: 1023px) {
     padding: 16px 0;
   }
 
@@ -662,7 +674,6 @@ body.submenu-visible {
 }
 
 .toggle-window {
-
   &[data-target="search"],
   &[data-target="login"]:not(.top-nav-button),
   &[data-target="navigation"] {
@@ -682,13 +693,23 @@ body.submenu-visible {
 
   &[data-target="search"] {
     &::before {
-      @include icon-mask("/assets/images/icons/search-primary.svg", $color-secondary, 24px, 24px);
+      @include icon-mask(
+        "/assets/images/icons/search-primary.svg",
+        $color-secondary,
+        24px,
+        24px
+      );
     }
   }
 
   &[data-target="login"]:not(.top-nav-button) {
     &::before {
-      @include icon-mask("/assets/images/icons/account-primary.svg", $color-secondary, 24px, 24px);
+      @include icon-mask(
+        "/assets/images/icons/account-primary.svg",
+        $color-secondary,
+        24px,
+        24px
+      );
     }
   }
 
@@ -697,7 +718,12 @@ body.submenu-visible {
     border: 1px solid $border-color;
 
     &::before {
-      @include icon-mask("/assets/images/icons/hamburger.svg", $color-secondary, 24px, 24px);
+      @include icon-mask(
+        "/assets/images/icons/hamburger.svg",
+        $color-secondary,
+        24px,
+        24px
+      );
     }
 
     @media (max-width: 1023px) {
@@ -722,10 +748,12 @@ body.submenu-visible {
   &::before {
     @include trans(0.3s);
     content: "";
-    @include icon-mask("/assets/images/icons/account-primary.svg",
+    @include icon-mask(
+      "/assets/images/icons/account-primary.svg",
       $color-secondary,
       24px,
-      24px);
+      24px
+    );
   }
 
   span {
@@ -752,10 +780,12 @@ body.submenu-visible {
   &::before {
     @include trans(0.3s);
     content: "";
-    @include icon-mask("/assets/images/icons/cart-primary.svg",
+    @include icon-mask(
+      "/assets/images/icons/cart-primary.svg",
       $color-secondary,
       24px,
-      24px);
+      24px
+    );
   }
 
   span {
@@ -789,7 +819,7 @@ body.submenu-visible {
   background-color: $header-bg;
   min-width: 200px;
 
-  @media (max-width:767px) {
+  @media (max-width: 767px) {
     flex: unset;
   }
 }
@@ -833,10 +863,12 @@ body.submenu-visible {
 
     &::after {
       content: "";
-      @include icon-mask("/assets/images/icons/search-primary.svg",
+      @include icon-mask(
+        "/assets/images/icons/search-primary.svg",
         $color-secondary,
         20px,
-        20px);
+        20px
+      );
     }
   }
 }
@@ -857,16 +889,52 @@ body.submenu-visible {
     font-weight: 600;
     line-height: em(22, 16);
     text-align: center;
+
+    &:has(.countdown-wrapper) {
+      padding: 4px 30px 4px 30px;
+    }
   }
 
-  @media (max-width:767px) {
+  @media (max-width: 767px) {
     .text {
       padding: 6px 28px 6px 0;
       font-size: rem(14);
+      &:has(.countdown-wrapper) {
+        padding: 4px 28px 4px 0;
+      }
     }
 
     .close {
       right: 1rem;
+    }
+  }
+
+  .countdown-wrapper {
+    display: inline-flex;
+    gap: 10px;
+    margin-left: 10px;
+
+    .countdown-item {
+      display: flex;
+      align-items: baseline;
+      gap: 2px;
+      background-color: $color-font-invert;
+      padding: 4px;
+      width: 38px;
+      border-radius: 4px;
+      color: $color-secondary;
+      .val {
+        font-variant-numeric: tabular-nums;
+        font-size: rem(14);
+        line-height: em(18, 14);
+      }
+
+      .unit {
+        font-size: rem(13);
+        line-height: em(14, 13);
+        font-weight: 600;
+        opacity: 0.8;
+      }
     }
   }
 }

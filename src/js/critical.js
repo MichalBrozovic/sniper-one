@@ -539,9 +539,18 @@ const relocateNavigationForMobile = () => {
   const header = document.querySelector("header");
   const topBar = document.querySelector(".top-navigation-bar");
 
-  if (!nav || !navIn || !header) return;
-
   // 1. GENEROVÁNÍ CLOSE BUTTONU (pokud ještě neexistuje)
+  if (!document.body.dataset.navOverlayInited) {
+    document.body.addEventListener("click", (e) => {
+      if (
+        e.target === document.body &&
+        document.body.classList.contains("navigation-window-visible")
+      ) {
+        document.body.classList.remove("navigation-window-visible");
+      }
+    });
+    document.body.dataset.navOverlayInited = "true";
+  }
 
   if (isMobileWidth) {
     if (!nav.querySelector(".close")) {
@@ -645,7 +654,50 @@ const relocateNavigationForMobile = () => {
     }
   }
 };
+const handleHeaderCountdown = () => {
+  const msgText = document.querySelector(".site-msg .text");
+  if (!msgText || msgText.dataset.countdownInitialized) return;
+
+  const originalHtml = msgText.innerHTML;
+  const match = originalHtml.match(/#(\d{1,2})\.(\d{1,2})\.(\d{4})#/);
+  if (!match) return;
+
+  const [fullMatch, d, m, y] = match;
+  const targetDate = new Date(y, m - 1, d, 23, 59, 59);
+
+  const update = () => {
+    const now = new Date();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      msgText.innerHTML = originalHtml.replace(fullMatch, "");
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const mins = Math.floor((diff / 1000 / 60) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+
+    const html = `
+            <span class="countdown-wrapper">
+                ${days > 0 ? `<span class="countdown-item"><span class="val">${days}</span><span class="unit">d</span></span>` : ""}
+                <span class="countdown-item"><span class="val">${hours.toString().padStart(2, "0")}</span><span class="unit">h</span></span>
+                <span class="countdown-item"><span class="val">${mins.toString().padStart(2, "0")}</span><span class="unit">m</span></span>
+                <span class="countdown-item"><span class="val">${secs.toString().padStart(2, "0")}</span><span class="unit">s</span></span>
+            </span>
+        `;
+
+    msgText.innerHTML = originalHtml.replace(fullMatch, html);
+  };
+
+  msgText.dataset.countdownInitialized = "true";
+  update();
+  setInterval(update, 1000);
+};
+
 const handleHeader = async () => {
+  handleHeaderCountdown();
   syncLanguageMenu();
   removeMenuCommas();
   injectOpeningHours();
@@ -669,9 +721,49 @@ const handleHeader = async () => {
   }, 10);
 };
 
+const initSmoothImageSwap = () => {
+  if (typeof $ === "undefined") return;
+
+  // Vypneme Shoptet logiku
+  $(document).off("mouseenter mouseleave", ".swap-images");
+
+  // Naše plynulá logika
+  $(document)
+    .on("mouseenter", ".swap-images", function () {
+      const $img = $(this).find(".swap-image");
+      const next = $img.attr("data-next");
+      if (next) {
+        $img.addClass("is-swapping");
+        setTimeout(() => {
+          $img.attr("src", next);
+          $img.removeClass("is-swapping");
+        }, 200);
+      }
+    })
+    .on("mouseleave", ".swap-images", function () {
+      const $img = $(this).find(".swap-image");
+      const src = $img.attr("data-src");
+      if (src) {
+        $img.addClass("is-swapping");
+        setTimeout(() => {
+          $img.attr("src", src);
+          $img.removeClass("is-swapping");
+        }, 200);
+      }
+    });
+};
+
 handleHeader();
-document.addEventListener("ShoptetDOMPageContentLoaded", handleHeader);
-document.addEventListener("ShoptetDOMContentLoaded", handleHeader);
+initSmoothImageSwap();
+
+document.addEventListener("ShoptetDOMPageContentLoaded", () => {
+  handleHeader();
+  initSmoothImageSwap();
+});
+document.addEventListener("ShoptetDOMContentLoaded", () => {
+  handleHeader();
+  initSmoothImageSwap();
+});
 window.addEventListener("resize", debounce(handleHeader, 150));
 
 // Funkce transformuje Shoptet karusel na Swiper a dynamicky nastavuje breakpointy podle počtu slidů.
@@ -861,7 +953,7 @@ const fetchAndBuildCategoryTop = async (categoryTop) => {
     const fetchedTitle = doc.querySelector(".category-title");
     const secondDesc = doc.querySelector(".category__secondDescription");
 
-    if (fetchedPerex) {
+    if (fetchedPerex || fetchedTitle) {
       const lang = document.documentElement.lang || "cs";
       const readMoreText =
         window.projectTranslations?.[lang]?.category?.readMore ||
@@ -873,16 +965,18 @@ const fetchAndBuildCategoryTop = async (categoryTop) => {
       const contentDiv = document.createElement("div");
       contentDiv.className = "category-top-upper--content";
 
-      const img = fetchedPerex.querySelector("img");
-      if (img) {
-        const newImg = img.cloneNode(true);
-        upperWrapper.append(newImg);
-        const parentP = img.closest("p");
-        if (parentP && !parentP.textContent.trim()) parentP.remove();
+      if (fetchedPerex) {
+        const img = fetchedPerex.querySelector("img");
+        if (img) {
+          const newImg = img.cloneNode(true);
+          upperWrapper.append(newImg);
+          const parentP = img.closest("p");
+          if (parentP && !parentP.textContent.trim()) parentP.remove();
+        }
       }
 
       if (fetchedTitle) contentDiv.append(fetchedTitle.cloneNode(true));
-      contentDiv.append(fetchedPerex.cloneNode(true));
+      if (fetchedPerex) contentDiv.append(fetchedPerex.cloneNode(true));
 
       if (secondDesc) {
         const readMoreBtn = document.createElement("a");
@@ -911,8 +1005,9 @@ const handleCategoryTop = async () => {
 
   const cacheKey = getCategoryCacheKey();
   const currentPerex = categoryTop.querySelector(".category-perex");
+  const currentTitle = categoryTop.querySelector(".category-title");
 
-  if (currentPerex && !categoryDescriptionCache) {
+  if ((currentPerex || currentTitle) && !categoryDescriptionCache) {
     const title = categoryTop.querySelector(".category-title");
     const secondDesc = document.querySelector(".category__secondDescription");
     const lang = document.documentElement.lang || "cs";
@@ -925,16 +1020,18 @@ const handleCategoryTop = async () => {
     const contentDiv = document.createElement("div");
     contentDiv.className = "category-top-upper--content";
 
-    const img = currentPerex.querySelector("img");
-    if (img) {
-      const newImg = img.cloneNode(true);
-      upperWrapper.append(newImg);
-      const parentP = img.closest("p");
-      if (parentP && !parentP.textContent.trim()) parentP.remove();
+    if (currentPerex) {
+      const img = currentPerex.querySelector("img");
+      if (img) {
+        const newImg = img.cloneNode(true);
+        upperWrapper.append(newImg);
+        const parentP = img.closest("p");
+        if (parentP && !parentP.textContent.trim()) parentP.remove();
+      }
     }
 
     if (title) contentDiv.append(title.cloneNode(true));
-    contentDiv.append(currentPerex.cloneNode(true));
+    if (currentPerex) contentDiv.append(currentPerex.cloneNode(true));
 
     if (secondDesc) {
       const readMoreBtn = document.createElement("a");
@@ -1085,6 +1182,37 @@ const handleBestSellingProducts = () => {
 
   const products = document.querySelectorAll("#productsTop .product");
   if (!products.length) return;
+
+  if (window.twoRowProducts) {
+    const productsTop = document.getElementById("productsTop");
+    const wrapper = productsTop?.closest(".products-top-wrapper");
+    if (productsTop && wrapper) {
+      productsTop.classList.add("two-row-products");
+      const updateVisibility = (isExpanded) => {
+        products.forEach((p, index) => {
+          if (isExpanded || index < 2) {
+            p.classList.add("active");
+            p.classList.remove("inactive");
+            p.setAttribute("aria-hidden", "false");
+          } else {
+            p.classList.remove("active");
+            p.classList.add("inactive");
+            p.setAttribute("aria-hidden", "true");
+          }
+        });
+      };
+      const btn = wrapper.querySelector(".toggle-top-products");
+      updateVisibility(btn?.getAttribute("aria-expanded") === "true");
+      if (btn && !btn.dataset.twoRowListener) {
+        btn.addEventListener("click", () => {
+          setTimeout(() => {
+            updateVisibility(btn.getAttribute("aria-expanded") === "true");
+          }, 50);
+        });
+        btn.dataset.twoRowListener = "true";
+      }
+    }
+  }
 
   const lang = document.documentElement.lang || "cs";
   const detailText =

@@ -186,7 +186,12 @@
 
   &::after {
     content: "";
-    @include icon-mask("/assets/images/icons/arrow-down-primary.svg", $color-secondary, 16px, 16px);
+    @include icon-mask(
+      "/assets/images/icons/arrow-down-primary.svg",
+      $color-secondary,
+      16px,
+      16px
+    );
     display: block;
   }
 }
@@ -196,4 +201,13 @@
   grid-template-columns: repeat(auto-fill, minmax(359px, 1fr));
   gap: 1rem;
   margin-bottom: 24px;
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  &.two-row-products {
+    grid-template-columns: repeat(auto-fill, minmax(489px, 1fr));
+    @media (max-width: 767px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
 }

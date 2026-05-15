@@ -101,7 +101,7 @@
     background-color: $color-secondary;
 
     @include hover {
-      background-color: $color-secondary-600;
+      background-color: $color-primary-600;
     }
   }
 
@@ -140,7 +140,12 @@
 
     &::after {
       content: "";
-      @include icon-mask("/assets/images/icons/arrow-right.svg", $color-font-invert, 16px, 16px);
+      @include icon-mask(
+        "/assets/images/icons/arrow-right.svg",
+        $color-font-invert,
+        16px,
+        16px
+      );
     }
   }
 }
